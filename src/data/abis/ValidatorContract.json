@@ -1,0 +1,713 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "firstValidatorLimit_",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "secondValidatorLimit_",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "era",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "developer",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "level",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "report",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "validationsCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "contributed",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "valid",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "invalidatedAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createdAtBlockNumber",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct Contribution",
+                "name": "contribution",
+                "type": "tuple"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "validatorAddress",
+                "type": "address"
+            }
+        ],
+        "name": "addDeveloperContributionValidation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum InspectionStatus",
+                        "name": "status",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "producer",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "inspector",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "regenerationScore",
+                        "type": "int256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "proofPhoto",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "report",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "validationsCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createdAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "acceptedAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "inspectedAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "inspectedAtEra",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "invalidatedAt",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct Inspection",
+                "name": "inspection",
+                "type": "tuple"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "validatorAddress",
+                "type": "address"
+            }
+        ],
+        "name": "addInspectionValidation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "addLevel",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "era",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "createdBy",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "title",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "thesis",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "file",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "validationsCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "valid",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "invalidatedAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createdAtBlock",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct Work",
+                "name": "work",
+                "type": "tuple"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "validatorAddress",
+                "type": "address"
+            }
+        ],
+        "name": "addResearcheWorkValidation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "userAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            }
+        ],
+        "name": "addUserValidation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "addValidator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "allowedCallers",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "contributionValidations",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "validator",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "resourceId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "majorityValidatorsCount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createdAtBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getUserValidations",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "validator",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "user",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "justification",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "majorityValidatorsCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createdAtBlockNumber",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct UserValidation[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "addr",
+                "type": "address"
+            }
+        ],
+        "name": "getValidator",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "validatorWallet",
+                        "type": "address"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "level",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "currentEra",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct Pool",
+                        "name": "pool",
+                        "type": "tuple"
+                    }
+                ],
+                "internalType": "struct Validator",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "inspectionValidations",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "validator",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "resourceId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "majorityValidatorsCount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createdAtBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "caller",
+                "type": "address"
+            }
+        ],
+        "name": "isAllowedCaller",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "majorityValidatorsCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "allowed",
+                "type": "address"
+            }
+        ],
+        "name": "newAllowedCaller",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "userContractAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "producerContractAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "validatorPoolAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "inspectorContractAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "developerContractAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "researcherContractAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "contributorContractAddress",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "activistContractAddress",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct ContractsDependency",
+                "name": "contractDependency",
+                "type": "tuple"
+            }
+        ],
+        "name": "setContractAddressDependencies",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "validatorsAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "workValidations",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "validator",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "resourceId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "justification",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "majorityValidatorsCount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createdAtBlockNumber",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

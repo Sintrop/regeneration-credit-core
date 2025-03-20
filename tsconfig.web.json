@@ -6,7 +6,8 @@
     "src/renderer/src/**/*.tsx",
     "src/preload/*.d.ts",
     "src/providers/metamask.tsx",
-    "src/i18n"
+    "src/i18n",
+    "src/chains"  
   ],
   "compilerOptions": {
     "composite": true,

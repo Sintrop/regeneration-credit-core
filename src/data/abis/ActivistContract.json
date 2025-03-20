@@ -1,0 +1,347 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "userContractAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "activistPoolAddress",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "proofPhoto",
+                "type": "string"
+            }
+        ],
+        "name": "addActivist",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "activistWallet",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "proofPhoto",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "level",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "currentEra",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct Pool",
+                        "name": "pool",
+                        "type": "tuple"
+                    }
+                ],
+                "internalType": "struct Activist",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "producerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "producerTotalInspections",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "inspectorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "inspectorTotalInspections",
+                "type": "uint256"
+            }
+        ],
+        "name": "addLevel",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "allowedCallers",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "addr",
+                "type": "address"
+            }
+        ],
+        "name": "getActivist",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "activistWallet",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "proofPhoto",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "level",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "currentEra",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct Pool",
+                        "name": "pool",
+                        "type": "tuple"
+                    }
+                ],
+                "internalType": "struct Activist",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getActivists",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "activistWallet",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "proofPhoto",
+                        "type": "string"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "uint256",
+                                "name": "level",
+                                "type": "uint256"
+                            },
+                            {
+                                "internalType": "uint256",
+                                "name": "currentEra",
+                                "type": "uint256"
+                            }
+                        ],
+                        "internalType": "struct Pool",
+                        "name": "pool",
+                        "type": "tuple"
+                    }
+                ],
+                "internalType": "struct Activist[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "caller",
+                "type": "address"
+            }
+        ],
+        "name": "isAllowedCaller",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "allowed",
+                "type": "address"
+            }
+        ],
+        "name": "newAllowedCaller",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "addr",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "removeSomeLevels",
+                "type": "uint256"
+            }
+        ],
+        "name": "removePoolLevels",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
