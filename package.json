@@ -24,9 +24,11 @@
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
     "@metamask/sdk": "^0.32.1",
+    "@tailwindcss/vite": "^4.0.14",
     "@tanstack/react-query": "^5.69.0",
     "electron-updater": "^6.3.9",
     "react-router-dom": "^7.4.0",
+    "tailwindcss": "^4.0.14",
     "viem": "^2.23.13",
     "wagmi": "^2.14.15"
   },

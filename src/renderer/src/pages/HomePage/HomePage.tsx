@@ -5,7 +5,7 @@ export function HomePage(): JSX.Element {
 
   return (
     <div>
-      <p>Home Page</p>
+      <p className="text-center text-red-500">Home Page</p>
       <button onClick={() => navigate('/settings')}>settings</button>
     </div>
   )
