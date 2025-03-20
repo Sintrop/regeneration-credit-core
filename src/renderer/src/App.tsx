@@ -1,10 +1,10 @@
 import { MetamaskProvider } from '../../providers/metamask'
-import { HomePage } from './pages/HomePage/HomePage'
+import { AppRoutes } from '../routes'
 
 function App(): JSX.Element {
   return (
     <MetamaskProvider>
-      <HomePage />
+      <AppRoutes />
     </MetamaskProvider>
   )
 }

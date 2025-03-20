@@ -5,10 +5,11 @@
     "src/renderer/src/**/*",
     "src/renderer/src/**/*.tsx",
     "src/preload/*.d.ts",
-    "src/providers/metamask.tsx"
+    "src/providers/metamask.tsx",
+    "src/lib/*"
   ],
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
