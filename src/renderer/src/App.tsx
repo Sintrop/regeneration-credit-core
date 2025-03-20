@@ -1,9 +1,11 @@
-function App(): JSX.Element {
+import { MetamaskProvider } from '../../providers/metamask'
+import { HomePage } from './pages/HomePage/HomePage'
 
+function App(): JSX.Element {
   return (
-    <>
-      Regeneration Credit Frontend      
-    </>
+    <MetamaskProvider>
+      <HomePage />
+    </MetamaskProvider>
   )
 }
 
