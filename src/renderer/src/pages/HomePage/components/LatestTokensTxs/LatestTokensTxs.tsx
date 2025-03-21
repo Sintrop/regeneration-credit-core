@@ -1,4 +1,5 @@
 import { ActivityIndicator } from '@renderer/components/ActivityIndicator/ActivityIndicator'
+import { TxItem } from '@renderer/components/TxItem/TxItem'
 import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3'
 import { TransactionWeb3Props } from '@renderer/types/transaction'
 import { useEffect, useState } from 'react'
@@ -23,8 +24,10 @@ export function LatestTokensTxs(): JSX.Element {
   }
 
   return (
-    <section className="">
-      <p className="text-white">{t('latestTokenTransactions')}</p>
+    <section className="bg-container-primary rounded-2xl flex flex-col overflow-hidden">
+      <div className="w-full px-5 pb-1 pt-2 bg-container-secondary">
+        <p className="text-white">{t('latestTokenTransactions')}</p>
+      </div>
       {loading ? (
         <div className="flex flex-col items-center mt-10">
           <ActivityIndicator />
@@ -32,8 +35,7 @@ export function LatestTokensTxs(): JSX.Element {
       ) : (
         <>
           {listTxs.slice(0, 5).map((item) => (
-            // <TransactionWeb3Item key={item.hash} transaction={item} />
-            <div key={item.hash}>{item.hash}</div>
+            <TxItem key={item.hash} tx={item} />
           ))}
         </>
       )}

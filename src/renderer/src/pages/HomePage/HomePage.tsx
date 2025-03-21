@@ -14,7 +14,7 @@ export function HomePage(): JSX.Element {
     <>
       <Header />
 
-      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex flex-col w-screen h-screen pt-24 overflow-y-auto">
+      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex flex-col w-screen h-screen py-24 overflow-y-auto">
         <div className="container mx-auto flex">
           <div className="flex gap-10 w-full">
             <div className="w-[600px] h-screen bg-red-500 flex flex-col">
@@ -30,7 +30,7 @@ export function HomePage(): JSX.Element {
                 <LatestTransactions />
               </section>
 
-              <section className="w-full bg-orange-500 h-[250px] p-3">
+              <section className="w-full p-3">
                 <LatestTokensTxs />
               </section>
             </div>

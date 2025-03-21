@@ -4,6 +4,7 @@ import { TransactionStatusTag } from './Tags/TransactionStatusTag'
 import { TransactionMethodTag } from './Tags/TransactionMethodTag'
 import { AddressTx } from './AddressTx'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   tx: TransactionWeb3Props
@@ -11,6 +12,11 @@ interface Props {
 
 export function TxItem({ tx }: Props): JSX.Element {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+
+  function handleNavigateToTxPage(): void {
+    navigate(`/tx/${tx.hash}`)
+  }
 
   return (
     <div className="w-full px-3 py-5 border-b border-container-secondary flex items-center justify-between">
@@ -23,7 +29,12 @@ export function TxItem({ tx }: Props): JSX.Element {
 
         <div className="flex items-center gap-5">
           <GoArrowSwitch size={20} color="white" />
-          <p className="text-white max-w-[70%] truncate text-ellipsis">{tx.hash}</p>
+          <p
+            className="text-white max-w-[70%] truncate text-ellipsis"
+            onClick={handleNavigateToTxPage}
+          >
+            {tx.hash}
+          </p>
         </div>
       </div>
 
