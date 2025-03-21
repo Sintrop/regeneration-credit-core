@@ -18,6 +18,7 @@ import CategoryContractJson from '../../../data/abis/CategoryContract.json'
 import InvitationContractJson from '../../../data/abis/InvitationContract.json'
 import ContributorContractJson from '../../../data/abis/ContributorContract.json'
 import ContributorPoolContractJson from '../../../data/abis/ContributorPool.json'
+import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
 
 //Address contracts
 export const validatorContractAddress = '0x648291fb228cdB775123f4B2a5BC896A475457C8'
@@ -50,3 +51,20 @@ export const ResearcherContractAbi = UserContractJson
 export const InspectorContractAbi = UserContractJson
 export const ContributorContractAbi = UserContractJson
 export const ActivistContractAbi = UserContractJson
+
+export const contractsSequoia: ContractListProps[] = [
+  {
+    abi: RcTokenContractJson,
+    address: RcTokenContractAddress,
+    name: 'Regeneration Credit',
+    label: 'regenerationCredit',
+    description: 'Regeneration Credit Token Contract',
+  },
+  {
+    abi: DeveloperContractJson,
+    address: developerContractAddress,
+    name: 'Developer Contract',
+    label: 'developerContract',
+    description: 'developerContract',
+  },
+]

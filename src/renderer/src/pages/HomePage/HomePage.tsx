@@ -11,7 +11,7 @@ import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3
 export function HomePage(): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [listTxs, setListTxs] = useState<TransactionWeb3Props[]>([])
   const [listTokenTxs, setListTokenTxs] = useState<TransactionWeb3Props[]>([])
 
