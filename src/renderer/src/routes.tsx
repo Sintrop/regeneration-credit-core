@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage/HomePage'
 import { SettingsPage } from './pages/SettingsPage/SettingsPage'
 import { TxPage } from './pages/TxPage/TxPage'
 import { ContractsPage } from './pages/ContractsPage/ContractsPage'
+import { ContractPage } from './pages/ContractPage/ContractPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -14,6 +15,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/tx/:hash" element={<TxPage />} />
         <Route path="/contracts" element={<ContractsPage />} />
+        <Route path="/contracts/:address" element={<ContractPage />} />
       </Routes>
     </Router>
   )

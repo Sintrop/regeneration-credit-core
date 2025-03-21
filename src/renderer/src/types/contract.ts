@@ -8,6 +8,7 @@ export interface ContractListProps {
 }
 
 export interface MethodAbiProps {
+  name: string
   inputs: InputMethodAbiProps[]
   stateMutability: string
   type: string

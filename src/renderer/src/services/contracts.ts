@@ -47,6 +47,7 @@ export const contributorPoolContractAddress = '0x978a9C4e5670C3C91E6a180448E88a4
 //Abis contracts
 export const RegeneratorContractAbi = UserContractJson
 export const DeveloperContractAbi = UserContractJson
+export const DeveloperPoolContractAbi = DevelopersPoolContractJson
 export const ResearcherContractAbi = UserContractJson
 export const InspectorContractAbi = UserContractJson
 export const ContributorContractAbi = UserContractJson
@@ -58,13 +59,20 @@ export const contractsSequoia: ContractListProps[] = [
     address: RcTokenContractAddress,
     name: 'Regeneration Credit',
     label: 'regenerationCredit',
-    description: 'Regeneration Credit Token Contract',
+    description: 'Regeneration Credit Token Contract'
   },
   {
     abi: DeveloperContractJson,
     address: developerContractAddress,
     name: 'Developer Contract',
     label: 'developerContract',
-    description: 'developerContract',
+    description: 'developerContract'
   },
+  {
+    abi: DevelopersPoolContractJson,
+    address: developersPoolContractAddress,
+    name: 'Developer Pool Contract',
+    label: 'developerPoolContract',
+    description: 'developerPoolContract'
+  }
 ]
