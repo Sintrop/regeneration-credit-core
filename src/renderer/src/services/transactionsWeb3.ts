@@ -70,3 +70,23 @@ async function getAddressTxs(address: string): Promise<ReturnGetAddressTxsProps>
     }
   }
 }
+
+interface ReturnGetTxData {
+  success: boolean
+  txData?: TransactionWeb3Props
+}
+export async function getTxData(hash: string): Promise<ReturnGetTxData> {
+  try {
+    const response = await axios.get(`https://sequoiaapi.sintrop.com/api/v2/transactions/${hash}`)
+
+    return {
+      success: true,
+      txData: response.data
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      success: false
+    }
+  }
+}

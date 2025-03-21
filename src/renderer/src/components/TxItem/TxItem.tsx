@@ -5,6 +5,7 @@ import { TransactionMethodTag } from './Tags/TransactionMethodTag'
 import { AddressTx } from './AddressTx'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { TransferValue } from './Tags/TransferValue'
 
 interface Props {
   tx: TransactionWeb3Props
@@ -25,6 +26,8 @@ export function TxItem({ tx }: Props): JSX.Element {
           <TransactionStatusTag status={tx.status} />
 
           <TransactionMethodTag method={tx.method} />
+
+          {tx.method === 'transfer' && <TransferValue txHash={tx.hash} />}
         </div>
 
         <div className="flex items-center gap-5">

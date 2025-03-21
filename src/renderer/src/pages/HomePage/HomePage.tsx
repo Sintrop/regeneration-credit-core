@@ -5,10 +5,29 @@ import { useNavigate } from 'react-router-dom'
 import { LatestTransactions } from './components/LatestTransactions/LatestTransactions'
 import { LatestTokensTxs } from './components/LatestTokensTxs/LatestTokensTxs'
 import { Stats } from './components/Stats/Stats'
+import { TransactionWeb3Props } from '@renderer/types/transaction'
+import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3'
 
 export function HomePage(): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(true)
+  const [listTxs, setListTxs] = useState<TransactionWeb3Props[]>([])
+  const [listTokenTxs, setListTokenTxs] = useState<TransactionWeb3Props[]>([])
+
+  useEffect(() => {
+    getTxs()
+  }, [])
+
+  async function getTxs(): Promise<void> {
+    setLoading(true)
+    const response = await getListTransactionsWeb3Feed()
+    if (response.success) {
+      setListTxs(response.txs)
+      setListTokenTxs(response.txs.filter((tx) => tx.method === 'transfer'))
+    }
+    setLoading(false)
+  }
 
   return (
     <>
@@ -27,11 +46,11 @@ export function HomePage(): JSX.Element {
               </section>
 
               <section className="w-full p-3">
-                <LatestTransactions />
+                <LatestTransactions txs={listTxs} loading={loading}/>
               </section>
 
               <section className="w-full p-3">
-                <LatestTokensTxs />
+                <LatestTokensTxs txs={listTokenTxs} loading={loading} />
               </section>
             </div>
           </div>
