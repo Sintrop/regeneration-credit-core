@@ -26,7 +26,7 @@ export function HomePage(): JSX.Element {
                 <Stats />
               </section>
 
-              <section className="w-full bg-purple-500 h-[250px] p-3">
+              <section className="w-full p-3">
                 <LatestTransactions />
               </section>
 
