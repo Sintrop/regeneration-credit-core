@@ -1,18 +1,20 @@
 import { Header } from '@renderer/components/Header/Header'
 import { contractsSequoia } from '@renderer/services/contracts'
-import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
+import { ContractListProps } from '@renderer/types/contract'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useChainId } from 'wagmi'
-import { MethodItem } from './components/MethodItem'
 import { SideMenu } from '@renderer/components/SideMenu/SideMenu'
 import { PageTitle } from '@renderer/components/PageTitle/PageTitle'
+import { ContractDetails } from './components/ContractDetails/ContractDetails'
+import { SelectorTabContract } from './components/ContractTabs/SelectorTabContract/SelectorTabContract'
+import { ContentTabs, ContractPageTabs } from './components/ContractTabs/ContentTabs/ContentTabs'
 
 export function ContractPage(): JSX.Element {
   const params = useParams()
   const chainId = useChainId()
   const [contractData, setContractData] = useState<ContractListProps>({} as ContractListProps)
-  const [methods, setMethods] = useState<MethodAbiProps[]>([])
+  const [selectedTab, setSelectedTab] = useState<ContractPageTabs>('methods')
 
   useEffect(() => {
     handleGetContractData()
@@ -23,7 +25,6 @@ export function ContractPage(): JSX.Element {
       const contract = contractsSequoia.find((contract) => contract.address === params.address)
       if (contract) {
         setContractData(contract)
-        setMethods(contract?.abi)
       }
     }
   }
@@ -38,13 +39,11 @@ export function ContractPage(): JSX.Element {
         <div className="flex flex-col pl-[330px] py-30 gap-10">
           <PageTitle title={contractData?.name as string} />
           <div className="flex flex-col w-full">
-            <p className="text-gray-300">{contractData?.description}</p>
+            <ContractDetails contract={contractData} />
 
-            <div className="flex flex-col gap-5 mt-10">
-              {methods.map((method, index) => (
-                <MethodItem key={index} method={method} contract={contractData} />
-              ))}
-            </div>
+            <SelectorTabContract selectedTab={selectedTab} onChange={setSelectedTab} />
+
+            <ContentTabs selectedTab={selectedTab} contract={contractData} />
           </div>
         </div>
       </main>
