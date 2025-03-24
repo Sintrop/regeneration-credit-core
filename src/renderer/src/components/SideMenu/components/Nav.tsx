@@ -15,7 +15,7 @@ interface NavItemProps {
   path: string
   icon?: string
 }
-function NavItem({ label, path, icon }: NavItemProps): JSX.Element {
+function NavItem({ label, path }: NavItemProps): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
