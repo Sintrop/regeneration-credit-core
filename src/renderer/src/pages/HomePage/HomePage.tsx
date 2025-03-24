@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Header } from '@renderer/components/Header/Header'
-import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 import { LatestTransactions } from './components/LatestTransactions/LatestTransactions'
 import { LatestTokensTxs } from './components/LatestTokensTxs/LatestTokensTxs'
 import { Stats } from './components/Stats/Stats'
 import { TransactionWeb3Props } from '@renderer/types/transaction'
 import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3'
+import { SideMenu } from '@renderer/components/SideMenu/SideMenu'
 
 export function HomePage(): JSX.Element {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [listTxs, setListTxs] = useState<TransactionWeb3Props[]>([])
   const [listTokenTxs, setListTokenTxs] = useState<TransactionWeb3Props[]>([])
@@ -33,26 +30,21 @@ export function HomePage(): JSX.Element {
     <>
       <Header />
 
-      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex flex-col w-screen h-screen py-24 overflow-y-auto">
-        <div className="container mx-auto flex">
-          <div className="flex gap-10 w-full">
-            <div className="w-[600px] h-screen bg-red-500 flex flex-col">
+      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex w-screen h-screen overflow-y-auto">
+        <SideMenu />
+        <div className="flex gap-10 w-full py-20 pl-[320px]">
+          <div className="w-full flex flex-col gap-10">
+            <section className="w-full p-3">
+              <Stats />
+            </section>
 
-            </div>
+            <section className="w-full p-3">
+              <LatestTransactions txs={listTxs} loading={loading} />
+            </section>
 
-            <div className="w-full flex flex-col gap-10">
-              <section className="w-full p-3">
-                <Stats />
-              </section>
-
-              <section className="w-full p-3">
-                <LatestTransactions txs={listTxs} loading={loading}/>
-              </section>
-
-              <section className="w-full p-3">
-                <LatestTokensTxs txs={listTokenTxs} loading={loading} />
-              </section>
-            </div>
+            <section className="w-full p-3">
+              <LatestTokensTxs txs={listTokenTxs} loading={loading} />
+            </section>
           </div>
         </div>
       </main>
