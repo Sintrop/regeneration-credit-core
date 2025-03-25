@@ -16,6 +16,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
   const [hasArgsToCall, setHasArgsToCall] = useState(false)
   const [argsToCall, setArgsToCall] = useState<InputMethodAbiProps[]>([])
   const [showReadContract, setShowReadContract] = useState(false)
+  const [inputArgs, setInputArgs] = useState<string[]>([])
 
   useEffect(() => {
     setDataMethod()
@@ -34,10 +35,10 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
   if (methodType === 'view') {
     return (
       <div className="flex flex-col mt-5">
-        {hasArgsToCall && <HasArgsToCall args={argsToCall} />}
+        {hasArgsToCall && <HasArgsToCall args={argsToCall} setInputArgsToCall={setInputArgs} />}
 
         {showReadContract && (
-          <ReadMethodContract args={argsToCall} contract={contract} method={method} />
+          <ReadMethodContract args={inputArgs} contract={contract} method={method} />
         )}
         <button
           className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2"
@@ -51,7 +52,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col mt-5">
-      {hasArgsToCall && <HasArgsToCall args={argsToCall} />}
+      {hasArgsToCall && <HasArgsToCall args={argsToCall} setInputArgsToCall={setInputArgs} />}
 
       <button
         className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2"
