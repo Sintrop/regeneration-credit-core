@@ -6,6 +6,7 @@ export function Nav(): JSX.Element {
     <nav className="flex flex-col">
       <NavItem label="dashboard" path="/" />
       <NavItem label="contracts" path="/contracts" />
+      <NavItem label="pools" path="/pools" />
     </nav>
   )
 }

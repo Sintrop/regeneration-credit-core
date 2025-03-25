@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next'
 import LogoRC from '../../assets/images/rc.png'
 import { ConnectionWalletButton } from './components/ConnectionWalletButton'
 import { useNavigate } from 'react-router-dom'
-import { NavMenu } from './components/NavMenu'
 
 export function Header(): JSX.Element {
   const { t } = useTranslation()
@@ -21,7 +20,6 @@ export function Header(): JSX.Element {
         </button>
 
         <div className="flex items-center gap-5">
-          <NavMenu />
           <ConnectionWalletButton />
         </div>
       </div>
