@@ -4,6 +4,7 @@ import { ContractListProps, InputMethodAbiProps, MethodAbiProps } from '@rendere
 import { useTranslation } from 'react-i18next'
 import { ReadMethodContract } from './ReadMethodContract'
 import { HasArgsToCall } from './HasArgsToCall'
+import { WriteMethodContract } from './WriteMethodContract'
 
 interface Props {
   method: MethodAbiProps
@@ -16,6 +17,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
   const [hasArgsToCall, setHasArgsToCall] = useState(false)
   const [argsToCall, setArgsToCall] = useState<InputMethodAbiProps[]>([])
   const [showReadContract, setShowReadContract] = useState(false)
+  const [showWriteContract, setShowWriteContract] = useState(false)
   const [inputArgs, setInputArgs] = useState<string[]>([])
 
   useEffect(() => {
@@ -30,6 +32,10 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
 
   function handleReadContract(): void {
     setShowReadContract(true)
+  }
+
+  function handleWriteContract(): void {
+    setShowWriteContract(true)
   }
 
   if (methodType === 'view') {
@@ -54,9 +60,13 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
     <div className="flex flex-col mt-5">
       {hasArgsToCall && <HasArgsToCall args={argsToCall} setInputArgsToCall={setInputArgs} />}
 
+      {showWriteContract && (
+        <WriteMethodContract args={inputArgs} contract={contract} method={method} />
+      )}
+
       <button
-        className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2"
-        onClick={() => {}}
+        className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2 hover:cursor-pointer"
+        onClick={handleWriteContract}
       >
         {t('write')}
       </button>
