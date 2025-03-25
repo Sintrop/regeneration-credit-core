@@ -36,7 +36,7 @@ export function ContractPage(): JSX.Element {
       <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex w-screen h-screen overflow-y-auto">
         <SideMenu />
 
-        <div className="flex flex-col pl-[330px] py-30 gap-10">
+        <div className="flex flex-col pl-[330px] py-30 gap-10 w-full px-5">
           <PageTitle title={contractData?.name as string} />
           <div className="flex flex-col w-full">
             <ContractDetails contract={contractData} />

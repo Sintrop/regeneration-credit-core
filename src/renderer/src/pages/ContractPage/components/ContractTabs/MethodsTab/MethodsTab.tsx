@@ -10,12 +10,12 @@ export function MethodsTab({ contract }: Props): JSX.Element {
   const [methods, setMethods] = useState<MethodAbiProps[]>([])
 
   useEffect(() => {
-    setMethods(contract.abi)
-  }, [])
+    if (contract?.abi) setMethods(contract.abi)
+  }, [contract])
 
   return (
     <div className="">
-      <div className="flex flex-col gap-5 mt-10">
+      <div className="flex flex-col mt-10">
         {methods.length > 0 && (
           <>
             {methods.map((method, index) => (
