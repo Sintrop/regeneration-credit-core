@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { TransactionWeb3Props } from '../types/transaction'
-import { RcTokenContractAddress } from './contracts'
+import { sequoiaRcAddress } from './contracts'
 
 const ITEMS_PER_PAGE = 10
-const addressesContracts = [RcTokenContractAddress]
+const addressesContracts = [sequoiaRcAddress]
 
 interface ReturnGetListTransactionsWeb3FeedProps {
   success: boolean

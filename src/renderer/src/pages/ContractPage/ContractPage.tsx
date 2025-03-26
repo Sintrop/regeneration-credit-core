@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Header } from '@renderer/components/Header/Header'
 import { contractsSequoia } from '@renderer/services/contracts'
 import { ContractListProps } from '@renderer/types/contract'

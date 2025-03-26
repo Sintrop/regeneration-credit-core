@@ -7,6 +7,7 @@ import { TxPage } from './pages/TxPage/TxPage'
 import { ContractsPage } from './pages/ContractsPage/ContractsPage'
 import { ContractPage } from './pages/ContractPage/ContractPage'
 import { PoolsPage } from './pages/PoolsPage/PoolsPage'
+import { PoolPage } from './pages/PoolPage/PoolPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -18,6 +19,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/contracts" element={<ContractsPage />} />
         <Route path="/contracts/:address" element={<ContractPage />} />
         <Route path="/pools" element={<PoolsPage />} />
+        <Route path="/pools/:poolName" element={<PoolPage />} />
       </Routes>
     </Router>
   )
