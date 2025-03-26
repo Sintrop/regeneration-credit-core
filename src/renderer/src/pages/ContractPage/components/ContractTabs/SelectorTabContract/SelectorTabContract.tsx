@@ -11,7 +11,7 @@ export function SelectorTabContract({ onChange, selectedTab }: Props): JSX.Eleme
   const { t } = useTranslation()
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-5 my-5">
       <TabItem
         label={t('methods')}
         onChange={(value) => onChange(value as ContractPageTabs)}

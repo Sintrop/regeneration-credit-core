@@ -9,7 +9,7 @@ import InspectorPoolContractJson from '../../../data/abis/InspectorPool.json'
 import DevelopersPoolContractJson from '../../../data/abis/DeveloperPool.json'
 import ActivistContractJson from '../../../data/abis/ActivistContract.json'
 import ActivistPoolContractJson from '../../../data/abis/ActvistPool.json'
-import SintropContractJson from '../../../data/abis/Sintrop.json'
+import InspectionContractJson from '../../../data/abis/Sintrop.json'
 import RegeneratorContractJson from '../../../data/abis/ProducerContract.json'
 import InspectorContractJson from '../../../data/abis/InspectorContract.json'
 import DeveloperContractJson from '../../../data/abis/DeveloperContract.json'
@@ -47,10 +47,13 @@ export const contributorPoolContractAddress = '0x978a9C4e5670C3C91E6a180448E88a4
 //testnet
 export const sequoiaRegeneratorPoolAddress = '0xbaeD2F5C1e389C9909C6d480E096a6C368711C3E'
 export const sequoiaRcAddress = '0xA2628da7B5C8B9921E52402438c320e03d191275'
+export const sequoiaInspectionAddress = '0x62b93FC1CBFFcb6ae6Ffe80D0e022E96aC97760a'
+
 
 //Abis contracts
 export const sequoiaRegeneratorPoolAbi = RegeneratorPoolContractJson
 export const sequoiaRcAbi = RcTokenContractJson
+export const sequoiaInspectionAbi = InspectionContractJson
 export const DeveloperContractAbi = UserContractJson
 export const DeveloperPoolContractAbi = DevelopersPoolContractJson
 export const ResearcherContractAbi = UserContractJson
@@ -79,5 +82,12 @@ export const contractsSequoia: ContractListProps[] = [
     name: 'Developer Pool Contract',
     label: 'developerPoolContract',
     description: 'developerPoolContract'
+  },
+  {
+    abi: sequoiaInspectionAbi,
+    address: sequoiaInspectionAddress,
+    name: 'Inspections Contract',
+    label: 'inspectionContract',
+    description: 'inspectionContract'
   }
 ]

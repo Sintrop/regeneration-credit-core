@@ -18,11 +18,43 @@ export function ReadMethodContract({ contract, method, args }: Props): JSX.Eleme
     args
   })
 
+  function customStringify(value): string {
+    if (typeof value === 'bigint') {
+      return value.toString() // Converte BigInt para string
+    }
+    return value
+  }
+
   return (
     <div className="flex flex-col">
       {isLoading && <div className="w-8 h-8 bg-green-500 animate-spin" />}
       {isError && <p className="text-red-500">{error.message}</p>}
-      {isSuccess && <p className="text-white">{formatUnits(data as bigint, 18)}</p>}
+
+      {isSuccess && (
+        <>
+          {typeof data === 'string' && <p className="text-white">{data}</p>}
+
+          {typeof data === 'number' && <p className="text-white">{data}</p>}
+
+          {typeof data === 'bigint' && (
+            <p className="text-white">
+              {data?.toString().length > 17
+                ? Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(
+                    parseFloat(formatUnits(data, 18))
+                  )
+                : Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(
+                    parseFloat(data.toString())
+                  )}
+            </p>
+          )}
+
+          {typeof data === 'object' && (
+            <pre className="text-white">
+              {JSON.stringify(data, (key, value) => customStringify(value), 2)}
+            </pre>
+          )}
+        </>
+      )}
     </div>
   )
 }

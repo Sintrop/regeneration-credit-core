@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState, useEffect } from 'react'
 import { ContractListProps, InputMethodAbiProps, MethodAbiProps } from '@renderer/types/contract'
 import { useTranslation } from 'react-i18next'
@@ -30,24 +29,34 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
     setArgsToCall(method.inputs)
   }
 
+  function handleSetInputArgsToCall(args: string[]): void {
+    setShowReadContract(false)
+    setShowWriteContract(false)
+    setInputArgs(args)
+  }
+
   function handleReadContract(): void {
-    setShowReadContract(true)
+    setShowReadContract(false)
+    setTimeout(() => setShowReadContract(true), 100)
   }
 
   function handleWriteContract(): void {
-    setShowWriteContract(true)
+    setShowWriteContract(false)
+    setTimeout(() => setShowWriteContract(true), 100)
   }
 
   if (methodType === 'view') {
     return (
       <div className="flex flex-col mt-5">
-        {hasArgsToCall && <HasArgsToCall args={argsToCall} setInputArgsToCall={setInputArgs} />}
+        {hasArgsToCall && (
+          <HasArgsToCall args={argsToCall} setInputArgsToCall={handleSetInputArgsToCall} />
+        )}
 
         {showReadContract && (
           <ReadMethodContract args={inputArgs} contract={contract} method={method} />
         )}
         <button
-          className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2"
+          className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2 hover:cursor-pointer"
           onClick={handleReadContract}
         >
           {t('getInfo')}

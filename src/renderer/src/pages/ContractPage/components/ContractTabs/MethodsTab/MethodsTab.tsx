@@ -15,7 +15,7 @@ export function MethodsTab({ contract }: Props): JSX.Element {
 
   return (
     <div className="">
-      <div className="flex flex-col mt-10">
+      <div className="flex flex-col">
         {methods.length > 0 && (
           <>
             {methods.map((method, index) => (
