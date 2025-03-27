@@ -18,7 +18,7 @@ import CategoryContractJson from '../../../data/abis/CategoryContract.json'
 import InvitationContractJson from '../../../data/abis/InvitationContract.json'
 import ContributorContractJson from '../../../data/abis/ContributorContract.json'
 import ContributorPoolContractJson from '../../../data/abis/ContributorPool.json'
-import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
+import { ContractListProps } from '@renderer/types/contract'
 
 //Address contracts
 export const validatorContractAddress = '0x648291fb228cdB775123f4B2a5BC896A475457C8'
@@ -50,7 +50,7 @@ export const sequoiaRcAddress = '0xA2628da7B5C8B9921E52402438c320e03d191275'
 export const sequoiaInspectionAddress = '0x62b93FC1CBFFcb6ae6Ffe80D0e022E96aC97760a'
 export const sequoiaUserAddress = '0x8bE0B014B7Fd2d3F698874C0CCc4EE2684fD6a25'
 export const sequoiaDeveloperAddress = '0x59900BdCa243242A9666508a52B9A81489aAb459'
-
+export const sequoiaRegeneratorAddress = '0xE851bF9778d1052696adb90d27392bAcc18dd497'
 
 //Abis contracts
 export const sequoiaRegeneratorPoolAbi = RegeneratorPoolContractJson
@@ -58,6 +58,7 @@ export const sequoiaRcAbi = RcTokenContractJson
 export const sequoiaInspectionAbi = InspectionContractJson
 export const sequoiaUserAbi = UserContractJson
 export const sequoiaDeveloperAbi = DeveloperContractJson
+export const sequoiaRegeneratorAbi = RegeneratorContractJson
 
 
 export const DeveloperContractAbi = UserContractJson
