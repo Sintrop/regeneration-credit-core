@@ -48,12 +48,18 @@ export const contributorPoolContractAddress = '0x978a9C4e5670C3C91E6a180448E88a4
 export const sequoiaRegeneratorPoolAddress = '0xbaeD2F5C1e389C9909C6d480E096a6C368711C3E'
 export const sequoiaRcAddress = '0xA2628da7B5C8B9921E52402438c320e03d191275'
 export const sequoiaInspectionAddress = '0x62b93FC1CBFFcb6ae6Ffe80D0e022E96aC97760a'
+export const sequoiaUserAddress = '0x8bE0B014B7Fd2d3F698874C0CCc4EE2684fD6a25'
+export const sequoiaDeveloperAddress = '0x59900BdCa243242A9666508a52B9A81489aAb459'
 
 
 //Abis contracts
 export const sequoiaRegeneratorPoolAbi = RegeneratorPoolContractJson
 export const sequoiaRcAbi = RcTokenContractJson
 export const sequoiaInspectionAbi = InspectionContractJson
+export const sequoiaUserAbi = UserContractJson
+export const sequoiaDeveloperAbi = DeveloperContractJson
+
+
 export const DeveloperContractAbi = UserContractJson
 export const DeveloperPoolContractAbi = DevelopersPoolContractJson
 export const ResearcherContractAbi = UserContractJson
