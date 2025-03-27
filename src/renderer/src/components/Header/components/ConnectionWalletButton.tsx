@@ -25,8 +25,19 @@ export function ConnectionWalletButton(): JSX.Element {
     disconnect()
   }
 
+  function handleGoToRegister(): void {
+    navigate('/register')
+  }
+
   return (
     <div className="flex items-center gap-5">
+      <button
+        className="px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer"
+        onClick={handleGoToRegister}
+      >
+        Register
+      </button>
+
       <button
         className="w-[180px] px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer flex items-center gap-3"
         onClick={handleClickConnectButton}
