@@ -13,7 +13,7 @@ export function RegeneratorData(): JSX.Element {
   const { data } = useReadContract({
     address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
     abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
-    functionName: 'getProducer',
+    functionName: 'getRegenerator',
     args: [address]
   })
 

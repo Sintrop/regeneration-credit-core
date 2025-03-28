@@ -1,5 +1,6 @@
 import { DeveloperData } from './DeveloperData/DeveloperData'
 import { UserType0Data } from './UserType0Data'
+import { WithoutContent } from './WithoutContent'
 
 interface Props {
   userType: UserTypeAvailables
@@ -13,7 +14,13 @@ export function UserTypeContent({ userType }: Props): JSX.Element {
 
 const userTypeAvailable = {
   0: UserType0Data,
-  4: DeveloperData
+  1: WithoutContent,
+  2: WithoutContent,
+  3: WithoutContent,
+  4: DeveloperData,
+  5: WithoutContent,
+  6: WithoutContent,
+  7: WithoutContent
 }
 
 export type UserTypeAvailables = keyof typeof userTypeAvailable
