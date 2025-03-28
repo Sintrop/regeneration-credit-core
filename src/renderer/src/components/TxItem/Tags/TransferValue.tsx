@@ -45,7 +45,7 @@ export function TransferValue({ txHash }: Props): JSX.Element {
   return (
     <div className="bg-container-secondary rounded-md px-3 py-1 flex items-center gap-2">
       <img src={RCIcon} className="w-5 h-5 rounded-full object-contain" />
-      <p className="text-white text-sm leading-2.5">{Intl.NumberFormat('pt-BR').format(value)}</p>
+      <p className="text-white text-sm leading-2.5">{loading ? '....' : Intl.NumberFormat('pt-BR').format(value)}</p>
     </div>
   )
 }

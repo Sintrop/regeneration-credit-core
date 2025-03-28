@@ -50,7 +50,7 @@ export function ReadMethodContract({ contract, method, args }: Props): JSX.Eleme
 
           {typeof data === 'object' && (
             <pre className="text-white">
-              {JSON.stringify(data, (key, value) => customStringify(value), 2)}
+              {JSON.stringify(data, (_key, value) => customStringify(value), 2)}
             </pre>
           )}
         </>

@@ -24,6 +24,7 @@ export function RegisterPage(): JSX.Element {
   return (
     <ScreenPage pageTitle={t('register')}>
       <div className="flex flex-col">
+        {userTypeWalletConnected}
         <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
         <div className="flex items-center gap-5 px-5 py-2 rounded-2xl bg-container-secondary w-fit">
           <Jazzicon className="w-10 h-10" address={address as string} />

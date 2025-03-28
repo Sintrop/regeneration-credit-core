@@ -1,4 +1,3 @@
-import { useReadContract } from 'wagmi'
 import { StatsItem } from './StatsItem'
 import { useTranslation } from 'react-i18next'
 
