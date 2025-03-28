@@ -45,7 +45,7 @@ export function ConnectionWalletButton(): JSX.Element {
         {status === 'disconnected' && t('connectWallet')}
         {status === 'connected' && (
           <>
-            <Jazzicon className="w-7 h-7" address={address} />
+            {address && <Jazzicon className="w-7 h-7" address={address} />}
             <p className="truncate text-ellipsis text-white max-w-[100px]">{address}</p>
           </>
         )}

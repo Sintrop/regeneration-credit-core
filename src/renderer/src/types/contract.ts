@@ -21,16 +21,17 @@ export interface InputMethodAbiProps {
   name: string
   type: string
   indexed: boolean
+  components?: ComponentProps[]
 }
 
 export interface OutputProps {
   type: string
   name: string
   internalType: string
-  components: ComponentOutputProps[]
+  components: ComponentProps[]
 }
 
-export interface ComponentOutputProps {
+export interface ComponentProps {
   type: string
   name: string
   internalType: string
