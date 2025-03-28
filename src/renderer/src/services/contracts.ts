@@ -1,8 +1,9 @@
 import SequoiaRcTokenContract from '../../../data/abis/sequoia/RegenerationCredit.json'
+import SequoiaRcImpactContract from '../../../data/abis/sequoia/RegenerationCreditImpact.json'
 import SequoiaUserContract from '../../../data/abis/sequoia/CommunityRules.json'
 import SequoiaRegeneratorContract from '../../../data/abis/sequoia/RegeneratorRules.json'
 import SequoiaRegeneratorPoolContract from '../../../data/abis/sequoia/RegeneratorPool.json'
-import SequoiaInspectorContract from '../../../data/abis/sequoia/InspectionRules.json'
+import SequoiaInspectorContract from '../../../data/abis/sequoia/InspectorRules.json'
 import SequoiaInspectorPoolContract from '../../../data/abis/sequoia/InspectorPool.json'
 import SequoiaResearcherContract from '../../../data/abis/sequoia/ResearcherRules.json'
 import SequoiaResearcherPoolContract from '../../../data/abis/sequoia/ResearcherPool.json'
@@ -15,12 +16,14 @@ import SequoiaActivistPoolContract from '../../../data/abis/sequoia/ActivistPool
 import SequoiaSupporterContract from '../../../data/abis/sequoia/SupporterRules.json'
 import SequoiaSupporterPoolContract from '../../../data/abis/sequoia/SupporterPool.json'
 import SequoiaInspectionContract from '../../../data/abis/sequoia/InspectionRules.json'
+import SequoiaInvitationContract from '../../../data/abis/sequoia/InvitationRules.json'
 
 import { ContractListProps } from '@renderer/types/contract'
 
 //Address contracts
 ///////////////////////testnet
 export const sequoiaRcAddress = '0xB795F59fd970c5272dca65455306030EA08184d7'
+export const sequoiaRcImpactAddress = '0xB800124b6C91c17FD63706B1f7ebF0d6AEc9031A'
 export const sequoiaUserAddress = '0x4EF987b3c58A1E1077c723CF87811f3b015Ea5E6'
 export const sequoiaRegeneratorAddress = '0xAE4D3f9D7698B1964Ae186bb444fD96ad8d7Cd6e'
 export const sequoiaRegeneratorPoolAddress = '0x6D95bbeef2c53EdDC4dbD47fbc6249F40E621822'
@@ -37,10 +40,12 @@ export const sequoiaActivistPoolAddress = '0xcCBaF746E2C754C512BDE452AeB4691c0C5
 export const sequoiaSupporterAddress = '0xCC0e9CfE2302A0f861aDdFb2649edEBbAFa47855'
 export const sequoiaSupporterPoolAddress = '0x8e2cf67005Cc5F0ad7B470BD038f7B0fc3de0b58'
 export const sequoiaInspectionAddress = '0xC2d9b310a7BC64bc0Fba5A10c1d93635a4aA90C4'
+export const sequoiaInvitationAddress = '0x74F92a6e87e68B82e84D902b2a9659fb1AfA3893'
 
 //Abis contracts
 /////////////////// testnet
 export const sequoiaRcAbi = SequoiaRcTokenContract.abi
+export const sequoiaRcImpactAbi = SequoiaRcImpactContract.abi
 export const sequoiaUserAbi = SequoiaUserContract.abi
 export const sequoiaRegeneratorAbi = SequoiaRegeneratorContract.abi
 export const sequoiaRegeneratorPoolAbi = SequoiaRegeneratorPoolContract.abi
@@ -57,6 +62,7 @@ export const sequoiaActivistPoolAbi = SequoiaActivistPoolContract.abi
 export const sequoiaSupporterAbi = SequoiaSupporterContract.abi
 export const sequoiaSupporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
+export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
 
 export const contractsSequoia: ContractListProps[] = [
   {
@@ -67,16 +73,39 @@ export const contractsSequoia: ContractListProps[] = [
     description: 'Regeneration Credit Token Contract'
   },
   {
+    abi: sequoiaRcImpactAbi,
+    address: sequoiaRcImpactAddress,
+    name: SequoiaRcImpactContract.contractName
+  },
+  {
     abi: sequoiaRegeneratorAbi,
     address: sequoiaRegeneratorAddress,
-    name: SequoiaRegeneratorContract.contractName,
-    label: 'regeneratorContract',
-    description: 'descRegeneratorContract'
+    name: SequoiaRegeneratorContract.contractName
   },
   {
     abi: sequoiaRegeneratorPoolAbi,
     address: sequoiaRegeneratorPoolAddress,
     name: SequoiaRegeneratorPoolContract.contractName
+  },
+  {
+    abi: sequoiaInspectorAbi,
+    address: sequoiaInspectorAddress,
+    name: SequoiaInspectorContract.contractName
+  },
+  {
+    abi: sequoiaInspectorPoolAbi,
+    address: sequoiaInspectorPoolAddress,
+    name: SequoiaInspectorPoolContract.contractName
+  },
+  {
+    abi: sequoiaResearcherAbi,
+    address: sequoiaResearcherAddress,
+    name: SequoiaResearcherContract.contractName
+  },
+  {
+    abi: sequoiaResearcherPoolAbi,
+    address: sequoiaResearcherPoolAddress,
+    name: SequoiaResearcherPoolContract.contractName
   },
   {
     abi: sequoiaDeveloperAbi,
@@ -93,10 +122,50 @@ export const contractsSequoia: ContractListProps[] = [
     description: 'descDeveloperPoolContract'
   },
   {
+    abi: sequoiaContributorAbi,
+    address: sequoiaContributorAddress,
+    name: SequoiaContributorContract.contractName
+  },
+  {
+    abi: sequoiaContributorPoolAbi,
+    address: sequoiaContributorPoolAddress,
+    name: SequoiaContributorPoolContract.contractName
+  },
+  {
+    abi: sequoiaActivistAbi,
+    address: sequoiaActivistAddress,
+    name: SequoiaActivistContract.contractName
+  },
+  {
+    abi: sequoiaActivistPoolAbi,
+    address: sequoiaActivistPoolAddress,
+    name: SequoiaActivistPoolContract.contractName
+  },
+  {
+    abi: sequoiaSupporterAbi,
+    address: sequoiaSupporterAddress,
+    name: SequoiaSupporterContract.contractName
+  },
+  {
+    abi: sequoiaSupporterPoolAbi,
+    address: sequoiaSupporterPoolAddress,
+    name: SequoiaSupporterPoolContract.contractName
+  },
+  {
     abi: sequoiaInspectionAbi,
     address: sequoiaInspectionAddress,
     name: SequoiaInspectionContract.contractName,
     label: 'inspectionContract',
     description: 'descInspectionContract'
+  },
+  {
+    abi: sequoiaInvitationAbi,
+    address: sequoiaInvitationAddress,
+    name: SequoiaInvitationContract.contractName
+  },
+  {
+    abi: sequoiaUserAbi,
+    address: sequoiaUserAddress,
+    name: SequoiaUserContract.contractName
   }
 ]
