@@ -151,12 +151,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "address",
+          "name": "",
           "type": "address"
         },
         {
           "internalType": "uint256",
-          "name": "position",
+          "name": "",
           "type": "uint256"
         }
       ],

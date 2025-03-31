@@ -4,13 +4,17 @@ import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { sequoiaUserAbi, sequoiaUserAddress } from '@renderer/services/contracts'
+import {
+  RegistrationUserType,
+  UserRegistration
+} from './components/UserRegistration/UserRegistration'
 
 export function RegisterPage(): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
   const { address } = useAccount()
   const [name, setName] = useState('')
-  const [userType, setUserType] = useState('1')
+  const [userType, setUserType] = useState<RegistrationUserType>(2)
 
   const { data } = useReadContract({
     address: chainId === 1600 ? sequoiaUserAddress : sequoiaUserAddress,
@@ -22,7 +26,7 @@ export function RegisterPage(): JSX.Element {
   const userTypeWalletConnected = data as number
 
   return (
-    <ScreenPage pageTitle={t('register')}>
+    <ScreenPage pageTitle={t('registration')}>
       <div className="flex flex-col">
         {userTypeWalletConnected}
         <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
@@ -43,7 +47,7 @@ export function RegisterPage(): JSX.Element {
         <select
           className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
           value={userType}
-          onChange={(e) => setUserType(e.target.value)}
+          onChange={(e) => setUserType(parseInt(e.target.value) as RegistrationUserType)}
         >
           <option value={1}>{t('regenerator')}</option>
           <option value={2}>{t('inspector')}</option>
@@ -54,15 +58,7 @@ export function RegisterPage(): JSX.Element {
           <option value={7}>{t('supporter')}</option>
         </select>
 
-        {userType !== '7' && (
-          <div className="flex flex-col">
-            <p className="text-gray-300 text-sm mt-10">{t('proofPhoto')}</p>
-            <input 
-              type="file"
-              onChange={(e) => console.log(e.target.files)}  
-            />
-          </div>
-        )}
+        <UserRegistration userType={userType} name={name} />
       </div>
     </ScreenPage>
   )
