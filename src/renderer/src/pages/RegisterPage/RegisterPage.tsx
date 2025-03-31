@@ -10,6 +10,7 @@ import {
 } from './components/UserRegistration/UserRegistration'
 import { Vacancies } from './components/Vacancies'
 import { useNavigate } from 'react-router-dom'
+import { Invitation } from './components/Invitation'
 
 export function RegisterPage(): JSX.Element {
   const navigate = useNavigate()
@@ -84,9 +85,13 @@ export function RegisterPage(): JSX.Element {
           <UserRegistration userType={userType} name={name} />
         </div>
 
-        <div className="flex flex-col">
-          <Vacancies userType={userType} />
-        </div>
+        {userType !== 7 && (
+          <div className="flex flex-col gap-10">
+            <Vacancies userType={userType} />
+
+            <Invitation />
+          </div>
+        )}
       </div>
     </ScreenPage>
   )

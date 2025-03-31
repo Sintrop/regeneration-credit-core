@@ -40,14 +40,14 @@ export function Vacancies({ userType }: Props): JSX.Element {
   }
 
   return (
-    <>
+    <div className="flex flex-col">
       <p className="text-gray-300 text-sm">{t('vacancies')}</p>
-      <div className="flex flex-col p-3 rounded-2xl bg-container-primary ">
+      <div className="flex flex-col p-3 rounded-2xl bg-container-secondary">
         <p className="text-gray-300 text-sm">{t('descVacancies')}</p>
         <p className="text-white">
           {availableVacancies ? t('thereIsVacancie') : t('thereIsntVacancie')}
         </p>
       </div>
-    </>
+    </div>
   )
 }
