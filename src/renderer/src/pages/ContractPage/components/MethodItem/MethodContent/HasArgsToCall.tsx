@@ -10,7 +10,7 @@ interface Props {
 
 interface ArgsInputProps {
   name: string
-  value: string | string[]
+  value: string | string[] | number
 }
 
 export function HasArgsToCall({ args, setInputArgsToCall }: Props): JSX.Element {
@@ -23,17 +23,18 @@ export function HasArgsToCall({ args, setInputArgsToCall }: Props): JSX.Element 
     newArgsInput = excludeArg
     newArgsInput.push({
       name: data?.arg.name,
-      value: data.value
+      value: data?.value
     })
 
     setArgsInput(newArgsInput)
 
-    const argsToCall: string[] = []
+    const argsToCall = []
 
     for (let i = 0; i < args.length; i++) {
       const arg = args[i]
       const argInput = newArgsInput.find((item) => item.name === arg.name)
-      if (argInput) argsToCall.push(argInput?.value as string)
+      //@ts-ignore
+      if (argInput) argsToCall.push(argInput?.value)
     }
 
     setInputArgsToCall(argsToCall)
@@ -60,7 +61,7 @@ export function HasArgsToCall({ args, setInputArgsToCall }: Props): JSX.Element 
 
 interface OnChangeArgProps {
   arg: InputMethodAbiProps
-  value: string | string[]
+  value: string | string[] | number
 }
 
 interface ArgItemProps {
@@ -108,9 +109,10 @@ function ArgItem({ arg, onChange, argsInput }: ArgItemProps): JSX.Element {
 
   function onChangeInput(e: ChangeEvent<HTMLInputElement>): void {
     const inputValue = e.target.value
+    console.log(inputValue)
 
     setValue(inputValue)
-    onChange({ arg, value: inputValue })
+    onChange({ arg, value: arg?.internalType === 'uint256' ? parseInt(inputValue) : inputValue })
   }
 
   function handleAddArgsTupple(args: string[]): void {

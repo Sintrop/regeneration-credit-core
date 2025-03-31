@@ -10,6 +10,7 @@ interface Props {
 }
 
 export function ReadMethodContract({ contract, method, args }: Props): JSX.Element {
+  console.log(args)
   const { data, isError, isLoading, error, isSuccess } = useReadContract({
     //@ts-ignore
     address: contract.address,
