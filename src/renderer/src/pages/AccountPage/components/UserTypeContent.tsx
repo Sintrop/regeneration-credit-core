@@ -1,4 +1,5 @@
 import { DeveloperData } from './DeveloperData/DeveloperData'
+import { InspectorData } from './InspectorData/InspectorData'
 import { RegeneratorData } from './RegeneratorData/RegeneratorData'
 import { UserType0Data } from './UserType0Data'
 import { WithoutContent } from './WithoutContent'
@@ -16,7 +17,7 @@ export function UserTypeContent({ userType }: Props): JSX.Element {
 const userTypeAvailable = {
   0: UserType0Data,
   1: RegeneratorData,
-  2: WithoutContent,
+  2: InspectorData,
   3: WithoutContent,
   4: DeveloperData,
   5: WithoutContent,
