@@ -27,6 +27,10 @@ export function checkVacancies(props: CheckVacanciesProps): ReturnCheckVacancies
   let availableVacancie: boolean = false
   let ammountVacancies: number = 0
 
+  if (userType === 1) {
+    availableVacancie = true
+  }
+
   if (userType === 2) {
     const calcInspector = limitInspectors - userTypeCount
     if (calcInspector >= 1) {

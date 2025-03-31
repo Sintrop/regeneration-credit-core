@@ -1,17 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { sequoiaInspectorAbi, sequoiaInspectorAddress } from '@renderer/services/contracts'
+import { sequoiaSupporterAbi, sequoiaSupporterAddress } from '@renderer/services/contracts'
 
 interface Props {
   name: string
 }
 
-export function InspectorRegistration({ name }: Props): JSX.Element {
+export function SupporterRegistration({ name }: Props): JSX.Element {
   const { t } = useTranslation()
-  const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
 
   const chainId = useChainId()
@@ -20,15 +18,10 @@ export function InspectorRegistration({ name }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto])
+  }, [name])
 
   function validityData(): void {
     if (!name.trim()) {
-      setDisableBtnRegister(true)
-      return
-    }
-
-    if (!proofPhoto.trim()) {
       setDisableBtnRegister(true)
       return
     }
@@ -40,17 +33,15 @@ export function InspectorRegistration({ name }: Props): JSX.Element {
     if (isLoading || isPending) return
 
     writeContract({
-      address: chainId === 1600 ? sequoiaInspectorAddress : sequoiaInspectorAddress,
-      abi: chainId === 1600 ? sequoiaInspectorAbi : sequoiaInspectorAbi,
-      functionName: 'addInspector',
-      args: [name, 'hashProofphoto']
+      address: chainId === 1600 ? sequoiaSupporterAddress : sequoiaSupporterAddress,
+      abi: chainId === 1600 ? sequoiaSupporterAbi : sequoiaSupporterAbi,
+      functionName: 'addSupporter',
+      args: [name]
     })
   }
 
   return (
     <div className="flex flex-col mb-10 z-0">
-      <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
-
       <button
         className={`bg-green-btn rounded-2xl px-10 h-10 text-white font-semibold mt-10 w-fit hover:cursor-pointer ${disableBtnRegister ? 'opacity-50' : 'opacity-100'}`}
         onClick={handleRegister}

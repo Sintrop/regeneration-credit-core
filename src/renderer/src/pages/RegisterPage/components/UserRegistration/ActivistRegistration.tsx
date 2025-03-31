@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { sequoiaInspectorAbi, sequoiaInspectorAddress } from '@renderer/services/contracts'
+import { sequoiaActivistAbi, sequoiaActivistAddress } from '@renderer/services/contracts'
 
 interface Props {
   name: string
 }
 
-export function InspectorRegistration({ name }: Props): JSX.Element {
+export function ActivistRegistration({ name }: Props): JSX.Element {
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -40,9 +40,9 @@ export function InspectorRegistration({ name }: Props): JSX.Element {
     if (isLoading || isPending) return
 
     writeContract({
-      address: chainId === 1600 ? sequoiaInspectorAddress : sequoiaInspectorAddress,
-      abi: chainId === 1600 ? sequoiaInspectorAbi : sequoiaInspectorAbi,
-      functionName: 'addInspector',
+      address: chainId === 1600 ? sequoiaActivistAddress : sequoiaActivistAddress,
+      abi: chainId === 1600 ? sequoiaActivistAbi : sequoiaActivistAbi,
+      functionName: 'addActivist',
       args: [name, 'hashProofphoto']
     })
   }

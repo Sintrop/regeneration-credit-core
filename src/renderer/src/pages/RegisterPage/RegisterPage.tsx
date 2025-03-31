@@ -1,4 +1,5 @@
-import { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
@@ -16,9 +17,15 @@ export function RegisterPage(): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
+  const { address, isDisconnected } = useAccount()
   const [name, setName] = useState('')
   const [userType, setUserType] = useState<RegistrationUserType>(2)
+
+  useEffect(() => {
+    if (isDisconnected) {
+      navigate('/', { replace: true })
+    }
+  }, [isDisconnected])
 
   const { data } = useReadContract({
     address: chainId === 1600 ? sequoiaUserAddress : sequoiaUserAddress,
@@ -55,7 +62,7 @@ export function RegisterPage(): JSX.Element {
         <div className="flex flex-col max-w-[50%]">
           <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
           <div className="flex items-center gap-5 px-5 py-2 rounded-2xl bg-container-secondary w-fit">
-            <Jazzicon className="w-10 h-10" address={address as string} />
+            {address && <Jazzicon className="w-10 h-10" address={address as string} />}
             <p className="text-white">{address}</p>
           </div>
 
