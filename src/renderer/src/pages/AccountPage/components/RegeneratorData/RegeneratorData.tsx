@@ -38,10 +38,34 @@ export function RegeneratorData(): JSX.Element {
             <span className="text-white font-bold">{t('proofPhoto')}: </span>
             {regenerator?.proofPhoto}
           </p>
-          {/* <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('poolEra')}: </span>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('totalArea')}: </span>
+            {formatUnits(BigInt(regenerator?.totalArea), 0)} m²
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('totalInspections')}: </span>
+            {formatUnits(BigInt(regenerator?.totalInspections), 0)}
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('lastRequestAt')}: </span>
+            {formatUnits(BigInt(regenerator?.lastRequestAt), 0)}
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('regenerationScore')}: </span>
+            {formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('regenerationAverage')}: </span>
+            {formatUnits(BigInt(regenerator?.regenerationScore?.average), 0)}
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('eraPool')}: </span>
             {formatUnits(BigInt(regenerator?.pool?.currentEra), 0)}
-          </p> */}
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('registeredAt')}: </span>
+            {formatUnits(BigInt(regenerator?.createdAt), 0)}
+          </p>
           <p className="text-white mt-5">
             <span className="text-white font-bold">{t('userType')}: </span> 1
           </p>

@@ -6,17 +6,15 @@ export interface RegeneratorProps {
   pendingInspection: boolean
   totalInspections: number
   lastRequestAt: number
+  totalArea: number
   regenerationScore: {
     score: number
     average: number
     sustainable: boolean
   }
-  areaInformation: {
-    coordinates: string
-    totalArea: number
-  }
   pool: {
     onContractPool: boolean
     currentEra: number
   }
+  createdAt: number
 }
