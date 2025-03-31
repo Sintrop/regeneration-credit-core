@@ -22,18 +22,23 @@ export function Invitation(): JSX.Element {
       <div className="flex flex-col p-3 rounded-2xl bg-container-secondary ">
         <p className="text-gray-300 text-sm">{t('descInvitation')}</p>
 
-        {invitationData ? (
+        {invitationData && (
           <div className="flex flex-col">
-            <p className="text-white">{t('youHaveInvitation')}</p>
-            <p className="text-gray-300 text-sm mt-3">{t('activist')}</p>
-            <p className="text-white">{invitationData?.inviter}</p>
+            <p className="text-white">
+              {invitationData?.userType === 0
+                ? t('youDontHaveAnInvitation')
+                : t('youHaveInvitation')}
+            </p>
 
-            <p className="text-gray-300 text-sm mt-3">{t('toRegisterAs')}</p>
-            <p className="text-white">{invitationData?.userType}</p>
-          </div>
-        ) : (
-          <div className="flex flex-col">
-            <p className="text-white">{t('youDontHaveAnInvitation')}</p>
+            {invitationData?.userType !== 0 && (
+              <>
+                <p className="text-gray-300 text-sm mt-3">{t('activist')}</p>
+                <p className="text-white">{invitationData?.inviter}</p>
+
+                <p className="text-gray-300 text-sm mt-3">{t('toRegisterAs')}</p>
+                <p className="text-white">{invitationData?.userType}</p>
+              </>
+            )}
           </div>
         )}
       </div>
