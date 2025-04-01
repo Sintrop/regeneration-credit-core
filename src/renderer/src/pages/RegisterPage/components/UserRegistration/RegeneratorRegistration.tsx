@@ -6,6 +6,7 @@ import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagm
 import { sequoiaRegeneratorAbi, sequoiaRegeneratorAddress } from '@renderer/services/contracts'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { calculateArea } from '@renderer/services/calculateArea'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
@@ -20,6 +21,7 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
   const mapContainerRef = useRef<HTMLDivElement>()
   const markersRef = useRef<mapboxgl.Marker[]>([])
   const [coordinates, setCoordinates] = useState<{ lng: number; lat: number }[]>([])
+  const [totalArea, setTotalArea] = useState(0)
 
   const chainId = useChainId()
   const { writeContract, data: hash, isPending, error } = useWriteContract()
@@ -117,6 +119,8 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
         }
       })
     }
+
+    handleCalculateArea()
   }, [coordinates])
 
   useEffect(() => {
@@ -156,6 +160,11 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
     setCoordinates((prevState) => prevState.slice(0, -1))
   }
 
+  function handleCalculateArea(): void {
+    const response = calculateArea(coordinates)
+    setTotalArea(response)
+  }
+
   return (
     <div className="flex flex-col mb-10 z-0">
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
@@ -171,6 +180,7 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
       <div ref={mapContainerRef} className="w-[300px] h-[300px]" />
       <button onClick={handleClearSelection}>{t('clearSelection')}</button>
       <button onClick={handleDeleteLastPoint}>{t('removeLastPoint')}</button>
+      {totalArea}
 
       {hash && (
         <div className="flex flex-col">
