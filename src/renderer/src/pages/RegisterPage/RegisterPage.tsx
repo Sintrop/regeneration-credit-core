@@ -22,6 +22,7 @@ export function RegisterPage(): JSX.Element {
   const [name, setName] = useState('')
   const [userType, setUserType] = useState<RegistrationUserType>(1)
   const [invitationData, setInvitationData] = useState<InvitationProps>({} as InvitationProps)
+  const [availableVacancie, setAvailableVacancie] = useState<boolean>(false)
 
   useEffect(() => {
     if (isDisconnected) {
@@ -91,12 +92,17 @@ export function RegisterPage(): JSX.Element {
             <option value={7}>{t('supporter')}</option>
           </select>
 
-          <UserRegistration userType={userType} name={name} invitation={invitationData} />
+          <UserRegistration
+            userType={userType}
+            name={name}
+            invitation={invitationData}
+            availableVacancie={availableVacancie}
+          />
         </div>
 
         {userType !== 7 && (
           <div className="flex flex-col gap-10">
-            {userType !== 1 && <Vacancies userType={userType} />}
+            {userType !== 1 && <Vacancies userType={userType} onChange={setAvailableVacancie} />}
 
             <Invitation onChangeInvitation={setInvitationData} userType={userType} />
           </div>

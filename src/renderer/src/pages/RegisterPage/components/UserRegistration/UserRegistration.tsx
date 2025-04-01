@@ -11,12 +11,18 @@ interface Props {
   userType: RegistrationUserType
   name: string
   invitation: InvitationProps
+  availableVacancie: boolean
 }
 
-export function UserRegistration({ userType, name, invitation }: Props): JSX.Element {
+export function UserRegistration({
+  userType,
+  name,
+  invitation,
+  availableVacancie
+}: Props): JSX.Element {
   const Registration = registrationsUserType[userType]
 
-  return <Registration name={name} invitation={invitation} />
+  return <Registration name={name} invitation={invitation} availableVacancie={availableVacancie} />
 }
 
 const registrationsUserType = {

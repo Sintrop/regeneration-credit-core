@@ -10,9 +10,10 @@ import { WriteContractErrorType } from 'viem'
 interface Props {
   name: string
   invitation: InvitationProps
+  availableVacancie: boolean
 }
 
-export function ActivistRegistration({ name, invitation }: Props): JSX.Element {
+export function ActivistRegistration({ name, invitation, availableVacancie }: Props): JSX.Element {
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
 
@@ -22,7 +23,7 @@ export function ActivistRegistration({ name, invitation }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto, invitation])
+  }, [name, proofPhoto, invitation, availableVacancie])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -36,6 +37,11 @@ export function ActivistRegistration({ name, invitation }: Props): JSX.Element {
     }
 
     if (invitation?.userType !== 6) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!availableVacancie) {
       setDisableBtnRegister(true)
       return
     }

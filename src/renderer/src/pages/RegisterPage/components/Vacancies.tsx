@@ -5,9 +5,10 @@ import { useChainId, useReadContracts } from 'wagmi'
 
 interface Props {
   userType: number
+  onChange: (availableVacancie: boolean) => void
 }
 
-export function Vacancies({ userType }: Props): JSX.Element {
+export function Vacancies({ userType, onChange }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
   const { data } = useReadContracts({
@@ -36,6 +37,7 @@ export function Vacancies({ userType }: Props): JSX.Element {
 
       const response = checkVacancies({ producersCount, userType, userTypeCount })
       availableVacancies = response.availableVacancie
+      onChange(availableVacancies)
     }
   }
 
