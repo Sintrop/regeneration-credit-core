@@ -25,7 +25,7 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
   const mapRef = useRef<mapboxgl.Map>()
   const mapContainerRef = useRef<HTMLDivElement>()
   const markersRef = useRef<mapboxgl.Marker[]>([])
-  const [coordinates, setCoordinates] = useState<{ lng: number; lat: number }[]>([])
+  const [coordinates, setCoordinates] = useState<{ longitude: number; latitude: number }[]>([])
   const [totalArea, setTotalArea] = useState(0)
 
   const chainId = useChainId()
@@ -78,7 +78,10 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
     })
 
     mapRef.current.on('click', (e) => {
-      setCoordinates((prevState) => [...prevState, e.lngLat])
+      setCoordinates((prevState) => [
+        ...prevState,
+        { latitude: e.lngLat.lat, longitude: e.lngLat.lng }
+      ])
     })
 
     return (): void => {
@@ -94,14 +97,17 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
 
     coordinates.forEach((coordinate) => {
       const marker = new mapboxgl.Marker()
-        .setLngLat([coordinate?.lng, coordinate?.lat])
+        .setLngLat([coordinate?.longitude, coordinate?.latitude])
         .addTo(mapRef.current!)
 
       markersRef.current.push(marker)
     })
 
     if (coordinates.length > 2) {
-      const polygonCoords: [number, number][] = coordinates.map((coord) => [coord.lng, coord.lat])
+      const polygonCoords: [number, number][] = coordinates.map((coord) => [
+        coord.longitude,
+        coord.latitude
+      ])
       if (polygonCoords.length > 0) {
         polygonCoords.push([...polygonCoords[0]])
       }
