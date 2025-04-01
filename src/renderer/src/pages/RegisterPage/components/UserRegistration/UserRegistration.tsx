@@ -1,3 +1,4 @@
+import { InvitationProps } from '@renderer/types/invitation'
 import { ActivistRegistration } from './ActivistRegistration'
 import { ContributorRegistration } from './ContributorRegistration'
 import { DeveloperRegistration } from './DeveloperRegistration'
@@ -9,12 +10,13 @@ import { SupporterRegistration } from './SupporterRegistration'
 interface Props {
   userType: RegistrationUserType
   name: string
+  invitation: InvitationProps
 }
 
-export function UserRegistration({ userType, name }: Props): JSX.Element {
+export function UserRegistration({ userType, name, invitation }: Props): JSX.Element {
   const Registration = registrationsUserType[userType]
 
-  return <Registration name={name} />
+  return <Registration name={name} invitation={invitation} />
 }
 
 const registrationsUserType = {

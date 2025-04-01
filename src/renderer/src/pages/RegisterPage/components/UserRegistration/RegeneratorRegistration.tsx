@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from 'react'
 import { ProofPhoto } from './ProofPhoto'
@@ -7,13 +8,17 @@ import { sequoiaRegeneratorAbi, sequoiaRegeneratorAddress } from '@renderer/serv
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { calculateArea } from '@renderer/services/calculateArea'
+import { InvitationProps } from '@renderer/types/invitation'
+import { ConfirmButton } from './ConfirmButton'
+import { WriteContractErrorType } from 'viem'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
   name: string
+  invitation: InvitationProps
 }
 
-export function RegeneratorRegistration({ name }: Props): JSX.Element {
+export function RegeneratorRegistration({ name, invitation }: Props): JSX.Element {
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -125,7 +130,7 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto])
+  }, [name, proofPhoto, invitation, coordinates, totalArea])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -134,6 +139,21 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
     }
 
     if (!proofPhoto.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (coordinates.length < 3 || coordinates.length > 10) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (totalArea < 500) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (invitation?.userType !== 1) {
       setDisableBtnRegister(true)
       return
     }
@@ -169,33 +189,44 @@ export function RegeneratorRegistration({ name }: Props): JSX.Element {
     <div className="flex flex-col mb-10 z-0">
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
-      <button
-        className={`bg-green-btn rounded-2xl px-10 h-10 text-white font-semibold mt-10 w-fit hover:cursor-pointer ${disableBtnRegister ? 'opacity-50' : 'opacity-100'}`}
-        onClick={handleRegister}
-        disabled={disableBtnRegister || isPending || isLoading}
-      >
-        {isPending ? t('confirmYourWallet') : t('register')}
-      </button>
+      <div className="flex flex-col mt-10">
+        <p className="text-gray-300 text-sm mt-10">{t('demarcateYourProperty')}</p>
 
-      <div ref={mapContainerRef} className="w-[300px] h-[300px]" />
-      <button onClick={handleClearSelection}>{t('clearSelection')}</button>
-      <button onClick={handleDeleteLastPoint}>{t('removeLastPoint')}</button>
-      {totalArea}
+        <div
+          //@ts-ignore
+          ref={mapContainerRef}
+          className="w-[450px] h-[300px] rounded-2xl border-2 border-white mt-1"
+        />
 
-      {hash && (
-        <div className="flex flex-col">
-          <p className="text-white">Transaction hash: {hash}</p>
-          {isLoading && (
-            <>
-              <p className="text-white">Waiting for confirmation...</p>
-              <div className="w-10 h-10 bg-green-btn animate-spin" />
-            </>
-          )}
-          {isSuccess && <p className="text-green-600">{t('transactionSuccess')}</p>}
+        <p className="text-white mt-1">
+          {t('areaSize')}: {Intl.NumberFormat('pt-BR').format(totalArea)}m²
+        </p>
+
+        <div className="flex items-center justify-center gap-5 mt-3">
+          <button
+            onClick={handleClearSelection}
+            className="text-white underline font-semibold hover:cursor-pointer"
+          >
+            {t('clearSelection')}
+          </button>
+          <button
+            onClick={handleDeleteLastPoint}
+            className="text-white underline font-semibold hover:cursor-pointer"
+          >
+            {t('removeLastPoint')}
+          </button>
         </div>
-      )}
+      </div>
 
-      {error && <p className="text-red-500">{error.message}</p>}
+      <ConfirmButton
+        btnDisabled={disableBtnRegister}
+        handleRegister={handleRegister}
+        hash={hash}
+        isLoading={isLoading}
+        isPending={isPending}
+        isSuccess={isSuccess}
+        error={error as WriteContractErrorType}
+      />
     </div>
   )
 }

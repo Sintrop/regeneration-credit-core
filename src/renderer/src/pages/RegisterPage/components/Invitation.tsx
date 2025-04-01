@@ -3,7 +3,11 @@ import { InvitationProps } from '@renderer/types/invitation'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 
-export function Invitation(): JSX.Element {
+interface Props {
+  userType: number
+  onChangeInvitation: (invitationData: InvitationProps) => void
+}
+export function Invitation({ onChangeInvitation, userType }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
   const { address } = useAccount()
@@ -15,6 +19,9 @@ export function Invitation(): JSX.Element {
   })
 
   const invitationData = data as InvitationProps
+  if (invitationData) {
+    onChangeInvitation(invitationData)
+  }
 
   return (
     <div className="flex flex-col">
@@ -37,6 +44,12 @@ export function Invitation(): JSX.Element {
 
                 <p className="text-gray-300 text-sm mt-3">{t('toRegisterAs')}</p>
                 <p className="text-white">{invitationData?.userType}</p>
+
+                {invitationData?.userType !== userType && (
+                  <p className="text-red-500 mt-3">
+                    {t('youAreTryingToRegisterWithADifferentUserTypeThanTheOneYouWereInvitedTo')}
+                  </p>
+                )}
               </>
             )}
           </div>
