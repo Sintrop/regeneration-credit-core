@@ -2,6 +2,7 @@ import { ActivistRegistration } from './ActivistRegistration'
 import { ContributorRegistration } from './ContributorRegistration'
 import { DeveloperRegistration } from './DeveloperRegistration'
 import { InspectorRegistration } from './InspectorRegistration'
+import { RegeneratorRegistration } from './RegeneratorRegistration'
 import { ResearcherRegistration } from './ResearcherRegistration'
 import { SupporterRegistration } from './SupporterRegistration'
 
@@ -17,6 +18,7 @@ export function UserRegistration({ userType, name }: Props): JSX.Element {
 }
 
 const registrationsUserType = {
+  1: RegeneratorRegistration,
   2: InspectorRegistration,
   3: ResearcherRegistration,
   4: DeveloperRegistration,
