@@ -10,7 +10,6 @@ interface Props {
 }
 
 export function ReadMethodContract({ contract, method, args }: Props): JSX.Element {
-  console.log(args)
   const { data, isError, isLoading, error, isSuccess } = useReadContract({
     //@ts-ignore
     address: contract.address,
@@ -21,7 +20,7 @@ export function ReadMethodContract({ contract, method, args }: Props): JSX.Eleme
 
   function customStringify(value): string {
     if (typeof value === 'bigint') {
-      return value.toString() // Converte BigInt para string
+      return value.toString() // Convert BigInt to string
     }
     return value
   }
@@ -36,6 +35,8 @@ export function ReadMethodContract({ contract, method, args }: Props): JSX.Eleme
           {typeof data === 'string' && <p className="text-white">{data}</p>}
 
           {typeof data === 'number' && <p className="text-white">{data}</p>}
+
+          {typeof data === 'boolean' && <p className="text-white">{data}</p>}
 
           {typeof data === 'bigint' && (
             <p className="text-white">
