@@ -1,3 +1,4 @@
+import { ActivistData } from './ActivistData/ActivistData'
 import { DeveloperData } from './DeveloperData/DeveloperData'
 import { InspectorData } from './InspectorData/InspectorData'
 import { RegeneratorData } from './RegeneratorData/RegeneratorData'
@@ -21,7 +22,7 @@ const userTypeAvailable = {
   3: WithoutContent,
   4: DeveloperData,
   5: WithoutContent,
-  6: WithoutContent,
+  6: ActivistData,
   7: WithoutContent
 }
 

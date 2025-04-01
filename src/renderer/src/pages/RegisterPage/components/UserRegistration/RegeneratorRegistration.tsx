@@ -168,7 +168,7 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
       address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
       abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
       functionName: 'addRegenerator',
-      args: [name, 'hashProofphoto']
+      args: [totalArea, name, 'hashProofphoto', coordinates]
     })
   }
 

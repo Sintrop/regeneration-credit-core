@@ -29,7 +29,7 @@ export function ConfirmButton({
         onClick={handleRegister}
         disabled={btnDisabled || isPending || isLoading}
       >
-        {isPending ? t('confirmYourWallet') : t('register')}
+        {isPending ? t('confirmInYourWallet') : t('register')}
       </button>
 
       {hash && (
