@@ -3,6 +3,7 @@ import { DeveloperData } from './DeveloperData/DeveloperData'
 import { InspectorData } from './InspectorData/InspectorData'
 import { RegeneratorData } from './RegeneratorData/RegeneratorData'
 import { ResearcherData } from './ResearcherData/ResearcherData'
+import { SupporterData } from './SupporterData/SupporterData'
 import { UserType0Data } from './UserType0Data'
 import { WithoutContent } from './WithoutContent'
 
@@ -24,7 +25,7 @@ const userTypeAvailable = {
   4: DeveloperData,
   5: WithoutContent,
   6: ActivistData,
-  7: WithoutContent
+  7: SupporterData
 }
 
 export type UserTypeAvailables = keyof typeof userTypeAvailable
