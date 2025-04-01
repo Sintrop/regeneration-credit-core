@@ -2,6 +2,7 @@ import { ActivistData } from './ActivistData/ActivistData'
 import { DeveloperData } from './DeveloperData/DeveloperData'
 import { InspectorData } from './InspectorData/InspectorData'
 import { RegeneratorData } from './RegeneratorData/RegeneratorData'
+import { ResearcherData } from './ResearcherData/ResearcherData'
 import { UserType0Data } from './UserType0Data'
 import { WithoutContent } from './WithoutContent'
 
@@ -19,7 +20,7 @@ const userTypeAvailable = {
   0: UserType0Data,
   1: RegeneratorData,
   2: InspectorData,
-  3: WithoutContent,
+  3: ResearcherData,
   4: DeveloperData,
   5: WithoutContent,
   6: ActivistData,
