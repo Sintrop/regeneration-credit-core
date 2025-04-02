@@ -1,4 +1,13 @@
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import {
+  rcAbi,
+  rcAddress,
+  sequoiaRcAbi,
+  sequoiaRcAddress,
+  sequoiaUserAbi,
+  sequoiaUserAddress,
+  userAbi,
+  userAddress
+} from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContracts } from 'wagmi'
@@ -11,6 +20,11 @@ export function TokenData(): JSX.Element {
   const rcContract = {
     address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
     abi: chainId === 250225 ? rcAbi : sequoiaRcAbi
+  } as const
+
+  const userContract = {
+    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
+    abi: chainId === 250225 ? userAbi : sequoiaUserAbi
   } as const
 
   const { data } = useReadContracts({
@@ -29,6 +43,11 @@ export function TokenData(): JSX.Element {
         ...rcContract,
         functionName: 'totalCertified',
         args: []
+      },
+      {
+        ...userContract,
+        functionName: 'usersCount',
+        args: []
       }
     ]
   })
@@ -36,6 +55,7 @@ export function TokenData(): JSX.Element {
   let totalSupply = 0
   let totalLocked = 0
   let totalCertified = 0
+  let totalUsers = 0
 
   if (data) {
     const _totalSupply = data[0].status === 'success' ? (data[0]?.result as string) : '0'
@@ -46,6 +66,9 @@ export function TokenData(): JSX.Element {
 
     const _totalCertified = data[2].status === 'success' ? (data[2]?.result as string) : '0'
     totalCertified = parseFloat(formatUnits(BigInt(_totalCertified), 18))
+
+    const _totalUsers = data[3].status === 'success' ? (data[3]?.result as string) : '0'
+    totalUsers = parseFloat(formatUnits(BigInt(_totalUsers), 0))
   }
 
   return (
@@ -63,6 +86,10 @@ export function TokenData(): JSX.Element {
         <StatsRcItem
           title={t('totalCertified')}
           value={Intl.NumberFormat('pt-BR').format(totalCertified)}
+        />
+        <StatsRcItem
+          title={t('totalUsers')}
+          value={Intl.NumberFormat('pt-BR').format(totalUsers)}
         />
       </div>
     </div>
