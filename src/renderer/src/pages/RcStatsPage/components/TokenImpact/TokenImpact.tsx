@@ -110,6 +110,7 @@ export function TokenImpact(): JSX.Element {
         <StatsRcItem
           title={t('totalSoilImpact')}
           value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
+          suffix="m²"
         />
         <StatsRcItem
           title={t('totalBiodiversityImpact')}

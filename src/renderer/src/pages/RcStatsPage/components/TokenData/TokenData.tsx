@@ -78,14 +78,17 @@ export function TokenData(): JSX.Element {
         <StatsRcItem
           title={t('totalSupply')}
           value={Intl.NumberFormat('pt-BR').format(totalSupply)}
+          suffix="RC"
         />
         <StatsRcItem
           title={t('totalLocked')}
           value={Intl.NumberFormat('pt-BR').format(totalLocked)}
+          suffix="RC"
         />
         <StatsRcItem
           title={t('totalCertified')}
           value={Intl.NumberFormat('pt-BR').format(totalCertified)}
+          suffix="RC"
         />
         <StatsRcItem
           title={t('totalUsers')}
