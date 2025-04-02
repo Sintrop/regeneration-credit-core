@@ -12,6 +12,7 @@ import { InspectionsPage } from './pages/InspectionsPage/InspectionsPage'
 import { MyTokensPage } from './pages/MyTokensPage/MyTokensPage'
 import { AccountPage } from './pages/AccountPage/AccountPage'
 import { RegisterPage } from './pages/RegisterPage/RegisterPage'
+import { DevelopmentPage } from './pages/DevelopmentPage/DevelopmentPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -28,6 +29,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/my-tokens" element={<MyTokensPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/development" element={<DevelopmentPage />} />
       </Routes>
     </Router>
   )

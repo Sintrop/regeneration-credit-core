@@ -1,5 +1,6 @@
-export interface ContributionProps {
+export interface ReportProps {
   id: number
+  description: string
   era: number
   level: number
   validationsCount: number
