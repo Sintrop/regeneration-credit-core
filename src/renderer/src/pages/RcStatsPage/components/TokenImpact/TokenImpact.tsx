@@ -74,17 +74,17 @@ export function TokenImpact(): JSX.Element {
 
   if (data) {
     const _totalCarbonImpact = data[0].status === 'success' ? (data[0]?.result as string) : '0'
-    totalCarbonImpact = parseFloat(formatUnits(BigInt(_totalCarbonImpact), 18))
+    totalCarbonImpact = parseFloat(formatUnits(BigInt(_totalCarbonImpact), 0))
 
     const _totalSoilImpact = data[1].status === 'success' ? (data[1]?.result as string) : '0'
-    totalSoilImpact = parseFloat(formatUnits(BigInt(_totalSoilImpact), 18))
+    totalSoilImpact = parseFloat(formatUnits(BigInt(_totalSoilImpact), 0))
 
     const _totalBiodiversityImpact =
       data[2].status === 'success' ? (data[2]?.result as string) : '0'
-    totalBiodiversityImpact = parseFloat(formatUnits(BigInt(_totalBiodiversityImpact), 18))
+    totalBiodiversityImpact = parseFloat(formatUnits(BigInt(_totalBiodiversityImpact), 0))
 
     const _totalTreesImpact = data[3].status === 'success' ? (data[3]?.result as string) : '0'
-    totalTreesImpact = parseFloat(formatUnits(BigInt(_totalTreesImpact), 18))
+    totalTreesImpact = parseFloat(formatUnits(BigInt(_totalTreesImpact), 0))
 
     const _treesPerToken = data[4].status === 'success' ? (data[4]?.result as string) : '0'
     treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 32))
