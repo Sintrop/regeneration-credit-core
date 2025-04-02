@@ -1,3 +1,4 @@
+import { DevelopersTab } from './DevelopersTab/DevelopersTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 
 interface Props {
@@ -11,7 +12,8 @@ export function TabContent({ selectedTab }: Props): JSX.Element {
 }
 
 const tabs = {
-  reports: ReportsTab
+  reports: ReportsTab,
+  developers: DevelopersTab
 }
 
 export type DevelopmentTabs = keyof typeof tabs
