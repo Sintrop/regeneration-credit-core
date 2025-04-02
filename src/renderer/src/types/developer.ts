@@ -16,10 +16,11 @@ export interface DeveloperProps {
   developerWallet: string
   name: string
   proofPhoto: string
-  totalContributions: number
+  totalReports: number
   createdAt: number
   pool: {
     level: number
     currentEra: number
   }
+  lastPublishedAt: number
 }
