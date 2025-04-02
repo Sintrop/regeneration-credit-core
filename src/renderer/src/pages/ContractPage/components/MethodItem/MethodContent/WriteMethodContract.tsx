@@ -11,7 +11,7 @@ interface Props {
 
 export function WriteMethodContract({ contract, method, args }: Props): JSX.Element {
   const { writeContract, data: hash, isError, error, isPending } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { isLoading, isSuccess, error: errorTransaction } = useWaitForTransactionReceipt({ hash })
 
   useEffect(() => {
     writeContract({
@@ -35,6 +35,7 @@ export function WriteMethodContract({ contract, method, args }: Props): JSX.Elem
         </div>
       )}
       {isError && <p className="text-red-500">{error.message}</p>}
+      {errorTransaction && <p className="text-red-500">{errorTransaction.message}</p>}
     </div>
   )
 }

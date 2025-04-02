@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
-import { useTranslation } from 'react-i18next'
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { sequoiaInspectorAbi, sequoiaInspectorAddress } from '@renderer/services/contracts'
+import { InvitationProps } from '@renderer/types/invitation'
+import { ConfirmButton } from './ConfirmButton'
+import { WriteContractErrorType } from 'viem'
 
 interface Props {
   name: string
+  invitation: InvitationProps
+  availableVacancie: boolean
 }
 
-export function InspectorRegistration({ name }: Props): JSX.Element {
-  const { t } = useTranslation()
+export function InspectorRegistration({ name, invitation, availableVacancie }: Props): JSX.Element {
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
 
@@ -20,7 +23,7 @@ export function InspectorRegistration({ name }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto])
+  }, [name, proofPhoto, invitation, availableVacancie])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -29,6 +32,16 @@ export function InspectorRegistration({ name }: Props): JSX.Element {
     }
 
     if (!proofPhoto.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (invitation?.userType !== 2) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!availableVacancie) {
       setDisableBtnRegister(true)
       return
     }
@@ -51,28 +64,15 @@ export function InspectorRegistration({ name }: Props): JSX.Element {
     <div className="flex flex-col mb-10 z-0">
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
-      <button
-        className={`bg-green-btn rounded-2xl px-10 h-10 text-white font-semibold mt-10 w-fit hover:cursor-pointer ${disableBtnRegister ? 'opacity-50' : 'opacity-100'}`}
-        onClick={handleRegister}
-        disabled={disableBtnRegister || isPending || isLoading}
-      >
-        {isPending ? t('confirmYourWallet') : t('register')}
-      </button>
-
-      {hash && (
-        <div className="flex flex-col">
-          <p className="text-white">Transaction hash: {hash}</p>
-          {isLoading && (
-            <>
-              <p className="text-white">Waiting for confirmation...</p>
-              <div className="w-10 h-10 bg-green-btn animate-spin" />
-            </>
-          )}
-          {isSuccess && <p className="text-green-600">{t('transactionSuccess')}</p>}
-        </div>
-      )}
-
-      {error && <p className="text-red-500">{error.message}</p>}
+      <ConfirmButton
+        btnDisabled={disableBtnRegister}
+        handleRegister={handleRegister}
+        hash={hash}
+        isLoading={isLoading}
+        isPending={isPending}
+        isSuccess={isSuccess}
+        error={error as WriteContractErrorType}
+      />
     </div>
   )
 }

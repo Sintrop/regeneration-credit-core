@@ -12,6 +12,7 @@ import {
 import { Vacancies } from './components/Vacancies'
 import { useNavigate } from 'react-router-dom'
 import { Invitation } from './components/Invitation'
+import { InvitationProps } from '@renderer/types/invitation'
 
 export function RegisterPage(): JSX.Element {
   const navigate = useNavigate()
@@ -19,7 +20,9 @@ export function RegisterPage(): JSX.Element {
   const chainId = useChainId()
   const { address, isDisconnected } = useAccount()
   const [name, setName] = useState('')
-  const [userType, setUserType] = useState<RegistrationUserType>(2)
+  const [userType, setUserType] = useState<RegistrationUserType>(1)
+  const [invitationData, setInvitationData] = useState<InvitationProps>({} as InvitationProps)
+  const [availableVacancie, setAvailableVacancie] = useState<boolean>(false)
 
   useEffect(() => {
     if (isDisconnected) {
@@ -89,14 +92,19 @@ export function RegisterPage(): JSX.Element {
             <option value={7}>{t('supporter')}</option>
           </select>
 
-          <UserRegistration userType={userType} name={name} />
+          <UserRegistration
+            userType={userType}
+            name={name}
+            invitation={invitationData}
+            availableVacancie={availableVacancie}
+          />
         </div>
 
         {userType !== 7 && (
           <div className="flex flex-col gap-10">
-            <Vacancies userType={userType} />
+            {userType !== 1 && <Vacancies userType={userType} onChange={setAvailableVacancie} />}
 
-            <Invitation />
+            <Invitation onChangeInvitation={setInvitationData} userType={userType} />
           </div>
         )}
       </div>
