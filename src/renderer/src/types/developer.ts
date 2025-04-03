@@ -1,5 +1,6 @@
-export interface ContributionProps {
+export interface ReportProps {
   id: number
+  description: string
   era: number
   level: number
   validationsCount: number
@@ -16,10 +17,11 @@ export interface DeveloperProps {
   developerWallet: string
   name: string
   proofPhoto: string
-  totalContributions: number
+  totalReports: number
   createdAt: number
   pool: {
     level: number
     currentEra: number
   }
+  lastPublishedAt: number
 }

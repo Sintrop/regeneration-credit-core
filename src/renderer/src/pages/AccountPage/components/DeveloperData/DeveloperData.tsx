@@ -40,8 +40,12 @@ export function DeveloperData(): JSX.Element {
             {developer?.proofPhoto}
           </p>
           <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('totalContributions')}: </span>
-            {formatUnits(BigInt(developer?.totalContributions), 0)}
+            <span className="text-white font-bold">{t('totalReports')}: </span>
+            {formatUnits(BigInt(developer?.totalReports), 0)}
+          </p>
+          <p className="text-white mt-5">
+            <span className="text-white font-bold">{t('lastPublishedAt')}: </span>
+            {formatUnits(BigInt(developer?.lastPublishedAt), 0)}
           </p>
           <p className="text-white mt-5">
             <span className="text-white font-bold">{t('poolEra')}: </span>

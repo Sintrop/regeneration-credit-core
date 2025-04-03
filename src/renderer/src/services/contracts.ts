@@ -42,6 +42,27 @@ export const sequoiaSupporterPoolAddress = '0x8e2cf67005Cc5F0ad7B470BD038f7B0fc3
 export const sequoiaInspectionAddress = '0xC2d9b310a7BC64bc0Fba5A10c1d93635a4aA90C4'
 export const sequoiaInvitationAddress = '0x74F92a6e87e68B82e84D902b2a9659fb1AfA3893'
 
+// future mainnet
+export const rcAddress = '0xB795F59fd970c5272dca65455306030EA08184d7'
+export const rcImpactAddress = '0xB800124b6C91c17FD63706B1f7ebF0d6AEc9031A'
+export const userAddress = '0x4EF987b3c58A1E1077c723CF87811f3b015Ea5E6'
+export const regeneratorAddress = '0xAE4D3f9D7698B1964Ae186bb444fD96ad8d7Cd6e'
+export const regeneratorPoolAddress = '0x6D95bbeef2c53EdDC4dbD47fbc6249F40E621822'
+export const inspectorAddress = '0xCDA37909e2CF5A5D8E7a5B0c2d6BBB99feE26404'
+export const inspectorPoolAddress = '0x8A13E6c091ec35157c0492740108EBED8152597e'
+export const researcherAddress = '0x6741e7A944A4aedC0e52Bc11376C13d902C50Dc9'
+export const researcherPoolAddress = '0x678d6F552E826862B2F7Fb1b9e26FF81ED08bd8D'
+export const developerAddress = '0x99868e83E7fECb934FfE5B1CA7FaD76a86163c4A'
+export const developerPoolAddress = '0x2632f7b1dc0f27cb3Acd3C24f231dFc5C77292e3'
+export const contributorAddress = '0x85ce790326528f520E90DeFf1e14bA9A17A539a1'
+export const contributorPoolAddress = '0xB898f92c0010B1E8801831955CeDDa75af56Ba19'
+export const activistAddress = '0xcD641461795895D9De496a4b2f20C20E18963DC6'
+export const activistPoolAddress = '0xcCBaF746E2C754C512BDE452AeB4691c0C5055f6'
+export const supporterAddress = '0xCC0e9CfE2302A0f861aDdFb2649edEBbAFa47855'
+export const supporterPoolAddress = '0x8e2cf67005Cc5F0ad7B470BD038f7B0fc3de0b58'
+export const inspectionAddress = '0xC2d9b310a7BC64bc0Fba5A10c1d93635a4aA90C4'
+export const invitationAddress = '0x74F92a6e87e68B82e84D902b2a9659fb1AfA3893'
+
 //Abis contracts
 /////////////////// testnet
 export const sequoiaRcAbi = SequoiaRcTokenContract.abi
@@ -63,6 +84,27 @@ export const sequoiaSupporterAbi = SequoiaSupporterContract.abi
 export const sequoiaSupporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
 export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
+
+/////////////////// future mainnet
+export const rcAbi = SequoiaRcTokenContract.abi
+export const rcImpactAbi = SequoiaRcImpactContract.abi
+export const userAbi = SequoiaUserContract.abi
+export const regeneratorAbi = SequoiaRegeneratorContract.abi
+export const regeneratorPoolAbi = SequoiaRegeneratorPoolContract.abi
+export const inspectorAbi = SequoiaInspectorContract.abi
+export const inspectorPoolAbi = SequoiaInspectorPoolContract.abi
+export const researcherAbi = SequoiaResearcherContract.abi
+export const researcherPoolAbi = SequoiaResearcherPoolContract.abi
+export const developerAbi = SequoiaDeveloperContract.abi
+export const developerPoolAbi = SequoiaDeveloperPoolContract.abi
+export const contributorAbi = SequoiaContributorContract.abi
+export const contributorPoolAbi = SequoiaContributorPoolContract.abi
+export const activistAbi = SequoiaActivistContract.abi
+export const activistPoolAbi = SequoiaActivistPoolContract.abi
+export const supporterAbi = SequoiaSupporterContract.abi
+export const supporterPoolAbi = SequoiaSupporterPoolContract.abi
+export const inspectionAbi = SequoiaInspectionContract.abi
+export const invitationAbi = SequoiaInvitationContract.abi
 
 export const contractsSequoia: ContractListProps[] = [
   {

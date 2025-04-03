@@ -41,10 +41,10 @@ export function DeveloperRegistration({ name, invitation, availableVacancie }: P
       return
     }
 
-    if (!availableVacancie) {
-      setDisableBtnRegister(true)
-      return
-    }
+    // if (!availableVacancie) {
+    //   setDisableBtnRegister(true)
+    //   return
+    // }
 
     setDisableBtnRegister(false)
   }
