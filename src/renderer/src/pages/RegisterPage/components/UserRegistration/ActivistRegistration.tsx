@@ -6,6 +6,7 @@ import { sequoiaActivistAbi, sequoiaActivistAddress } from '@renderer/services/c
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { WriteContractErrorType } from 'viem'
+import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 
 interface Props {
   name: string
@@ -16,6 +17,7 @@ interface Props {
 export function ActivistRegistration({ name, invitation, availableVacancie }: Props): JSX.Element {
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
+  const [uploadingImage, setUploadingImage] = useState(false)
 
   const chainId = useChainId()
   const { writeContract, data: hash, isPending, error } = useWriteContract()
@@ -49,14 +51,29 @@ export function ActivistRegistration({ name, invitation, availableVacancie }: Pr
     setDisableBtnRegister(false)
   }
 
-  function handleRegister(): void {
-    if (isLoading || isPending) return
+  async function uploadProofPhoto(): Promise<string> {
+    setUploadingImage(true)
+    const blobImage = base64ToBlob(proofPhoto)
+    const response = await uploadToIpfs({ file: blobImage })
+    setUploadingImage(false)
+    return response.hash
+  }
+
+  async function handleRegister(): Promise<void> {
+    if (isLoading || isPending || uploadingImage) return
+
+    const hashProofPhoto = await uploadProofPhoto()
+
+    if (hashProofPhoto === '') {
+      alert('error on upload proof photo')
+      return
+    }
 
     writeContract({
       address: chainId === 1600 ? sequoiaActivistAddress : sequoiaActivistAddress,
       abi: chainId === 1600 ? sequoiaActivistAbi : sequoiaActivistAbi,
       functionName: 'addActivist',
-      args: [name, 'hashProofphoto']
+      args: [name, hashProofPhoto]
     })
   }
 
