@@ -89,6 +89,7 @@ export function DeveloperRegistration({ name, invitation, availableVacancie }: P
         isPending={isPending}
         isSuccess={isSuccess}
         error={error as WriteContractErrorType}
+        uploadingImage={uploadingImage}
       />
     </div>
   )

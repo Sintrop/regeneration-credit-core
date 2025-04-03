@@ -249,6 +249,7 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
         isPending={isPending}
         isSuccess={isSuccess}
         error={error as WriteContractErrorType}
+        uploadingImage={uploadingImage}
       />
     </div>
   )

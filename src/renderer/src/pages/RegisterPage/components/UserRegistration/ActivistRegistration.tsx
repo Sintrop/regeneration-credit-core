@@ -89,6 +89,7 @@ export function ActivistRegistration({ name, invitation, availableVacancie }: Pr
         isPending={isPending}
         isSuccess={isSuccess}
         error={error as WriteContractErrorType}
+        uploadingImage={uploadingImage}
       />
     </div>
   )

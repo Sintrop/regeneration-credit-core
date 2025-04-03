@@ -9,6 +9,7 @@ interface Props {
   isSuccess?: boolean
   hash?: string
   error?: WriteContractErrorType
+  uploadingImage?: boolean
 }
 
 export function ConfirmButton({
@@ -18,18 +19,23 @@ export function ConfirmButton({
   isPending,
   hash,
   error,
-  isSuccess
+  isSuccess,
+  uploadingImage
 }: Props): JSX.Element {
   const { t } = useTranslation()
 
   return (
     <div className="flex flex-col">
       <button
-        className={`bg-green-btn rounded-2xl px-10 h-10 text-white font-semibold mt-10 w-fit hover:cursor-pointer ${btnDisabled ? 'opacity-50' : 'opacity-100'}`}
+        className={`bg-green-btn rounded-2xl px-10 h-10 text-white mt-10 w-fit hover:cursor-pointer ${btnDisabled ? 'opacity-50' : 'opacity-100'}`}
         onClick={handleRegister}
-        disabled={btnDisabled || isPending || isLoading}
+        disabled={btnDisabled || isPending || isLoading || uploadingImage}
       >
-        {isPending ? t('confirmInYourWallet') : t('register')}
+        {uploadingImage
+          ? t('uploadingProofPhoto')
+          : isPending
+            ? t('confirmInYourWallet...')
+            : t('register')}
       </button>
 
       {hash && (

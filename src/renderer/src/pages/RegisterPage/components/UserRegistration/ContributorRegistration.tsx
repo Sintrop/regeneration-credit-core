@@ -93,6 +93,7 @@ export function ContributorRegistration({
         isPending={isPending}
         isSuccess={isSuccess}
         error={error as WriteContractErrorType}
+        uploadingImage={uploadingImage}
       />
     </div>
   )

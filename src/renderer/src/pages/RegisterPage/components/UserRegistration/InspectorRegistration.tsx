@@ -89,6 +89,7 @@ export function InspectorRegistration({ name, invitation, availableVacancie }: P
         isPending={isPending}
         isSuccess={isSuccess}
         error={error as WriteContractErrorType}
+        uploadingImage={uploadingImage}
       />
     </div>
   )
