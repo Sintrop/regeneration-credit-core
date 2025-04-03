@@ -87,16 +87,30 @@ export function TokenImpact(): JSX.Element {
     totalTreesImpact = parseFloat(formatUnits(BigInt(_totalTreesImpact), 0))
 
     const _treesPerToken = data[4].status === 'success' ? (data[4]?.result as string) : '0'
-    treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 32))
+    treesPerToken = parseFloat(
+      formatUnits(BigInt(_treesPerToken), _treesPerToken.length > 32 ? 32 : _treesPerToken.length)
+    )
 
     const _carbonPerToken = data[5].status === 'success' ? (data[5]?.result as string) : '0'
-    carbonPerToken = parseFloat(formatUnits(BigInt(_carbonPerToken), 32))
+    carbonPerToken = parseFloat(
+      formatUnits(
+        BigInt(_carbonPerToken),
+        _carbonPerToken.length > 32 ? 32 : _carbonPerToken.length
+      )
+    )
 
     const _soilPerToken = data[6].status === 'success' ? (data[6]?.result as string) : '0'
-    soilPerToken = parseFloat(formatUnits(BigInt(_soilPerToken), 32))
+    soilPerToken = parseFloat(
+      formatUnits(BigInt(_soilPerToken), _soilPerToken.length > 32 ? 32 : _soilPerToken.length)
+    )
 
     const _biodiversityPerToken = data[7].status === 'success' ? (data[7]?.result as string) : '0'
-    biodiversityPerToken = parseFloat(formatUnits(BigInt(_biodiversityPerToken), 32))
+    biodiversityPerToken = parseFloat(
+      formatUnits(
+        BigInt(_biodiversityPerToken),
+        _biodiversityPerToken.length > 32 ? 32 : _biodiversityPerToken.length
+      )
+    )
   }
 
   return (
