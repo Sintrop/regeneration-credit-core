@@ -71,6 +71,10 @@ export function checkVacancies(props: CheckVacanciesProps): ReturnCheckVacancies
     }
   }
 
+  if (userTypeCount <= 5) {
+    availableVacancie = true
+  }
+
   return {
     availableVacancie,
     ammount: ammountVacancies
