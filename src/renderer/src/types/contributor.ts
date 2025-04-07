@@ -9,3 +9,12 @@ export interface ContributorProps {
   }
   createdAt: number
 }
+export interface ContributionProps {
+  id: number
+  era: number
+  user: string
+  level: string
+  description: string
+  report: string
+  createdAtBlockNumber: number
+}
