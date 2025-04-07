@@ -25,3 +25,12 @@ export interface ResearchProps {
   invalidatedAt: number
   createdAtBlock: number
 }
+
+export interface CalculatorItemProps {
+  id: number
+  createdBy: string
+  title: string
+  unit: string
+  justification: string
+  carbonImpact: number
+}

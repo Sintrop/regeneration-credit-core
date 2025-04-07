@@ -24,6 +24,13 @@ export function ResearchesPage(): JSX.Element {
           onChange={setSelectedTab}
           isSelected={selectedTab === 'researchers'}
         />
+
+        <TabItem
+          label={t('calculatorItems')}
+          value="calculatorItems"
+          onChange={setSelectedTab}
+          isSelected={selectedTab === 'calculatorItems'}
+        />
       </div>
 
       <div className="flex flex-col">
