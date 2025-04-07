@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useTranslation } from 'react-i18next'
 import { WebCam } from '@renderer/components/WebCam/WebCam'
+import { ChangeEvent } from 'react'
 
 interface Props {
   proofPhoto: string
@@ -15,6 +16,20 @@ export function ProofPhoto({ proofPhoto, onChange }: Props): JSX.Element {
     if (inputFile) inputFile.click()
   }
 
+  function selectedImageFromBrowser(e: ChangeEvent<HTMLInputElement>): void {
+    if (!e.target.files) return
+
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = (): void => {
+      onChange(reader.result as string)
+    }
+    reader.onerror = (): void => {
+      console.log('error on transforming image to base64')
+    }
+  }
+
   function handleChangeProofPhoto(base64: string | ImageData): void {
     onChange(base64 as string)
   }
@@ -25,7 +40,7 @@ export function ProofPhoto({ proofPhoto, onChange }: Props): JSX.Element {
       <input
         id="input-file"
         type="file"
-        onChange={(e) => console.log(e.target.files)}
+        onChange={selectedImageFromBrowser}
         className="hidden"
         accept="image/*"
       />

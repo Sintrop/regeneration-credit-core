@@ -11,6 +11,7 @@ import { calculateArea } from '@renderer/services/calculateArea'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { WriteContractErrorType } from 'viem'
+import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
@@ -27,6 +28,7 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
   const markersRef = useRef<mapboxgl.Marker[]>([])
   const [coordinates, setCoordinates] = useState<{ longitude: number; latitude: number }[]>([])
   const [totalArea, setTotalArea] = useState(0)
+  const [uploadingImage, setUploadingImage] = useState(false)
 
   const chainId = useChainId()
   const { writeContract, data: hash, isPending, error } = useWriteContract()
@@ -167,14 +169,29 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
     setDisableBtnRegister(false)
   }
 
-  function handleRegister(): void {
-    if (isLoading || isPending) return
+  async function uploadProofPhoto(): Promise<string> {
+    setUploadingImage(true)
+    const blobImage = base64ToBlob(proofPhoto)
+    const response = await uploadToIpfs({ file: blobImage })
+    setUploadingImage(false)
+    return response.hash
+  }
+
+  async function handleRegister(): Promise<void> {
+    if (isLoading || isPending || uploadingImage) return
+
+    const hashProofPhoto = await uploadProofPhoto()
+
+    if (hashProofPhoto === '') {
+      alert('error on upload proof photo')
+      return
+    }
 
     writeContract({
       address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
       abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
       functionName: 'addRegenerator',
-      args: [totalArea, name, 'hashProofphoto', coordinates]
+      args: [totalArea, name, hashProofPhoto, coordinates]
     })
   }
 
@@ -232,6 +249,7 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
         isPending={isPending}
         isSuccess={isSuccess}
         error={error as WriteContractErrorType}
+        uploadingImage={uploadingImage}
       />
     </div>
   )

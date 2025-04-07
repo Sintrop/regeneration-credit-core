@@ -10,6 +10,8 @@ interface Props {
 export function LatestTokensTxs({ txs, loading }: Props): JSX.Element {
   const { t } = useTranslation()
 
+  return <div />
+
   return (
     <section className="bg-container-primary rounded-2xl flex flex-col overflow-hidden">
       <div className="w-full px-5 pb-1 pt-2 bg-container-secondary">

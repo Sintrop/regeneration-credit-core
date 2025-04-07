@@ -5,6 +5,7 @@ import { Stats } from './components/Stats/Stats'
 import { TransactionWeb3Props } from '@renderer/types/transaction'
 import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
+import { LatestPublications } from './components/LatestPublications/LatestPublications'
 
 export function HomePage(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -30,6 +31,10 @@ export function HomePage(): JSX.Element {
       <div className="w-full flex flex-col gap-10">
         <section className="w-full p-3">
           <Stats />
+        </section>
+
+        <section className="max-w-[500px] p-3">
+          <LatestPublications />
         </section>
 
         <section className="w-full p-3">
