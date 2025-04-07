@@ -14,13 +14,13 @@ export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
     <>
       <Header />
 
-      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex w-screen h-screen overflow-y-auto">
+      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex w-screen h-screen">
         <SideMenu />
 
         <div className="flex flex-col pt-20 pl-[300px] w-full">
           <InfoBar />
 
-          <div className="flex flex-col gap-10 mt-10 pl-5 w-full pr-5">
+          <div className="flex flex-col gap-10 pt-10 pl-5 w-full pr-5 overflow-y-auto">
             <PageTitle title={pageTitle} />
             {children}
           </div>
