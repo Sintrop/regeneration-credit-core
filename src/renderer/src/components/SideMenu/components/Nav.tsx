@@ -13,6 +13,7 @@ export function Nav(): JSX.Element {
       <NavItem label="development" path="/development" />
       <NavItem label="contributions" path="/contributions" />
       <NavItem label="researches" path="/researches" />
+      <NavItem label="community" path="/community" />
     </nav>
   )
 }
