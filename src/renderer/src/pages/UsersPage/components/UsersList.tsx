@@ -1,3 +1,4 @@
+import { Contributors } from './Contributors/Contributors'
 import { Developers } from './Developers/Developers'
 import { Inspectors } from './Inspectors/Inspectors'
 import { Regenerators } from './Regenerators/Regenerators'
@@ -18,7 +19,8 @@ const userTypeToList = {
   1: Regenerators,
   2: Inspectors,
   3: Researchers,
-  4: Developers
+  4: Developers,
+  5: Contributors
 }
 
 type UserTypeToListType = keyof typeof userTypeToList
