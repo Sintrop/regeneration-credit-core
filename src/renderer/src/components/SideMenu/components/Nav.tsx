@@ -9,8 +9,9 @@ export function Nav(): JSX.Element {
       <NavItem label="pools" path="/pools" />
       <NavItem label="inspections" path="/inspections" />
       <NavItem label="myTokens" path="/my-tokens" />
-      <NavItem label="development" path="/development" />
       <NavItem label="rcStats" path="/rcstats" />
+      <NavItem label="development" path="/development" />
+      <NavItem label="contributions" path="/contributions" />
     </nav>
   )
 }
