@@ -1,6 +1,6 @@
 export interface RegeneratorProps {
   id: number
-  producerWallet: string
+  regeneratorWallet: string
   name: string
   proofPhoto: string
   pendingInspection: boolean
@@ -10,7 +10,6 @@ export interface RegeneratorProps {
   regenerationScore: {
     score: number
     average: number
-    sustainable: boolean
   }
   pool: {
     onContractPool: boolean

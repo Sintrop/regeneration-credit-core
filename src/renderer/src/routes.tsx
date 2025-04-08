@@ -17,6 +17,7 @@ import { RcStatsPage } from './pages/RcStatsPage/RcStatsPage'
 import { ContributionsPage } from './pages/ContributionsPage/ContributionsPage'
 import { ResearchesPage } from './pages/ResearchesPage/ResearchesPage'
 import { CommunityPage } from './pages/CommunityPage/CommunityPage'
+import { UsersPage } from './pages/UsersPage/UsersPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -38,6 +39,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/contributions" element={<ContributionsPage />} />
         <Route path="/researches" element={<ResearchesPage />} />
         <Route path="/community" element={<CommunityPage />} />
+        <Route path="/users/:userType" element={<UsersPage />} />
       </Routes>
     </Router>
   )
