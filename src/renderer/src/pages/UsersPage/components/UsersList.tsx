@@ -1,5 +1,6 @@
 import { Inspectors } from './Inspectors/Inspectors'
 import { Regenerators } from './Regenerators/Regenerators'
+import { Researchers } from './Researchers/Researchers'
 
 interface Props {
   userType: number
@@ -14,7 +15,8 @@ export function UsersList({ idsList, userType }: Props): JSX.Element {
 
 const userTypeToList = {
   1: Regenerators,
-  2: Inspectors
+  2: Inspectors,
+  3: Researchers
 }
 
 type UserTypeToListType = keyof typeof userTypeToList
