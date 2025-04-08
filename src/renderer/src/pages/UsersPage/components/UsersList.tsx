@@ -4,6 +4,7 @@ import { Developers } from './Developers/Developers'
 import { Inspectors } from './Inspectors/Inspectors'
 import { Regenerators } from './Regenerators/Regenerators'
 import { Researchers } from './Researchers/Researchers'
+import { Supporters } from './Supporters/Supporters'
 
 interface Props {
   userType: number
@@ -22,7 +23,8 @@ const userTypeToList = {
   3: Researchers,
   4: Developers,
   5: Contributors,
-  6: Activists
+  6: Activists,
+  7: Supporters
 }
 
 type UserTypeToListType = keyof typeof userTypeToList
