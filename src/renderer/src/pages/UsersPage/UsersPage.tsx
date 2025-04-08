@@ -26,12 +26,10 @@ export function UsersPage(): JSX.Element {
     args: [userType]
   })
 
-  //let usersCount: number = 0
   let usersIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    //usersCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     usersIds = ids.reverse()

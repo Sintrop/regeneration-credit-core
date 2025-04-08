@@ -1,17 +1,17 @@
 import { useTranslation } from 'react-i18next'
-import { RegeneratorItem } from './RegeneratorItem'
+import { InspectorItem } from './InspectorItem'
 
 interface Props {
   idsList: number[]
 }
 
-export function Regenerators({ idsList }: Props): JSX.Element {
+export function Inspectors({ idsList }: Props): JSX.Element {
   const { t } = useTranslation()
 
   return (
     <div className="flex flex-col">
       <p className="text-white">
-        {t('regeneratorsCount')}: {idsList.length}
+        {t('inspectorsCount')}: {idsList.length}
       </p>
       <div className="flex flex-col overflow-x-auto bg-container-primary rounded-2xl">
         <div className="flex items-center px-5 h-10 border-b-2 border-container-secondary">
@@ -36,7 +36,7 @@ export function Regenerators({ idsList }: Props): JSX.Element {
           </div>
 
           <div className="border-r border-container-secondary min-w-[100px] pl-5">
-            <p className="text-white font-semibold">{t('score')}</p>
+            <p className="text-white font-semibold">{t('level')}</p>
           </div>
 
           <div className="border-r border-container-secondary min-w-[120px] pl-5">
@@ -46,12 +46,12 @@ export function Regenerators({ idsList }: Props): JSX.Element {
 
         {idsList.length === 0 ? (
           <div className="flex flex-col mt-10 items-center">
-            <p className="text-white">{t('anyRegeneratorRegistered')}</p>
+            <p className="text-white">{t('anyInspectorsRegistered')}</p>
           </div>
         ) : (
           <>
             {idsList.map((id, index) => (
-              <RegeneratorItem key={index} id={id} />
+              <InspectorItem key={index} id={id} />
             ))}
           </>
         )}
