@@ -12,3 +12,25 @@ export interface ResearcherProps {
   }
   createdAt: number
 }
+
+export interface ResearchProps {
+  id: number
+  era: number
+  createdBy: string
+  title: string
+  thesis: string
+  file: string
+  validationsCount: number
+  valid: boolean
+  invalidatedAt: number
+  createdAtBlock: number
+}
+
+export interface CalculatorItemProps {
+  id: number
+  createdBy: string
+  title: string
+  unit: string
+  justification: string
+  carbonImpact: number
+}

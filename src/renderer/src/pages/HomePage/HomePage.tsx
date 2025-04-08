@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { LatestTransactions } from './components/LatestTransactions/LatestTransactions'
 import { LatestTokensTxs } from './components/LatestTokensTxs/LatestTokensTxs'
-import { Stats } from './components/Stats/Stats'
 import { TransactionWeb3Props } from '@renderer/types/transaction'
 import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
@@ -29,10 +28,6 @@ export function HomePage(): JSX.Element {
   return (
     <ScreenPage pageTitle="dashboard">
       <div className="w-full flex flex-col gap-10">
-        <section className="w-full p-3">
-          <Stats />
-        </section>
-
         <section className="max-w-[500px] p-3">
           <LatestPublications />
         </section>

@@ -15,6 +15,7 @@ import { RegisterPage } from './pages/RegisterPage/RegisterPage'
 import { DevelopmentPage } from './pages/DevelopmentPage/DevelopmentPage'
 import { RcStatsPage } from './pages/RcStatsPage/RcStatsPage'
 import { ContributionsPage } from './pages/ContributionsPage/ContributionsPage'
+import { ResearchesPage } from './pages/ResearchesPage/ResearchesPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -34,6 +35,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/development" element={<DevelopmentPage />} />
         <Route path="/rcstats" element={<RcStatsPage />} />
         <Route path="/contributions" element={<ContributionsPage />} />
+        <Route path="/researches" element={<ResearchesPage />} />
       </Routes>
     </Router>
   )
