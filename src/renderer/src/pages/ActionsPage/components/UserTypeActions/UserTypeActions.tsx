@@ -7,6 +7,7 @@ import {
   userAddress
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
+import { InspectorActions } from './InspectorActions'
 
 export function UserTypeActions(): JSX.Element {
   const chainId = useChainId()
@@ -34,5 +35,6 @@ export function UserTypeActions(): JSX.Element {
 }
 
 const userTypeActions = {
-  1: RegeneratorActions
+  1: RegeneratorActions,
+  2: InspectorActions
 }
