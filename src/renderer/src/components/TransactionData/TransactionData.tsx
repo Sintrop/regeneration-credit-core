@@ -1,16 +1,15 @@
 import { useTranslation } from 'react-i18next'
+import { WriteContractErrorType } from 'viem'
 
 interface Props {
   hash?: string
   isLoading?: boolean
   isPending?: boolean
   isSuccess?: boolean
-  error?: boolean
-  errorMessage?: string
+  errorTx: WriteContractErrorType | null
 }
 export function TransactionData({
-  error,
-  errorMessage,
+  errorTx,
   hash,
   isLoading,
   isPending,
@@ -29,7 +28,7 @@ export function TransactionData({
 
       {isLoading && <div className="w-5 h-5 bg-green-btn animate-spin" />}
 
-      {error && <p className="text-red-500">{errorMessage}</p>}
+      {errorTx && <p className="text-red-500">{errorTx?.message}</p>}
 
       {isSuccess && <p className="text-green-500">{t('successTransaction')}</p>}
     </div>

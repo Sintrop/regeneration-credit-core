@@ -7,7 +7,7 @@ import {
 } from 'wagmi'
 import { rcAbi, sequoiaRcAbi, rcAddress, sequoiaRcAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { formatUnits, parseEther } from 'viem'
+import { formatUnits, parseEther, WriteContractErrorType } from 'viem'
 import { useState } from 'react'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
@@ -67,8 +67,7 @@ export function BurnTokens(): JSX.Element {
         isLoading={isLoading}
         isPending={isPending}
         isSuccess={isSuccess}
-        error={error ? true : false}
-        errorMessage={error ? error.message : undefined}
+        errorTx={error as WriteContractErrorType}
       />
     </div>
   )

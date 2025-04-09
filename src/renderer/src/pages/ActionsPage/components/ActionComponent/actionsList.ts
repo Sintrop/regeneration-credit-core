@@ -1,3 +1,4 @@
+import { AddDelation } from './actions/AddDelation'
 import { BurnTokens } from './actions/BurnTokens'
 import { Invite } from './actions/Invite'
 
@@ -11,6 +12,11 @@ export const actionsList = {
     name: 'invite',
     description: 'shortDescriptionInvite',
     component: Invite
+  },
+  addDelation: {
+    name: 'addDelation',
+    description: 'shortDescriptionAddDelation',
+    component: AddDelation
   }
 }
 

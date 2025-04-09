@@ -9,6 +9,7 @@ export function GeneralActions(): JSX.Element {
       <p className="text-white">{t('generalActions')}</p>
       <ActionComponent actionName="burnTokens" />
       <ActionComponent actionName="invite" />
+      <ActionComponent actionName="addDelation" />
     </div>
   )
 }

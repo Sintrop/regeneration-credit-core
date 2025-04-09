@@ -1,9 +1,9 @@
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import {
-  sequoiaInvitationAddress,
-  invitationAddress,
-  invitationAbi,
-  sequoiaInvitationAbi
+  userAddress,
+  userAbi,
+  sequoiaUserAbi,
+  sequoiaUserAddress
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
@@ -11,27 +11,28 @@ import { SendTransactionButton } from '../../SendTransactionButton/SendTransacti
 import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { WriteContractErrorType } from 'viem'
 
-export function Invite(): JSX.Element {
+export function AddDelation(): JSX.Element {
   const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
-  const [userTypeInvite, setUserTypeInvite] = useState('1')
+  const [inputTitle, setInputTitle] = useState('')
+  const [inputTestimony, setInputTestimony] = useState('')
 
   const { writeContract, isPending, data: hash, error } = useWriteContract()
   const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
 
   function handleSendTransaction(): void {
     writeContract({
-      address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,
-      abi: chainId === 250225 ? invitationAbi : sequoiaInvitationAbi,
-      functionName: 'invite',
-      args: [inputAddress, parseInt(userTypeInvite)]
+      address: chainId === 250225 ? userAddress : sequoiaUserAddress,
+      abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+      functionName: 'addDelation',
+      args: [inputAddress, inputTitle, inputTestimony]
     })
   }
 
   return (
     <div className="flex flex-col pt-5">
-      <p className="text-sm mt-3 text-gray-300">{t('whoDoYouWantToInvite')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('whoDoYouWantToReport')}:</p>
       <input
         value={inputAddress}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
@@ -39,25 +40,26 @@ export function Invite(): JSX.Element {
         onChange={(e) => setInputAddress(e.target.value)}
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('whatUserType')}:</p>
-      <select
-        value={userTypeInvite}
-        onChange={(e) => setUserTypeInvite(e.target.value)}
+      <p className="text-sm mt-3 text-gray-300">{t('reportTitle')}:</p>
+      <input
+        value={inputTitle}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-      >
-        <option value={1}>{t('regenerator')}</option>
-        <option value={2}>{t('inspector')}</option>
-        <option value={3}>{t('researcher')}</option>
-        <option value={4}>{t('developer')}</option>
-        <option value={5}>{t('contributor')}</option>
-        <option value={6}>{t('activist')}</option>
-        <option value={7}>{t('supporter')}</option>
-      </select>
+        placeholder={t('typeHere')}
+        onChange={(e) => setInputTitle(e.target.value)}
+      />
+
+      <p className="text-sm mt-3 text-gray-300">{t('reportTestimony')}:</p>
+      <input
+        value={inputTestimony}
+        className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
+        placeholder={t('typeHere')}
+        onChange={(e) => setInputTestimony(e.target.value)}
+      />
 
       <SendTransactionButton
-        label={t('invite')}
+        label={t('report')}
         handleSendTransaction={handleSendTransaction}
-        disabled={!inputAddress.trim() || isPending}
+        disabled={!inputAddress.trim() || !inputTestimony.trim() || !inputTitle.trim() || isPending}
       />
 
       <TransactionData
