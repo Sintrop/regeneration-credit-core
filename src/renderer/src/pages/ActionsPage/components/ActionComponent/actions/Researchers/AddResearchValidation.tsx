@@ -3,9 +3,9 @@ import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { WriteContractErrorType } from 'viem'
 import { useState } from 'react'
-import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
+import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
-import { ActionContractProps } from '../ActionComponent'
+import { ActionContractProps } from '../../ActionComponent'
 
 export function AddResearchValidation({ abi, addressContract }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()

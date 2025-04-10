@@ -9,6 +9,7 @@ import {
 import { formatUnits } from 'viem'
 import { InspectorActions } from './InspectorActions'
 import { ResearcherActions } from './ResearcherActions'
+import { DeveloperActions } from './DeveloperActions'
 
 export function UserTypeActions(): JSX.Element {
   const chainId = useChainId()
@@ -38,5 +39,6 @@ export function UserTypeActions(): JSX.Element {
 const userTypeActions = {
   1: RegeneratorActions,
   2: InspectorActions,
-  3: ResearcherActions
+  3: ResearcherActions,
+  4: DeveloperActions
 }
