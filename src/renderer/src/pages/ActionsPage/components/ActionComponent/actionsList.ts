@@ -1,3 +1,4 @@
+import { AcceptInspection } from './actions/AcceptInspection'
 import { AddDelation } from './actions/AddDelation'
 import { BurnTokens } from './actions/BurnTokens'
 import { Invite } from './actions/Invite'
@@ -29,6 +30,11 @@ export const actionsList = {
     name: 'requestInspection',
     description: 'shortDescriptionRequestInspection',
     component: RequestInspection
+  },
+  acceptInspection: {
+    name: 'acceptInspection',
+    description: 'shortDescriptionAcceptInspection',
+    component: AcceptInspection
   }
 }
 

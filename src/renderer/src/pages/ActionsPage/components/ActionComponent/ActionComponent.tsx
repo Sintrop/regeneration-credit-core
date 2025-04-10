@@ -3,6 +3,11 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { actionsList, ActionsNameType } from './actionsList'
 import { Abi } from 'viem'
 
+export interface ActionContractProps {
+  addressContract?: string
+  abi?: Abi
+}
+
 interface Props {
   actionName: ActionsNameType
   addressContract?: string

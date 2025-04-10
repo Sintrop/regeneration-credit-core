@@ -1,8 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { MethodItem } from '@renderer/pages/ContractPage/components/MethodItem/MethodItem'
 import {
-  contractsMainnet,
-  contractsSequoia,
   inspectionAbi,
   inspectionAddress,
   sequoiaInspectionAbi,
@@ -14,57 +10,36 @@ import {
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useChainId } from 'wagmi'
+import { ActionComponent } from '../ActionComponent/ActionComponent'
+import { Abi } from 'viem'
 
 export function InspectorActions(): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
-  const inspectorContract =
-    chainId === 250225
-      ? contractsMainnet.find((contract) => contract.address === inspectorAddress)
-      : contractsSequoia.find((contract) => contract.address === sequoiaInspectorAddress)
+  const inspectorContractAddressToUse =
+    chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress
   const inspectorAbiToUse = chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi
-  const withdrawMethod = inspectorAbiToUse.find((method) => method.name === 'withdraw')
 
-  const inspectionContract =
-    chainId === 250225
-      ? contractsMainnet.find((contract) => contract.address === inspectionAddress)
-      : contractsSequoia.find((contract) => contract.address === sequoiaInspectionAddress)
+  const inspectionContractAddressToUse =
+    chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress
   const inspectionAbiToUse = chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi
-  const acceptInspectionMethod = inspectionAbiToUse.find(
-    (method) => method.name === 'acceptInspection'
-  )
-  const realizeInspectionMethod = inspectionAbiToUse.find(
-    (method) => method.name === 'realizeInspection'
-  )
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('regeneratorActions')}</p>
+      <p className="text-white">{t('inspectorActions')}</p>
 
-      {inspectorContract && (
-        <MethodItem
-          contract={inspectorContract}
-          //@ts-ignore
-          method={withdrawMethod}
-        />
-      )}
+      <ActionComponent
+        actionName="withdraw"
+        addressContract={inspectorContractAddressToUse}
+        abi={inspectorAbiToUse as Abi}
+      />
 
-      {inspectionContract && (
-        <>
-          <MethodItem
-            contract={inspectionContract}
-            //@ts-ignore
-            method={acceptInspectionMethod}
-          />
-
-          <MethodItem
-            contract={inspectionContract}
-            //@ts-ignore
-            method={realizeInspectionMethod}
-          />
-        </>
-      )}
+      <ActionComponent
+        actionName="acceptInspection"
+        addressContract={inspectionContractAddressToUse}
+        abi={inspectionAbiToUse as Abi}
+      />
     </div>
   )
 }
