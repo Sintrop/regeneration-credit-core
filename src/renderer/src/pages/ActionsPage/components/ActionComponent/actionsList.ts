@@ -1,6 +1,8 @@
 import { AddDelation } from './actions/AddDelation'
 import { BurnTokens } from './actions/BurnTokens'
 import { Invite } from './actions/Invite'
+import { RequestInspection } from './actions/RequestInspection'
+import { Withdraw } from './actions/Withdraw'
 
 export const actionsList = {
   burnTokens: {
@@ -17,6 +19,16 @@ export const actionsList = {
     name: 'addDelation',
     description: 'shortDescriptionAddDelation',
     component: AddDelation
+  },
+  withdraw: {
+    name: 'withdraw',
+    description: 'shortDescriptionWithdraw',
+    component: Withdraw
+  },
+  requestInspection: {
+    name: 'requestInspection',
+    description: 'shortDescriptionRequestInspection',
+    component: RequestInspection
   }
 }
 

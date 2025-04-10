@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { actionsList, ActionsNameType } from './actionsList'
+import { Abi } from 'viem'
 
 interface Props {
   actionName: ActionsNameType
+  addressContract?: string
+  abi?: Abi
 }
-export function ActionComponent({ actionName }: Props): JSX.Element {
+export function ActionComponent({ actionName, addressContract, abi }: Props): JSX.Element {
   const [openAction, setOpenAction] = useState(false)
   const Action = actionsList[actionName]
 
@@ -26,7 +29,7 @@ export function ActionComponent({ actionName }: Props): JSX.Element {
         {openAction ? <FaChevronUp color="white" /> : <FaChevronDown color="white" />}
       </button>
 
-      {openAction && <Action.component />}
+      {openAction && <Action.component addressContract={addressContract} abi={abi} />}
     </div>
   )
 }
