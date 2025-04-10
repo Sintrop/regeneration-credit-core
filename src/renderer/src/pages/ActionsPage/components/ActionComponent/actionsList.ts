@@ -1,4 +1,5 @@
 import { AcceptInspection } from './actions/AcceptInspection'
+import { AddCalculatorItem } from './actions/AddCalculatorItem'
 import { AddDelation } from './actions/AddDelation'
 import { AddResearch } from './actions/AddResearch'
 import { AddResearchValidation } from './actions/AddResearchValidation'
@@ -47,6 +48,11 @@ export const actionsList = {
     name: 'addResearchValidation',
     description: 'shortDescriptionaddResearchValidation',
     component: AddResearchValidation
+  },
+  addCalculatorItem: {
+    name: 'addCalculatorItem',
+    description: 'shortDescriptionaddCalculatorItem',
+    component: AddCalculatorItem
   }
 }
 

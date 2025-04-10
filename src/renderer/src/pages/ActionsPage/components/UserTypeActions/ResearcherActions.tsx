@@ -38,6 +38,12 @@ export function ResearcherActions(): JSX.Element {
         addressContract={researcherContractAddressToUse}
         abi={researcherAbiToUse as Abi}
       />
+
+      <ActionComponent
+        actionName="addCalculatorItem"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+      />
     </div>
   )
 }
