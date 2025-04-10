@@ -7,7 +7,7 @@ export function PoolsPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t('pools')}>
-      <div className="flex flex-wrap gap-10">
+      <div className="flex flex-col gap-5 mb-10">
         <PoolItem poolName="regenerator" />
         <PoolItem poolName="inspector" />
         <PoolItem poolName="researcher" />
