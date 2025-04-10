@@ -11,6 +11,7 @@ import { InspectorActions } from './InspectorActions'
 import { ResearcherActions } from './ResearcherActions'
 import { DeveloperActions } from './DeveloperActions'
 import { ContributorActions } from './ContributorActions'
+import { ActivistActions } from './ActivistActions'
 
 export function UserTypeActions(): JSX.Element {
   const chainId = useChainId()
@@ -42,5 +43,6 @@ const userTypeActions = {
   2: InspectorActions,
   3: ResearcherActions,
   4: DeveloperActions,
-  5: ContributorActions
+  5: ContributorActions,
+  6: ActivistActions
 }
