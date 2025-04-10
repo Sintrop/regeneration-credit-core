@@ -9,6 +9,7 @@ import { AddReportValidation } from './actions/Developers/AddReportValidation'
 import { Invite } from './actions/Invite'
 import { RequestInspection } from './actions/Producers/RequestInspection'
 import { Withdraw } from './actions/Withdraw'
+import { AddContribution } from './actions/Contributors/AddContribution'
 
 export const actionsList = {
   burnTokens: {
@@ -65,6 +66,11 @@ export const actionsList = {
     name: 'addReportValidation',
     description: 'shortDescriptionaddReportValidation',
     component: AddReportValidation
+  },
+  addContribution: {
+    name: 'addContribution',
+    description: 'shortDescriptionaddContribution',
+    component: AddContribution
   }
 }
 

@@ -19,7 +19,7 @@ export function DeveloperActions(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('researcherActions')}</p>
+      <p className="text-white">{t('developerActions')}</p>
 
       <ActionComponent
         actionName="withdraw"
