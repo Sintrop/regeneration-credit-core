@@ -23,7 +23,6 @@ export function AddResearch({ abi, addressContract }: ActionContractProps): JSX.
     if (!file) return
     setUploadingFile(true)
     const response = await uploadToIpfs({ file })
-    console.log(response.hash)
     setUploadingFile(false)
 
     if (response.success) {
