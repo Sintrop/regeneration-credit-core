@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
-import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
+import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { Abi, WriteContractErrorType } from 'viem'
 

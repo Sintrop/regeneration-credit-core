@@ -1,19 +1,20 @@
+import { Icon, IconName } from '@renderer/components/Icon/Icon'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 export function Nav(): JSX.Element {
   return (
     <nav className="flex flex-col">
-      <NavItem label="dashboard" path="/" />
-      <NavItem label="contracts" path="/contracts" />
-      <NavItem label="pools" path="/pools" />
-      <NavItem label="inspections" path="/inspections" />
-      <NavItem label="myTokens" path="/my-tokens" />
-      <NavItem label="rcStats" path="/rcstats" />
-      <NavItem label="development" path="/development" />
+      <NavItem icon="dashboard" label="dashboard" path="/" />
+      <NavItem icon="sheet" label="contracts" path="/contracts" />
+      <NavItem icon="userCircle" label="pools" path="/pools" />
+      <NavItem icon="sheetCheck" label="inspections" path="/inspections" />
+      <NavItem icon="circles" label="myTokens" path="/my-tokens" />
+      <NavItem icon="graphSquare" label="rcStats" path="/rcstats" />
+      <NavItem icon="computer" label="development" path="/development" />
       <NavItem label="contributions" path="/contributions" />
-      <NavItem label="researches" path="/researches" />
-      <NavItem label="community" path="/community" />
+      <NavItem icon="sheetSearch" label="researches" path="/researches" />
+      <NavItem icon="users" label="community" path="/community" />
       <NavItem label="actions" path="/actions" />
     </nav>
   )
@@ -22,9 +23,9 @@ export function Nav(): JSX.Element {
 interface NavItemProps {
   label: string
   path: string
-  icon?: string
+  icon?: IconName
 }
-function NavItem({ label, path }: NavItemProps): JSX.Element {
+function NavItem({ label, path, icon }: NavItemProps): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -34,10 +35,10 @@ function NavItem({ label, path }: NavItemProps): JSX.Element {
 
   return (
     <button
-      className="flex items-center gap-5 py-3 text-white font-semibold hover:cursor-pointer"
+      className="flex items-center gap-3 py-3 text-white font-semibold hover:cursor-pointer"
       onClick={handleNavigateTo}
     >
-      <div className="w-5 h-5 bg-red-500" />
+      {icon && <Icon name={icon} />}
       {t(label)}
     </button>
   )
