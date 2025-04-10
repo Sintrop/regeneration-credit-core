@@ -8,6 +8,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { InspectorActions } from './InspectorActions'
+import { ResearcherActions } from './ResearcherActions'
 
 export function UserTypeActions(): JSX.Element {
   const chainId = useChainId()
@@ -36,5 +37,6 @@ export function UserTypeActions(): JSX.Element {
 
 const userTypeActions = {
   1: RegeneratorActions,
-  2: InspectorActions
+  2: InspectorActions,
+  3: ResearcherActions
 }
