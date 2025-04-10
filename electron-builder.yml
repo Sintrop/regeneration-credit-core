@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: regeneration-credit-frontend
+productName: Regeneration Credit
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: regeneration-credit-frontend
+  executableName: regeneration-credit-setup-${version}
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
