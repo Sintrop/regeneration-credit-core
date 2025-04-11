@@ -30,7 +30,7 @@ export function PublicationContent({ description, hashImage, burnedTokens }: Pro
         <div className="flex items-center gap-1">
           <p className="text-white">
             {t('burnedTokens')}:{' '}
-            {Intl.NumberFormat('pt-BR').format(parseFloat(formatUnits(BigInt(burnedTokens), 0)))}
+            {Intl.NumberFormat('pt-BR').format(parseFloat(formatUnits(BigInt(burnedTokens), 18)))}
           </p>
 
           <img src={RcImage} alt="regeneration credit icon" className="w-5 h-5 object-contain" />
