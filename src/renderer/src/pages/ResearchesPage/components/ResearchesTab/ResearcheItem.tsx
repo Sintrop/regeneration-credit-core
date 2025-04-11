@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ResearchProps } from '@renderer/types/researcher'
+import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 
 interface Props {
   id: number
@@ -42,9 +43,7 @@ export function ResearcheItem({ id }: Props): JSX.Element {
       </div>
 
       <div className="border-r border-container-secondary w-[200px] pl-5 overflow-hidden">
-        <p className="text-white text-truncate text-ellipsis max-w-[90%]">
-          {research && research.file}
-        </p>
+        {research && <PdfHashLink hash={research?.file} />}
       </div>
 
       <div className="border-r border-container-secondary w-[120px] pl-5">
