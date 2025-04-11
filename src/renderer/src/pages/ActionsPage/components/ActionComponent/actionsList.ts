@@ -10,6 +10,7 @@ import { Invite } from './actions/Invite'
 import { RequestInspection } from './actions/Producers/RequestInspection'
 import { Withdraw } from './actions/Withdraw'
 import { AddContribution } from './actions/Contributors/AddContribution'
+import { Publish } from './actions/Supporters/Publish'
 
 export const actionsList = {
   burnTokens: {
@@ -71,6 +72,11 @@ export const actionsList = {
     name: 'addContribution',
     description: 'shortDescriptionaddContribution',
     component: AddContribution
+  },
+  publish: {
+    name: 'publish',
+    description: 'shortDescriptionPublish',
+    component: Publish
   }
 }
 

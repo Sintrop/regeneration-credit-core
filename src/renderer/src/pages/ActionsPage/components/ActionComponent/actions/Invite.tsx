@@ -15,7 +15,7 @@ export function Invite(): JSX.Element {
   const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
-  const [userTypeInvite, setUserTypeInvite] = useState('1')
+  const [userTypeInvite, setUserTypeInvite] = useState('3')
 
   const { writeContract, isPending, data: hash, error } = useWriteContract()
   const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
@@ -45,8 +45,6 @@ export function Invite(): JSX.Element {
         onChange={(e) => setUserTypeInvite(e.target.value)}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
       >
-        <option value={1}>{t('regenerator')}</option>
-        <option value={2}>{t('inspector')}</option>
         <option value={3}>{t('researcher')}</option>
         <option value={4}>{t('developer')}</option>
         <option value={5}>{t('contributor')}</option>
