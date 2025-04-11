@@ -1,9 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { getImageFromIpfs } from '@renderer/services/ipfs'
-import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import RcImage from '@renderer/assets/images/rc.png'
+import { Img } from 'react-image'
 
 interface Props {
   description?: string
@@ -12,17 +10,7 @@ interface Props {
 }
 
 export function PublicationContent({ description, hashImage, burnedTokens }: Props): JSX.Element {
-  const [imageSrc, setImageSrc] = useState<string | null>(null)
   const { t } = useTranslation()
-
-  useEffect(() => {
-    handleGetImage()
-  }, [hashImage])
-
-  async function handleGetImage(): Promise<void> {
-    const response = await getImageFromIpfs(hashImage)
-    if (response.success) setImageSrc(response.image)
-  }
 
   return (
     <div className="flex flex-col mt-3">
@@ -39,13 +27,9 @@ export function PublicationContent({ description, hashImage, burnedTokens }: Pro
 
       {description && <p className="text-white">{description}</p>}
 
-      {imageSrc && (
-        <div className="w-full h-[400px] rounded-2xl mt-1 bg-container-secondary">
-          <img
-            src={imageSrc}
-            alt="Publication"
-            className="w-full h-full object-cover rounded-2xl"
-          />
+      {hashImage && (
+        <div className="w-full max-h-[400px] rounded-2xl mt-1 bg-container-secondary overflow-hidden">
+          <Img src={`https://ipfs.io/ipfs/${hashImage}`} className="w-full h-full object-contain" />
         </div>
       )}
     </div>
