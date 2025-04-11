@@ -26,6 +26,12 @@ export function SupporterActions(): JSX.Element {
         addressContract={supporterContractAddressToUse}
         abi={supporterAbiToUse as Abi}
       />
+
+      <ActionComponent
+        actionName="offsetting"
+        addressContract={supporterContractAddressToUse}
+        abi={supporterAbiToUse as Abi}
+      />
     </div>
   )
 }

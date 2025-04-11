@@ -11,6 +11,7 @@ import { RequestInspection } from './actions/Producers/RequestInspection'
 import { Withdraw } from './actions/Withdraw'
 import { AddContribution } from './actions/Contributors/AddContribution'
 import { Publish } from './actions/Supporters/Publish'
+import { Offsetting } from './actions/Supporters/Offsetting/Offsetting'
 
 export const actionsList = {
   burnTokens: {
@@ -77,6 +78,11 @@ export const actionsList = {
     name: 'publish',
     description: 'shortDescriptionPublish',
     component: Publish
+  },
+  offsetting: {
+    name: 'offsetting',
+    description: 'shortDescriptionoffsetting',
+    component: Offsetting
   }
 }
 
