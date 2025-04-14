@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
 import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
 import { MethodContent } from './MethodContent/MethodContent'

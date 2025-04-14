@@ -212,8 +212,8 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
     <div className="flex flex-col mb-10 z-0">
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
-      <div className="flex flex-col mt-10">
-        <p className="text-gray-300 text-sm mt-10">{t('demarcateYourProperty')}</p>
+      <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
+        <p className="text-gray-300 text-sm">{t('demarcateYourProperty')}</p>
 
         <div
           //@ts-ignore

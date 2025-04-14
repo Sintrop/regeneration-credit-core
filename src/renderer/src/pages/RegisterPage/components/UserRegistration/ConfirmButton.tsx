@@ -27,7 +27,7 @@ export function ConfirmButton({
   return (
     <div className="flex flex-col">
       <button
-        className={`bg-green-btn rounded-2xl px-10 h-10 text-white mt-10 w-fit hover:cursor-pointer ${btnDisabled ? 'opacity-50' : 'opacity-100'}`}
+        className={`bg-green-btn rounded-2xl px-10 h-10 text-white mt-10 w-fit hover:cursor-pointer disabled:opacity-50`}
         onClick={handleRegister}
         disabled={btnDisabled || isPending || isLoading || uploadingImage}
       >

@@ -35,8 +35,8 @@ export function ProofPhoto({ proofPhoto, onChange }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="text-gray-300 text-sm mt-10">{t('proofPhoto')}</p>
+    <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
+      <p className="text-gray-300 text-sm">{t('proofPhoto')}</p>
       <input
         id="input-file"
         type="file"
