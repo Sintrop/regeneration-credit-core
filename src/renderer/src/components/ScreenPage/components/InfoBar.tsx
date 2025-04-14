@@ -46,7 +46,7 @@ export function InfoBar(): JSX.Element {
   return (
     <div className="flex items-center gap-8 w-full min-h-10 bg-green-700 px-5">
       <p className="text-gray-300 text-sm">
-        {t('atualEra')}: <span className="text-white font-semibold text-base">{currentEra}</span>
+        {t('currentEra')}: <span className="text-white font-semibold text-base">{currentEra}</span>
       </p>
 
       <p className="text-gray-300 text-sm">
