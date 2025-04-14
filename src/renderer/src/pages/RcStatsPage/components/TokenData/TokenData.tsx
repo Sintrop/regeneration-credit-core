@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContracts } from 'wagmi'
 import { StatsRcItem } from '../StatsRcItem'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 export function TokenData(): JSX.Element {
   const { t } = useTranslation()
@@ -27,7 +28,7 @@ export function TokenData(): JSX.Element {
     abi: chainId === 250225 ? userAbi : sequoiaUserAbi
   } as const
 
-  const { data } = useReadContracts({
+  const { data, isLoading } = useReadContracts({
     contracts: [
       {
         ...rcContract,
@@ -74,27 +75,34 @@ export function TokenData(): JSX.Element {
   return (
     <div className="flex flex-col">
       <p className="text-white mb-2">{t('tokenData')}</p>
-      <div className="flex flex-wrap gap-5">
-        <StatsRcItem
-          title={t('totalSupply')}
-          value={Intl.NumberFormat('pt-BR').format(totalSupply)}
-          suffix="RC"
-        />
-        <StatsRcItem
-          title={t('totalLocked')}
-          value={Intl.NumberFormat('pt-BR').format(totalLocked)}
-          suffix="RC"
-        />
-        <StatsRcItem
-          title={t('totalCertified')}
-          value={Intl.NumberFormat('pt-BR').format(totalCertified)}
-          suffix="RC"
-        />
-        <StatsRcItem
-          title={t('totalUsers')}
-          value={Intl.NumberFormat('pt-BR').format(totalUsers)}
-        />
-      </div>
+
+      {isLoading ? (
+        <div className="mx-auto overflow-hidden">
+          <Loading />
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-5">
+          <StatsRcItem
+            title={t('totalSupply')}
+            value={Intl.NumberFormat('pt-BR').format(totalSupply)}
+            suffix="RC"
+          />
+          <StatsRcItem
+            title={t('totalLocked')}
+            value={Intl.NumberFormat('pt-BR').format(totalLocked)}
+            suffix="RC"
+          />
+          <StatsRcItem
+            title={t('totalCertified')}
+            value={Intl.NumberFormat('pt-BR').format(totalCertified)}
+            suffix="RC"
+          />
+          <StatsRcItem
+            title={t('totalUsers')}
+            value={Intl.NumberFormat('pt-BR').format(totalUsers)}
+          />
+        </div>
+      )}
     </div>
   )
 }

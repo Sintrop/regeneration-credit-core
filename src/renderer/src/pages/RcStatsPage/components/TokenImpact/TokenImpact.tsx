@@ -8,6 +8,7 @@ import {
   sequoiaRcImpactAbi,
   sequoiaRcImpactAddress
 } from '@renderer/services/contracts'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 export function TokenImpact(): JSX.Element {
   const { t } = useTranslation()
@@ -18,7 +19,7 @@ export function TokenImpact(): JSX.Element {
     abi: chainId === 250225 ? rcImpactAbi : sequoiaRcImpactAbi
   } as const
 
-  const { data } = useReadContracts({
+  const { data, isLoading } = useReadContracts({
     contracts: [
       {
         ...rcImpactContract,
@@ -116,41 +117,48 @@ export function TokenImpact(): JSX.Element {
   return (
     <div className="flex flex-col mt-5">
       <p className="text-white mb-2">{t('tokenImpact')}</p>
-      <div className="flex flex-wrap gap-5">
-        <StatsRcItem
-          title={t('totalCarbonImpact')}
-          value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
-        />
-        <StatsRcItem
-          title={t('totalSoilImpact')}
-          value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
-          suffix="m²"
-        />
-        <StatsRcItem
-          title={t('totalBiodiversityImpact')}
-          value={Intl.NumberFormat('pt-BR').format(totalBiodiversityImpact)}
-        />
-        <StatsRcItem
-          title={t('totalTreesImpact')}
-          value={Intl.NumberFormat('pt-BR').format(totalTreesImpact)}
-        />
-        <StatsRcItem
-          title={t('treesPerToken')}
-          value={Intl.NumberFormat('pt-BR').format(treesPerToken)}
-        />
-        <StatsRcItem
-          title={t('carbonPerToken')}
-          value={Intl.NumberFormat('pt-BR').format(carbonPerToken)}
-        />
-        <StatsRcItem
-          title={t('soilPerToken')}
-          value={Intl.NumberFormat('pt-BR').format(soilPerToken)}
-        />
-        <StatsRcItem
-          title={t('biodiversityPerToken')}
-          value={Intl.NumberFormat('pt-BR').format(biodiversityPerToken)}
-        />
-      </div>
+
+      {isLoading ? (
+        <div className="mx-auto overflow-hidden">
+          <Loading />
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-5">
+          <StatsRcItem
+            title={t('totalCarbonImpact')}
+            value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
+          />
+          <StatsRcItem
+            title={t('totalSoilImpact')}
+            value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
+            suffix="m²"
+          />
+          <StatsRcItem
+            title={t('totalBiodiversityImpact')}
+            value={Intl.NumberFormat('pt-BR').format(totalBiodiversityImpact)}
+          />
+          <StatsRcItem
+            title={t('totalTreesImpact')}
+            value={Intl.NumberFormat('pt-BR').format(totalTreesImpact)}
+          />
+          <StatsRcItem
+            title={t('treesPerToken')}
+            value={Intl.NumberFormat('pt-BR').format(treesPerToken)}
+          />
+          <StatsRcItem
+            title={t('carbonPerToken')}
+            value={Intl.NumberFormat('pt-BR').format(carbonPerToken)}
+          />
+          <StatsRcItem
+            title={t('soilPerToken')}
+            value={Intl.NumberFormat('pt-BR').format(soilPerToken)}
+          />
+          <StatsRcItem
+            title={t('biodiversityPerToken')}
+            value={Intl.NumberFormat('pt-BR').format(biodiversityPerToken)}
+          />
+        </div>
+      )}
     </div>
   )
 }
