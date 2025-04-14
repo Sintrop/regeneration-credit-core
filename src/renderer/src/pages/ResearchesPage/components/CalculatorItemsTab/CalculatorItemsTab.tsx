@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { CalculatorItem } from './CalculatorItem'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 export function CalculatorItemsTab(): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
-  const { data } = useReadContract({
+  const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
     abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
     functionName: 'calculatorItemsCount',
@@ -31,47 +32,42 @@ export function CalculatorItemsTab(): JSX.Element {
     calculaorItemsIds = ids.reverse()
   }
 
+  if (isLoading) {
+    return (
+      <div className="mx-auto overflow-hidden">
+        <Loading />
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col">
       <p className="text-white">
         {t('calculatorItemsCount')}: {calculatorItemsCount}
       </p>
-      <div className="flex items-center bg-container-primary rounded-t-2xl px-5 h-10 border-b-2 border-container-secondary">
-        <div className="border-r border-container-secondary w-[50px]">
-          <p className="text-white font-semibold">ID</p>
-        </div>
-
-        <div className="border-r border-container-secondary flex-1 pl-5">
-          <p className="text-white font-semibold">{t('researcher')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('title')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('unit')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[200px] pl-5">
-          <p className="text-white font-semibold">{t('carbonImpact')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('actions')}</p>
-        </div>
-      </div>
 
       {calculaorItemsIds.length === 0 ? (
         <div className="items-center mt-10">
           <p className="text-white text-center">{t('anyCalculatorItemsAvailable')}</p>
         </div>
       ) : (
-        <>
-          {calculaorItemsIds.map((id, index) => (
-            <CalculatorItem key={index} id={id} />
-          ))}
-        </>
+        <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
+          <thead>
+            <tr className="border-b border-container-secondary text-white">
+              <th className="p-2 border-r border-container-secondary">ID</th>
+              <th className="p-2 border-r border-container-secondary">{t('researcher')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('title')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('unit')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('carbonImpact')}</th>
+              <th className="p-2">{t('actions')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {calculaorItemsIds.map((id, index) => (
+              <CalculatorItem key={index} id={id} />
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   )

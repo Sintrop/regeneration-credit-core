@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { CalculatorItemProps } from '@renderer/types/researcher'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -24,32 +25,17 @@ export function CalculatorItem({ id }: Props): JSX.Element {
   const calculatorItem = data as CalculatorItemProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary flex-1 pl-5">
-        <p className="text-white">{calculatorItem && calculatorItem?.createdBy}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">{calculatorItem && calculatorItem?.title}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">{calculatorItem && calculatorItem?.unit}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[200px] pl-5 overflow-hidden">
-        <p className="text-white">
-          {calculatorItem && formatUnits(BigInt(calculatorItem?.carbonImpact), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">
+        {calculatorItem && <UserAddressLink address={calculatorItem?.createdBy} />}
+      </td>
+      <td className="p-2">{calculatorItem && calculatorItem?.title}</td>
+      <td className="p-2">{calculatorItem && calculatorItem?.unit}</td>
+      <td className="p-2">
+        {calculatorItem && formatUnits(BigInt(calculatorItem?.carbonImpact), 0)}
+      </td>
+      <td className="p-2"></td>
+    </tr>
   )
 }
