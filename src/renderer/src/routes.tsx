@@ -20,6 +20,7 @@ import { CommunityPage } from './pages/CommunityPage/CommunityPage'
 import { UsersPage } from './pages/UsersPage/UsersPage'
 import { ActionsPage } from './pages/ActionsPage/ActionsPage'
 import { PdfPage } from './pages/PdfPage/PdfPage'
+import { UserDetailsPage } from './pages/UserDetailsPage/UserDetailsPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -44,6 +45,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/users/:userType" element={<UsersPage />} />
         <Route path="/actions" element={<ActionsPage />} />
         <Route path="/pdfview/:hash" element={<PdfPage />} />
+        <Route path="/user-details/:address" element={<UserDetailsPage />} />
       </Routes>
     </Router>
   )
