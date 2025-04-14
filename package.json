@@ -1,10 +1,10 @@
 {
-  "name": "regeneration-credit-frontend",
+  "name": "regeneration-credit",
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "homepage": "https://regenerationcredit.com",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -36,6 +36,8 @@
     "react-camera-pro": "^1.4.0",
     "react-i18next": "^15.4.1",
     "react-icons": "^5.5.0",
+    "react-image": "^4.1.0",
+    "react-pdf": "^9.2.1",
     "react-router-dom": "^7.4.0",
     "tailwindcss": "^4.0.14",
     "viem": "^2.23.13",

@@ -3,6 +3,7 @@ import { Header } from '../Header/Header'
 import { SideMenu } from '../SideMenu/SideMenu'
 import { PageTitle } from '../PageTitle/PageTitle'
 import { InfoBar } from './components/InfoBar'
+import { NavBtns } from './components/NavBtns'
 
 interface Props {
   pageTitle: string
@@ -21,7 +22,10 @@ export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
           <InfoBar />
 
           <div className="flex flex-col gap-10 pt-10 pl-5 w-full pr-5 overflow-y-auto">
-            <PageTitle title={pageTitle} />
+            <div className="flex flex-col gap-1">
+              <PageTitle title={pageTitle} />
+              <NavBtns />
+            </div>
             {children}
           </div>
         </div>

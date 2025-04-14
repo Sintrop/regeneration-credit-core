@@ -6,7 +6,7 @@ import { MethodTag } from './MethodTag'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6'
 
 interface Props {
-  method: MethodAbiProps
+  method?: MethodAbiProps
   contract: ContractListProps
 }
 
@@ -16,6 +16,8 @@ export function MethodItem({ method, contract }: Props): JSX.Element {
   function toggleOpenMethod(): void {
     setOpenMethod((value) => !value)
   }
+
+  if (!method) return <div />
 
   if (!method.name) return <div />
 
