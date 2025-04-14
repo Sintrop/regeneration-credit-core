@@ -1,9 +1,17 @@
 import LoaderImage from '@renderer/assets/images/loader.png'
 
-export function Loading(): JSX.Element {
+interface Props {
+  size?: number
+}
+
+export function Loading({ size = 80 }: Props): JSX.Element {
   return (
     <div>
-      <img src={LoaderImage} className="w-20 h-20 animate-spin object-contain" />
+      <img
+        src={LoaderImage}
+        className="animate-spin object-contain"
+        style={{ width: size, height: size }}
+      />
     </div>
   )
 }

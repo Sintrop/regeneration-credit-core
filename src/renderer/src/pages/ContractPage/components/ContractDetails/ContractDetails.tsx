@@ -10,7 +10,7 @@ export function ContractDetails({ contract }: Props): JSX.Element {
 
   return (
     <section className="flex flex-col gap-3">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 px-3 h-10 rounded-2xl bg-green-card">
         <p className="font-bold text-white">{t('address')}:</p>
         <p className="text-white">{contract?.address}</p>
       </div>
