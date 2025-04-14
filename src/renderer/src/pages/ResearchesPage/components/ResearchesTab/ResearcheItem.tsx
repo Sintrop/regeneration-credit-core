@@ -8,6 +8,7 @@ import {
 import { formatUnits } from 'viem'
 import { ResearchProps } from '@renderer/types/researcher'
 import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -25,30 +26,13 @@ export function ResearcheItem({ id }: Props): JSX.Element {
   const research = data as ResearchProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary flex-1 pl-5">
-        <p className="text-white">{research && research?.createdBy}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">{research && formatUnits(BigInt(research?.createdAtBlock), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">{research && formatUnits(BigInt(research?.era), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[200px] pl-5 overflow-hidden">
-        {research && <PdfHashLink hash={research?.file} />}
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">{research && <UserAddressLink address={research?.createdBy} />}</td>
+      <td className="p-2">{research && formatUnits(BigInt(research?.createdAtBlock), 0)}</td>
+      <td className="p-2">{research && formatUnits(BigInt(research?.era), 0)}</td>
+      <td className="p-2">{research && <PdfHashLink hash={research?.file} />}</td>
+      <td className="p-2">action</td>
+    </tr>
   )
 }
