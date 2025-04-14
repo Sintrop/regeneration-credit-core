@@ -14,9 +14,9 @@ export function Nav(): JSX.Element {
       <NavItem icon="graphSquare" label="rcStats" path="/rcstats" />
       <NavItem icon="users" label="community" path="/community" />
       <DropdownMenu label="resources" icon="computer">
-        <NavItem icon="sheetCheck" label="inspections" path="/inspections" />
-        <NavItem icon="sheetSearch" label="researches" path="/researches" />
-        <NavItem icon="computer" label="development" path="/development" />
+        <NavItem label="inspections" path="/inspections" />
+        <NavItem label="researches" path="/researches" />
+        <NavItem label="development" path="/development" />
         <NavItem label="contributions" path="/contributions" />
       </DropdownMenu>
       <NavItem label="actions" path="/actions" />

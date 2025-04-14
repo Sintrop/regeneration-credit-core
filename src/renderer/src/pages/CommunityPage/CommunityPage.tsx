@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { useChainId, useReadContracts } from 'wagmi'
 import { UserCountCard } from './components/UserCountCard'
 import { formatUnits } from 'viem'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 export function CommunityPage(): JSX.Element {
   const { t } = useTranslation()
@@ -63,8 +64,24 @@ export function CommunityPage(): JSX.Element {
     ]
   })
 
-  if (isLoading || !data) {
-    return <ScreenPage pageTitle={t('community')}>loading</ScreenPage>
+  if (isLoading) {
+    return (
+      <ScreenPage pageTitle={t('community')}>
+        <div className="mx-auto overflow-hidden">
+          <Loading />
+        </div>
+      </ScreenPage>
+    )
+  }
+
+  if (!data) {
+    return (
+      <ScreenPage pageTitle={t('community')}>
+        <div className="mx-auto overflow-hidden">
+          <p className="text-white">error</p>
+        </div>
+      </ScreenPage>
+    )
   }
 
   return (
