@@ -8,12 +8,13 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { ContributionItem } from './ContributionItem'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 export function ContributionsTab(): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
-  const { data } = useReadContract({
+  const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
     abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
     functionName: 'contributionsCount',
@@ -31,47 +32,42 @@ export function ContributionsTab(): JSX.Element {
     contributionsIds = ids.reverse()
   }
 
+  if (isLoading) {
+    return (
+      <div className="mx-auto overflow-hidden">
+        <Loading />
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col">
       <p className="text-white">
         {t('contributionsCount')}: {contributionsCount}
       </p>
-      <div className="flex items-center bg-container-primary rounded-t-2xl px-5 h-10 border-b-2 border-container-secondary">
-        <div className="border-r border-container-secondary w-[50px]">
-          <p className="text-white font-semibold">ID</p>
-        </div>
-
-        <div className="border-r border-container-secondary flex-1 pl-5">
-          <p className="text-white font-semibold">{t('contributor')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('createdAt')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('era')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[200px] pl-5">
-          <p className="text-white font-semibold">{t('report')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('actions')}</p>
-        </div>
-      </div>
 
       {contributionsIds.length === 0 ? (
         <div className="items-center mt-10">
           <p className="text-white text-center">{t('anyContributionAvailable')}</p>
         </div>
       ) : (
-        <>
-          {contributionsIds.map((id, index) => (
-            <ContributionItem key={index} id={id} />
-          ))}
-        </>
+        <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
+          <thead>
+            <tr className="border-b border-container-secondary text-white">
+              <th className="p-2 border-r border-container-secondary">ID</th>
+              <th className="p-2 border-r border-container-secondary">{t('contributor')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('era')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('report')}</th>
+              <th className="p-2">{t('actions')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contributionsIds.map((id, index) => (
+              <ContributionItem key={index} id={id} />
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   )

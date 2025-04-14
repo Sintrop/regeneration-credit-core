@@ -7,6 +7,8 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ContributionProps } from '@renderer/types/contributor'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 
 interface Props {
   id: number
@@ -24,34 +26,15 @@ export function ContributionItem({ id }: Props): JSX.Element {
   const contribution = data as ContributionProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary flex-1 pl-5">
-        <p className="text-white">{contribution && contribution?.user}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">
-          {contribution && formatUnits(BigInt(contribution?.createdAtBlockNumber), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">{contribution && formatUnits(BigInt(contribution?.era), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[200px] pl-5 overflow-hidden">
-        <p className="text-white text-truncate text-ellipsis max-w-[90%]">
-          {contribution && contribution.report}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">{contribution && <UserAddressLink address={contribution?.user} />}</td>
+      <td className="p-2">
+        {contribution && formatUnits(BigInt(contribution?.createdAtBlockNumber), 0)}
+      </td>
+      <td className="p-2">{contribution && formatUnits(BigInt(contribution?.era), 0)}</td>
+      <td className="p-2">{contribution && <PdfHashLink hash={contribution.report} />}</td>
+      <td className="p-2"></td>
+    </tr>
   )
 }
