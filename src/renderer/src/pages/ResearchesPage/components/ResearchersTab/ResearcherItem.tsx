@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ResearcherProps } from '@renderer/types/researcher'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -33,40 +34,16 @@ export function ResearcherItem({ id }: Props): JSX.Element {
   const researcher = researcherResponse as ResearcherProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary min-w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[400px] pl-5">
-        <p className="text-white truncate text-ellipsis">
-          {researcher && researcher?.researcherWallet}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[300px] pl-5">
-        <p className="text-white">{researcher && researcher?.name}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">{researcher && formatUnits(BigInt(researcher?.createdAt), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">
-          {researcher && formatUnits(BigInt(researcher?.pool?.level), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[100px] pl-5 overflow-hidden">
-        <p className="text-white text-truncate text-ellipsis max-w-[90%]">
-          {researcher && formatUnits(BigInt(researcher?.pool?.level), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">
+        {researcher && <UserAddressLink address={researcher?.researcherWallet} />}
+      </td>
+      <td className="p-2">{researcher && researcher?.name}</td>
+      <td className="p-2">{researcher && formatUnits(BigInt(researcher?.createdAt), 0)}</td>
+      <td className="p-2">{researcher && formatUnits(BigInt(researcher?.pool?.level), 0)}</td>
+      <td className="p-2">{researcher && formatUnits(BigInt(researcher?.pool?.level), 0)}</td>
+      <td className="p-2"></td>
+    </tr>
   )
 }
