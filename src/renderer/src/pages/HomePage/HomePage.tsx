@@ -26,7 +26,7 @@ export function HomePage(): JSX.Element {
   }
 
   return (
-    <ScreenPage pageTitle="dashboard">
+    <ScreenPage pageTitle="feed">
       <div className="w-full flex flex-col gap-10">
         <section className="max-w-[500px] p-3">
           <LatestPublications />

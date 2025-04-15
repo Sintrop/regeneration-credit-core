@@ -23,8 +23,8 @@ export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
 
           <div className="flex flex-col gap-10 pt-10 pl-5 w-full pr-5 overflow-y-auto">
             <div className="flex flex-col gap-1">
-              <PageTitle title={pageTitle} />
               <NavBtns />
+              <PageTitle title={pageTitle} />
             </div>
             {children}
           </div>

@@ -61,52 +61,50 @@ export function RegisterPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t('registration')}>
-      <div className="flex flex-wrap gap-10 w-full">
-        <div className="flex flex-col max-w-[50%]">
-          <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
-          <div className="flex items-center gap-5 px-5 py-2 rounded-2xl bg-container-secondary w-fit">
-            {address && <Jazzicon className="w-10 h-10" address={address as string} />}
-            <p className="text-white">{address}</p>
-          </div>
-
-          <p className="text-gray-300 text-sm mt-10">{t('yourName')}</p>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
-            placeholder={t('typeHere')}
-          />
-
-          <p className="text-gray-300 text-sm mt-10">{t('selectUserType')}</p>
-          <select
-            className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
-            value={userType}
-            onChange={(e) => setUserType(parseInt(e.target.value) as RegistrationUserType)}
-          >
-            <option value={1}>{t('regenerator')}</option>
-            <option value={2}>{t('inspector')}</option>
-            <option value={3}>{t('researcher')}</option>
-            <option value={4}>{t('developer')}</option>
-            <option value={5}>{t('contributor')}</option>
-            <option value={6}>{t('activist')}</option>
-            <option value={7}>{t('supporter')}</option>
-          </select>
-
-          <UserRegistration
-            userType={userType}
-            name={name}
-            invitation={invitationData}
-            availableVacancie={availableVacancie}
-          />
+      <div className="flex flex-col">
+        <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
+        <div className="flex items-center gap-3 px-5 py-2 rounded-2xl bg-container-secondary w-fit">
+          {address && <Jazzicon className="w-8 h-8" address={address as string} />}
+          <p className="text-white text-sm">{address}</p>
         </div>
 
+        <p className="text-gray-300 text-sm mt-8">{t('selectUserType')}</p>
+        <select
+          className="w-[200px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+          value={userType}
+          onChange={(e) => setUserType(parseInt(e.target.value) as RegistrationUserType)}
+        >
+          <option value={1}>{t('regenerator')}</option>
+          <option value={2}>{t('inspector')}</option>
+          <option value={3}>{t('researcher')}</option>
+          <option value={4}>{t('developer')}</option>
+          <option value={5}>{t('contributor')}</option>
+          <option value={6}>{t('activist')}</option>
+          <option value={7}>{t('supporter')}</option>
+        </select>
+
         {userType !== 7 && (
-          <div className="flex flex-col gap-10">
+          <div className="flex gap-5 p-3 rounded-2xl bg-green-card mt-8 w-fit">
             {userType !== 1 && <Vacancies userType={userType} onChange={setAvailableVacancie} />}
 
             <Invitation onChangeInvitation={setInvitationData} userType={userType} />
           </div>
         )}
+
+        <p className="text-gray-300 text-sm mt-8">{t('yourName')}</p>
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+          placeholder={t('typeHere')}
+        />
+
+        <UserRegistration
+          userType={userType}
+          name={name}
+          invitation={invitationData}
+          availableVacancie={availableVacancie}
+        />
       </div>
     </ScreenPage>
   )

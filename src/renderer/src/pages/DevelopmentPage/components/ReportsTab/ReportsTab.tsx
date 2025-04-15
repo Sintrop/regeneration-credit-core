@@ -36,40 +36,29 @@ export function ReportsTab(): JSX.Element {
       <p className="text-white">
         {t('reportsCount')}: {reportsCount}
       </p>
-      <div className="flex items-center bg-container-primary rounded-t-2xl px-5 h-10 border-b-2 border-container-secondary">
-        <div className="border-r border-container-secondary w-[50px]">
-          <p className="text-white font-semibold">ID</p>
-        </div>
-
-        <div className="border-r border-container-secondary flex-1 pl-5">
-          <p className="text-white font-semibold">{t('developer')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('createdAt')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('era')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[200px] pl-5">
-          <p className="text-white font-semibold">{t('report')}</p>
-        </div>
-
-        <div className="border-r border-container-secondary w-[120px] pl-5">
-          <p className="text-white font-semibold">{t('actions')}</p>
-        </div>
-      </div>
 
       {reportsId.length === 0 ? (
-        <div></div>
+        <div className="items-center mt-10">
+          <p className="text-white text-center">{t('anyReportAvailable')}</p>
+        </div>
       ) : (
-        <>
-          {reportsId.map((id, index) => (
-            <ReportItem key={index} id={id} />
-          ))}
-        </>
+        <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
+          <thead>
+            <tr className="border-b border-container-secondary text-white">
+              <th className="p-2 border-r border-container-secondary">ID</th>
+              <th className="p-2 border-r border-container-secondary">{t('developer')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('era')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('report')}</th>
+              <th className="p-2">{t('actions')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reportsId.map((id, index) => (
+              <ReportItem key={index} id={id} />
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   )

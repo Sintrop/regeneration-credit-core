@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { Loading } from '@renderer/components/Loading/Loading'
 import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
@@ -27,11 +28,11 @@ export function ReadMethodContract({ contract, method, args }: Props): JSX.Eleme
 
   return (
     <div className="flex flex-col">
-      {isLoading && <div className="w-8 h-8 bg-green-500 animate-spin" />}
+      {isLoading && <Loading size={35} />}
       {isError && <p className="text-red-500">{error.message}</p>}
 
       {isSuccess && (
-        <>
+        <div className="flex flex-col p-3 rounded-2xl bg-container-secondary w-fit">
           {typeof data === 'string' && <p className="text-white">{data}</p>}
 
           {typeof data === 'number' && <p className="text-white">{data}</p>}
@@ -55,7 +56,7 @@ export function ReadMethodContract({ contract, method, args }: Props): JSX.Eleme
               {JSON.stringify(data, (_key, value) => customStringify(value), 2)}
             </pre>
           )}
-        </>
+        </div>
       )}
     </div>
   )

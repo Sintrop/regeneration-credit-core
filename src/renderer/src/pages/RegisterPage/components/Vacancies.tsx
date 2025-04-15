@@ -1,3 +1,4 @@
+import { Loading } from '@renderer/components/Loading/Loading'
 import { checkVacancies } from '@renderer/services/checkVacancies'
 import { sequoiaUserAbi, sequoiaUserAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
@@ -11,7 +12,7 @@ interface Props {
 export function Vacancies({ userType, onChange }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { data } = useReadContracts({
+  const { data, isLoading } = useReadContracts({
     contracts: [
       {
         address: chainId === 1600 ? sequoiaUserAddress : sequoiaUserAddress,
@@ -44,11 +45,16 @@ export function Vacancies({ userType, onChange }: Props): JSX.Element {
   return (
     <div className="flex flex-col">
       <p className="text-gray-300 text-sm">{t('vacancies')}</p>
-      <div className="flex flex-col p-3 rounded-2xl bg-container-secondary">
+      <div className="flex flex-col w-[300px] p-3 rounded-2xl bg-container-secondary ">
         <p className="text-gray-300 text-sm">{t('descVacancies')}</p>
-        <p className="text-white">
-          {availableVacancies ? t('thereIsVacancie') : t('thereIsntVacancie')}
-        </p>
+
+        {isLoading ? (
+          <Loading size={50} />
+        ) : (
+          <p className="text-white">
+            {availableVacancies ? t('thereIsVacancie') : t('thereIsntVacancie')}
+          </p>
+        )}
       </div>
     </div>
   )

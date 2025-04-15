@@ -15,17 +15,19 @@ export function PublicationContent({ description, hashImage, burnedTokens }: Pro
   return (
     <div className="flex flex-col mt-3">
       {burnedTokens && (
-        <div className="flex items-center gap-1">
-          <p className="text-white">
-            {t('burnedTokens')}:{' '}
-            {Intl.NumberFormat('pt-BR').format(parseFloat(formatUnits(BigInt(burnedTokens), 18)))}
-          </p>
+        <div className="flex items-center justify-between w-full">
+          <p className="text-white font-bold">{t('burnedTokens')}</p>
 
-          <img src={RcImage} alt="regeneration credit icon" className="w-5 h-5 object-contain" />
+          <div className="flex items-center gap-1">
+            <p className="font-bold text-green-600">
+              {Intl.NumberFormat('pt-BR').format(parseFloat(formatUnits(BigInt(burnedTokens), 18)))}
+            </p>
+            <img src={RcImage} alt="regeneration credit icon" className="w-5 h-5 object-contain" />
+          </div>
         </div>
       )}
 
-      {description && <p className="text-white">{description}</p>}
+      {description && <p className="text-white mt-5">{description}</p>}
 
       {hashImage && (
         <div className="w-full max-h-[400px] rounded-2xl mt-1 bg-container-secondary overflow-hidden">

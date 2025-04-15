@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
 import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
 import { MethodContent } from './MethodContent/MethodContent'
@@ -24,14 +23,14 @@ export function MethodItem({ method, contract }: Props): JSX.Element {
   if (method.type !== 'function') return <div />
 
   return (
-    <div className="flex flex-col w-full px-5 py-2 bg-container-primary rounded-2xl mb-5">
+    <div className="flex flex-col w-full px-3 py-2 bg-container-primary rounded-lg mb-5">
       <button
         className="flex items-center justify-between text-white hover:cursor-pointer"
         onClick={toggleOpenMethod}
       >
         <div className="flex items-center gap-3">
-          {method.name}
           <MethodTag methodType={method.stateMutability} />
+          {method.name}
         </div>
 
         {openMethod ? <FaChevronUp color="white" /> : <FaChevronDown color="white" />}

@@ -41,12 +41,12 @@ export function HasArgsToCall({ args, setInputArgsToCall }: Props): JSX.Element 
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 mb-3">
       {args.length > 0 && (
         <>
           {args.map((arg, index) => (
-            <div key={index} className="flex gap-3">
-              <p className="text-gray-300 mt-2">
+            <div key={index} className="flex flex-col gap-1">
+              <p className="text-white mt-2">
                 {arg?.name} ({arg?.type}):{' '}
               </p>
 
@@ -165,7 +165,7 @@ function ArgItem({ arg, onChange, argsInput }: ArgItemProps): JSX.Element {
   return (
     <input
       value={value}
-      className="w-[80%] rounded-2xl px-3 bg-container-secondary text-white h-10"
+      className="w-full rounded-lg px-3 bg-container-secondary text-white h-10"
       placeholder="typeHere"
       onChange={onChangeInput}
     />
@@ -257,7 +257,7 @@ function ComponentTupple({ field, onChange }: ComponentTuppleProps): JSX.Element
 
       <input
         value={value}
-        className="w-[80%] rounded-2xl px-3 bg-container-secondary text-white h-10"
+        className="w-full rounded-lg px-3 bg-container-secondary text-white h-10"
         placeholder="typeHere"
         onChange={onChangeInput}
       />

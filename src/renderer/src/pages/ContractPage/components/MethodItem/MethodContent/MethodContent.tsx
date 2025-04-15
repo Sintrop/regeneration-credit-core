@@ -47,7 +47,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
 
   if (methodType === 'view') {
     return (
-      <div className="flex flex-col mt-5">
+      <div className="flex flex-col mt-2 pt-3 border-t border-container-secondary">
         {hasArgsToCall && (
           <HasArgsToCall args={argsToCall} setInputArgsToCall={handleSetInputArgsToCall} />
         )}
@@ -56,7 +56,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
           <ReadMethodContract args={inputArgs} contract={contract} method={method} />
         )}
         <button
-          className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2 hover:cursor-pointer"
+          className="w-fit py-1 text-[#3B82F6] underline font-semibold mt-2 hover:cursor-pointer"
           onClick={handleReadContract}
         >
           {t('getInfo')}
@@ -66,7 +66,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col mt-5">
+    <div className="flex flex-col mt-2 pt-3 border-t border-container-secondary">
       {hasArgsToCall && <HasArgsToCall args={argsToCall} setInputArgsToCall={setInputArgs} />}
 
       {showWriteContract && (
@@ -74,7 +74,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
       )}
 
       <button
-        className="bg-blue-primary rounded-2xl w-[150px] py-1 text-white font-semibold mt-2 hover:cursor-pointer"
+        className="w-fit py-1 text-[#3B82F6] underline font-semibold mt-2 hover:cursor-pointer"
         onClick={handleWriteContract}
       >
         {t('write')}

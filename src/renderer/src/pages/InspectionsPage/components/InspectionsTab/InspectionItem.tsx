@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { InspectionProps } from '@renderer/types/inspection'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -24,32 +25,13 @@ export function InspectionItem({ id }: Props): JSX.Element {
   const inspection = data as InspectionProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary flex-1 pl-5">
-        <p className="text-white">{inspection && inspection?.regenerator}</p>
-      </div>
-
-      <div className="border-r border-container-secondary flex-1 pl-5">
-        <p className="text-white">{inspection && inspection?.inspector}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white">{inspection && formatUnits(BigInt(inspection?.status), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5 overflow-hidden">
-        <p className="text-white">
-          {inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">{inspection && <UserAddressLink address={inspection?.regenerator} />}</td>
+      <td className="p-2">{inspection && <UserAddressLink address={inspection?.inspector} />}</td>
+      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.status), 0)}</td>
+      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
+      <td className="p-2"></td>
+    </tr>
   )
 }
