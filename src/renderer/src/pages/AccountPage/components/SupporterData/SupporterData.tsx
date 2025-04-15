@@ -50,7 +50,11 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['invitationTab']} />
+      <UserContentTabs
+        address={address}
+        availableTabs={['certificates', 'invitation']}
+        name={supporter && supporter?.name}
+      />
     </div>
   )
 }

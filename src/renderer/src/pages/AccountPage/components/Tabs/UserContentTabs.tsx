@@ -1,4 +1,5 @@
-import { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { ContentTab, UserTypeContentTabsName } from './ContentTab'
 import { useTranslation } from 'react-i18next'
@@ -6,11 +7,16 @@ import { useTranslation } from 'react-i18next'
 interface Props {
   address: string
   availableTabs: UserTypeContentTabsName[]
+  name?: string
 }
 
-export function UserContentTabs({ address, availableTabs }: Props): JSX.Element {
+export function UserContentTabs({ address, availableTabs, name }: Props): JSX.Element {
   const { t } = useTranslation()
-  const [selectedTab, setSelectedTab] = useState('invitationTab')
+  const [selectedTab, setSelectedTab] = useState('invitation')
+
+  useEffect(() => {
+    setSelectedTab(availableTabs[0])
+  }, [])
 
   return (
     <div className="flex flex-col my-10">
@@ -26,7 +32,11 @@ export function UserContentTabs({ address, availableTabs }: Props): JSX.Element 
         ))}
       </div>
 
-      <ContentTab selectedTab={selectedTab as UserTypeContentTabsName} address={address} />
+      <ContentTab
+        selectedTab={selectedTab as UserTypeContentTabsName}
+        address={address}
+        name={name}
+      />
     </div>
   )
 }

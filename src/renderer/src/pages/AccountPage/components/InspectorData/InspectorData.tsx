@@ -74,7 +74,7 @@ export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['invitationTab']} />
+      <UserContentTabs address={address} availableTabs={['invitation']} />
     </div>
   )
 }
