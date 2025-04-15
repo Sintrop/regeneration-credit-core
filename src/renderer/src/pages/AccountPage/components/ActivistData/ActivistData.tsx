@@ -5,11 +5,11 @@ import {
   sequoiaActivistAddress
 } from '@renderer/services/contracts'
 import { ActivistProps } from '@renderer/types/activist'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 
 export function ActivistData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -26,7 +26,7 @@ export function ActivistData({ address }: UserTypeContentProps): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={activist && activist?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {activist && (

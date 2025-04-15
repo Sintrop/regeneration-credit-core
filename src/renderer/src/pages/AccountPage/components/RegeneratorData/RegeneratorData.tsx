@@ -5,11 +5,11 @@ import {
   sequoiaRegeneratorAddress
 } from '@renderer/services/contracts'
 import { RegeneratorProps } from '@renderer/types/regenerator'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 
 export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -26,7 +26,7 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={regenerator && regenerator?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {regenerator && (

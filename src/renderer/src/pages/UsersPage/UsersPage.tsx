@@ -11,6 +11,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { UsersList } from './components/UsersList'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 export function UsersPage(): JSX.Element {
   const { t } = useTranslation()
@@ -19,7 +20,7 @@ export function UsersPage(): JSX.Element {
   const nameFromUserType = userTypeToName[userType]
 
   const chainId = useChainId()
-  const { data } = useReadContract({
+  const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? userAddress : sequoiaUserAddress,
     abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
     functionName: 'userTypesTotalCount',
@@ -37,7 +38,13 @@ export function UsersPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t(nameFromUserType)}>
-      <UsersList idsList={usersIds} userType={userType} />
+      {isLoading ? (
+        <div className="mx-auto mt-10 overflow-hidden">
+          <Loading />
+        </div>
+      ) : (
+        <UsersList idsList={usersIds} userType={userType} />
+      )}
     </ScreenPage>
   )
 }

@@ -5,11 +5,11 @@ import {
   sequoiaInspectorAddress
 } from '@renderer/services/contracts'
 import { InspectorProps } from '@renderer/types/inspector'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 
 export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -26,7 +26,7 @@ export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={inspector && inspector?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {inspector && (
