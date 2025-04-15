@@ -1,18 +1,23 @@
-import { sequoiaActivistAbi, sequoiaActivistAddress } from '@renderer/services/contracts'
+import {
+  activistAbi,
+  activistAddress,
+  sequoiaActivistAbi,
+  sequoiaActivistAddress
+} from '@renderer/services/contracts'
 import { ActivistProps } from '@renderer/types/activist'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
 
-export function ActivistData(): JSX.Element {
+export function ActivistData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaActivistAddress : sequoiaActivistAddress,
-    abi: chainId === 1600 ? sequoiaActivistAbi : sequoiaActivistAbi,
+    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
+    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
     functionName: 'getActivist',
     args: [address]
   })

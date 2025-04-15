@@ -1,18 +1,23 @@
-import { sequoiaSupporterAbi, sequoiaSupporterAddress } from '@renderer/services/contracts'
+import {
+  sequoiaSupporterAbi,
+  sequoiaSupporterAddress,
+  supporterAbi,
+  supporterAddress
+} from '@renderer/services/contracts'
 import { SupporterProps } from '@renderer/types/supporter'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
 
-export function SupporterData(): JSX.Element {
+export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaSupporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 1600 ? sequoiaSupporterAbi : sequoiaSupporterAbi,
+    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
+    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
     functionName: 'getSupporter',
     args: [address]
   })

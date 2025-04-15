@@ -1,24 +1,28 @@
-import { sequoiaDeveloperAbi, sequoiaDeveloperAddress } from '@renderer/services/contracts'
+import {
+  developerAbi,
+  developerAddress,
+  sequoiaDeveloperAbi,
+  sequoiaDeveloperAddress
+} from '@renderer/services/contracts'
 import { DeveloperProps } from '@renderer/types/developer'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
 
-export function DeveloperData(): JSX.Element {
+export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaDeveloperAddress : sequoiaDeveloperAddress,
-    abi: chainId === 1600 ? sequoiaDeveloperAbi : sequoiaDeveloperAbi,
+    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
+    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
     functionName: 'getDeveloper',
     args: [address]
   })
 
   const developer = data as DeveloperProps
-  console.log(developer)
 
   return (
     <div className="flex flex-col">

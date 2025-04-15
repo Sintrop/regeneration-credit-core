@@ -1,18 +1,23 @@
-import { sequoiaResearcherAbi, sequoiaResearcherAddress } from '@renderer/services/contracts'
+import {
+  researcherAbi,
+  researcherAddress,
+  sequoiaResearcherAbi,
+  sequoiaResearcherAddress
+} from '@renderer/services/contracts'
 import { ResearcherProps } from '@renderer/types/researcher'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
 
-export function ResearcherData(): JSX.Element {
+export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaResearcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 1600 ? sequoiaResearcherAbi : sequoiaResearcherAbi,
+    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
+    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
     functionName: 'getResearcher',
     args: [address]
   })

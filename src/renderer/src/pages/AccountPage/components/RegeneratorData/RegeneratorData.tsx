@@ -1,18 +1,23 @@
-import { sequoiaRegeneratorAbi, sequoiaRegeneratorAddress } from '@renderer/services/contracts'
+import {
+  regeneratorAbi,
+  regeneratorAddress,
+  sequoiaRegeneratorAbi,
+  sequoiaRegeneratorAddress
+} from '@renderer/services/contracts'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
 
-export function RegeneratorData(): JSX.Element {
+export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
+    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
+    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
     functionName: 'getRegenerator',
     args: [address]
   })
