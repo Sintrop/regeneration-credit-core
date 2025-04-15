@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
+import { UserContentTabs } from '../Tabs/UserContentTabs'
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -48,6 +49,8 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
           </p>
         </div>
       )}
+
+      <UserContentTabs address={address} availableTabs={['invitationTab']} />
     </div>
   )
 }

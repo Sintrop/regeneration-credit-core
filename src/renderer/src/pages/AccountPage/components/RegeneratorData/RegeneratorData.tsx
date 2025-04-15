@@ -10,6 +10,7 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
+import { UserContentTabs } from '../Tabs/UserContentTabs'
 
 export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -76,6 +77,8 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
           </p>
         </div>
       )}
+
+      <UserContentTabs address={address} availableTabs={['invitationTab']} />
     </div>
   )
 }
