@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ActivistProps } from '@renderer/types/activist'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -33,36 +34,14 @@ export function ActivistItem({ id }: Props): JSX.Element {
   const activist = activistResponse as ActivistProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary min-w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[400px] pl-5">
-        <p className="text-white truncate text-ellipsis">{activist && activist?.activistWallet}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[300px] pl-5">
-        <p className="text-white">{activist && activist?.name}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">{activist && formatUnits(BigInt(activist?.createdAt), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">{activist && formatUnits(BigInt(activist?.pool?.level), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[100px] pl-5 overflow-hidden">
-        <p className="text-white text-truncate text-ellipsis max-w-[90%]">
-          {activist && formatUnits(BigInt(activist?.pool?.currentEra), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">{activist && <UserAddressLink address={activist?.activistWallet} />}</td>
+      <td className="p-2">{activist && activist?.name}</td>
+      <td className="p-2">{activist && formatUnits(BigInt(activist?.createdAt), 0)}</td>
+      <td className="p-2">{activist && formatUnits(BigInt(activist?.pool?.level), 0)}</td>
+      <td className="p-2">{activist && formatUnits(BigInt(activist?.pool?.currentEra), 0)}</td>
+      <td className="p-2"></td>
+    </tr>
   )
 }
