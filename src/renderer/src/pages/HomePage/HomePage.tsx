@@ -30,7 +30,7 @@ export function HomePage(): JSX.Element {
     <ScreenPage pageTitle="feed">
       <div className="w-full flex flex-col gap-10">
         <div className="flex gap-5 flex-wrap w-full">
-          <section className="max-w-[400px] p-3">
+          <section className="min-w-[400px] p-3">
             <LatestPublications />
           </section>
 

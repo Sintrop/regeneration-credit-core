@@ -3,4 +3,7 @@ export interface SupporterProps {
   supporterWallet: string
   name: string
   createdAt: number
+  publicationsCount: string
+  offsetsCount: string
+  reductionItemsCount: string
 }

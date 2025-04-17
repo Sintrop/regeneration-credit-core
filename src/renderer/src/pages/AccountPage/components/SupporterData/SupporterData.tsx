@@ -25,6 +25,10 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
   const supporter = data as SupporterProps
 
+  const publicationsCount = supporter
+    ? parseInt(formatUnits(BigInt(supporter?.publicationsCount), 0))
+    : 0
+
   return (
     <div className="flex flex-col">
       <Jazzicon className="w-20 h-20" address={address as string} />
@@ -52,8 +56,9 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation']}
+        availableTabs={['certificates', 'invitation', 'publications']}
         name={supporter && supporter?.name}
+        publicationsCount={publicationsCount}
       />
     </div>
   )
