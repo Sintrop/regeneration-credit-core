@@ -6,15 +6,18 @@ import {
 } from '@renderer/services/contracts'
 import { SupporterProps } from '@renderer/types/supporter'
 import { Jazzicon } from '@ukstv/jazzicon-react'
+import { t } from 'i18next'
 import { useNavigate } from 'react-router-dom'
+import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 
 interface Props {
   address?: string
   isLoading?: boolean
+  publishedAt?: string
 }
 
-export function PublicationHeader({ address }: Props): JSX.Element {
+export function PublicationHeader({ address, publishedAt }: Props): JSX.Element {
   const navigate = useNavigate()
   const chainId = useChainId()
   const { data } = useReadContract({
@@ -41,6 +44,12 @@ export function PublicationHeader({ address }: Props): JSX.Element {
         >
           {supporter ? supporter?.name : address}
         </p>
+
+        {publishedAt && (
+          <p className="text-gray-300 text-xs">
+            {t('publishedAt')}: {formatUnits(BigInt(publishedAt), 0)}
+          </p>
+        )}
       </div>
     </div>
   )
