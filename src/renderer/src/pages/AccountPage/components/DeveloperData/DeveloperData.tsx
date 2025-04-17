@@ -25,6 +25,8 @@ export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
 
   const developer = data as DeveloperProps
 
+  const reportsCount = developer ? parseInt(formatUnits(BigInt(developer?.totalReports), 0)) : 0
+
   return (
     <div className="flex flex-col">
       <ProofPhoto address={address} hash={developer && developer?.proofPhoto} />
@@ -70,7 +72,11 @@ export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['invitation']} />
+      <UserContentTabs
+        address={address}
+        availableTabs={['invitation', 'reports']}
+        reportsCount={reportsCount}
+      />
     </div>
   )
 }

@@ -10,6 +10,7 @@ interface Props {
   name?: string
   publicationsCount?: number
   offsetsCount?: number
+  reportsCount?: number
 }
 
 export function UserContentTabs({
@@ -17,7 +18,8 @@ export function UserContentTabs({
   availableTabs,
   name,
   publicationsCount,
-  offsetsCount
+  offsetsCount,
+  reportsCount
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [selectedTab, setSelectedTab] = useState('invitation')
@@ -46,6 +48,7 @@ export function UserContentTabs({
         name={name}
         publicationsCount={publicationsCount}
         offsetsCount={offsetsCount}
+        reportsCount={reportsCount}
       />
     </div>
   )
