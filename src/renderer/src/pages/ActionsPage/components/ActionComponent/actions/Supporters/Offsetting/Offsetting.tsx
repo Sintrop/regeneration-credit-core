@@ -21,7 +21,7 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
       //@ts-ignore
       address: addressContract ? addressContract : '',
       abi: abi ? abi : [],
-      functionName: 'burnTokensCalculator',
+      functionName: 'offset',
       args: [parseUnits(inputAmmount, 18), itemId]
     })
   }
