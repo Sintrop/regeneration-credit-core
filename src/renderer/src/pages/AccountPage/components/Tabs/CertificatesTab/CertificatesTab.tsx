@@ -31,7 +31,11 @@ export function CertificatesTab({ address, name }: Props): JSX.Element {
 
   return (
     <div className="mt-5">
-      <ContributionCertificate certificateTokens={formatedCertificate} name={name} />
+      <ContributionCertificate
+        certificateTokens={formatedCertificate}
+        name={name}
+        address={address}
+      />
     </div>
   )
 }
