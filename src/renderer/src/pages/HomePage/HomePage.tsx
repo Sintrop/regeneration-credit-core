@@ -5,6 +5,7 @@ import { TransactionWeb3Props } from '@renderer/types/transaction'
 import { getListTransactionsWeb3Feed } from '@renderer/services/transactionsWeb3'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { LatestPublications } from './components/LatestPublications/LatestPublications'
+import { LatestOffsets } from './components/LatestOffsets/LatestOffsets'
 
 export function HomePage(): JSX.Element {
   const [loading, setLoading] = useState(false)
@@ -28,9 +29,15 @@ export function HomePage(): JSX.Element {
   return (
     <ScreenPage pageTitle="feed">
       <div className="w-full flex flex-col gap-10">
-        <section className="max-w-[500px] p-3">
-          <LatestPublications />
-        </section>
+        <div className="flex gap-5 flex-wrap w-full">
+          <section className="max-w-[400px] p-3">
+            <LatestPublications />
+          </section>
+
+          <section className="min-w-[400px] p-3">
+            <LatestOffsets />
+          </section>
+        </div>
 
         <section className="w-full p-3">
           <LatestTransactions txs={listTxs} loading={loading} />
