@@ -3,6 +3,7 @@ import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { PublicationsTab } from './PublicationsTab/PublicationsTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
+import { ResearchesTab } from './ResearchesTab/ResearchesTab'
 
 interface Props {
   address: string
@@ -11,6 +12,7 @@ interface Props {
   publicationsCount?: number
   offsetsCount?: number
   reportsCount?: number
+  researchesCount?: number
 }
 
 export function ContentTab({
@@ -19,7 +21,8 @@ export function ContentTab({
   name,
   publicationsCount,
   offsetsCount,
-  reportsCount
+  reportsCount,
+  researchesCount
 }: Props): JSX.Element {
   const Tab = tabs[selectedTab]
 
@@ -30,6 +33,7 @@ export function ContentTab({
       publicationsCount={publicationsCount}
       offsetsCount={offsetsCount}
       reportsCount={reportsCount}
+      researchesCount={researchesCount}
     />
   )
 }
@@ -39,7 +43,8 @@ const tabs = {
   certificates: CertificatesTab,
   publications: PublicationsTab,
   offsets: OffsetsTab,
-  reports: ReportsTab
+  reports: ReportsTab,
+  researches: ResearchesTab
 }
 
 export type UserTypeContentTabsName = keyof typeof tabs

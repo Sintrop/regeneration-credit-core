@@ -1,10 +1,10 @@
 import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
+  researcherAbi,
+  researcherAddress,
+  sequoiaResearcherAbi,
+  sequoiaResearcherAddress
 } from '@renderer/services/contracts'
-import { ReportProps } from '@renderer/types/developer'
+import { ResearchProps } from '@renderer/types/researcher'
 import { useTranslation } from 'react-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
@@ -13,59 +13,59 @@ import { useChainId, useReadContract } from 'wagmi'
 
 interface Props {
   address: string
-  reportsCount?: number
+  researchesCount?: number
 }
 
-export function ReportsTab({ address, reportsCount }: Props): JSX.Element {
+export function ResearchesTab({ address, researchesCount }: Props): JSX.Element {
   const { t } = useTranslation()
 
-  if (!reportsCount || reportsCount === 0) {
+  if (!researchesCount || researchesCount === 0) {
     return (
       <div className="flex flex-col items-center mt-5">
-        <p className="text-white">{t("thereAren'tAnyReports")}</p>
+        <p className="text-white">{t("thisResearcherDon'tHaveResearches")}</p>
       </div>
     )
   }
 
-  const count = Array.from({ length: reportsCount }, (_, i) => i)
+  const count = Array.from({ length: researchesCount }, (_, i) => i)
 
   return (
     <div className="flex flex-col mt-5 gap-5">
       {count.reverse().map((count) => (
-        <ReportItem key={count} address={address} count={count} />
+        <ResearcheItem key={count} address={address} count={count} />
       ))}
     </div>
   )
 }
 
-interface ReportItemProps {
+interface ResearcheItemProps {
   count: number
   address: string
 }
-function ReportItem({ count, address }: ReportItemProps): JSX.Element {
+function ResearcheItem({ count, address }: ResearcheItemProps): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const chainId = useChainId()
-  const { data: reportId } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
-    functionName: 'reportsIds',
+  const { data: researchId } = useReadContract({
+    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
+    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    functionName: 'researchesIds',
     args: [address, count]
   })
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
-    functionName: 'getReport',
-    args: [reportId]
+    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
+    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    functionName: 'getResearch',
+    args: [researchId]
   })
 
   if (!data) return <div />
 
-  const report = data as ReportProps
+  const report = data as ResearchProps
 
   function handleGoToPdfView(): void {
-    navigate(`/pdfview/${report?.report}`)
+    navigate(`/pdfview/${report?.file}`)
   }
 
   return (
@@ -75,9 +75,8 @@ function ReportItem({ count, address }: ReportItemProps): JSX.Element {
     >
       <div className="flex flex-col items-start">
         <p className="text-white">ID: {formatUnits(BigInt(report?.id), 0)}</p>
-        <p className="text-white">{report?.description}</p>
         <p className="text-white">
-          {t('publishedAt')}: {formatUnits(BigInt(report?.createdAtBlockNumber), 0)}
+          {t('publishedAt')}: {formatUnits(BigInt(report?.createdAtBlock), 0)}
         </p>
         <p className="text-white">
           {t('era')}: {formatUnits(BigInt(report?.era), 0)}
