@@ -78,7 +78,7 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['invitation']} />
+      <UserContentTabs address={address} availableTabs={['certificates', 'invitation']} />
     </div>
   )
 }

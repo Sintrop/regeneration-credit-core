@@ -76,7 +76,7 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
 
       <UserContentTabs
         address={address}
-        availableTabs={['invitation', 'researches']}
+        availableTabs={['certificates', 'invitation', 'researches']}
         researchesCount={researcher && researcher?.publishedResearches}
       />
     </div>
