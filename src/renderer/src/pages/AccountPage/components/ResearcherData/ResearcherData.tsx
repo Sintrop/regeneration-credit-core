@@ -24,6 +24,9 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
   })
 
   const researcher = data as ResearcherProps
+  const researchesCount = researcher
+    ? parseInt(formatUnits(BigInt(researcher?.publishedResearches), 0))
+    : 0
 
   return (
     <div className="flex flex-col">
@@ -77,7 +80,7 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
       <UserContentTabs
         address={address}
         availableTabs={['certificates', 'invitation', 'researches']}
-        researchesCount={researcher && researcher?.publishedResearches}
+        researchesCount={researchesCount}
       />
     </div>
   )

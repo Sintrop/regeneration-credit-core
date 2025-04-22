@@ -22,7 +22,7 @@ export function ResearchesTab({ address, researchesCount }: Props): JSX.Element 
   if (!researchesCount || researchesCount === 0) {
     return (
       <div className="flex flex-col items-center mt-5">
-        <p className="text-white">{t("thisResearcherDon'tHaveResearches")}</p>
+        <p className="text-white">{t("thisResearcherDoesn'tHaveResearches")}</p>
       </div>
     )
   }
