@@ -3,11 +3,13 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { MdLogout } from 'react-icons/md'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useNavigate } from 'react-router-dom'
+import { Loading } from '@renderer/components/Loading/Loading'
+import { RegisterButton } from './RegisterButton'
 
 export function ConnectionWalletButton(): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { address, status } = useAccount()
+  const { address, status, isConnecting, isReconnecting } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
 
@@ -25,28 +27,28 @@ export function ConnectionWalletButton(): JSX.Element {
     disconnect()
   }
 
-  function handleGoToRegister(): void {
-    navigate('/register')
-  }
-
   return (
     <div className="flex items-center gap-5">
-      <button
-        className="px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer"
-        onClick={handleGoToRegister}
-      >
-        Register
-      </button>
+      {status === 'connected' && <RegisterButton />}
 
       <button
-        className="w-[180px] px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer flex items-center gap-3"
+        className="w-[180px] px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer flex items-center gap-3 disabled:bg-green-secondary/50"
         onClick={handleClickConnectButton}
+        disabled={isConnecting || isReconnecting}
       >
-        {status === 'disconnected' && t('connectWallet')}
-        {status === 'connected' && (
+        {isConnecting || isReconnecting ? (
+          <div className="flex w-full h-full justify-center items-center">
+            <Loading size={20} />
+          </div>
+        ) : (
           <>
-            {address && <Jazzicon className="w-7 h-7" address={address} />}
-            <p className="truncate text-ellipsis text-white max-w-[100px]">{address}</p>
+            {status === 'disconnected' && t('connectWallet')}
+            {status === 'connected' && (
+              <>
+                {address && <Jazzicon className="w-7 h-7" address={address} />}
+                <p className="truncate text-ellipsis text-white max-w-[100px]">{address}</p>
+              </>
+            )}
           </>
         )}
       </button>
