@@ -5,12 +5,12 @@ import {
   supporterAddress
 } from '@renderer/services/contracts'
 import { SupporterProps } from '@renderer/types/supporter'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -33,7 +33,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={supporter?.profilePhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {supporter && (
