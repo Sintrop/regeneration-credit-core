@@ -34,12 +34,18 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
     setUploadingImage(true)
     const blobFile = await base64ToBlob(image)
     const proofPhotoHash = await uploadToIpfs({ file: blobFile })
-    if (!proofPhotoHash.success) alert('error on upload proof photo')
+    if (!proofPhotoHash.success) {
+      alert('error on upload proof photo')
+      setUploadingImage(false)
+    }
     setUploadingImage(false)
 
     setUploadingFile(true)
     const reportHash = await uploadToIpfs({ file })
-    if (!reportHash.success) alert('error on upload report')
+    if (!reportHash.success) {
+      alert('error on upload report')
+      setUploadingFile(false)
+    }
     setUploadingFile(false)
 
     writeContract({
@@ -87,9 +93,11 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
       />
 
       <SendTransactionButton
-        label={t('acceptInspection')}
+        label={t('realizeInspection')}
         handleSendTransaction={handleSendTransaction}
-        disabled={!input.trim() || isPending}
+        disabled={
+          !input.trim() || !inputTrees.trim() || !inputBio.trim() || !image || !file || isPending
+        }
       />
 
       {uploadingFile && <p className="text-white">{t('uploadingFileToIPFS')}</p>}
