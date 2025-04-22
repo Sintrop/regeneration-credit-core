@@ -27,7 +27,7 @@ export function PublicationsTab({ address, publicationsCount }: Props): JSX.Elem
   const count = Array.from({ length: publicationsCount }, (_, i) => i)
 
   return (
-    <div className="flex flex-col mt-5 max-w-[400px]">
+    <div className="flex flex-col mt-5 max-w-[400px] gap-5">
       {count.map((count) => (
         <PubItem key={count} address={address} count={count} />
       ))}

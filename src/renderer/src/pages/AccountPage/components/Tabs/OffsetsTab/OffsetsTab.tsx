@@ -27,7 +27,7 @@ export function OffsetsTab({ address, offsetsCount }: Props): JSX.Element {
   const count = Array.from({ length: offsetsCount }, (_, i) => i)
 
   return (
-    <div className="flex flex-col mt-5 max-w-[400px]">
+    <div className="flex flex-col mt-5 max-w-[400px] gap-5">
       {count.map((count) => (
         <OffItem key={count} address={address} count={count} />
       ))}
