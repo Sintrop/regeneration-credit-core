@@ -37,7 +37,7 @@ export function LatestPublications(): JSX.Element {
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 w-[400px]">
           {publicationsIds.slice(0, 5).map((id) => (
             <PublicationItem id={id} key={id} />
           ))}
