@@ -13,6 +13,7 @@ import { AddContribution } from './actions/Contributors/AddContribution'
 import { Publish } from './actions/Supporters/Publish'
 import { Offsetting } from './actions/Supporters/Offsetting/Offsetting'
 import { RealizeInspection } from './actions/Inspectors/RealizeInspection'
+import { UpdateProfilePhoto } from './actions/Supporters/UpdateProfilePhoto'
 
 export const actionsList = {
   burnTokens: {
@@ -89,6 +90,11 @@ export const actionsList = {
     name: 'realizeInspection',
     description: 'shortDescription',
     component: RealizeInspection
+  },
+  updateProfilePhoto: {
+    name: 'updateProfilePhoto',
+    description: 'shortDescription',
+    component: UpdateProfilePhoto
   }
 }
 
