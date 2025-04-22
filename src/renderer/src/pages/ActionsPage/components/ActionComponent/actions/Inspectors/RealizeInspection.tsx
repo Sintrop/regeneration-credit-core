@@ -34,10 +34,12 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
     setUploadingImage(true)
     const blobFile = await base64ToBlob(image)
     const proofPhotoHash = await uploadToIpfs({ file: blobFile })
+    if (!proofPhotoHash.success) alert('error on upload proof photo')
     setUploadingImage(false)
 
     setUploadingFile(true)
     const reportHash = await uploadToIpfs({ file })
+    if (!reportHash.success) alert('error on upload report')
     setUploadingFile(false)
 
     writeContract({
@@ -45,7 +47,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
       address: addressContract ? addressContract : '',
       abi: abi ? abi : [],
       functionName: 'realizeInspection',
-      args: [id, proofPhotoHash, reportHash, trees, bio]
+      args: [id, proofPhotoHash.hash, reportHash.hash, trees, bio]
     })
   }
 
