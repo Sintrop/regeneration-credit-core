@@ -9,7 +9,6 @@ export interface RegeneratorProps {
   totalArea: number
   regenerationScore: {
     score: number
-    average: number
   }
   pool: {
     onContractPool: boolean

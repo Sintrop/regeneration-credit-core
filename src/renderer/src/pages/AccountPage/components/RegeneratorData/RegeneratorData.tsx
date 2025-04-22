@@ -61,10 +61,6 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
             {formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
           </p>
           <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('regenerationAverage')}: </span>
-            {formatUnits(BigInt(regenerator?.regenerationScore?.average), 0)}
-          </p>
-          <p className="text-white mt-5">
             <span className="text-white font-bold">{t('eraPool')}: </span>
             {formatUnits(BigInt(regenerator?.pool?.currentEra), 0)}
           </p>
