@@ -11,10 +11,14 @@ import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
+import { PushCoordProps } from '../Tabs/RegenerationAreaTab/RegenerationAreaTab'
+import { useState } from 'react'
+import { RegenerationAreaMap } from './RegenerationAreaMap'
 
 export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+  const [coords, setCoords] = useState<PushCoordProps[]>([])
 
   const { data } = useReadContract({
     address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
@@ -25,56 +29,75 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
 
   const regenerator = data as RegeneratorProps
 
+  const coordinatesCount = regenerator
+    ? parseInt(formatUnits(BigInt(regenerator?.coordinatesCount), 0))
+    : 0
+
+  function handlePushCoord(data: PushCoordProps[]): void {
+    console.log(data)
+    setCoords(data)
+  }
+
   return (
     <div className="flex flex-col">
       <ProofPhoto address={address} hash={regenerator && regenerator?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
-      {regenerator && (
-        <div className="flex flex-col">
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('id')}: </span>
-            {formatUnits(BigInt(regenerator?.id), 0)}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('name')}: </span>
-            {regenerator?.name}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('proofPhoto')}: </span>
-            {regenerator?.proofPhoto}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('totalArea')}: </span>
-            {formatUnits(BigInt(regenerator?.totalArea), 0)} m²
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('totalInspections')}: </span>
-            {formatUnits(BigInt(regenerator?.totalInspections), 0)}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('lastRequestAt')}: </span>
-            {formatUnits(BigInt(regenerator?.lastRequestAt), 0)}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('regenerationScore')}: </span>
-            {formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('eraPool')}: </span>
-            {formatUnits(BigInt(regenerator?.pool?.currentEra), 0)}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('registeredAt')}: </span>
-            {formatUnits(BigInt(regenerator?.createdAt), 0)}
-          </p>
-          <p className="text-white mt-5">
-            <span className="text-white font-bold">{t('userType')}: </span> 1
-          </p>
-        </div>
-      )}
 
-      <UserContentTabs address={address} availableTabs={['certificates', 'invitation']} />
+      <div className="flex flex-wrap gap-10">
+        {regenerator && (
+          <div className="flex flex-col">
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('id')}: </span>
+              {formatUnits(BigInt(regenerator?.id), 0)}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('name')}: </span>
+              {regenerator?.name}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('proofPhoto')}: </span>
+              {regenerator?.proofPhoto}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('totalArea')}: </span>
+              {formatUnits(BigInt(regenerator?.totalArea), 0)} m²
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('totalInspections')}: </span>
+              {formatUnits(BigInt(regenerator?.totalInspections), 0)}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('lastRequestAt')}: </span>
+              {formatUnits(BigInt(regenerator?.lastRequestAt), 0)}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('regenerationScore')}: </span>
+              {formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('eraPool')}: </span>
+              {formatUnits(BigInt(regenerator?.pool?.currentEra), 0)}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('registeredAt')}: </span>
+              {formatUnits(BigInt(regenerator?.createdAt), 0)}
+            </p>
+            <p className="text-white mt-5">
+              <span className="text-white font-bold">{t('userType')}: </span> 1
+            </p>
+          </div>
+        )}
+
+        <RegenerationAreaMap coords={coords} />
+      </div>
+
+      <UserContentTabs
+        address={address}
+        availableTabs={['regenerationArea', 'certificates', 'invitation']}
+        coordinatesCount={coordinatesCount}
+        pushCoord={handlePushCoord}
+      />
     </div>
   )
 }

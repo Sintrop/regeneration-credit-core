@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { ContentTab, UserTypeContentTabsName } from './ContentTab'
 import { useTranslation } from 'react-i18next'
+import { PushCoordProps } from './RegenerationAreaTab/RegenerationAreaTab'
 
 interface Props {
   address: string
@@ -12,6 +13,8 @@ interface Props {
   offsetsCount?: number
   reportsCount?: number
   researchesCount?: number
+  coordinatesCount?: number
+  pushCoord?: (data: PushCoordProps[]) => void
 }
 
 export function UserContentTabs({
@@ -21,7 +24,9 @@ export function UserContentTabs({
   publicationsCount,
   offsetsCount,
   reportsCount,
-  researchesCount
+  researchesCount,
+  coordinatesCount,
+  pushCoord
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [selectedTab, setSelectedTab] = useState('invitation')
@@ -52,6 +57,8 @@ export function UserContentTabs({
         offsetsCount={offsetsCount}
         reportsCount={reportsCount}
         researchesCount={researchesCount}
+        coordinatesCount={coordinatesCount}
+        pushCoord={pushCoord}
       />
     </div>
   )

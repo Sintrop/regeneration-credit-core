@@ -10,6 +10,7 @@ export interface RegeneratorProps {
   regenerationScore: {
     score: number
   }
+  coordinatesCount: number
   pool: {
     onContractPool: boolean
     currentEra: number

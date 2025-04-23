@@ -2,6 +2,7 @@ import { CertificatesTab } from './CertificatesTab/CertificatesTab'
 import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { PublicationsTab } from './PublicationsTab/PublicationsTab'
+import { PushCoordProps, RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
 
@@ -13,6 +14,8 @@ interface Props {
   offsetsCount?: number
   reportsCount?: number
   researchesCount?: number
+  coordinatesCount?: number
+  pushCoord?: (data: PushCoordProps[]) => void
 }
 
 export function ContentTab({
@@ -22,7 +25,9 @@ export function ContentTab({
   publicationsCount,
   offsetsCount,
   reportsCount,
-  researchesCount
+  researchesCount,
+  coordinatesCount,
+  pushCoord
 }: Props): JSX.Element {
   const Tab = tabs[selectedTab]
 
@@ -34,6 +39,8 @@ export function ContentTab({
       offsetsCount={offsetsCount}
       reportsCount={reportsCount}
       researchesCount={researchesCount}
+      coordinatesCount={coordinatesCount}
+      pushCoord={pushCoord}
     />
   )
 }
@@ -44,7 +51,8 @@ const tabs = {
   publications: PublicationsTab,
   offsets: OffsetsTab,
   reports: ReportsTab,
-  researches: ResearchesTab
+  researches: ResearchesTab,
+  regenerationArea: RegenerationAreaTab
 }
 
 export type UserTypeContentTabsName = keyof typeof tabs
