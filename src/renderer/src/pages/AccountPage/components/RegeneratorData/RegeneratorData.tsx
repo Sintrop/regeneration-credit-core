@@ -34,7 +34,6 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
     : 0
 
   function handlePushCoord(data: PushCoordProps[]): void {
-    console.log(data)
     setCoords(data)
   }
 
