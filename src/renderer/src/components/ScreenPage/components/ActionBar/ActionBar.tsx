@@ -48,9 +48,12 @@ function YouAreConnected(): JSX.Element {
     <div className="w-full h-full flex items-center justify-between">
       <UserCard userType={userType} changeIndicator={setIndicator} />
 
-      <CentralIndicator indicator={indicator} userType={userType} />
-
-      <Actions userType={userType} />
+      {userType !== 0 && (
+        <>
+          <CentralIndicator indicator={indicator} userType={userType} />
+          <Actions userType={userType} />
+        </>
+      )}
     </div>
   )
 }
