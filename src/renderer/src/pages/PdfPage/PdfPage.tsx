@@ -34,6 +34,8 @@ export function PdfPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle="PDF View">
+      <p className="text-white mb-5">HASH: {params?.hash}</p>
+
       <Document
         file={`https://ipfs.io/ipfs/${params?.hash}`}
         onLoadSuccess={onDocumentLoadSuccess}

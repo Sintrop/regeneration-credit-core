@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { SupporterProps } from '@renderer/types/supporter'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -33,28 +34,14 @@ export function SupporterItem({ id }: Props): JSX.Element {
   const supporter = supporterResponse as SupporterProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary min-w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[400px] pl-5">
-        <p className="text-white truncate text-ellipsis">
-          {supporter && supporter?.supporterWallet}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[300px] pl-5">
-        <p className="text-white">{supporter && supporter?.name}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">{supporter && formatUnits(BigInt(supporter?.createdAt), 0)}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">
+        {supporter && <UserAddressLink address={supporter?.supporterWallet} />}
+      </td>
+      <td className="p-2">{supporter && supporter?.name}</td>
+      <td className="p-2">{supporter && formatUnits(BigInt(supporter?.createdAt), 0)}</td>
+      <td className="p-2"></td>
+    </tr>
   )
 }

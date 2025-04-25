@@ -1,18 +1,24 @@
-import { sequoiaInspectorAbi, sequoiaInspectorAddress } from '@renderer/services/contracts'
+import {
+  inspectorAbi,
+  inspectorAddress,
+  sequoiaInspectorAbi,
+  sequoiaInspectorAddress
+} from '@renderer/services/contracts'
 import { InspectorProps } from '@renderer/types/inspector'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
+import { UserContentTabs } from '../Tabs/UserContentTabs'
 
-export function InspectorData(): JSX.Element {
+export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaInspectorAddress : sequoiaInspectorAddress,
-    abi: chainId === 1600 ? sequoiaInspectorAbi : sequoiaInspectorAbi,
+    address: chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress,
+    abi: chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi,
     functionName: 'getInspector',
     args: [address]
   })
@@ -21,7 +27,7 @@ export function InspectorData(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={inspector && inspector?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {inspector && (
@@ -67,6 +73,8 @@ export function InspectorData(): JSX.Element {
           </p>
         </div>
       )}
+
+      <UserContentTabs address={address} availableTabs={['certificates', 'invitation']} />
     </div>
   )
 }

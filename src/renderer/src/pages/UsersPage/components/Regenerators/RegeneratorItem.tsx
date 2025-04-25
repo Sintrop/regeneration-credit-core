@@ -7,6 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { RegeneratorProps } from '@renderer/types/regenerator'
+import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 
 interface Props {
   id: number
@@ -33,42 +34,20 @@ export function RegeneratorItem({ id }: Props): JSX.Element {
   const regenerator = regeneratorResponse as RegeneratorProps
 
   return (
-    <div className="flex items-center bg-container-primary px-5 h-10 border-b border-container-secondary">
-      <div className="border-r border-container-secondary min-w-[50px]">
-        <p className="text-white">{id}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[400px] pl-5">
-        <p className="text-white truncate text-ellipsis">
-          {regenerator && regenerator?.regeneratorWallet}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[300px] pl-5">
-        <p className="text-white">{regenerator && regenerator?.name}</p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">
-          {regenerator && formatUnits(BigInt(regenerator?.createdAt), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white">
-          {regenerator && formatUnits(BigInt(regenerator?.totalInspections), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[100px] pl-5 overflow-hidden">
-        <p className="text-white text-truncate text-ellipsis max-w-[90%]">
-          {regenerator && formatUnits(BigInt(regenerator?.regenerationScore.score), 0)}
-        </p>
-      </div>
-
-      <div className="border-r border-container-secondary min-w-[120px] pl-5">
-        <p className="text-white"></p>
-      </div>
-    </div>
+    <tr className="border-b border-container-primary text-white">
+      <td className="p-2">{id}</td>
+      <td className="p-2">
+        {regenerator && <UserAddressLink address={regenerator?.regeneratorWallet} />}
+      </td>
+      <td className="p-2">{regenerator && regenerator?.name}</td>
+      <td className="p-2">{regenerator && formatUnits(BigInt(regenerator?.createdAt), 0)}</td>
+      <td className="p-2">
+        {regenerator && formatUnits(BigInt(regenerator?.totalInspections), 0)}
+      </td>
+      <td className="p-2">
+        {regenerator && formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
+      </td>
+      <td className="p-2"></td>
+    </tr>
   )
 }

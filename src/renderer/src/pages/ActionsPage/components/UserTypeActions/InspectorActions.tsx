@@ -40,6 +40,12 @@ export function InspectorActions(): JSX.Element {
         addressContract={inspectionContractAddressToUse}
         abi={inspectionAbiToUse as Abi}
       />
+
+      <ActionComponent
+        actionName="realizeInspection"
+        addressContract={inspectionContractAddressToUse}
+        abi={inspectionAbiToUse as Abi}
+      />
     </div>
   )
 }

@@ -32,6 +32,12 @@ export function SupporterActions(): JSX.Element {
         addressContract={supporterContractAddressToUse}
         abi={supporterAbiToUse as Abi}
       />
+
+      <ActionComponent
+        actionName="updateProfilePhoto"
+        addressContract={supporterContractAddressToUse}
+        abi={supporterAbiToUse as Abi}
+      />
     </div>
   )
 }

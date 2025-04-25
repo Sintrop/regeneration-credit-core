@@ -8,16 +8,16 @@ export function Nav(): JSX.Element {
   return (
     <nav className="flex flex-col">
       <NavItem icon="dashboard" label="feed" path="/" />
-      <NavItem icon="sheet" label="contracts" path="/contracts" />
-      <NavItem icon="userCircle" label="pools" path="/pools" />
-      <NavItem icon="circles" label="myTokens" path="/my-tokens" />
-      <NavItem icon="graphSquare" label="rcStats" path="/rcstats" />
-      <NavItem icon="users" label="community" path="/community" />
+      <NavItem icon="contracts" label="contracts" path="/contracts" />
+      <NavItem icon="pools" label="pools" path="/pools" />
+      <NavItem icon="myTokens" label="myTokens" path="/my-tokens" />
+      <NavItem icon="rcStats" label="rcStats" path="/rcstats" />
+      <NavItem icon="community" label="community" path="/community" />
       <DropdownMenu label="resources" icon="computer">
-        <NavItem label="inspections" path="/inspections" />
-        <NavItem label="researches" path="/researches" />
-        <NavItem label="development" path="/development" />
-        <NavItem label="contributions" path="/contributions" />
+        <NavItem icon="inspections" label="inspections" path="/inspections" />
+        <NavItem icon="researches" label="researches" path="/researches" />
+        <NavItem icon="development" label="development" path="/development" />
+        <NavItem icon="contributions" label="contributions" path="/contributions" />
       </DropdownMenu>
       <NavItem label="actions" path="/actions" />
     </nav>
@@ -42,7 +42,7 @@ function NavItem({ label, path, icon }: NavItemProps): JSX.Element {
       className="flex items-center gap-3 py-3 text-white font-semibold hover:cursor-pointer"
       onClick={handleNavigateTo}
     >
-      {icon && <Icon name={icon} />}
+      {icon && <Icon name={icon} size={25} />}
       {t(label)}
     </button>
   )

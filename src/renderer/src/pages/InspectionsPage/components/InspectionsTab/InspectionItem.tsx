@@ -8,6 +8,7 @@ import {
 import { formatUnits } from 'viem'
 import { InspectionProps } from '@renderer/types/inspection'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { StatusInspection } from './StatusInspection'
 
 interface Props {
   id: number
@@ -23,13 +24,14 @@ export function InspectionItem({ id }: Props): JSX.Element {
   })
 
   const inspection = data as InspectionProps
+  const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
 
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
       <td className="p-2">{inspection && <UserAddressLink address={inspection?.regenerator} />}</td>
       <td className="p-2">{inspection && <UserAddressLink address={inspection?.inspector} />}</td>
-      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.status), 0)}</td>
+      <td className="p-2">{inspection && <StatusInspection status={inspectionStatus} />}</td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
       <td className="p-2"></td>
     </tr>

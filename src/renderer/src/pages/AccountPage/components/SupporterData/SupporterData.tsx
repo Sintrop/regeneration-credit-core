@@ -1,27 +1,39 @@
-import { sequoiaSupporterAbi, sequoiaSupporterAddress } from '@renderer/services/contracts'
+import {
+  sequoiaSupporterAbi,
+  sequoiaSupporterAddress,
+  supporterAbi,
+  supporterAddress
+} from '@renderer/services/contracts'
 import { SupporterProps } from '@renderer/types/supporter'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
+import { UserContentTabs } from '../Tabs/UserContentTabs'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 
-export function SupporterData(): JSX.Element {
+export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaSupporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 1600 ? sequoiaSupporterAbi : sequoiaSupporterAbi,
+    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
+    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
     functionName: 'getSupporter',
     args: [address]
   })
 
   const supporter = data as SupporterProps
 
+  const publicationsCount = supporter
+    ? parseInt(formatUnits(BigInt(supporter?.publicationsCount), 0))
+    : 0
+
+  const offsetsCount = supporter ? parseInt(formatUnits(BigInt(supporter?.offsetsCount), 0)) : 0
+
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={supporter?.profilePhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {supporter && (
@@ -43,6 +55,14 @@ export function SupporterData(): JSX.Element {
           </p>
         </div>
       )}
+
+      <UserContentTabs
+        address={address}
+        availableTabs={['certificates', 'invitation', 'publications', 'offsets']}
+        name={supporter && supporter?.name}
+        publicationsCount={publicationsCount}
+        offsetsCount={offsetsCount}
+      />
     </div>
   )
 }

@@ -1,13 +1,14 @@
-import { CirclesIcon } from '@renderer/assets/icon/CirclesIcon'
+import { CommunityIcon } from '@renderer/assets/icon/CommunityIcon'
 import { ComputerIcon } from '@renderer/assets/icon/ComputerIcon'
+import { ContractsIcon } from '@renderer/assets/icon/ContractsIcon'
+import { ContributionsIcon } from '@renderer/assets/icon/ContributionsIcon'
 import { DashboardIcon } from '@renderer/assets/icon/DashboardIcon'
-import { GraphSquareIcon } from '@renderer/assets/icon/GraphSquareIcon'
-import { SheetCheckIcon } from '@renderer/assets/icon/SheetCheckIcon'
-import { SheetIcon } from '@renderer/assets/icon/SheetIcon'
-import { SheetSearchIcon } from '@renderer/assets/icon/SheetSearchIcon'
-import { UserCircleIcon } from '@renderer/assets/icon/UserCircleIcon'
-import { UserPlusIcon } from '@renderer/assets/icon/UserPlusIcon'
-import { UsersIcon } from '@renderer/assets/icon/UsersIcon'
+import { DevelopmentIcon } from '@renderer/assets/icon/DevelopmentIcon'
+import { InspectionIcon } from '@renderer/assets/icon/InspectionIcon'
+import { MyTokensIcon } from '@renderer/assets/icon/MyTokensIcon'
+import { PoolsIcon } from '@renderer/assets/icon/PoolsIcon'
+import { RcStatsIcon } from '@renderer/assets/icon/RcStatsIcon'
+import { ResearchesIcon } from '@renderer/assets/icon/ResearchesIcon'
 
 interface Props {
   name: IconName
@@ -21,16 +22,17 @@ export function Icon({ name, color, size }: Props): JSX.Element {
 }
 
 const icons = {
-  circles: CirclesIcon,
+  community: CommunityIcon,
+  contracts: ContractsIcon,
+  contributions: ContributionsIcon,
   computer: ComputerIcon,
+  development: DevelopmentIcon,
   dashboard: DashboardIcon,
-  graphSquare: GraphSquareIcon,
-  sheetCheck: SheetCheckIcon,
-  sheetSearch: SheetSearchIcon,
-  sheet: SheetIcon,
-  users: UsersIcon,
-  userCircle: UserCircleIcon,
-  userPlus: UserPlusIcon
+  inspections: InspectionIcon,
+  myTokens: MyTokensIcon,
+  rcStats: RcStatsIcon,
+  researches: ResearchesIcon,
+  pools: PoolsIcon
 }
 
 export type IconName = keyof typeof icons

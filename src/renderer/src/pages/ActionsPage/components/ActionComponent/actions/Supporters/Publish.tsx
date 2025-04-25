@@ -31,7 +31,7 @@ export function Publish({ abi, addressContract }: ActionContractProps): JSX.Elem
         //@ts-ignore
         address: addressContract ? addressContract : '',
         abi: abi ? abi : [],
-        functionName: 'burnTokensPublication',
+        functionName: 'publish',
         args: [parseUnits(inputAmmount, 18), inputDescription, response.hash]
       })
     } else {

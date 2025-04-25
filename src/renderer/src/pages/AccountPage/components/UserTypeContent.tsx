@@ -9,12 +9,17 @@ import { UserType0Data } from './UserType0Data'
 
 interface Props {
   userType: UserTypeAvailables
+  address: string
 }
 
-export function UserTypeContent({ userType }: Props): JSX.Element {
+export interface UserTypeContentProps {
+  address: string
+}
+
+export function UserTypeContent({ userType, address }: Props): JSX.Element {
   const UserContentData = userTypeAvailable[userType]
 
-  return <UserContentData />
+  return <UserContentData address={address} />
 }
 
 const userTypeAvailable = {

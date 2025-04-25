@@ -1,28 +1,35 @@
-import { sequoiaDeveloperAbi, sequoiaDeveloperAddress } from '@renderer/services/contracts'
+import {
+  developerAbi,
+  developerAddress,
+  sequoiaDeveloperAbi,
+  sequoiaDeveloperAddress
+} from '@renderer/services/contracts'
 import { DeveloperProps } from '@renderer/types/developer'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
+import { UserContentTabs } from '../Tabs/UserContentTabs'
 
-export function DeveloperData(): JSX.Element {
+export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaDeveloperAddress : sequoiaDeveloperAddress,
-    abi: chainId === 1600 ? sequoiaDeveloperAbi : sequoiaDeveloperAbi,
+    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
+    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
     functionName: 'getDeveloper',
     args: [address]
   })
 
   const developer = data as DeveloperProps
-  console.log(developer)
+
+  const reportsCount = developer ? parseInt(formatUnits(BigInt(developer?.totalReports), 0)) : 0
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={developer && developer?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {developer && (
@@ -64,6 +71,12 @@ export function DeveloperData(): JSX.Element {
           </p>
         </div>
       )}
+
+      <UserContentTabs
+        address={address}
+        availableTabs={['certificates', 'invitation', 'reports']}
+        reportsCount={reportsCount}
+      />
     </div>
   )
 }

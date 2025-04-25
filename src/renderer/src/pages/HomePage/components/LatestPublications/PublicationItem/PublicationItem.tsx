@@ -23,11 +23,11 @@ export function PublicationItem({ id }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
-      <PublicationHeader address={data && data[0]} />
+      <PublicationHeader address={data && data[0]} publishedAt={data && data[1]} />
       <PublicationContent
-        burnedTokens={data && data[1]}
-        description={data && data[2]}
-        hashImage={data && data[3]}
+        burnedTokens={data && data[2]}
+        description={data && data[3]}
+        hashImage={data && data[4]}
       />
     </div>
   )

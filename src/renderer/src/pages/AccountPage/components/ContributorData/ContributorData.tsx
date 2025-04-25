@@ -1,18 +1,24 @@
-import { sequoiaContributorAbi, sequoiaContributorAddress } from '@renderer/services/contracts'
+import {
+  contributorAbi,
+  contributorAddress,
+  sequoiaContributorAbi,
+  sequoiaContributorAddress
+} from '@renderer/services/contracts'
 import { ContributorProps } from '@renderer/types/contributor'
-import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useChainId, useReadContract } from 'wagmi'
+import { UserTypeContentProps } from '../UserTypeContent'
+import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
+import { UserContentTabs } from '../Tabs/UserContentTabs'
 
-export function ContributorData(): JSX.Element {
+export function ContributorData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const { address } = useAccount()
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaContributorAddress : sequoiaContributorAddress,
-    abi: chainId === 1600 ? sequoiaContributorAbi : sequoiaContributorAbi,
+    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
+    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
     functionName: 'getContributor',
     args: [address]
   })
@@ -21,7 +27,7 @@ export function ContributorData(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <Jazzicon className="w-20 h-20" address={address as string} />
+      <ProofPhoto address={address} hash={contributor && contributor?.proofPhoto} />
 
       <p className="text-white mt-5">{address}</p>
       {contributor && (
@@ -55,6 +61,8 @@ export function ContributorData(): JSX.Element {
           </p>
         </div>
       )}
+
+      <UserContentTabs address={address} availableTabs={['certificates', 'invitation']} />
     </div>
   )
 }
