@@ -22,7 +22,7 @@ export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
         <div className="flex flex-col pt-20 pl-[300px] w-full">
           <InfoBar />
 
-          <div className="flex flex-col gap-10 pt-10 pl-5 w-full pr-5 overflow-y-auto">
+          <div className="flex flex-col gap-10 pt-10 pl-5 w-full pr-5 overflow-y-auto mb-32">
             <div className="flex flex-col gap-1">
               <NavBtns />
               <PageTitle title={pageTitle} />
