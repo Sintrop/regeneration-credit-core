@@ -19,7 +19,6 @@ export function Nav(): JSX.Element {
         <NavItem icon="development" label="development" path="/development" />
         <NavItem icon="contributions" label="contributions" path="/contributions" />
       </DropdownMenu>
-      <NavItem label="actions" path="/actions" />
     </nav>
   )
 }
