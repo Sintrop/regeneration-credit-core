@@ -2,7 +2,6 @@ import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ConnectionWalletButton } from '../ConnectionWalletButton'
 import { DeveloperCard } from './DeveloperCard'
-import { useNavigate } from 'react-router-dom'
 import { RegeneratorCard } from './RegeneratorCard'
 import { InspectorCard } from './InspectorCard'
 import { ResearcherCard } from './ResearcherCard'
@@ -10,6 +9,7 @@ import { ContributorCard } from './ContributorCard'
 import { ActivistCard } from './ActivistCard'
 import { SupporterCard } from './SupporterCard'
 import { UserInvalidatedCard } from './UserInvalidatedCard'
+import { LogoutButton } from '../LogoutButton'
 
 export interface ContentCardProps {
   changeIndicator: (indicator: number) => void
@@ -45,18 +45,14 @@ interface CardContainerProps {
   children: ReactNode
 }
 function CardContainer({ children }: CardContainerProps): JSX.Element {
-  const navigate = useNavigate()
-
-  function handleGoToAccount(): void {
-    navigate(`/account`)
-  }
   return (
-    <button
-      className="flex gap-5 bg-container-primary rounded-2xl p-3 h-full w-[400px] hover:cursor-pointer"
-      onClick={handleGoToAccount}
-    >
+    <div className="flex gap-5 bg-container-primary rounded-2xl p-3 h-full w-[400px] relative">
       {children}
-    </button>
+
+      <div className="absolute top-0 right-0">
+        <LogoutButton />
+      </div>
+    </div>
   )
 }
 
