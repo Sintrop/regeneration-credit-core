@@ -10,6 +10,7 @@ import {
   sequoiaUserAbi
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
+import { CentralIndicator } from './CentralIndicator/CentralIndicator'
 
 export function ActionBar(): JSX.Element {
   const { isConnected } = useAccount()
@@ -31,6 +32,7 @@ export function ActionBar(): JSX.Element {
 function YouAreConnected(): JSX.Element {
   const chainId = useChainId()
   const { address } = useAccount()
+  const [indicator, setIndicator] = useState(0)
 
   const { data } = useReadContract({
     address: chainId === 250225 ? userAddress : sequoiaUserAddress,
@@ -43,7 +45,10 @@ function YouAreConnected(): JSX.Element {
 
   return (
     <div className="w-full h-full flex items-center justify-between">
-      <UserCard userType={userType} />
+      <UserCard userType={userType} changeIndicator={setIndicator} />
+
+      <CentralIndicator indicator={indicator} userType={userType} />
+      <div></div>
     </div>
   )
 }

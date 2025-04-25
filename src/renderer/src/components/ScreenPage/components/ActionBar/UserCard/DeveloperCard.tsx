@@ -7,8 +7,10 @@ import {
 import { DeveloperProps } from '@renderer/types/developer'
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
+import { ContentCardProps } from './UserCard'
+import { formatUnits } from 'viem'
 
-export function DeveloperCard(): JSX.Element {
+export function DeveloperCard({ changeIndicator }: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -20,6 +22,10 @@ export function DeveloperCard(): JSX.Element {
   })
 
   const developer = data as DeveloperProps
+
+  if (developer) {
+    changeIndicator(parseInt(formatUnits(BigInt(developer?.pool.level), 0)))
+  }
 
   return (
     <BasicData

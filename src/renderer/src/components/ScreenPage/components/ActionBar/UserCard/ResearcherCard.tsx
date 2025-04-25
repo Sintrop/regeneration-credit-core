@@ -7,8 +7,10 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ResearcherProps } from '@renderer/types/researcher'
+import { ContentCardProps } from './UserCard'
+import { formatUnits } from 'viem'
 
-export function ResearcherCard(): JSX.Element {
+export function ResearcherCard({ changeIndicator }: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -20,6 +22,10 @@ export function ResearcherCard(): JSX.Element {
   })
 
   const researcher = data as ResearcherProps
+
+  if (researcher) {
+    changeIndicator(parseInt(formatUnits(BigInt(researcher?.publishedResearches), 0)))
+  }
 
   return (
     <BasicData

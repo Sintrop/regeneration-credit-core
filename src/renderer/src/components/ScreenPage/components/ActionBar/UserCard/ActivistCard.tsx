@@ -7,8 +7,10 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ActivistProps } from '@renderer/types/activist'
+import { ContentCardProps } from './UserCard'
+import { formatUnits } from 'viem'
 
-export function ActivistCard(): JSX.Element {
+export function ActivistCard({ changeIndicator }: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -20,6 +22,10 @@ export function ActivistCard(): JSX.Element {
   })
 
   const activist = data as ActivistProps
+
+  if (activist) {
+    changeIndicator(parseInt(formatUnits(BigInt(activist?.pool.level), 0)))
+  }
 
   return (
     <BasicData

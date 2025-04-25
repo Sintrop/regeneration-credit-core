@@ -7,8 +7,10 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { InspectorProps } from '@renderer/types/inspector'
+import { ContentCardProps } from './UserCard'
+import { formatUnits } from 'viem'
 
-export function InspectorCard(): JSX.Element {
+export function InspectorCard({ changeIndicator }: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -20,6 +22,10 @@ export function InspectorCard(): JSX.Element {
   })
 
   const inspector = data as InspectorProps
+
+  if (inspector) {
+    changeIndicator(parseInt(formatUnits(BigInt(inspector?.totalInspections), 0)))
+  }
 
   return (
     <BasicData

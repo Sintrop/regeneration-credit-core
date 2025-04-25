@@ -11,10 +11,14 @@ import { ActivistCard } from './ActivistCard'
 import { SupporterCard } from './SupporterCard'
 import { UserInvalidatedCard } from './UserInvalidatedCard'
 
+export interface ContentCardProps {
+  changeIndicator: (indicator: number) => void
+}
 interface Props {
   userType: number
+  changeIndicator: (indicator: number) => void
 }
-export function UserCard({ userType }: Props): JSX.Element {
+export function UserCard({ userType, changeIndicator }: Props): JSX.Element {
   const { t } = useTranslation()
 
   if (userType === 0) {
@@ -32,7 +36,7 @@ export function UserCard({ userType }: Props): JSX.Element {
 
   return (
     <CardContainer>
-      <CardContent />
+      <CardContent changeIndicator={changeIndicator} />
     </CardContainer>
   )
 }
