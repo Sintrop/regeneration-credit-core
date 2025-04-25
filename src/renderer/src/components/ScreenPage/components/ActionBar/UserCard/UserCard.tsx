@@ -52,7 +52,7 @@ function CardContainer({ children }: CardContainerProps): JSX.Element {
   }
   return (
     <button
-      className="flex gap-5 bg-container-primary rounded-2xl p-3 h-full min-w-[350px] max-w-[410px] hover:cursor-pointer"
+      className="flex gap-5 bg-container-primary rounded-2xl p-3 h-full w-[400px] hover:cursor-pointer"
       onClick={handleGoToAccount}
     >
       {children}

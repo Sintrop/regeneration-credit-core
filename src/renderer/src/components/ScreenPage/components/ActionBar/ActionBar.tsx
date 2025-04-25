@@ -11,6 +11,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { CentralIndicator } from './CentralIndicator/CentralIndicator'
+import { Actions } from './Actions/Actions'
 
 export function ActionBar(): JSX.Element {
   const { isConnected } = useAccount()
@@ -48,7 +49,8 @@ function YouAreConnected(): JSX.Element {
       <UserCard userType={userType} changeIndicator={setIndicator} />
 
       <CentralIndicator indicator={indicator} userType={userType} />
-      <div></div>
+
+      <Actions userType={userType} />
     </div>
   )
 }
