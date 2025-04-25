@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next'
 import LogoRC from '../../assets/images/rc.png'
-import { ConnectionWalletButton } from './components/ConnectionWalletButton'
 import { useNavigate } from 'react-router-dom'
 
 export function Header(): JSX.Element {
@@ -19,9 +18,7 @@ export function Header(): JSX.Element {
           <p className="text-white font-bold text-xl">{t('regenerationCredit')}</p>
         </button>
 
-        <div className="flex items-center gap-5">
-          <ConnectionWalletButton />
-        </div>
+        <div className="flex items-center gap-5"></div>
       </div>
     </header>
   )

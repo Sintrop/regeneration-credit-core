@@ -32,7 +32,7 @@ export function ConnectionWalletButton(): JSX.Element {
       {status === 'connected' && <RegisterButton />}
 
       <button
-        className="w-[180px] px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer flex items-center gap-3 disabled:bg-green-secondary/50"
+        className="w-[180px] px-4 h-10 rounded-2xl bg-blue-primary text-white font-semibold hover:cursor-pointer flex items-center justify-center gap-3 disabled:bg-blue-primary/50"
         onClick={handleClickConnectButton}
         disabled={isConnecting || isReconnecting}
       >
@@ -55,7 +55,7 @@ export function ConnectionWalletButton(): JSX.Element {
 
       {status === 'connected' && (
         <button
-          className="px-4 h-10 rounded-2xl bg-green-secondary text-white font-semibold hover:cursor-pointer"
+          className="px-4 h-10 rounded-2xl bg-green-card text-white font-semibold hover:cursor-pointer"
           onClick={handleClickDisconnectButton}
         >
           <MdLogout color="white" size={25} />

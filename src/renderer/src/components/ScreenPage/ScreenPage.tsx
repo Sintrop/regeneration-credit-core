@@ -4,6 +4,7 @@ import { SideMenu } from '../SideMenu/SideMenu'
 import { PageTitle } from '../PageTitle/PageTitle'
 import { InfoBar } from './components/InfoBar'
 import { NavBtns } from './components/NavBtns'
+import { ActionBar } from './components/ActionBar/ActionBar'
 
 interface Props {
   pageTitle: string
@@ -27,6 +28,7 @@ export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
               <PageTitle title={pageTitle} />
             </div>
             {children}
+            <ActionBar />
           </div>
         </div>
       </main>
