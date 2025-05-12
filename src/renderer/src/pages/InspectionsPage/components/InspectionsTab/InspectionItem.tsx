@@ -32,6 +32,10 @@ export function InspectionItem({ id }: Props): JSX.Element {
       <td className="p-2">{inspection && <UserAddressLink address={inspection?.regenerator} />}</td>
       <td className="p-2">{inspection && <UserAddressLink address={inspection?.inspector} />}</td>
       <td className="p-2">{inspection && <StatusInspection status={inspectionStatus} />}</td>
+      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.treesResult), 0)}</td>
+      <td className="p-2">
+        {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
+      </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
       <td className="p-2"></td>
     </tr>
