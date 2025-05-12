@@ -32,6 +32,7 @@ export function ActivistCard({ changeIndicator }: ContentCardProps): JSX.Element
       address={address ? address : ''}
       name={activist ? activist?.name : ''}
       photoHash={activist ? activist?.proofPhoto : ''}
+      userTypeName="activist"
     />
   )
 }

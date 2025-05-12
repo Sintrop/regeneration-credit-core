@@ -32,6 +32,7 @@ export function SupporterCard({ changeIndicator }: ContentCardProps): JSX.Elemen
       address={address ? address : ''}
       name={supporter ? supporter?.name : ''}
       photoHash={supporter ? supporter?.profilePhoto : ''}
+      userTypeName="supporter"
     />
   )
 }

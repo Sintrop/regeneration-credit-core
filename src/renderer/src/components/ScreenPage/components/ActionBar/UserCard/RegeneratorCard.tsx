@@ -32,6 +32,7 @@ export function RegeneratorCard({ changeIndicator }: ContentCardProps): JSX.Elem
       address={address ? address : ''}
       name={regenerator ? regenerator?.name : ''}
       photoHash={regenerator ? regenerator?.proofPhoto : ''}
+      userTypeName="regenerator"
     />
   )
 }

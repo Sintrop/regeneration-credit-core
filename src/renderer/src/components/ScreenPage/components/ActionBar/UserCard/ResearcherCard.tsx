@@ -32,6 +32,7 @@ export function ResearcherCard({ changeIndicator }: ContentCardProps): JSX.Eleme
       address={address ? address : ''}
       name={researcher ? researcher?.name : ''}
       photoHash={researcher ? researcher?.proofPhoto : ''}
+      userTypeName="researcher"
     />
   )
 }

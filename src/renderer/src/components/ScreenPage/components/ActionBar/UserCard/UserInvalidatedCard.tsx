@@ -4,5 +4,12 @@ import { BasicData } from './BasicData'
 export function UserInvalidatedCard(): JSX.Element {
   const { address } = useAccount()
 
-  return <BasicData address={address ? address : ''} name="userInvalidated" photoHash="" />
+  return (
+    <BasicData
+      address={address ? address : ''}
+      name="userInvalidated"
+      photoHash=""
+      userTypeName=""
+    />
+  )
 }

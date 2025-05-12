@@ -32,6 +32,7 @@ export function InspectorCard({ changeIndicator }: ContentCardProps): JSX.Elemen
       address={address ? address : ''}
       name={inspector ? inspector?.name : ''}
       photoHash={inspector ? inspector?.proofPhoto : ''}
+      userTypeName="inspector"
     />
   )
 }

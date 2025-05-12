@@ -7,9 +7,10 @@ interface Props {
   address: string
   name: string
   photoHash: string
+  userTypeName: string
 }
 
-export function BasicData({ address, name, photoHash }: Props): JSX.Element {
+export function BasicData({ address, name, photoHash, userTypeName }: Props): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -37,7 +38,7 @@ export function BasicData({ address, name, photoHash }: Props): JSX.Element {
         <p className="text-white truncate text-ellipsis max-w-[70%] group-hover:underline">
           {address}
         </p>
-        <p className="text-gray-300 text-sm">{t('developer')}</p>
+        <p className="text-gray-300 text-sm">{t(userTypeName)}</p>
       </button>
     </div>
   )

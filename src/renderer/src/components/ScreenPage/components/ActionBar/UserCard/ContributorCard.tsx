@@ -32,6 +32,7 @@ export function ContributorCard({ changeIndicator }: ContentCardProps): JSX.Elem
       address={address ? address : ''}
       name={contributor ? contributor?.name : ''}
       photoHash={contributor ? contributor?.proofPhoto : ''}
+      userTypeName="contributor"
     />
   )
 }

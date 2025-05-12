@@ -32,6 +32,7 @@ export function DeveloperCard({ changeIndicator }: ContentCardProps): JSX.Elemen
       address={address ? address : ''}
       name={developer ? developer?.name : ''}
       photoHash={developer ? developer?.proofPhoto : ''}
+      userTypeName="developer"
     />
   )
 }
