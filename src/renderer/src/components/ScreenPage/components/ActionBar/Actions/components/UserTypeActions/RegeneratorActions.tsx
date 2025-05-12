@@ -29,17 +29,19 @@ export function RegeneratorActions(): JSX.Element {
     <div className="flex flex-col">
       <p className="text-white">{t('regeneratorActions')}</p>
 
-      <ActionComponent
-        actionName="withdraw"
-        addressContract={regeneratorContractAddressToUse}
-        abi={regeneratorAbiToUse as Abi}
-      />
+      <div className="flex flex-wrap gap-5 mt-1">
+        <ActionComponent
+          actionName="withdraw"
+          addressContract={regeneratorContractAddressToUse}
+          abi={regeneratorAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="requestInspection"
-        addressContract={inspectionContractAddressToUse}
-        abi={inspectionAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="requestInspection"
+          addressContract={inspectionContractAddressToUse}
+          abi={inspectionAbiToUse as Abi}
+        />
+      </div>
     </div>
   )
 }

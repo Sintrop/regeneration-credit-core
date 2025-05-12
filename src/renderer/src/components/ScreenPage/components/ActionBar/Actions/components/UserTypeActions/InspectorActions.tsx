@@ -29,23 +29,25 @@ export function InspectorActions(): JSX.Element {
     <div className="flex flex-col">
       <p className="text-white">{t('inspectorActions')}</p>
 
-      <ActionComponent
-        actionName="withdraw"
-        addressContract={inspectorContractAddressToUse}
-        abi={inspectorAbiToUse as Abi}
-      />
+      <div className="flex flex-wrap gap-5 mt-1">
+        <ActionComponent
+          actionName="withdraw"
+          addressContract={inspectorContractAddressToUse}
+          abi={inspectorAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="acceptInspection"
-        addressContract={inspectionContractAddressToUse}
-        abi={inspectionAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="acceptInspection"
+          addressContract={inspectionContractAddressToUse}
+          abi={inspectionAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="realizeInspection"
-        addressContract={inspectionContractAddressToUse}
-        abi={inspectionAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="realizeInspection"
+          addressContract={inspectionContractAddressToUse}
+          abi={inspectionAbiToUse as Abi}
+        />
+      </div>
     </div>
   )
 }

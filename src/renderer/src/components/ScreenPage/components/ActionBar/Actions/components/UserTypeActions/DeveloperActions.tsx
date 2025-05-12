@@ -7,8 +7,10 @@ import {
 import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
+import { useTranslation } from 'react-i18next'
 
 export function DeveloperActions(): JSX.Element {
+  const { t } = useTranslation();
   const chainId = useChainId()
 
   const developerContractAddressToUse =
@@ -16,24 +18,28 @@ export function DeveloperActions(): JSX.Element {
   const developerAbiToUse = chainId === 250225 ? developerAbi : sequoiaDeveloperAbi
 
   return (
-    <div className="flex flex-wrap gap-5">
-      <ActionComponent
-        actionName="withdraw"
-        addressContract={developerContractAddressToUse}
-        abi={developerAbiToUse as Abi}
-      />
+    <div className="flex flex-col">
+      <p className="text-white">{t('developerActions')}</p>
 
-      <ActionComponent
-        actionName="addReport"
-        addressContract={developerContractAddressToUse}
-        abi={developerAbiToUse as Abi}
-      />
+      <div className="flex flex-wrap gap-5 mt-1">
+        <ActionComponent
+          actionName="withdraw"
+          addressContract={developerContractAddressToUse}
+          abi={developerAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="addReportValidation"
-        addressContract={developerContractAddressToUse}
-        abi={developerAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="addReport"
+          addressContract={developerContractAddressToUse}
+          abi={developerAbiToUse as Abi}
+        />
+
+        <ActionComponent
+          actionName="addReportValidation"
+          addressContract={developerContractAddressToUse}
+          abi={developerAbiToUse as Abi}
+        />
+      </div>
     </div>
   )
 }

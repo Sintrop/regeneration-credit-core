@@ -21,23 +21,25 @@ export function SupporterActions(): JSX.Element {
     <div className="flex flex-col">
       <p className="text-white">{t('supporterActions')}</p>
 
-      <ActionComponent
-        actionName="publish"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
-      />
+      <div className="flex flex-wrap gap-5 mt-1">
+        <ActionComponent
+          actionName="publish"
+          addressContract={supporterContractAddressToUse}
+          abi={supporterAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="offsetting"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="offsetting"
+          addressContract={supporterContractAddressToUse}
+          abi={supporterAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="updateProfilePhoto"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="updateProfilePhoto"
+          addressContract={supporterContractAddressToUse}
+          abi={supporterAbiToUse as Abi}
+        />
+      </div>
     </div>
   )
 }

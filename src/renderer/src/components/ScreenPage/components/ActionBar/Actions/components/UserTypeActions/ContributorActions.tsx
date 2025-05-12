@@ -21,17 +21,19 @@ export function ContributorActions(): JSX.Element {
     <div className="flex flex-col">
       <p className="text-white">{t('contributorActions')}</p>
 
-      <ActionComponent
-        actionName="withdraw"
-        addressContract={contributorContractAddressToUse}
-        abi={contributorAbiToUse as Abi}
-      />
+      <div className="flex flex-wrap gap-5 mt-1">
+        <ActionComponent
+          actionName="withdraw"
+          addressContract={contributorContractAddressToUse}
+          abi={contributorAbiToUse as Abi}
+        />
 
-      <ActionComponent
-        actionName="addContribution"
-        addressContract={contributorContractAddressToUse}
-        abi={contributorAbiToUse as Abi}
-      />
+        <ActionComponent
+          actionName="addContribution"
+          addressContract={contributorContractAddressToUse}
+          abi={contributorAbiToUse as Abi}
+        />
+      </div>
     </div>
   )
 }
