@@ -4,6 +4,7 @@ import { TabItem } from '@renderer/components/TabItem/TabItem';
 import { useTranslation } from 'react-i18next';
 import { LatestOffsets } from './LatestOffsets/LatestOffsets';
 import { ContributionsFeedTab } from './ContributionsFeedTab/ContributionsFeedTab';
+import { ResearchesFeedTab } from './ResearchesFeedTab/ResearchesFeedTab';
 
 export function FeedTabs(): JSX.Element {
   const { t } = useTranslation()
@@ -34,6 +35,13 @@ export function FeedTabs(): JSX.Element {
           isSelected={selectedTab === 'contributions'}
           onChange={(value) => setSelectedTab(value as FeedTabs)}
         />
+
+        <TabItem
+          value="researches"
+          label={t('researches')}
+          isSelected={selectedTab === 'researches'}
+          onChange={(value) => setSelectedTab(value as FeedTabs)}
+        />
       </div>
 
       <Tab />
@@ -44,7 +52,8 @@ export function FeedTabs(): JSX.Element {
 const tabs = {
   publications: LatestPublications,
   offsets: LatestOffsets,
-  contributions: ContributionsFeedTab
+  contributions: ContributionsFeedTab,
+  researches: ResearchesFeedTab
 }
 
 type FeedTabs = keyof typeof tabs
