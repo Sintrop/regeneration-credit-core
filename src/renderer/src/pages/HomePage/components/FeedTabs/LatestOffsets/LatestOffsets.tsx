@@ -33,7 +33,7 @@ export function LatestOffsets(): JSX.Element {
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 w-[400px]">
           {offsetsIds.slice(0, 5).map((id) => (
             <OffsetItem id={id} key={id} />
           ))}
