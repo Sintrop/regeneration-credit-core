@@ -5,7 +5,7 @@ import {
   supporterAbi,
   supporterAddress
 } from '@renderer/services/contracts'
-import { PublicationItem } from '@renderer/pages/HomePage/components/LatestPublications/PublicationItem/PublicationItem'
+import { PublicationItem } from '@renderer/pages/HomePage/components/FeedTabs/LatestPublications/PublicationItem/PublicationItem'
 import { useTranslation } from 'react-i18next'
 
 interface Props {

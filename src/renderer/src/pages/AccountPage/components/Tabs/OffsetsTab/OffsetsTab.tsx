@@ -6,7 +6,7 @@ import {
   supporterAddress
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { OffsetItem } from '@renderer/pages/HomePage/components/LatestOffsets/OffsetItem/OffsetItem'
+import { OffsetItem } from '@renderer/pages/HomePage/components/FeedTabs/LatestOffsets/OffsetItem/OffsetItem'
 
 interface Props {
   address: string

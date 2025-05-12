@@ -4,14 +4,12 @@ import {
   supporterAbi,
   supporterAddress
 } from '@renderer/services/contracts'
-import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { OffsetItem } from './OffsetItem/OffsetItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 
 export function LatestOffsets(): JSX.Element {
-  const { t } = useTranslation()
   const chainId = useChainId()
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
@@ -30,8 +28,6 @@ export function LatestOffsets(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('offsets')}</p>
-
       {isLoading ? (
         <div className="w-[400px] mt-5 flex justify-center">
           <Loading />

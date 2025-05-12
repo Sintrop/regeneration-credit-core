@@ -8,7 +8,7 @@ interface Props {
 export function TabItem({ label, isSelected, value, onChange }: Props): JSX.Element {
   return (
     <button
-      className={`px-5 py-1 border-b-2 hover:cursor-pointer ${isSelected ? 'border-green-btn text-green-btn' : 'border-transparent text-white'}`}
+      className={`px-5 w-fit py-1 border-b-2 hover:cursor-pointer ${isSelected ? 'border-green-btn text-green-btn' : 'border-transparent text-white'}`}
       onClick={() => onChange(value)}
     >
       {label}
