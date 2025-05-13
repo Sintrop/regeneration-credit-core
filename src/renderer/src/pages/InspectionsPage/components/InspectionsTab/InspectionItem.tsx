@@ -34,7 +34,7 @@ export function InspectionItem({ id }: Props): JSX.Element {
   const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
 
   function handleGoToInspectionDetails(): void {
-    navigate(`/inspection-details/${id}`)
+    navigate(`/resource-details/inspection/${id}`)
   }
 
   function handleShowVote(): void {
