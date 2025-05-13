@@ -5,6 +5,7 @@ import { ResourceData } from './components/ResourceData/ResourceData'
 import { useState } from 'react'
 import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { PdfTab } from './components/PdfTab/PdfTab'
+import { ValidationsTab } from './components/ValidationsTab/ValidationsTab'
 
 export function ResourceDetailsPage(): JSX.Element {
   const { t } = useTranslation()
@@ -39,6 +40,13 @@ export function ResourceDetailsPage(): JSX.Element {
       </div>
 
       {selectedTab === 'pdf' && <PdfTab report={report} />}
+      {selectedTab === 'validations' && (
+        <ValidationsTab
+          validationsCount={validationsCount}
+          resourceId={parseInt(id as string)}
+          resourceType={resourceType as string}
+        />
+      )}
     </ScreenPage>
   )
 }
