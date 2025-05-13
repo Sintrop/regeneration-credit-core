@@ -1,3 +1,4 @@
+import { ContributionData } from './ContributionData'
 import { InspectionData } from './InspectionData'
 import { ReportData } from './ReportData'
 import { ResearcheData } from './ResearcheData'
@@ -22,6 +23,7 @@ export function ResourceData({
 const resourceData = {
   inspection: InspectionData,
   researche: ResearcheData,
-  report: ReportData
+  report: ReportData,
+  contribution: ContributionData
 }
 type Resources = keyof typeof resourceData

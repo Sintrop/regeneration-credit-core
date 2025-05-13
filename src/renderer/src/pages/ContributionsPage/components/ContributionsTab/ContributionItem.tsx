@@ -9,12 +9,15 @@ import { formatUnits } from 'viem'
 import { ContributionProps } from '@renderer/types/contributor'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
+import { FaRegEye } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   id: number
 }
 
 export function ContributionItem({ id }: Props): JSX.Element {
+  const navigate = useNavigate()
   const chainId = useChainId()
   const { data } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
@@ -25,6 +28,10 @@ export function ContributionItem({ id }: Props): JSX.Element {
 
   const contribution = data as ContributionProps
 
+  function handleGoToContributionDetails(): void {
+    navigate(`/resource-details/contribution/${id}`)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -34,7 +41,11 @@ export function ContributionItem({ id }: Props): JSX.Element {
       </td>
       <td className="p-2">{contribution && formatUnits(BigInt(contribution?.era), 0)}</td>
       <td className="p-2">{contribution && <PdfHashLink hash={contribution.report} />}</td>
-      <td className="p-2"></td>
+      <td className="p-2 flex items-center gap-3">
+        <button className="hover:cursor-pointer" onClick={handleGoToContributionDetails}>
+          <FaRegEye color="white" />
+        </button>
+      </td>
     </tr>
   )
 }
