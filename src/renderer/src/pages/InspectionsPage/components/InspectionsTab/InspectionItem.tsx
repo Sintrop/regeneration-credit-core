@@ -11,6 +11,9 @@ import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddres
 import { StatusInspection } from './StatusInspection'
 import { useNavigate } from 'react-router-dom'
 import { FaRegEye } from 'react-icons/fa'
+import { BiSolidMegaphone } from 'react-icons/bi'
+import { useState } from 'react'
+import { VoteInspection } from '@renderer/components/Votes/VoteInspection'
 
 interface Props {
   id: number
@@ -19,6 +22,7 @@ interface Props {
 export function InspectionItem({ id }: Props): JSX.Element {
   const navigate = useNavigate()
   const chainId = useChainId()
+  const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
     abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
@@ -33,6 +37,10 @@ export function InspectionItem({ id }: Props): JSX.Element {
     navigate(`/inspection-details/${id}`)
   }
 
+  function handleShowVote(): void {
+    setShowVote(true)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -44,13 +52,20 @@ export function InspectionItem({ id }: Props): JSX.Element {
         {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
       </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
-      <td className="p-2">
+      <td className="p-2 flex items-center gap-5">
         {inspectionStatus > 1 && (
-          <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
-            <FaRegEye color="white" />
-          </button>
+          <>
+            <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
+              <FaRegEye color="white" />
+            </button>
+            <button className="hover:cursor-pointer" onClick={handleShowVote}>
+              <BiSolidMegaphone color="white" />
+            </button>
+          </>
         )}
       </td>
+
+      {showVote && <VoteInspection close={() => setShowVote(false)} inspectionId={id} />}
     </tr>
   )
 }

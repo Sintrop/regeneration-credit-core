@@ -7,13 +7,15 @@ interface Props {
   isPending?: boolean
   isSuccess?: boolean
   errorTx: WriteContractErrorType | null
+  isError?: boolean
 }
 export function TransactionData({
   errorTx,
   hash,
   isLoading,
   isPending,
-  isSuccess
+  isSuccess,
+  isError
 }: Props): JSX.Element {
   const { t } = useTranslation()
 
@@ -28,7 +30,7 @@ export function TransactionData({
 
       {isLoading && <div className="w-5 h-5 bg-green-btn animate-spin" />}
 
-      {errorTx && <p className="text-red-500">{errorTx?.message}</p>}
+      {isError && <p className="text-red-500">{errorTx?.message}</p>}
 
       {isSuccess && <p className="text-green-500">{t('successTransaction')}</p>}
     </div>
