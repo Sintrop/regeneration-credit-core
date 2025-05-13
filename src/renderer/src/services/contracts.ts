@@ -17,6 +17,7 @@ import SequoiaSupporterContract from '../../../data/abis/sequoia/SupporterRules.
 import SequoiaSupporterPoolContract from '../../../data/abis/sequoia/SupporterPool.json'
 import SequoiaInspectionContract from '../../../data/abis/sequoia/InspectionRules.json'
 import SequoiaInvitationContract from '../../../data/abis/sequoia/InvitationRules.json'
+import SequoiaVoteContract from '../../../data/abis/sequoia/VoteRules.json'
 
 import { ContractListProps } from '@renderer/types/contract'
 
@@ -41,6 +42,7 @@ export const sequoiaSupporterAddress = '0xe0899E9A8db19654ac65b4E8B1550D5e52d0EF
 export const sequoiaSupporterPoolAddress = '0x1fCf73965Ff909556E2FCfcF7A0DE262aE74F08D'
 export const sequoiaInspectionAddress = '0xCcbb40DE874BFe802E15A12D58060321a0ef0f98'
 export const sequoiaInvitationAddress = '0xD57352F40277fDFF5577E64335F44dF03Ac569d0'
+export const sequoiaVoteAddress = '0x415259228A9122520CeE88cDAEdf465f17E0aA9f'
 
 // future mainnet
 export const rcAddress = '0xB795F59fd970c5272dca65455306030EA08184d7'
@@ -62,6 +64,8 @@ export const supporterAddress = '0xCC0e9CfE2302A0f861aDdFb2649edEBbAFa47855'
 export const supporterPoolAddress = '0x8e2cf67005Cc5F0ad7B470BD038f7B0fc3de0b58'
 export const inspectionAddress = '0xC2d9b310a7BC64bc0Fba5A10c1d93635a4aA90C4'
 export const invitationAddress = '0x74F92a6e87e68B82e84D902b2a9659fb1AfA3893'
+export const voteAddress = '0x415259228A9122520CeE88cDAEdf465f17E0aA9f'
+
 
 //Abis contracts
 /////////////////// testnet
@@ -84,6 +88,7 @@ export const sequoiaSupporterAbi = SequoiaSupporterContract.abi
 export const sequoiaSupporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
 export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
+export const sequoiaVoteAbi = SequoiaVoteContract.abi
 
 /////////////////// future mainnet
 export const rcAbi = SequoiaRcTokenContract.abi
@@ -105,6 +110,8 @@ export const supporterAbi = SequoiaSupporterContract.abi
 export const supporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const inspectionAbi = SequoiaInspectionContract.abi
 export const invitationAbi = SequoiaInvitationContract.abi
+export const voteAbi = SequoiaVoteContract.abi
+
 
 export const contractsSequoia: ContractListProps[] = [
   {
@@ -209,6 +216,11 @@ export const contractsSequoia: ContractListProps[] = [
     abi: sequoiaUserAbi,
     address: sequoiaUserAddress,
     name: SequoiaUserContract.contractName
+  },
+  {
+    abi: sequoiaVoteAbi,
+    address: sequoiaVoteAddress,
+    name: SequoiaVoteContract.contractName
   }
 ]
 
@@ -315,5 +327,10 @@ export const contractsMainnet: ContractListProps[] = [
     abi: sequoiaUserAbi,
     address: sequoiaUserAddress,
     name: SequoiaUserContract.contractName
+  },
+  {
+    abi: voteAbi,
+    address: voteAddress,
+    name: SequoiaVoteContract.contractName
   }
 ]
