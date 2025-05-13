@@ -9,12 +9,15 @@ import { formatUnits } from 'viem'
 import { InspectionProps } from '@renderer/types/inspection'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { StatusInspection } from './StatusInspection'
+import { useNavigate } from 'react-router-dom'
+import { FaRegEye } from 'react-icons/fa'
 
 interface Props {
   id: number
 }
 
 export function InspectionItem({ id }: Props): JSX.Element {
+  const navigate = useNavigate()
   const chainId = useChainId()
   const { data } = useReadContract({
     address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
@@ -25,6 +28,10 @@ export function InspectionItem({ id }: Props): JSX.Element {
 
   const inspection = data as InspectionProps
   const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
+
+  function handleGoToInspectionDetails(): void {
+    navigate(`/inspection-details/${id}`)
+  }
 
   return (
     <tr className="border-b border-container-primary text-white">
@@ -37,7 +44,13 @@ export function InspectionItem({ id }: Props): JSX.Element {
         {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
       </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
-      <td className="p-2"></td>
+      <td className="p-2">
+        {inspectionStatus > 1 && (
+          <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
+            <FaRegEye color="white" />
+          </button>
+        )}
+      </td>
     </tr>
   )
 }
