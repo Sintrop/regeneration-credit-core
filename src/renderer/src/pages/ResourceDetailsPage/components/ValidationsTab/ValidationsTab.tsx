@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { InspectionValidationItem } from './InspectionValidationItem'
 import { ResearchValidationItem } from './ResearchValidationItem'
+import { ReportValidationItem } from './ReportValidationItem'
 
 interface Props {
   validationsCount: number
@@ -50,6 +51,10 @@ function ValidationItem({
 
   if (resourceType === 'researche') {
     return <ResearchValidationItem resourceId={resourceId} validation={validation} />
+  }
+
+  if (resourceType === 'report') {
+    return <ReportValidationItem resourceId={resourceId} validation={validation} />
   }
 
   return <div />
