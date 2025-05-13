@@ -9,12 +9,15 @@ import { formatUnits } from 'viem'
 import { ResearchProps } from '@renderer/types/researcher'
 import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { FaRegEye } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   id: number
 }
 
 export function ResearcheItem({ id }: Props): JSX.Element {
+  const navigate = useNavigate()
   const chainId = useChainId()
   const { data } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
@@ -25,6 +28,10 @@ export function ResearcheItem({ id }: Props): JSX.Element {
 
   const research = data as ResearchProps
 
+  function handleGoToResearcheDetails(): void {
+    navigate(`/resource-details/researche/${id}`)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -32,7 +39,11 @@ export function ResearcheItem({ id }: Props): JSX.Element {
       <td className="p-2">{research && formatUnits(BigInt(research?.createdAtBlock), 0)}</td>
       <td className="p-2">{research && formatUnits(BigInt(research?.era), 0)}</td>
       <td className="p-2">{research && <PdfHashLink hash={research?.file} />}</td>
-      <td className="p-2">action</td>
+      <td className="p-2 flex items-center gap-3">
+        <button className="hover:cursor-pointer" onClick={handleGoToResearcheDetails}>
+          <FaRegEye color="white" />
+        </button>
+      </td>
     </tr>
   )
 }

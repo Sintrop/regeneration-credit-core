@@ -1,4 +1,5 @@
 import { InspectionData } from './InspectionData'
+import { ResearcheData } from './ResearcheData'
 
 interface Props {
   resourceType: string
@@ -18,6 +19,7 @@ export function ResourceData({
 }
 
 const resourceData = {
-  inspection: InspectionData
+  inspection: InspectionData,
+  researche: ResearcheData
 }
 type Resources = keyof typeof resourceData
