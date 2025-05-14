@@ -59,7 +59,7 @@ export function ReportData({ id, setReport, setValidationsCount }: Props): JSX.E
 
         <div className="flex items-center gap-2">
           <p className="text-white">{t('valid')}:</p>
-          <p className="text-white">{report && report.valid}</p>
+          <p className="text-white">{report && report.valid.toString()}</p>
         </div>
 
         <div className="flex items-center gap-2">
