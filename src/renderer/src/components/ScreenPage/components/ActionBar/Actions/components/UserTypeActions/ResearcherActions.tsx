@@ -9,7 +9,10 @@ import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-export function ResearcherActions(): JSX.Element {
+interface Props {
+  lastPublishedWork: number
+}
+export function ResearcherActions({ lastPublishedWork }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -32,6 +35,7 @@ export function ResearcherActions(): JSX.Element {
           actionName="addResearch"
           addressContract={researcherContractAddressToUse}
           abi={researcherAbiToUse as Abi}
+          lastPublishedWork={lastPublishedWork}
         />
 
         <ActionComponent

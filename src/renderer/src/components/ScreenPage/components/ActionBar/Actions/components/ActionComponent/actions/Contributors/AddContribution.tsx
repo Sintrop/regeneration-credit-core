@@ -21,8 +21,8 @@ export function AddContribution({
   const [file, setFile] = useState<Blob>()
   const [uploadingFile, setUploadingFile] = useState(false)
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   const {
     canPublish,
@@ -86,6 +86,7 @@ export function AddContribution({
             isPending={isPending}
             isSuccess={isSuccess}
             errorTx={error as WriteContractErrorType}
+            isError={isError}
           />
         </>
       ) : (
