@@ -88,76 +88,58 @@ export function TokenImpact(): JSX.Element {
     totalTreesImpact = parseFloat(formatUnits(BigInt(_totalTreesImpact), 0))
 
     const _treesPerToken = data[4].status === 'success' ? (data[4]?.result as string) : '0'
-    treesPerToken = parseFloat(
-      formatUnits(BigInt(_treesPerToken), _treesPerToken.length > 32 ? 32 : _treesPerToken.length)
-    )
+    treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 14))
 
     const _carbonPerToken = data[5].status === 'success' ? (data[5]?.result as string) : '0'
-    carbonPerToken = parseFloat(
-      formatUnits(
-        BigInt(_carbonPerToken),
-        _carbonPerToken.length > 32 ? 32 : _carbonPerToken.length
-      )
-    )
+    carbonPerToken = parseFloat(formatUnits(BigInt(_carbonPerToken), 14))
 
     const _soilPerToken = data[6].status === 'success' ? (data[6]?.result as string) : '0'
-    soilPerToken = parseFloat(
-      formatUnits(BigInt(_soilPerToken), _soilPerToken.length > 32 ? 32 : _soilPerToken.length)
-    )
+    soilPerToken = parseFloat(formatUnits(BigInt(_soilPerToken), 14))
 
     const _biodiversityPerToken = data[7].status === 'success' ? (data[7]?.result as string) : '0'
-    biodiversityPerToken = parseFloat(
-      formatUnits(
-        BigInt(_biodiversityPerToken),
-        _biodiversityPerToken.length > 32 ? 32 : _biodiversityPerToken.length
-      )
-    )
+    biodiversityPerToken = parseFloat(formatUnits(BigInt(_biodiversityPerToken), 14))
   }
 
   return (
     <div className="flex flex-col mt-5">
-      <p className="text-white mb-2">{t('tokenImpact')}</p>
-
       {isLoading ? (
         <div className="mx-auto overflow-hidden">
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-wrap gap-5">
-          <StatsRcItem
-            title={t('totalCarbonImpact')}
-            value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
-          />
-          <StatsRcItem
-            title={t('totalSoilImpact')}
-            value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
-            suffix="m²"
-          />
-          <StatsRcItem
-            title={t('totalBiodiversityImpact')}
-            value={Intl.NumberFormat('pt-BR').format(totalBiodiversityImpact)}
-          />
-          <StatsRcItem
-            title={t('totalTreesImpact')}
-            value={Intl.NumberFormat('pt-BR').format(totalTreesImpact)}
-          />
-          <StatsRcItem
-            title={t('treesPerToken')}
-            value={Intl.NumberFormat('pt-BR').format(treesPerToken)}
-          />
-          <StatsRcItem
-            title={t('carbonPerToken')}
-            value={Intl.NumberFormat('pt-BR').format(carbonPerToken)}
-          />
-          <StatsRcItem
-            title={t('soilPerToken')}
-            value={Intl.NumberFormat('pt-BR').format(soilPerToken)}
-          />
-          <StatsRcItem
-            title={t('biodiversityPerToken')}
-            value={Intl.NumberFormat('pt-BR').format(biodiversityPerToken)}
-          />
-        </div>
+        <>
+          <p className="text-white mb-2">{t('tokenTotalImpact')}</p>
+          <div className="flex flex-wrap gap-5">
+            <StatsRcItem
+              title={t('totalCarbonImpact')}
+              value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
+            />
+            <StatsRcItem
+              title={t('totalSoilImpact')}
+              value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
+              suffix="m²"
+            />
+            <StatsRcItem
+              title={t('totalBiodiversityImpact')}
+              value={Intl.NumberFormat('pt-BR').format(totalBiodiversityImpact)}
+            />
+            <StatsRcItem
+              title={t('totalTreesImpact')}
+              value={Intl.NumberFormat('pt-BR').format(totalTreesImpact)}
+            />
+          </div>
+
+          <p className="text-white mb-2 mt-10">{t('impactPerToken')}</p>
+          <div className="flex flex-wrap gap-5">
+            <StatsRcItem title={t('treesPerToken')} value={treesPerToken.toString()} />
+            <StatsRcItem title={t('carbonPerToken')} value={carbonPerToken.toString()} />
+            <StatsRcItem title={t('soilPerToken')} value={soilPerToken.toString()} />
+            <StatsRcItem
+              title={t('biodiversityPerToken')}
+              value={biodiversityPerToken.toString()}
+            />
+          </div>
+        </>
       )}
     </div>
   )
