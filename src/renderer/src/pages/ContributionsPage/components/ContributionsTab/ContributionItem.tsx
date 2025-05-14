@@ -11,6 +11,9 @@ import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddres
 import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 import { FaRegEye } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { BiSolidMegaphone } from 'react-icons/bi'
+import { VoteContribution } from '@renderer/components/Votes/VoteContribution'
 
 interface Props {
   id: number
@@ -19,6 +22,7 @@ interface Props {
 export function ContributionItem({ id }: Props): JSX.Element {
   const navigate = useNavigate()
   const chainId = useChainId()
+  const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
     abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
@@ -30,6 +34,10 @@ export function ContributionItem({ id }: Props): JSX.Element {
 
   function handleGoToContributionDetails(): void {
     navigate(`/resource-details/contribution/${id}`)
+  }
+
+  function handleShowVote(): void {
+    setShowVote(true)
   }
 
   return (
@@ -45,7 +53,13 @@ export function ContributionItem({ id }: Props): JSX.Element {
         <button className="hover:cursor-pointer" onClick={handleGoToContributionDetails}>
           <FaRegEye color="white" />
         </button>
+
+        <button className="hover:cursor-pointer" onClick={handleShowVote}>
+          <BiSolidMegaphone color="white" />
+        </button>
       </td>
+
+      {showVote && <VoteContribution contributionId={id} close={() => setShowVote(false)}/>}
     </tr>
   )
 }

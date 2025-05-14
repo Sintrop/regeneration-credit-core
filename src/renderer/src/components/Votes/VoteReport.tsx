@@ -34,7 +34,7 @@ export function VoteReport({ close, reportId }: Props): JSX.Element {
   const { writeContract, isPending, data: hash } = useWriteContract()
   const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
-  async function handleVoteInspection(): Promise<void> {
+  async function handleVoteReport(): Promise<void> {
     if (!justification.trim()) return
 
     const address = chainId === 250225 ? developerAddress : sequoiaDeveloperAddress
@@ -82,7 +82,7 @@ export function VoteReport({ close, reportId }: Props): JSX.Element {
 
                     <SendTransactionButton
                       label={t('vote')}
-                      handleSendTransaction={handleVoteInspection}
+                      handleSendTransaction={handleVoteReport}
                       disabled={!justification.trim() || isLoading || isPending}
                     />
 
