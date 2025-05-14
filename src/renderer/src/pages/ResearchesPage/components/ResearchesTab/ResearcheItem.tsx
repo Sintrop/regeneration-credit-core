@@ -11,6 +11,9 @@ import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { FaRegEye } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { BiSolidMegaphone } from 'react-icons/bi'
+import { VoteResearch } from '@renderer/components/Votes/VoteResearch'
 
 interface Props {
   id: number
@@ -19,6 +22,7 @@ interface Props {
 export function ResearcheItem({ id }: Props): JSX.Element {
   const navigate = useNavigate()
   const chainId = useChainId()
+  const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
     abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
@@ -32,6 +36,10 @@ export function ResearcheItem({ id }: Props): JSX.Element {
     navigate(`/resource-details/researche/${id}`)
   }
 
+  function handleShowVote(): void {
+    setShowVote(true)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -43,7 +51,13 @@ export function ResearcheItem({ id }: Props): JSX.Element {
         <button className="hover:cursor-pointer" onClick={handleGoToResearcheDetails}>
           <FaRegEye color="white" />
         </button>
+
+        <button className="hover:cursor-pointer" onClick={handleShowVote}>
+          <BiSolidMegaphone color="white" />
+        </button>
       </td>
+
+      {showVote && <VoteResearch close={() => setShowVote(false)} researchId={id} />}
     </tr>
   )
 }

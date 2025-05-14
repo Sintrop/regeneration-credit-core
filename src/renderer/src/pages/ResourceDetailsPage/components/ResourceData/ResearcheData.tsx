@@ -64,7 +64,7 @@ export function ResearcheData({ id, setReport, setValidationsCount }: Props): JS
 
         <div className="flex items-center gap-2">
           <p className="text-white">{t('valid')}:</p>
-          <p className="text-white">{researche && researche.valid}</p>
+          <p className="text-white">{researche && researche.valid.toString()}</p>
         </div>
 
         <div className="flex items-center gap-2">

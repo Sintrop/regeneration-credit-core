@@ -20,7 +20,7 @@ interface Props {
   address: string
   resource: 'inspection' | 'report' | 'contribution' | 'research'
 }
-export function useCanVote({ address, resource }: Props): ReturnUseCanVote {
+export function useCanVote({ address }: Props): ReturnUseCanVote {
   const chainId = useChainId()
   const [canVoteThisResource, setCanVoteThisResource] = useState(false)
 
@@ -49,10 +49,8 @@ export function useCanVote({ address, resource }: Props): ReturnUseCanVote {
   }, [userType])
 
   function checkCanVoteThisResource(userType: number): void {
-    if (resource === 'inspection') {
-      const findedUserType = usersVoteInspection.find((item) => item === userType)
-      if (findedUserType) setCanVoteThisResource(true)
-    }
+    const findedUserType = usersVotables.find((item) => item === userType)
+    if (findedUserType) setCanVoteThisResource(true)
   }
 
   return {
@@ -62,4 +60,4 @@ export function useCanVote({ address, resource }: Props): ReturnUseCanVote {
   }
 }
 
-const usersVoteInspection = [3, 4, 5, 6]
+const usersVotables = [3, 4, 5, 6]
