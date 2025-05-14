@@ -8,13 +8,14 @@ import { SupporterActions } from './SupporterActions'
 
 interface Props {
   userType: number
+  lastPublishedWork: number
 }
-export function UserTypeActions({ userType }: Props): JSX.Element {
+export function UserTypeActions({ userType, lastPublishedWork }: Props): JSX.Element {
   if (userType === 0) return <div />
 
-  const Actions = userTypeActions[userType]
+  const Actions = userTypeActions[userType as UserTypeActions]
 
-  return <Actions />
+  return <Actions lastPublishedWork={lastPublishedWork} />
 }
 
 const userTypeActions = {
@@ -26,3 +27,4 @@ const userTypeActions = {
   6: ActivistActions,
   7: SupporterActions
 }
+type UserTypeActions = keyof typeof userTypeActions

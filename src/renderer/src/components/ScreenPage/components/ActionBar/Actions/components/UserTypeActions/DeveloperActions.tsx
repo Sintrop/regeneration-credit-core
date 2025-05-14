@@ -9,7 +9,10 @@ import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 import { useTranslation } from 'react-i18next'
 
-export function DeveloperActions(): JSX.Element {
+interface Props {
+  lastPublishedWork: number
+}
+export function DeveloperActions({ lastPublishedWork }: Props): JSX.Element {
   const { t } = useTranslation();
   const chainId = useChainId()
 
@@ -32,6 +35,7 @@ export function DeveloperActions(): JSX.Element {
           actionName="addReport"
           addressContract={developerContractAddressToUse}
           abi={developerAbiToUse as Abi}
+          lastPublishedWork={lastPublishedWork}
         />
 
         <ActionComponent

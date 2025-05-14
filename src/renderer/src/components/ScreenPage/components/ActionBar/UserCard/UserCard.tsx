@@ -13,12 +13,14 @@ import { LogoutButton } from '../LogoutButton'
 
 export interface ContentCardProps {
   changeIndicator: (indicator: number) => void
+  setLastPublishedWork: (block: number) => void
 }
 interface Props {
   userType: number
   changeIndicator: (indicator: number) => void
+  setLastPublishedWork: (block: number) => void
 }
-export function UserCard({ userType, changeIndicator }: Props): JSX.Element {
+export function UserCard({ userType, changeIndicator, setLastPublishedWork }: Props): JSX.Element {
   const { t } = useTranslation()
 
   if (userType === 0) {
@@ -32,11 +34,11 @@ export function UserCard({ userType, changeIndicator }: Props): JSX.Element {
     )
   }
 
-  const CardContent = userTypeToCard[userType]
+  const CardContent = userTypeToCard[userType as UserCardContentType]
 
   return (
     <CardContainer>
-      <CardContent changeIndicator={changeIndicator} />
+      <CardContent changeIndicator={changeIndicator} setLastPublishedWork={setLastPublishedWork} />
     </CardContainer>
   )
 }

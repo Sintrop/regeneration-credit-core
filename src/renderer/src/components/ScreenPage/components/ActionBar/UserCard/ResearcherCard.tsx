@@ -10,7 +10,10 @@ import { ResearcherProps } from '@renderer/types/researcher'
 import { ContentCardProps } from './UserCard'
 import { formatUnits } from 'viem'
 
-export function ResearcherCard({ changeIndicator }: ContentCardProps): JSX.Element {
+export function ResearcherCard({
+  changeIndicator,
+  setLastPublishedWork
+}: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -25,6 +28,7 @@ export function ResearcherCard({ changeIndicator }: ContentCardProps): JSX.Eleme
 
   if (researcher) {
     changeIndicator(parseInt(formatUnits(BigInt(researcher?.publishedResearches), 0)))
+    setLastPublishedWork(parseInt(formatUnits(BigInt(researcher?.lastPublishedAt), 0)))
   }
 
   return (

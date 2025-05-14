@@ -34,6 +34,7 @@ function YouAreConnected(): JSX.Element {
   const chainId = useChainId()
   const { address } = useAccount()
   const [indicator, setIndicator] = useState(0)
+  const [lastPublishedWork, setLastPublishedWork] = useState(0)
 
   const { data } = useReadContract({
     address: chainId === 250225 ? userAddress : sequoiaUserAddress,
@@ -46,12 +47,16 @@ function YouAreConnected(): JSX.Element {
 
   return (
     <div className="w-full h-full flex items-center justify-between">
-      <UserCard userType={userType} changeIndicator={setIndicator} />
+      <UserCard
+        userType={userType}
+        changeIndicator={setIndicator}
+        setLastPublishedWork={setLastPublishedWork}
+      />
 
       {userType !== 0 && (
         <>
           <CentralIndicator indicator={indicator} userType={userType} />
-          <Actions userType={userType} />
+          <Actions userType={userType} lastPublishedWork={lastPublishedWork} />
         </>
       )}
     </div>

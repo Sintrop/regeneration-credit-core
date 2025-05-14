@@ -5,14 +5,21 @@ import { Abi } from 'viem'
 export interface ActionContractProps {
   addressContract?: string
   abi?: Abi
+  lastPublishedWork?: number
 }
 
 interface Props {
   actionName: ActionsNameType
   addressContract?: string
   abi?: Abi
+  lastPublishedWork?: number
 }
-export function ActionComponent({ actionName, addressContract, abi }: Props): JSX.Element {
+export function ActionComponent({
+  actionName,
+  addressContract,
+  abi,
+  lastPublishedWork
+}: Props): JSX.Element {
   const [openAction, setOpenAction] = useState(false)
   const Action = actionsList[actionName]
 
@@ -40,7 +47,11 @@ export function ActionComponent({ actionName, addressContract, abi }: Props): JS
             </div>
 
             <div className="max-h-[400px] overflow-y-auto">
-              <Action.component addressContract={addressContract} abi={abi} />
+              <Action.component
+                addressContract={addressContract}
+                abi={abi}
+                lastPublishedWork={lastPublishedWork}
+              />
             </div>
           </div>
         </div>

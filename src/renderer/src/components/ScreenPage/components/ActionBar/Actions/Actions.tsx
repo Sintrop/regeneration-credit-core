@@ -4,15 +4,16 @@ import { UserTypeActions } from './components/UserTypeActions/UserTypeActions'
 
 interface Props {
   userType: number
+  lastPublishedWork: number
 }
-export function Actions({ userType }: Props): JSX.Element {
+export function Actions({ userType, lastPublishedWork }: Props): JSX.Element {
   const { t } = useTranslation()
   return (
     <div className="flex flex-col gap-1 w-[400px] pt-3">
       <p className="text-gray-300 text-sm">{t('actions')}</p>
       <div className="flex flex-col max-h-28 overflow-y-auto overflow-x-hidden gap-5">
         <GeneralActions />
-        <UserTypeActions userType={userType} />
+        <UserTypeActions userType={userType} lastPublishedWork={lastPublishedWork} />
         <div className="mb-10" />
       </div>
     </div>
