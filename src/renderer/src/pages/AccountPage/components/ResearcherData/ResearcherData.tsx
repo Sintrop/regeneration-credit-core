@@ -34,44 +34,44 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
 
       <p className="text-white mt-5">{address}</p>
       {researcher && (
-        <div className="flex flex-col">
-          <p className="text-white mt-5">
+        <div className="flex flex-col gap-2 mt-2">
+          <p className="text-white">
             <span className="text-white font-bold">{t('id')}: </span>
             {formatUnits(BigInt(researcher?.id), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('name')}: </span>
             {researcher?.name}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('proofPhoto')}: </span>
             {researcher?.proofPhoto}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('level')}: </span>
             {formatUnits(BigInt(researcher?.pool?.level), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('eraPool')}: </span>
             {formatUnits(BigInt(researcher?.pool?.currentEra), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('publishedResearches')}: </span>
             {formatUnits(BigInt(researcher?.publishedResearches), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('lastPublishedAt')}: </span>
             {formatUnits(BigInt(researcher?.lastPublishedAt), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('lastCalculatorItemAt')}: </span>
             {formatUnits(BigInt(researcher?.lastCalculatorItemAt), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('registeredAt')}: </span>
             {formatUnits(BigInt(researcher?.createdAt), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('userType')}: </span> 6
           </p>
         </div>

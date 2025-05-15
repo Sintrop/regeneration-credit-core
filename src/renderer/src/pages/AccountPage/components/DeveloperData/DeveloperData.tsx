@@ -33,40 +33,40 @@ export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
 
       <p className="text-white mt-5">{address}</p>
       {developer && (
-        <div className="flex flex-col">
-          <p className="text-white mt-5">
+        <div className="flex flex-col gap-2 mt-2">
+          <p className="text-white">
             <span className="text-white font-bold">{t('id')}: </span>
             {formatUnits(BigInt(developer?.id), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('name')}: </span>
             {developer?.name}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('proofPhoto')}: </span>
             {developer?.proofPhoto}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('totalReports')}: </span>
             {formatUnits(BigInt(developer?.totalReports), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('lastPublishedAt')}: </span>
             {formatUnits(BigInt(developer?.lastPublishedAt), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('poolEra')}: </span>
             {formatUnits(BigInt(developer?.pool?.currentEra), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('poolLevel')}: </span>
             {formatUnits(BigInt(developer?.pool?.level), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('registeredAt')}: </span>
             {formatUnits(BigInt(developer?.createdAt), 0)}
           </p>
-          <p className="text-white mt-5">
+          <p className="text-white">
             <span className="text-white font-bold">{t('userType')}: </span> 4
           </p>
         </div>
