@@ -47,7 +47,7 @@ export function ResearcheItem({ id }: Props): JSX.Element {
       <td className="p-2">{research && formatUnits(BigInt(research?.createdAtBlock), 0)}</td>
       <td className="p-2">{research && formatUnits(BigInt(research?.era), 0)}</td>
       <td className="p-2">{research && <PdfHashLink hash={research?.file} />}</td>
-      <td className="p-2 flex items-center gap-3">
+      <td className="p-2 flex items-center gap-5">
         <button className="hover:cursor-pointer" onClick={handleGoToResearcheDetails}>
           <FaRegEye color="white" />
         </button>

@@ -18,7 +18,7 @@ interface ReturnUseCanVote {
 }
 interface Props {
   address: string
-  resource: 'inspection' | 'report' | 'contribution' | 'research'
+  resource: 'inspection' | 'report' | 'contribution' | 'research' | 'user'
 }
 export function useCanVote({ address }: Props): ReturnUseCanVote {
   const chainId = useChainId()

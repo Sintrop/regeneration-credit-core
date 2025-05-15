@@ -8,6 +8,9 @@ import {
 import { formatUnits } from 'viem'
 import { ContributorProps } from '@renderer/types/contributor'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { useState } from 'react'
+import { BiSolidMegaphone } from 'react-icons/bi'
+import { VoteUser } from '@renderer/components/Votes/VoteUser'
 
 interface Props {
   id: number
@@ -15,6 +18,7 @@ interface Props {
 
 export function ContributorItem({ id }: Props): JSX.Element {
   const chainId = useChainId()
+  const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
     abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
@@ -33,6 +37,10 @@ export function ContributorItem({ id }: Props): JSX.Element {
 
   const contributor = contributorResponse as ContributorProps
 
+  function handleShowVote(): void {
+    setShowVote(true)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -43,7 +51,15 @@ export function ContributorItem({ id }: Props): JSX.Element {
       <td className="p-2">{contributor && formatUnits(BigInt(contributor?.createdAt), 0)}</td>
       <td className="p-2">{contributor && formatUnits(BigInt(contributor?.pool?.level), 0)}</td>
       <td className="p-2">{contributor && formatUnits(BigInt(contributor?.pool?.level), 0)}</td>
-      <td className="p-2"></td>
+      <td className="p-2 flex items-center gap-5">
+        <button className="hover:cursor-pointer" onClick={handleShowVote}>
+          <BiSolidMegaphone color="white" />
+        </button>
+      </td>
+
+      {showVote && (
+        <VoteUser userWallet={contributor.contributorWallet} close={() => setShowVote(false)} />
+      )}
     </tr>
   )
 }
