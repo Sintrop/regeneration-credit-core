@@ -14,6 +14,8 @@ import { FaRegEye } from 'react-icons/fa'
 import { BiSolidMegaphone } from 'react-icons/bi'
 import { useState } from 'react'
 import { VoteInspection } from '@renderer/components/Votes/VoteInspection'
+import { AcceptInspection } from './AcceptInspection'
+import { MdTouchApp } from 'react-icons/md'
 
 interface Props {
   id: number
@@ -23,6 +25,7 @@ export function InspectionItem({ id }: Props): JSX.Element {
   const navigate = useNavigate()
   const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
+  const [showAccept, setShowAccept] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
     abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
@@ -41,6 +44,14 @@ export function InspectionItem({ id }: Props): JSX.Element {
     setShowVote(true)
   }
 
+  function handleShowAccept(): void {
+    setShowAccept(true)
+  }
+
+  function handleCloseAccept(): void {
+    setShowAccept(false)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -53,6 +64,11 @@ export function InspectionItem({ id }: Props): JSX.Element {
       </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
       <td className="p-2 flex items-center gap-5">
+        {inspectionStatus === 0 && (
+          <button className="hover:cursor-pointer" onClick={handleShowAccept}>
+            <MdTouchApp color="white" />
+          </button>
+        )}
         {inspectionStatus > 1 && (
           <>
             <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
@@ -66,6 +82,14 @@ export function InspectionItem({ id }: Props): JSX.Element {
       </td>
 
       {showVote && <VoteInspection close={() => setShowVote(false)} inspectionId={id} />}
+
+      {showAccept && (
+        <AcceptInspection
+          inspectionId={id}
+          createdAt={inspection ? parseInt(formatUnits(BigInt(inspection?.createdAt), 0)) : 0}
+          close={handleCloseAccept}
+        />
+      )}
     </tr>
   )
 }
