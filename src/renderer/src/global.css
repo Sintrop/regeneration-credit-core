@@ -11,3 +11,7 @@
     --color-green-btn: #229B13;
     --color-blue-primary: #3E9EF5;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+}

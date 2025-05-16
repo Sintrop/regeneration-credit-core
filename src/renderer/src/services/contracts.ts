@@ -17,30 +17,34 @@ import SequoiaSupporterContract from '../../../data/abis/sequoia/SupporterRules.
 import SequoiaSupporterPoolContract from '../../../data/abis/sequoia/SupporterPool.json'
 import SequoiaInspectionContract from '../../../data/abis/sequoia/InspectionRules.json'
 import SequoiaInvitationContract from '../../../data/abis/sequoia/InvitationRules.json'
+import SequoiaVoteContract from '../../../data/abis/sequoia/VoteRules.json'
+import SequoiaValidationContract from '../../../data/abis/sequoia/ValidationRules.json'
 
 import { ContractListProps } from '@renderer/types/contract'
 
 //Address contracts
 ///////////////////////testnet
-export const sequoiaRcAddress = '0xd39E57c2887b8374924999F732f7A877Ca4bC51a'
-export const sequoiaRcImpactAddress = '0xd2653E0C367BdA151d118d476b47E10ba0F726d5'
-export const sequoiaUserAddress = '0x0C0912F88F8D44657BCE366839ce32F7A0878a74'
-export const sequoiaRegeneratorAddress = '0xBA8C63d39Fb55b7b770BD3Ad2b7eb2b8c4df2aA3'
-export const sequoiaRegeneratorPoolAddress = '0x86B1329005008Eb21e8BC3957b12A10186DB59fd'
-export const sequoiaInspectorAddress = '0x746E371ea8C2cce3303c448a271051D3f7Be74a4'
-export const sequoiaInspectorPoolAddress = '0xB33Dd849a38B2e21B65BB50b5235F1cC0Bb524B4'
-export const sequoiaResearcherAddress = '0xDbd727FD2402b3ec2e9E5ef9379bf272a181D362'
-export const sequoiaResearcherPoolAddress = '0x544D7BA38423D7Fcd147524b562a0E0b3289Aea1'
-export const sequoiaDeveloperAddress = '0x75807c1E92Bd44E99E9A8E4ad51b4f64267D292A'
-export const sequoiaDeveloperPoolAddress = '0x007Ab340b3e85C6eED18B5bFADE79D96723CB4D6'
-export const sequoiaContributorAddress = '0x96a965EFC2cc7E861b9B95c41910F1CB48CA40B8'
-export const sequoiaContributorPoolAddress = '0x4bf22a76676848691e38fe6a10a3aDadF97b850B'
-export const sequoiaActivistAddress = '0xc40bB6455BE0C4A47c77Aa799224067C85c63c0e'
-export const sequoiaActivistPoolAddress = '0xbc6BA178641E76d7F6C348C16D7BE2Cd688856f4'
-export const sequoiaSupporterAddress = '0xd193052c687B641976C9cCd62bcECC63F873F508'
-export const sequoiaSupporterPoolAddress = '0xbB502a956f4a27781565cB953dcaECbD90581f23'
-export const sequoiaInspectionAddress = '0x35e1845644852f1A6C5b9Fe991B2676A08540875'
-export const sequoiaInvitationAddress = '0xc19EF0D42c68340b1741f0c2855881d1a8ae974A'
+export const sequoiaRcAddress = '0x371Ac1b5cA0d8BD04943Cd5F1f4FFec179EBD094'
+export const sequoiaRcImpactAddress = '0xB87bd7400367AdfC0131dB780779FE2386969fAc'
+export const sequoiaUserAddress = '0xaE8B897990A3D29dA6EFdf500C9a0b815Ab23540'
+export const sequoiaRegeneratorAddress = '0x9cABb0eFE319C573f4698C2Db61764ca61C85d03'
+export const sequoiaRegeneratorPoolAddress = '0x4c826088E2dbceDf8ddA19914A9cb8635E2981DA'
+export const sequoiaInspectorAddress = '0x6cfc55BD0e80F9d99Eaf06fC16a5FE1ecc569f81'
+export const sequoiaInspectorPoolAddress = '0xE081D551Ec232218E79088fB645977dde9003dCE'
+export const sequoiaResearcherAddress = '0xea6aEa548641fc61DB3DeE1929168Dca35b9DCB1'
+export const sequoiaResearcherPoolAddress = '0x224fE1a3415108D05851e3549733950041377872'
+export const sequoiaDeveloperAddress = '0x8E7eb9BA350101706E69C0938098F2fC5a62eC7d'
+export const sequoiaDeveloperPoolAddress = '0x420eBB4BF017ED00d5989d76A62B99F64151693b'
+export const sequoiaContributorAddress = '0x1ef4439F21b4DbfbD921067fF76B56B5Bfd64b4F'
+export const sequoiaContributorPoolAddress = '0x14E41788d9537b38783dF5AE10b54B1c44299425'
+export const sequoiaActivistAddress = '0x6CAd00D45E6ea39b5a91D05A111d863849Aaa357'
+export const sequoiaActivistPoolAddress = '0xC8F6F164c95FFFbeeB4FaC8a2578c1Fdc094E8f8'
+export const sequoiaSupporterAddress = '0xe0899E9A8db19654ac65b4E8B1550D5e52d0EF42'
+export const sequoiaSupporterPoolAddress = '0x1fCf73965Ff909556E2FCfcF7A0DE262aE74F08D'
+export const sequoiaInspectionAddress = '0xCcbb40DE874BFe802E15A12D58060321a0ef0f98'
+export const sequoiaInvitationAddress = '0xD57352F40277fDFF5577E64335F44dF03Ac569d0'
+export const sequoiaVoteAddress = '0x415259228A9122520CeE88cDAEdf465f17E0aA9f'
+export const sequoiaValidationAddress = '0x66F7e2b9fa479D1771A63D2a3955f8aB7A05545C'
 
 // future mainnet
 export const rcAddress = '0xB795F59fd970c5272dca65455306030EA08184d7'
@@ -62,6 +66,9 @@ export const supporterAddress = '0xCC0e9CfE2302A0f861aDdFb2649edEBbAFa47855'
 export const supporterPoolAddress = '0x8e2cf67005Cc5F0ad7B470BD038f7B0fc3de0b58'
 export const inspectionAddress = '0xC2d9b310a7BC64bc0Fba5A10c1d93635a4aA90C4'
 export const invitationAddress = '0x74F92a6e87e68B82e84D902b2a9659fb1AfA3893'
+export const voteAddress = '0x415259228A9122520CeE88cDAEdf465f17E0aA9f'
+export const validationAddress = '0x66F7e2b9fa479D1771A63D2a3955f8aB7A05545C'
+
 
 //Abis contracts
 /////////////////// testnet
@@ -84,6 +91,8 @@ export const sequoiaSupporterAbi = SequoiaSupporterContract.abi
 export const sequoiaSupporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
 export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
+export const sequoiaVoteAbi = SequoiaVoteContract.abi
+export const sequoiaValidationAbi = SequoiaValidationContract.abi
 
 /////////////////// future mainnet
 export const rcAbi = SequoiaRcTokenContract.abi
@@ -105,6 +114,8 @@ export const supporterAbi = SequoiaSupporterContract.abi
 export const supporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const inspectionAbi = SequoiaInspectionContract.abi
 export const invitationAbi = SequoiaInvitationContract.abi
+export const voteAbi = SequoiaVoteContract.abi
+export const validationAbi = SequoiaValidationContract.abi
 
 export const contractsSequoia: ContractListProps[] = [
   {
@@ -209,6 +220,16 @@ export const contractsSequoia: ContractListProps[] = [
     abi: sequoiaUserAbi,
     address: sequoiaUserAddress,
     name: SequoiaUserContract.contractName
+  },
+  {
+    abi: sequoiaVoteAbi,
+    address: sequoiaVoteAddress,
+    name: SequoiaVoteContract.contractName
+  },
+  {
+    abi: sequoiaValidationAbi,
+    address: sequoiaValidationAddress,
+    name: SequoiaValidationContract.contractName
   }
 ]
 
@@ -315,5 +336,15 @@ export const contractsMainnet: ContractListProps[] = [
     abi: sequoiaUserAbi,
     address: sequoiaUserAddress,
     name: SequoiaUserContract.contractName
+  },
+  {
+    abi: voteAbi,
+    address: voteAddress,
+    name: SequoiaVoteContract.contractName
+  },
+  {
+    abi: validationAbi,
+    address: sequoiaValidationAddress,
+    name: SequoiaValidationContract.contractName
   }
 ]

@@ -8,6 +8,9 @@ import {
 import { formatUnits } from 'viem'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { useState } from 'react'
+import { BiSolidMegaphone } from 'react-icons/bi'
+import { VoteUser } from '@renderer/components/Votes/VoteUser'
 
 interface Props {
   id: number
@@ -15,6 +18,7 @@ interface Props {
 
 export function RegeneratorItem({ id }: Props): JSX.Element {
   const chainId = useChainId()
+  const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
     abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
@@ -33,6 +37,10 @@ export function RegeneratorItem({ id }: Props): JSX.Element {
 
   const regenerator = regeneratorResponse as RegeneratorProps
 
+  function handleShowVote(): void {
+    setShowVote(true)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
@@ -47,7 +55,15 @@ export function RegeneratorItem({ id }: Props): JSX.Element {
       <td className="p-2">
         {regenerator && formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
       </td>
-      <td className="p-2"></td>
+      <td className="p-2 flex items-center gap-5">
+        <button className="hover:cursor-pointer" onClick={handleShowVote}>
+          <BiSolidMegaphone color="white" />
+        </button>
+      </td>
+
+      {showVote && (
+        <VoteUser userWallet={regenerator.regeneratorWallet} close={() => setShowVote(false)} />
+      )}
     </tr>
   )
 }

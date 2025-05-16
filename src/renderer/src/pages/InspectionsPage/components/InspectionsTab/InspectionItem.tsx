@@ -9,13 +9,23 @@ import { formatUnits } from 'viem'
 import { InspectionProps } from '@renderer/types/inspection'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { StatusInspection } from './StatusInspection'
+import { useNavigate } from 'react-router-dom'
+import { FaRegEye } from 'react-icons/fa'
+import { BiSolidMegaphone } from 'react-icons/bi'
+import { useState } from 'react'
+import { VoteInspection } from '@renderer/components/Votes/VoteInspection'
+import { AcceptInspection } from './AcceptInspection'
+import { MdTouchApp } from 'react-icons/md'
 
 interface Props {
   id: number
 }
 
 export function InspectionItem({ id }: Props): JSX.Element {
+  const navigate = useNavigate()
   const chainId = useChainId()
+  const [showVote, setShowVote] = useState(false)
+  const [showAccept, setShowAccept] = useState(false)
   const { data } = useReadContract({
     address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
     abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
@@ -26,14 +36,60 @@ export function InspectionItem({ id }: Props): JSX.Element {
   const inspection = data as InspectionProps
   const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
 
+  function handleGoToInspectionDetails(): void {
+    navigate(`/resource-details/inspection/${id}`)
+  }
+
+  function handleShowVote(): void {
+    setShowVote(true)
+  }
+
+  function handleShowAccept(): void {
+    setShowAccept(true)
+  }
+
+  function handleCloseAccept(): void {
+    setShowAccept(false)
+  }
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
       <td className="p-2">{inspection && <UserAddressLink address={inspection?.regenerator} />}</td>
       <td className="p-2">{inspection && <UserAddressLink address={inspection?.inspector} />}</td>
       <td className="p-2">{inspection && <StatusInspection status={inspectionStatus} />}</td>
+      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.treesResult), 0)}</td>
+      <td className="p-2">
+        {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
+      </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
-      <td className="p-2"></td>
+      <td className="p-2 flex items-center gap-5">
+        {inspectionStatus === 0 && (
+          <button className="hover:cursor-pointer" onClick={handleShowAccept}>
+            <MdTouchApp color="white" />
+          </button>
+        )}
+        {inspectionStatus > 1 && (
+          <>
+            <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
+              <FaRegEye color="white" />
+            </button>
+            <button className="hover:cursor-pointer" onClick={handleShowVote}>
+              <BiSolidMegaphone color="white" />
+            </button>
+          </>
+        )}
+      </td>
+
+      {showVote && <VoteInspection close={() => setShowVote(false)} inspectionId={id} />}
+
+      {showAccept && (
+        <AcceptInspection
+          inspectionId={id}
+          createdAt={inspection ? parseInt(formatUnits(BigInt(inspection?.createdAt), 0)) : 0}
+          close={handleCloseAccept}
+        />
+      )}
     </tr>
   )
 }

@@ -11,7 +11,7 @@ export function Nav(): JSX.Element {
       <NavItem icon="contracts" label="contracts" path="/contracts" />
       <NavItem icon="pools" label="pools" path="/pools" />
       <NavItem icon="myTokens" label="myTokens" path="/my-tokens" />
-      <NavItem icon="rcStats" label="rcStats" path="/rcstats" />
+      <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
       <NavItem icon="community" label="community" path="/community" />
       <DropdownMenu label="resources" icon="computer">
         <NavItem icon="inspections" label="inspections" path="/inspections" />
@@ -19,7 +19,6 @@ export function Nav(): JSX.Element {
         <NavItem icon="development" label="development" path="/development" />
         <NavItem icon="contributions" label="contributions" path="/contributions" />
       </DropdownMenu>
-      <NavItem label="actions" path="/actions" />
     </nav>
   )
 }

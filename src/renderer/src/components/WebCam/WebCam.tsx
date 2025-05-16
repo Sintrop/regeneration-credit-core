@@ -32,7 +32,7 @@ export function WebCam({ imageTaken }: Props): JSX.Element {
       </button>
 
       {openModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-40">
           <div className="bg-white p-6 rounded-2xl shadow-2xl w-96">
             <div className="flex items-center justify-between w-full">
               <p className="">webcam</p>
@@ -41,7 +41,7 @@ export function WebCam({ imageTaken }: Props): JSX.Element {
             <div className="w-32 h-32 flex flex-col">
               <Camera ref={cameraRef} aspectRatio="cover" errorMessages={{}} />
 
-              <div className="flex items-center gap-5 absolute z-10 bottom-10">
+              <div className="flex items-center gap-5 absolute bottom-36">
                 <button
                   className="bg-gray-200 rounded-2xl px-10 h-10 font-semibold text-black hover:cursor-pointer"
                   onClick={closeCam}

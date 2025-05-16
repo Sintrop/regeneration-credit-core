@@ -12,4 +12,6 @@ export interface InspectionProps {
   inspectedAt: number
   inspectedAtEra: number
   invalidatedAt: number
+  treesResult: number
+  biodiversityResult: number
 }

@@ -19,4 +19,5 @@ export interface ContributionProps {
   description: string
   report: string
   createdAtBlockNumber: number
+  validationsCount: number
 }
