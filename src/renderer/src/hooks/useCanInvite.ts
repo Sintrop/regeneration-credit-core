@@ -54,7 +54,7 @@ export function useCanInvite({ userTypeToInvite }: Props): ReturnUseCanInvite {
   useEffect(() => {
     checkCanInvite()
 
-    if (userType === 0 || blockNumber === 0 || lastInviteBlock === 0) {
+    if (userType === 0 || blockNumber === 0) {
       setIsLoading(true)
     } else {
       setIsLoading(false)
