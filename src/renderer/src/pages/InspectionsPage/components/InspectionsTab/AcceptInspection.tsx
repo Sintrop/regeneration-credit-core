@@ -4,8 +4,12 @@ import { TransactionData } from '@renderer/components/TransactionData/Transactio
 import {
   inspectionAbi,
   inspectionAddress,
+  regeneratorAbi,
+  regeneratorAddress,
   sequoiaInspectionAbi,
   sequoiaInspectionAddress,
+  sequoiaRegeneratorAbi,
+  sequoiaRegeneratorAddress,
   sequoiaUserAbi,
   sequoiaUserAddress,
   userAbi,
@@ -34,6 +38,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const chainId = useChainId()
   const [canAccept, setCanAccept] = useState<boolean>(false)
   const [canAcceptIn, setCanAcceptIn] = useState<number>(0)
+  const [waitNextEraToAccept, setWaitNextEraToAccept] = useState(false)
 
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
@@ -48,14 +53,38 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const { data: responseBlock } = useBlockNumber()
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
+  const { data: responseNextEra } = useReadContract({
+    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
+    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    functionName: 'nextEraIn'
+  })
+  const nextEraIn = responseNextEra
+    ? parseInt(formatUnits(BigInt(responseNextEra as string), 0))
+    : 0
+
   const { writeContract, data: hash, isPending } = useWriteContract()
   const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   useEffect(() => {
     checkIfCanAcceptInspection()
-  }, [blockNumber, createdAt])
+  }, [blockNumber, createdAt, nextEraIn])
 
   function checkIfCanAcceptInspection(): void {
+    const blocksToExpire = parseInt(import.meta.env.VITE_BLOCKS_TO_EXPIRE_ACCEPTED_INSPECTION)
+    const securityBlocks = parseInt(import.meta.env.VITE_SECURITY_BLOCKS_TO_VALIDATOR_ANALYSIS)
+
+    if (nextEraIn < blocksToExpire) {
+      setWaitNextEraToAccept(true)
+      return
+    }
+
+    if (nextEraIn - blocksToExpire > securityBlocks) {
+      setWaitNextEraToAccept(false)
+    } else {
+      setWaitNextEraToAccept(true)
+      return
+    }
+
     const delayToAccept = parseInt(import.meta.env.VITE_ACCEPT_INSPECTION_DELAY_BLOCKS)
     const blockCanAccept = createdAt + delayToAccept
 
@@ -95,7 +124,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-[200px]">
-            {userType === 2 ? (
+            {userType !== 2 ? (
               <>
                 {canAccept ? (
                   <>
@@ -121,10 +150,23 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
                   </>
                 ) : (
                   <>
-                    <p className="text-white text-center">{t("youCan'tAcceptThisInspectionNow")}</p>
-                    <p className="text-white text-center">
-                      {t('wait')} {canAcceptIn} {t('blocks')}
-                    </p>
+                    {waitNextEraToAccept ? (
+                      <>
+                        <p className="text-white text-center">
+                          {t("youCan'tAcceptThisInspectionNow")}
+                        </p>
+                        <p className="text-white text-center">{t('waitToNextEra')}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-white text-center">
+                          {t("youCan'tAcceptThisInspectionNow")}
+                        </p>
+                        <p className="text-white text-center">
+                          {t('wait')} {canAcceptIn} {t('blocks')}
+                        </p>
+                      </>
+                    )}
                   </>
                 )}
               </>
