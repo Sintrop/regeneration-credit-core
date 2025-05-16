@@ -41,7 +41,7 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
     })
   }
 
-  if (!loadingCanInvite) {
+  if (loadingCanInvite) {
     return (
       <div className="flex flex-col items-center justify-center h-[200px] overflow-hidden">
         <Loading />

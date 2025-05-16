@@ -16,6 +16,7 @@ interface Props {
   lastPublishedWork?: number
   userTypeToInvite?: number
   label?: string
+  mainAction?: boolean
 }
 export function ActionComponent({
   actionName,
@@ -23,7 +24,8 @@ export function ActionComponent({
   abi,
   lastPublishedWork,
   userTypeToInvite,
-  label
+  label,
+  mainAction
 }: Props): JSX.Element {
   const [openAction, setOpenAction] = useState(false)
   const Action = actionsList[actionName]
@@ -34,12 +36,21 @@ export function ActionComponent({
 
   return (
     <>
-      <button
-        className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
-        onClick={toggleOpenAction}
-      >
-        {label ? label : Action.name}
-      </button>
+      {mainAction ? (
+        <button
+          className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
+          onClick={toggleOpenAction}
+        >
+          {label ? label : Action.name}
+        </button>
+      ) : (
+        <button
+          className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
+          onClick={toggleOpenAction}
+        >
+          {label ? label : Action.name}
+        </button>
+      )}
 
       {openAction && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">

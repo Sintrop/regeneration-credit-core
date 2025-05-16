@@ -9,13 +9,14 @@ import { SupporterActions } from './SupporterActions'
 interface Props {
   userType: number
   lastPublishedWork: number
+  mainAction?: boolean
 }
-export function UserTypeActions({ userType, lastPublishedWork }: Props): JSX.Element {
+export function UserTypeActions({ userType, lastPublishedWork, mainAction }: Props): JSX.Element {
   if (userType === 0) return <div />
 
   const Actions = userTypeActions[userType as UserTypeActions]
 
-  return <Actions lastPublishedWork={lastPublishedWork} />
+  return <Actions lastPublishedWork={lastPublishedWork} mainAction={mainAction} />
 }
 
 const userTypeActions = {

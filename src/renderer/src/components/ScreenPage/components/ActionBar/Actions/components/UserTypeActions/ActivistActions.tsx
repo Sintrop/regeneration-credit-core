@@ -9,12 +9,28 @@ import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-export function ActivistActions(): JSX.Element {
+interface Props {
+  mainAction?: boolean
+}
+export function ActivistActions({ mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
   const activistContractAddressToUse = chainId === 250225 ? activistAddress : sequoiaActivistAddress
   const activistAbiToUse = chainId === 250225 ? activistAbi : sequoiaActivistAbi
+
+  if (mainAction) {
+    return (
+      <ActionComponent
+        actionName="invite"
+        addressContract={activistContractAddressToUse}
+        abi={activistAbiToUse as Abi}
+        label={t('inviteRegenerator')}
+        userTypeToInvite={1}
+        mainAction
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col">

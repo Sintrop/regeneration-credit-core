@@ -11,14 +11,27 @@ import { Abi } from 'viem'
 
 interface Props {
   lastPublishedWork: number
+  mainAction?: boolean
 }
-export function ResearcherActions({ lastPublishedWork }: Props): JSX.Element {
+export function ResearcherActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
   const researcherContractAddressToUse =
     chainId === 250225 ? researcherAddress : sequoiaResearcherAddress
   const researcherAbiToUse = chainId === 250225 ? researcherAbi : sequoiaResearcherAbi
+
+  if (mainAction) {
+    return (
+      <ActionComponent
+        actionName="addResearch"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+        lastPublishedWork={lastPublishedWork}
+        mainAction
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col">

@@ -9,13 +9,27 @@ import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-export function SupporterActions(): JSX.Element {
+interface Props {
+  mainAction?: boolean
+}
+export function SupporterActions({ mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
   const supporterContractAddressToUse =
     chainId === 250225 ? supporterAddress : sequoiaSupporterAddress
   const supporterAbiToUse = chainId === 250225 ? supporterAbi : sequoiaSupporterAbi
+
+  if (mainAction) {
+    return (
+      <ActionComponent
+        actionName="publish"
+        addressContract={supporterContractAddressToUse}
+        abi={supporterAbiToUse as Abi}
+        mainAction
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col">

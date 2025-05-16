@@ -12,7 +12,10 @@ import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-export function RegeneratorActions(): JSX.Element {
+interface Props {
+  mainAction?: boolean
+}
+export function RegeneratorActions({ mainAction }: Props): JSX.Element {
   const chainId = useChainId()
 
   const regeneratorContractAddressToUse =
@@ -22,6 +25,17 @@ export function RegeneratorActions(): JSX.Element {
   const inspectionContractAddressToUse =
     chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress
   const inspectionAbiToUse = chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi
+
+  if (mainAction) {
+    return (
+      <ActionComponent
+        actionName="requestInspection"
+        addressContract={inspectionContractAddressToUse}
+        abi={inspectionAbiToUse as Abi}
+        mainAction
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col">

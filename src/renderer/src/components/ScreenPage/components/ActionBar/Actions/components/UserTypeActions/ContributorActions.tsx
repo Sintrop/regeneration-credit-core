@@ -11,14 +11,27 @@ import { Abi } from 'viem'
 
 interface Props {
   lastPublishedWork: number
+  mainAction?: boolean
 }
-export function ContributorActions({ lastPublishedWork }: Props): JSX.Element {
+export function ContributorActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
   const contributorContractAddressToUse =
     chainId === 250225 ? contributorAddress : sequoiaContributorAddress
   const contributorAbiToUse = chainId === 250225 ? contributorAbi : sequoiaContributorAbi
+
+  if (mainAction) {
+    return (
+      <ActionComponent
+        actionName="addContribution"
+        addressContract={contributorContractAddressToUse}
+        abi={contributorAbiToUse as Abi}
+        lastPublishedWork={lastPublishedWork}
+        mainAction
+      />
+    )
+  }
 
   return (
     <div className="flex flex-col">
