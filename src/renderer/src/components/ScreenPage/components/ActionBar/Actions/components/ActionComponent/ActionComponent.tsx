@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { actionsList, ActionsNameType } from './actionsList'
 import { Abi } from 'viem'
+import { useTranslation } from 'react-i18next'
 
 export interface ActionContractProps {
   addressContract?: string
@@ -27,6 +28,7 @@ export function ActionComponent({
   label,
   mainAction
 }: Props): JSX.Element {
+  const { t } = useTranslation()
   const [openAction, setOpenAction] = useState(false)
   const Action = actionsList[actionName]
 
@@ -37,12 +39,15 @@ export function ActionComponent({
   return (
     <>
       {mainAction ? (
-        <button
-          className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
-          onClick={toggleOpenAction}
-        >
-          {label ? label : Action.name}
-        </button>
+        <div className="flex flex-col gap-1">
+          <p className="text-sm text-gray-300">{t('nextLevel')}</p>
+          <button
+            className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
+            onClick={toggleOpenAction}
+          >
+            {label ? label : Action.name}
+          </button>
+        </div>
       ) : (
         <button
           className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"

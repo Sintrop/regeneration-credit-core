@@ -7,6 +7,7 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ActivistProps } from '@renderer/types/activist'
+import { formatUnits } from 'viem'
 
 export function ActivistCard(): JSX.Element {
   const { address } = useAccount()
@@ -27,6 +28,7 @@ export function ActivistCard(): JSX.Element {
       name={activist ? activist?.name : ''}
       photoHash={activist ? activist?.proofPhoto : ''}
       userTypeName="activist"
+      indicator={activist ? parseInt(formatUnits(BigInt(activist.pool.level), 0)) : 0}
     />
   )
 }

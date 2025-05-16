@@ -7,6 +7,7 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { InspectorProps } from '@renderer/types/inspector'
+import { formatUnits } from 'viem'
 
 export function InspectorCard(): JSX.Element {
   const { address } = useAccount()
@@ -27,6 +28,7 @@ export function InspectorCard(): JSX.Element {
       name={inspector ? inspector?.name : ''}
       photoHash={inspector ? inspector?.proofPhoto : ''}
       userTypeName="inspector"
+      indicator={inspector ? parseInt(formatUnits(BigInt(inspector.pool.level), 0)) : 0}
     />
   )
 }

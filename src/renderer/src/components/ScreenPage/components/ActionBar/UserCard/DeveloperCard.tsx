@@ -33,6 +33,7 @@ export function DeveloperCard({ setLastPublishedWork }: ContentCardProps): JSX.E
       name={developer ? developer?.name : ''}
       photoHash={developer ? developer?.proofPhoto : ''}
       userTypeName="developer"
+      indicator={developer ? parseInt(formatUnits(BigInt(developer.pool.level), 0)) : 0}
     />
   )
 }

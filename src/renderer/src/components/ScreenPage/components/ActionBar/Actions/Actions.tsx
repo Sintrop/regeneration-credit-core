@@ -17,7 +17,7 @@ export function Actions({ userType, lastPublishedWork }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex items-center gap-10 relative">
+    <div className="flex items-end gap-7 relative">
       <UserTypeActions userType={userType} lastPublishedWork={lastPublishedWork} mainAction />
       <button
         className="px-5 h-10 rounded-2xl bg-blue-primary font-semibold text-white hover:cursor-pointer flex items-center justify-center gap-5"

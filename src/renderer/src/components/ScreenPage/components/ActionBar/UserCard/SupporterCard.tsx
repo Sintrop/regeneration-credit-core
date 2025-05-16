@@ -7,6 +7,7 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { SupporterProps } from '@renderer/types/supporter'
+import { formatUnits } from 'viem'
 
 export function SupporterCard(): JSX.Element {
   const { address } = useAccount()
@@ -27,6 +28,7 @@ export function SupporterCard(): JSX.Element {
       name={supporter ? supporter?.name : ''}
       photoHash={supporter ? supporter?.profilePhoto : ''}
       userTypeName="supporter"
+      indicator={supporter ? parseInt(formatUnits(BigInt(supporter.publicationsCount), 0)) : 0}
     />
   )
 }

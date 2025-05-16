@@ -46,7 +46,7 @@ interface CardContainerProps {
 }
 function CardContainer({ children }: CardContainerProps): JSX.Element {
   return (
-    <div className="flex gap-5 bg-container-primary rounded-2xl p-3 h-full w-[400px] relative">
+    <div className="flex gap-5 bg-container-primary rounded-2xl p-3 h-full relative">
       {children}
 
       <div className="absolute top-0 right-0">

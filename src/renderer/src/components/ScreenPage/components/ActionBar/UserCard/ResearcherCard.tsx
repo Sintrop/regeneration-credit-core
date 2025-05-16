@@ -33,6 +33,7 @@ export function ResearcherCard({ setLastPublishedWork }: ContentCardProps): JSX.
       name={researcher ? researcher?.name : ''}
       photoHash={researcher ? researcher?.proofPhoto : ''}
       userTypeName="researcher"
+      indicator={researcher ? parseInt(formatUnits(BigInt(researcher.pool.level), 0)) : 0}
     />
   )
 }

@@ -33,6 +33,7 @@ export function ContributorCard({ setLastPublishedWork }: ContentCardProps): JSX
       name={contributor ? contributor?.name : ''}
       photoHash={contributor ? contributor?.proofPhoto : ''}
       userTypeName="contributor"
+      indicator={contributor ? parseInt(formatUnits(BigInt(contributor.pool.level), 0)) : 0}
     />
   )
 }
