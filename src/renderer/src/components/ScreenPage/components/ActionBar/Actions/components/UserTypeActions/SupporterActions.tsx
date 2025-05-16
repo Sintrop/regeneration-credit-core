@@ -39,6 +39,14 @@ export function SupporterActions(): JSX.Element {
           addressContract={supporterContractAddressToUse}
           abi={supporterAbiToUse as Abi}
         />
+
+        <ActionComponent
+          actionName="invite"
+          addressContract={supporterContractAddressToUse}
+          abi={supporterAbiToUse as Abi}
+          label={t('inviteSupporter')}
+          userTypeToInvite={7}
+        />
       </div>
     </div>
   )

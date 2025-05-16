@@ -43,6 +43,14 @@ export function DeveloperActions({ lastPublishedWork }: Props): JSX.Element {
           addressContract={developerContractAddressToUse}
           abi={developerAbiToUse as Abi}
         />
+
+        <ActionComponent
+          actionName="invite"
+          addressContract={developerContractAddressToUse}
+          abi={developerAbiToUse as Abi}
+          label={t('inviteDeveloper')}
+          userTypeToInvite={4}
+        />
       </div>
     </div>
   )

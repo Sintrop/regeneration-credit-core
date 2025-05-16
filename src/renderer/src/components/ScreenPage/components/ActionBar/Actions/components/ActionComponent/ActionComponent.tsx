@@ -6,6 +6,7 @@ export interface ActionContractProps {
   addressContract?: string
   abi?: Abi
   lastPublishedWork?: number
+  userTypeToInvite?: number
 }
 
 interface Props {
@@ -13,12 +14,16 @@ interface Props {
   addressContract?: string
   abi?: Abi
   lastPublishedWork?: number
+  userTypeToInvite?: number
+  label?: string
 }
 export function ActionComponent({
   actionName,
   addressContract,
   abi,
-  lastPublishedWork
+  lastPublishedWork,
+  userTypeToInvite,
+  label
 }: Props): JSX.Element {
   const [openAction, setOpenAction] = useState(false)
   const Action = actionsList[actionName]
@@ -33,14 +38,14 @@ export function ActionComponent({
         className="w-30 h-8 rounded-2xl text-xs bg-blue-primary text-white hover:cursor-pointer hover:bg-blue-primary/90 duration-300"
         onClick={toggleOpenAction}
       >
-        {Action.name}
+        {label ? label : Action.name}
       </button>
 
       {openAction && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
           <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
             <div className="flex items-center justify-between w-full">
-              <p className="text-white">{Action.name}</p>
+              <p className="text-white">{label ? label : Action.name}</p>
               <button className="hover:cursor-pointer text-white" onClick={toggleOpenAction}>
                 X
               </button>
@@ -51,6 +56,7 @@ export function ActionComponent({
                 addressContract={addressContract}
                 abi={abi}
                 lastPublishedWork={lastPublishedWork}
+                userTypeToInvite={userTypeToInvite}
               />
             </div>
           </div>

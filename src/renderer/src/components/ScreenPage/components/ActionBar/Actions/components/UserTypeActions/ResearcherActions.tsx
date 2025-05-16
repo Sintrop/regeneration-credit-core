@@ -49,6 +49,14 @@ export function ResearcherActions({ lastPublishedWork }: Props): JSX.Element {
           addressContract={researcherContractAddressToUse}
           abi={researcherAbiToUse as Abi}
         />
+
+        <ActionComponent
+          actionName="invite"
+          addressContract={researcherContractAddressToUse}
+          abi={researcherAbiToUse as Abi}
+          label={t('inviteResearcher')}
+          userTypeToInvite={3}
+        />
       </div>
     </div>
   )

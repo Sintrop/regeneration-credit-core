@@ -37,6 +37,14 @@ export function ContributorActions({ lastPublishedWork }: Props): JSX.Element {
           abi={contributorAbiToUse as Abi}
           lastPublishedWork={lastPublishedWork}
         />
+
+        <ActionComponent
+          actionName="invite"
+          addressContract={contributorContractAddressToUse}
+          abi={contributorAbiToUse as Abi}
+          label={t('inviteContributor')}
+          userTypeToInvite={5}
+        />
       </div>
     </div>
   )
