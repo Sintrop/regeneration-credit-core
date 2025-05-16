@@ -22,42 +22,38 @@ export function ResearcherActions({ lastPublishedWork }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('researcherActions')}</p>
+      <ActionComponent
+        actionName="withdraw"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+      />
 
-      <div className="flex flex-wrap gap-5 mt-1">
-        <ActionComponent
-          actionName="withdraw"
-          addressContract={researcherContractAddressToUse}
-          abi={researcherAbiToUse as Abi}
-        />
+      <ActionComponent
+        actionName="addResearch"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+        lastPublishedWork={lastPublishedWork}
+      />
 
-        <ActionComponent
-          actionName="addResearch"
-          addressContract={researcherContractAddressToUse}
-          abi={researcherAbiToUse as Abi}
-          lastPublishedWork={lastPublishedWork}
-        />
+      <ActionComponent
+        actionName="addResearchValidation"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+      />
 
-        <ActionComponent
-          actionName="addResearchValidation"
-          addressContract={researcherContractAddressToUse}
-          abi={researcherAbiToUse as Abi}
-        />
+      <ActionComponent
+        actionName="addCalculatorItem"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+      />
 
-        <ActionComponent
-          actionName="addCalculatorItem"
-          addressContract={researcherContractAddressToUse}
-          abi={researcherAbiToUse as Abi}
-        />
-
-        <ActionComponent
-          actionName="invite"
-          addressContract={researcherContractAddressToUse}
-          abi={researcherAbiToUse as Abi}
-          label={t('inviteResearcher')}
-          userTypeToInvite={3}
-        />
-      </div>
+      <ActionComponent
+        actionName="invite"
+        addressContract={researcherContractAddressToUse}
+        abi={researcherAbiToUse as Abi}
+        label={t('inviteResearcher')}
+        userTypeToInvite={3}
+      />
     </div>
   )
 }

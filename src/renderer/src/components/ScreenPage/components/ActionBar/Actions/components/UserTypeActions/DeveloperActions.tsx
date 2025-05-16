@@ -13,7 +13,7 @@ interface Props {
   lastPublishedWork: number
 }
 export function DeveloperActions({ lastPublishedWork }: Props): JSX.Element {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const chainId = useChainId()
 
   const developerContractAddressToUse =
@@ -22,36 +22,32 @@ export function DeveloperActions({ lastPublishedWork }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('developerActions')}</p>
+      <ActionComponent
+        actionName="withdraw"
+        addressContract={developerContractAddressToUse}
+        abi={developerAbiToUse as Abi}
+      />
 
-      <div className="flex flex-wrap gap-5 mt-1">
-        <ActionComponent
-          actionName="withdraw"
-          addressContract={developerContractAddressToUse}
-          abi={developerAbiToUse as Abi}
-        />
+      <ActionComponent
+        actionName="addReport"
+        addressContract={developerContractAddressToUse}
+        abi={developerAbiToUse as Abi}
+        lastPublishedWork={lastPublishedWork}
+      />
 
-        <ActionComponent
-          actionName="addReport"
-          addressContract={developerContractAddressToUse}
-          abi={developerAbiToUse as Abi}
-          lastPublishedWork={lastPublishedWork}
-        />
+      <ActionComponent
+        actionName="addReportValidation"
+        addressContract={developerContractAddressToUse}
+        abi={developerAbiToUse as Abi}
+      />
 
-        <ActionComponent
-          actionName="addReportValidation"
-          addressContract={developerContractAddressToUse}
-          abi={developerAbiToUse as Abi}
-        />
-
-        <ActionComponent
-          actionName="invite"
-          addressContract={developerContractAddressToUse}
-          abi={developerAbiToUse as Abi}
-          label={t('inviteDeveloper')}
-          userTypeToInvite={4}
-        />
-      </div>
+      <ActionComponent
+        actionName="invite"
+        addressContract={developerContractAddressToUse}
+        abi={developerAbiToUse as Abi}
+        label={t('inviteDeveloper')}
+        userTypeToInvite={4}
+      />
     </div>
   )
 }

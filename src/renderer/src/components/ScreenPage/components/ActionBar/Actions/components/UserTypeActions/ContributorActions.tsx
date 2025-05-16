@@ -22,30 +22,26 @@ export function ContributorActions({ lastPublishedWork }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('contributorActions')}</p>
+      <ActionComponent
+        actionName="withdraw"
+        addressContract={contributorContractAddressToUse}
+        abi={contributorAbiToUse as Abi}
+      />
 
-      <div className="flex flex-wrap gap-5 mt-1">
-        <ActionComponent
-          actionName="withdraw"
-          addressContract={contributorContractAddressToUse}
-          abi={contributorAbiToUse as Abi}
-        />
+      <ActionComponent
+        actionName="addContribution"
+        addressContract={contributorContractAddressToUse}
+        abi={contributorAbiToUse as Abi}
+        lastPublishedWork={lastPublishedWork}
+      />
 
-        <ActionComponent
-          actionName="addContribution"
-          addressContract={contributorContractAddressToUse}
-          abi={contributorAbiToUse as Abi}
-          lastPublishedWork={lastPublishedWork}
-        />
-
-        <ActionComponent
-          actionName="invite"
-          addressContract={contributorContractAddressToUse}
-          abi={contributorAbiToUse as Abi}
-          label={t('inviteContributor')}
-          userTypeToInvite={5}
-        />
-      </div>
+      <ActionComponent
+        actionName="invite"
+        addressContract={contributorContractAddressToUse}
+        abi={contributorAbiToUse as Abi}
+        label={t('inviteContributor')}
+        userTypeToInvite={5}
+      />
     </div>
   )
 }

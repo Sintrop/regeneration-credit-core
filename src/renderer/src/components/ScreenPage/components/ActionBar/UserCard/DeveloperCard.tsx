@@ -10,10 +10,7 @@ import { BasicData } from './BasicData'
 import { ContentCardProps } from './UserCard'
 import { formatUnits } from 'viem'
 
-export function DeveloperCard({
-  changeIndicator,
-  setLastPublishedWork
-}: ContentCardProps): JSX.Element {
+export function DeveloperCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -27,7 +24,6 @@ export function DeveloperCard({
   const developer = data as DeveloperProps
 
   if (developer) {
-    changeIndicator(parseInt(formatUnits(BigInt(developer?.pool.level), 0)))
     setLastPublishedWork(parseInt(formatUnits(BigInt(developer?.lastPublishedAt), 0)))
   }
 

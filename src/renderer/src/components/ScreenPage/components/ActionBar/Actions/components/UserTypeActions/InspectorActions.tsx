@@ -8,13 +8,11 @@ import {
   sequoiaInspectorAbi,
   sequoiaInspectorAddress
 } from '@renderer/services/contracts'
-import { useTranslation } from 'react-i18next'
 import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
 export function InspectorActions(): JSX.Element {
-  const { t } = useTranslation()
   const chainId = useChainId()
 
   const inspectorContractAddressToUse =
@@ -27,27 +25,23 @@ export function InspectorActions(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">{t('inspectorActions')}</p>
+      <ActionComponent
+        actionName="withdraw"
+        addressContract={inspectorContractAddressToUse}
+        abi={inspectorAbiToUse as Abi}
+      />
 
-      <div className="flex flex-wrap gap-5 mt-1">
-        <ActionComponent
-          actionName="withdraw"
-          addressContract={inspectorContractAddressToUse}
-          abi={inspectorAbiToUse as Abi}
-        />
+      <ActionComponent
+        actionName="acceptInspection"
+        addressContract={inspectionContractAddressToUse}
+        abi={inspectionAbiToUse as Abi}
+      />
 
-        <ActionComponent
-          actionName="acceptInspection"
-          addressContract={inspectionContractAddressToUse}
-          abi={inspectionAbiToUse as Abi}
-        />
-
-        <ActionComponent
-          actionName="realizeInspection"
-          addressContract={inspectionContractAddressToUse}
-          abi={inspectionAbiToUse as Abi}
-        />
-      </div>
+      <ActionComponent
+        actionName="realizeInspection"
+        addressContract={inspectionContractAddressToUse}
+        abi={inspectionAbiToUse as Abi}
+      />
     </div>
   )
 }

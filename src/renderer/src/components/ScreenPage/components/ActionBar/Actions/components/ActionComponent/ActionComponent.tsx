@@ -35,7 +35,7 @@ export function ActionComponent({
   return (
     <>
       <button
-        className="w-30 h-8 rounded-2xl text-xs bg-blue-primary text-white hover:cursor-pointer hover:bg-blue-primary/90 duration-300"
+        className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
         onClick={toggleOpenAction}
       >
         {label ? label : Action.name}

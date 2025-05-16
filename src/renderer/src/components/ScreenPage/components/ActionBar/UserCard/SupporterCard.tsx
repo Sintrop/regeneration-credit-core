@@ -7,10 +7,8 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { SupporterProps } from '@renderer/types/supporter'
-import { ContentCardProps } from './UserCard'
-import { formatUnits } from 'viem'
 
-export function SupporterCard({ changeIndicator }: ContentCardProps): JSX.Element {
+export function SupporterCard(): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -22,10 +20,6 @@ export function SupporterCard({ changeIndicator }: ContentCardProps): JSX.Elemen
   })
 
   const supporter = data as SupporterProps
-
-  if (supporter) {
-    changeIndicator(parseInt(formatUnits(BigInt(supporter?.offsetsCount), 0)))
-  }
 
   return (
     <BasicData

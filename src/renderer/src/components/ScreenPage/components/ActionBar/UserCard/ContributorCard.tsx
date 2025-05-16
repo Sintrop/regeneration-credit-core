@@ -10,10 +10,7 @@ import { ContributorProps } from '@renderer/types/contributor'
 import { ContentCardProps } from './UserCard'
 import { formatUnits } from 'viem'
 
-export function ContributorCard({
-  changeIndicator,
-  setLastPublishedWork
-}: ContentCardProps): JSX.Element {
+export function ContributorCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -27,7 +24,6 @@ export function ContributorCard({
   const contributor = data as ContributorProps
 
   if (contributor) {
-    changeIndicator(parseInt(formatUnits(BigInt(contributor?.pool.level), 0)))
     setLastPublishedWork(parseInt(formatUnits(BigInt(contributor?.lastPublishedAt), 0)))
   }
 

@@ -7,10 +7,8 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { RegeneratorProps } from '@renderer/types/regenerator'
-import { ContentCardProps } from './UserCard'
-import { formatUnits } from 'viem'
 
-export function RegeneratorCard({ changeIndicator }: ContentCardProps): JSX.Element {
+export function RegeneratorCard(): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -22,10 +20,6 @@ export function RegeneratorCard({ changeIndicator }: ContentCardProps): JSX.Elem
   })
 
   const regenerator = data as RegeneratorProps
-
-  if (regenerator) {
-    changeIndicator(parseInt(formatUnits(BigInt(regenerator?.regenerationScore.score), 0)))
-  }
 
   return (
     <BasicData
