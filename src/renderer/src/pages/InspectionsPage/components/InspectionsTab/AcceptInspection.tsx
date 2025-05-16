@@ -124,7 +124,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center w-full h-[200px]">
-            {userType !== 2 ? (
+            {userType === 2 ? (
               <>
                 {canAccept ? (
                   <>
