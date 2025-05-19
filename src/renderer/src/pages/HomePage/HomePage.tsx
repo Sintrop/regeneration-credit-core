@@ -1,11 +1,17 @@
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
-import { FeedTabs } from './components/FeedTabs/FeedTabs'
+import { LatestPublications } from './components/FeedTabs/LatestPublications/LatestPublications'
+import { LatestOffsets } from './components/FeedTabs/LatestOffsets/LatestOffsets'
+import { ContributionsFeedTab } from './components/FeedTabs/ContributionsFeedTab/ContributionsFeedTab'
+import { ResearchesFeedTab } from './components/FeedTabs/ResearchesFeedTab/ResearchesFeedTab'
 
 export function HomePage(): JSX.Element {
   return (
     <ScreenPage pageTitle="feed">
-      <div className="w-full flex flex-col gap-10">
-        <FeedTabs />
+      <div className="w-full flex gap-10 overflow-x-scroll">
+        <LatestPublications />
+        <LatestOffsets />
+        <ContributionsFeedTab />
+        <ResearchesFeedTab />
       </div>
     </ScreenPage>
   )
