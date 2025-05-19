@@ -62,7 +62,10 @@ export function ActivistData({ address }: UserTypeContentProps): JSX.Element {
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['certificates', 'invitation']} />
+      <UserContentTabs
+        address={address}
+        availableTabs={['certificates', 'invitation', 'approvedInvites']}
+      />
     </div>
   )
 }
