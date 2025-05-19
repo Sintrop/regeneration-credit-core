@@ -33,28 +33,28 @@ export const contractsPool = {
     addressMainnet: sequoiaResearcherPoolAddress,
     abiTestnet: sequoiaResearcherPoolAbi,
     abiMainnet: sequoiaResearcherPoolAbi,
-    poolFunds: BigInt('30000000000000000000000000')
+    poolFunds: BigInt('40000000000000000000000000')
   },
   developer: {
     addressTestnet: sequoiaDeveloperPoolAddress,
     addressMainnet: sequoiaDeveloperPoolAddress,
     abiTestnet: sequoiaDeveloperPoolAbi,
     abiMainnet: sequoiaDeveloperPoolAbi,
-    poolFunds: BigInt('30000000000000000000000000')
+    poolFunds: BigInt('40000000000000000000000000')
   },
   contributor: {
     addressTestnet: sequoiaContributorPoolAddress,
     addressMainnet: sequoiaContributorPoolAddress,
     abiTestnet: sequoiaContributorPoolAbi,
     abiMainnet: sequoiaContributorPoolAbi,
-    poolFunds: BigInt('30000000000000000000000000')
+    poolFunds: BigInt('40000000000000000000000000')
   },
   activist: {
     addressTestnet: sequoiaActivistPoolAddress,
     addressMainnet: sequoiaActivistPoolAddress,
     abiTestnet: sequoiaActivistPoolAbi,
     abiMainnet: sequoiaActivistPoolAbi,
-    poolFunds: BigInt('30000000000000000000000000')
+    poolFunds: BigInt('40000000000000000000000000')
   }
 }
 
