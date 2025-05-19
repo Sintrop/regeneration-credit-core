@@ -34,19 +34,20 @@ export function ResearcheFeedItem({ id }: Props): JSX.Element {
 
   const researcher = data2 as ResearcherProps
 
-  return (
-    <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
-      <HeaderFeedItem
-        name={researcher && researcher.name}
-        proofPhoto={researcher && researcher.proofPhoto}
-        publishedAt={research && formatUnits(BigInt(research.createdAtBlock), 0)}
-        address={research && research.createdBy}
-      />
+  if (researcher && research) {
+    return (
+      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+        <HeaderFeedItem
+          name={researcher.name}
+          proofPhoto={researcher.proofPhoto}
+          publishedAt={formatUnits(BigInt(research.createdAtBlock), 0)}
+          address={research.createdBy}
+        />
 
-      <ResearcheFeedContent
-        era={research ? parseInt(formatUnits(BigInt(research.era), 0)) : 0}
-        report={research ? research.file : ''}
-      />
-    </div>
-  )
+        <ResearcheFeedContent title={research.title} thesis={research.thesis} researchId={id} />
+      </div>
+    )
+  }
+
+  return <div />
 }
