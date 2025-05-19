@@ -88,7 +88,11 @@ export function ResearcheData({ id, setReport, setValidationsCount }: Props): JS
         </div>
       </div>
 
-      <VoteToInvalidate resourceId={id} resourceType="research" />
+      <VoteToInvalidate
+        resourceId={id}
+        resourceType="research"
+        publishedEra={parseInt(formatUnits(BigInt(researche.era), 0))}
+      />
     </div>
   )
 }

@@ -57,7 +57,13 @@ export function ResearcheItem({ id }: Props): JSX.Element {
         </button>
       </td>
 
-      {showVote && <VoteResearch close={() => setShowVote(false)} researchId={id} />}
+      {showVote && (
+        <VoteResearch
+          close={() => setShowVote(false)}
+          researchId={id}
+          publishedEra={parseInt(formatUnits(BigInt(research?.era), 0))}
+        />
+      )}
     </tr>
   )
 }

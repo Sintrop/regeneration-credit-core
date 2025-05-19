@@ -78,7 +78,11 @@ export function ContributionData({ id, setReport, setValidationsCount }: Props):
         </div>
       </div>
 
-      <VoteToInvalidate resourceId={id} resourceType="contribution" />
+      <VoteToInvalidate
+        resourceId={id}
+        resourceType="contribution"
+        publishedEra={parseInt(formatUnits(BigInt(contribution.era), 0))}
+      />
     </div>
   )
 }

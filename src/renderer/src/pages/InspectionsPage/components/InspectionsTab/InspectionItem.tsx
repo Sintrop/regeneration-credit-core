@@ -81,7 +81,13 @@ export function InspectionItem({ id }: Props): JSX.Element {
         )}
       </td>
 
-      {showVote && <VoteInspection close={() => setShowVote(false)} inspectionId={id} />}
+      {showVote && (
+        <VoteInspection
+          close={() => setShowVote(false)}
+          inspectionId={id}
+          inspectedEra={parseInt(formatUnits(BigInt(inspection?.inspectedAtEra), 0))}
+        />
+      )}
 
       {showAccept && (
         <AcceptInspection

@@ -59,7 +59,13 @@ export function ContributionItem({ id }: Props): JSX.Element {
         </button>
       </td>
 
-      {showVote && <VoteContribution contributionId={id} close={() => setShowVote(false)}/>}
+      {showVote && (
+        <VoteContribution
+          contributionId={id}
+          close={() => setShowVote(false)}
+          publishedEra={parseInt(formatUnits(BigInt(contribution?.era), 0))}
+        />
+      )}
     </tr>
   )
 }

@@ -81,7 +81,11 @@ export function ReportData({ id, setReport, setValidationsCount }: Props): JSX.E
         </div>
       </div>
 
-      <VoteToInvalidate resourceId={id} resourceType="report" />
+      <VoteToInvalidate
+        resourceId={id}
+        resourceType="report"
+        publishedEra={parseInt(formatUnits(BigInt(report.era), 0))}
+      />
     </div>
   )
 }

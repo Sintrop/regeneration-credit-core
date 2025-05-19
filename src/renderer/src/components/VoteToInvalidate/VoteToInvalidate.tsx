@@ -11,9 +11,15 @@ interface Props {
   resourceType: 'inspection' | 'research' | 'report' | 'contribution' | 'user'
   resourceId?: number
   userWallet?: string
+  publishedEra?: number
 }
 
-export function VoteToInvalidate({ resourceType, resourceId, userWallet }: Props): JSX.Element {
+export function VoteToInvalidate({
+  resourceType,
+  resourceId,
+  userWallet,
+  publishedEra
+}: Props): JSX.Element {
   const { t } = useTranslation()
   const [showVote, setShowVote] = useState<boolean>(false)
 
@@ -38,22 +44,35 @@ export function VoteToInvalidate({ resourceType, resourceId, userWallet }: Props
       {showVote && (
         <>
           {resourceType === 'inspection' && (
-            <VoteInspection close={handleCloseVote} inspectionId={resourceId ? resourceId : 0} />
+            <VoteInspection
+              close={handleCloseVote}
+              inspectionId={resourceId ? resourceId : 0}
+              inspectedEra={publishedEra ? publishedEra : 0}
+            />
           )}
 
           {resourceType === 'contribution' && (
             <VoteContribution
               close={handleCloseVote}
               contributionId={resourceId ? resourceId : 0}
+              publishedEra={publishedEra ? publishedEra : 0}
             />
           )}
 
           {resourceType === 'report' && (
-            <VoteReport close={handleCloseVote} reportId={resourceId ? resourceId : 0} />
+            <VoteReport
+              close={handleCloseVote}
+              reportId={resourceId ? resourceId : 0}
+              publishedEra={publishedEra ? publishedEra : 0}
+            />
           )}
 
           {resourceType === 'research' && (
-            <VoteResearch close={handleCloseVote} researchId={resourceId ? resourceId : 0} />
+            <VoteResearch
+              close={handleCloseVote}
+              researchId={resourceId ? resourceId : 0}
+              publishedEra={publishedEra ? publishedEra : 0}
+            />
           )}
 
           {resourceType === 'user' && (

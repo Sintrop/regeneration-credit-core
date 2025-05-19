@@ -16,9 +16,10 @@ import { Loading } from '../Loading/Loading'
 interface Props {
   researchId: number
   close: () => void
+  publishedEra: number
 }
 
-export function VoteResearch({ close, researchId }: Props): JSX.Element {
+export function VoteResearch({ close, researchId, publishedEra }: Props): JSX.Element {
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
   const chainId = useChainId()
@@ -26,10 +27,12 @@ export function VoteResearch({ close, researchId }: Props): JSX.Element {
   const {
     isLoading: checkingAvailableVote,
     canVote,
-    canVoteThisResource
+    canVoteThisResource,
+    differentEra
   } = useCanVote({
     address: address ? address : '',
-    resource: 'research'
+    resource: 'research',
+    publishedEra
   })
   const { writeContract, isPending, data: hash } = useWriteContract()
   const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
@@ -64,47 +67,57 @@ export function VoteResearch({ close, researchId }: Props): JSX.Element {
           </div>
         ) : (
           <div className="mt-5">
-            {canVoteThisResource ? (
+            {differentEra ? (
+              <div className="flex flex-col w-full h-[200px] items-center justify-center">
+                <p className="text-white">
+                  {t('youCannotVoteOnAResearchThatWasPublishedInAnEraOtherThanTheCurrentOne')}
+                </p>
+              </div>
+            ) : (
               <>
-                {canVote ? (
-                  <div className="">
-                    <p className="text-white">
-                      {t('youAreVotingToInvalidateTheResearch')}: #{researchId}
-                    </p>
+                {canVoteThisResource ? (
+                  <>
+                    {canVote ? (
+                      <div className="">
+                        <p className="text-white">
+                          {t('youAreVotingToInvalidateTheResearch')}: #{researchId}
+                        </p>
 
-                    <p className="text-gray-300 text-sm mt-5">{t('justification')}</p>
-                    <input
-                      value={justification}
-                      onChange={(e) => setJustification(e.target.value)}
-                      placeholder={t('typeHere')}
-                      className="w-full rounded-2xl bg-container-secondary px-3 text-white h-10"
-                    />
+                        <p className="text-gray-300 text-sm mt-5">{t('justification')}</p>
+                        <input
+                          value={justification}
+                          onChange={(e) => setJustification(e.target.value)}
+                          placeholder={t('typeHere')}
+                          className="w-full rounded-2xl bg-container-secondary px-3 text-white h-10"
+                        />
 
-                    <SendTransactionButton
-                      label={t('vote')}
-                      handleSendTransaction={handleVoteResearch}
-                      disabled={!justification.trim() || isLoading || isPending}
-                    />
+                        <SendTransactionButton
+                          label={t('vote')}
+                          handleSendTransaction={handleVoteResearch}
+                          disabled={!justification.trim() || isLoading || isPending}
+                        />
 
-                    <TransactionData
-                      errorTx={error as WriteContractErrorType}
-                      hash={hash}
-                      isLoading={isLoading}
-                      isPending={isPending}
-                      isSuccess={isSuccess}
-                      isError={isError}
-                    />
-                  </div>
+                        <TransactionData
+                          errorTx={error as WriteContractErrorType}
+                          hash={hash}
+                          isLoading={isLoading}
+                          isPending={isPending}
+                          isSuccess={isSuccess}
+                          isError={isError}
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col w-full h-[200px] items-center justify-center">
+                        <p className="text-white">{t("youCan'tVoteNow")}</p>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="flex flex-col w-full h-[200px] items-center justify-center">
-                    <p className="text-white">{t("youCan'tVoteNow")}</p>
+                    <p className="text-white">{t("youCan'tVoteThisResource")}</p>
                   </div>
                 )}
               </>
-            ) : (
-              <div className="flex flex-col w-full h-[200px] items-center justify-center">
-                <p className="text-white">{t("youCan'tVoteThisResource")}</p>
-              </div>
             )}
           </div>
         )}

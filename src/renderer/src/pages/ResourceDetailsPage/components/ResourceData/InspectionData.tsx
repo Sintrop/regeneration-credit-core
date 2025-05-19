@@ -107,7 +107,11 @@ export function InspectionData({ id, setReport, setValidationsCount }: Props): J
             className="w-[200px] h-[200px] rounded-2xl object-cover"
           />
 
-          <VoteToInvalidate resourceId={id} resourceType="inspection" />
+          <VoteToInvalidate
+            resourceId={id}
+            resourceType="inspection"
+            publishedEra={parseInt(formatUnits(BigInt(inspection.inspectedAtEra), 0))}
+          />
         </div>
       </div>
 

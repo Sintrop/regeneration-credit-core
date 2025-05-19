@@ -29,7 +29,8 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
     canVoteThisResource
   } = useCanVote({
     address: address ? address : '',
-    resource: 'user'
+    resource: 'user',
+    publishedEra: 0 //not available for user vote
   })
   const { writeContract, isPending, data: hash } = useWriteContract()
   const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
