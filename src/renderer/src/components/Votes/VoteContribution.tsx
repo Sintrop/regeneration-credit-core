@@ -49,7 +49,7 @@ export function VoteContribution({ close, contributionId }: Props): JSX.Element 
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
       <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
         <div className="flex items-center justify-between w-full">
           <p className="text-white">{t('voteContribution')}</p>

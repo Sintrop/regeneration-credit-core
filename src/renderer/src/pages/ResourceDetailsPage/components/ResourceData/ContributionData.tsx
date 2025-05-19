@@ -1,5 +1,6 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import {
   contributorAbi,
   contributorAddress,
@@ -45,7 +46,7 @@ export function ContributionData({ id, setReport, setValidationsCount }: Props):
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex gap-10">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <p className="text-white">{t('contributor')}:</p>
@@ -76,6 +77,8 @@ export function ContributionData({ id, setReport, setValidationsCount }: Props):
           </p>
         </div>
       </div>
+
+      <VoteToInvalidate resourceId={id} resourceType="contribution" />
     </div>
   )
 }

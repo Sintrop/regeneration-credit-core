@@ -1,5 +1,6 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import {
   researcherAbi,
   researcherAddress,
@@ -45,7 +46,7 @@ export function ResearcheData({ id, setReport, setValidationsCount }: Props): JS
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex gap-10">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <p className="text-white">{t('researcher')}:</p>
@@ -86,6 +87,8 @@ export function ResearcheData({ id, setReport, setValidationsCount }: Props): JS
           </p>
         </div>
       </div>
+
+      <VoteToInvalidate resourceId={id} resourceType="research" />
     </div>
   )
 }

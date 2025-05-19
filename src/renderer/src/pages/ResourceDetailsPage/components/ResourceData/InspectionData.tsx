@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { Img } from 'react-image'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
+import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 
 interface Props {
   id: number
@@ -33,7 +34,6 @@ export function InspectionData({ id, setReport, setValidationsCount }: Props): J
   if (inspection) {
     setReport(inspection.report)
     setValidationsCount(parseInt(formatUnits(BigInt(inspection.validationsCount), 0)))
-    console.log(inspection)
   }
 
   if (isLoading) {
@@ -101,10 +101,14 @@ export function InspectionData({ id, setReport, setValidationsCount }: Props): J
           </div>
         </div>
 
-        <Img
-          src={`https://ipfs.io/ipfs/${inspection.proofPhoto}`}
-          className="w-[200px] h-[200px] rounded-2xl object-cover"
-        />
+        <div className="flex flex-col gap-5">
+          <Img
+            src={`https://ipfs.io/ipfs/${inspection.proofPhoto}`}
+            className="w-[200px] h-[200px] rounded-2xl object-cover"
+          />
+
+          <VoteToInvalidate resourceId={id} resourceType="inspection" />
+        </div>
       </div>
 
       <div className="flex items-center gap-5 mt-2">
