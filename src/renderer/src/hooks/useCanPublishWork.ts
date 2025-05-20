@@ -26,9 +26,13 @@ export function useCanPublishWork({ lastPublishedAt }: Props): ReturnUseCanPubli
     } else {
       setIsLoading(false)
     }
-  }, [blockNumber])
+  }, [blockNumber, lastPublishedAt])
 
   function checkCanPublish(): void {
+    if (lastPublishedAt === 0) {
+      setCanPublish(true)
+      return
+    }
     if (!lastPublishedAt) return
     const timeBetweenWorks = parseInt(import.meta.env.VITE_TIME_BETWEEN_WORKS)
     const canPublishBlock = lastPublishedAt + timeBetweenWorks
