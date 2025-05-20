@@ -93,7 +93,13 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
 
       <UserContentTabs
         address={address}
-        availableTabs={['regenerationArea', 'certificates', 'invitation', 'inspections']}
+        availableTabs={[
+          'regenerationArea',
+          'certificates',
+          'invitation',
+          'inspections',
+          'validations'
+        ]}
         coordinatesCount={coordinatesCount}
         pushCoord={handlePushCoord}
       />

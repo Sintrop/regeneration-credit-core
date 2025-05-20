@@ -79,7 +79,7 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'researches']}
+        availableTabs={['certificates', 'invitation', 'researches', 'validations']}
         researchesCount={researchesCount}
       />
     </div>

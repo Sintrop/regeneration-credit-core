@@ -74,7 +74,7 @@ export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'reports']}
+        availableTabs={['certificates', 'invitation', 'reports', 'validations']}
         reportsCount={reportsCount}
       />
     </div>

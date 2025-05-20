@@ -7,6 +7,7 @@ import { PublicationsTab } from './PublicationsTab/PublicationsTab'
 import { PushCoordProps, RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
+import { ValidationsTab } from './ValidationsTab/ValidationsTab'
 
 interface Props {
   address: string
@@ -56,7 +57,8 @@ const tabs = {
   researches: ResearchesTab,
   regenerationArea: RegenerationAreaTab,
   approvedInvites: ApprovedInvites,
-  inspections: InspectionsHistoryTab
+  inspections: InspectionsHistoryTab,
+  validations: ValidationsTab
 }
 
 export type UserTypeContentTabsName = keyof typeof tabs

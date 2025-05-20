@@ -62,7 +62,10 @@ export function ContributorData({ address }: UserTypeContentProps): JSX.Element 
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['certificates', 'invitation']} />
+      <UserContentTabs
+        address={address}
+        availableTabs={['certificates', 'invitation', 'validations']}
+      />
     </div>
   )
 }
