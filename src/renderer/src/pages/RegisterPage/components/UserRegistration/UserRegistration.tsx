@@ -26,6 +26,8 @@ export function UserRegistration({
 }
 
 const registrationsUserType = {
+  //this user type 0 don't exist
+  0: SupporterRegistration,
   1: RegeneratorRegistration,
   2: InspectorRegistration,
   3: ResearcherRegistration,

@@ -20,7 +20,7 @@ export function RegisterPage(): JSX.Element {
   const chainId = useChainId()
   const { address, isDisconnected } = useAccount()
   const [name, setName] = useState('')
-  const [userType, setUserType] = useState<RegistrationUserType>(1)
+  const [userType, setUserType] = useState<RegistrationUserType>(0)
   const [invitationData, setInvitationData] = useState<InvitationProps>({} as InvitationProps)
   const [availableVacancie, setAvailableVacancie] = useState<boolean>(false)
 
@@ -74,6 +74,7 @@ export function RegisterPage(): JSX.Element {
           value={userType}
           onChange={(e) => setUserType(parseInt(e.target.value) as RegistrationUserType)}
         >
+          <option value={0}>{t('selectAnUserType')}</option>
           <option value={1}>{t('regenerator')}</option>
           <option value={2}>{t('inspector')}</option>
           <option value={3}>{t('researcher')}</option>
@@ -83,28 +84,34 @@ export function RegisterPage(): JSX.Element {
           <option value={7}>{t('supporter')}</option>
         </select>
 
-        {userType !== 7 && (
-          <div className="flex gap-5 p-3 rounded-2xl bg-green-card mt-8 w-fit">
-            {userType !== 1 && <Vacancies userType={userType} onChange={setAvailableVacancie} />}
+        {userType !== 0 && (
+          <>
+            {userType !== 7 && (
+              <div className="flex gap-5 p-3 rounded-2xl bg-green-card mt-8 w-fit">
+                {userType !== 1 && (
+                  <Vacancies userType={userType} onChange={setAvailableVacancie} />
+                )}
 
-            <Invitation onChangeInvitation={setInvitationData} userType={userType} />
-          </div>
+                <Invitation onChangeInvitation={setInvitationData} userType={userType} />
+              </div>
+            )}
+
+            <p className="text-gray-300 text-sm mt-8">{t('yourName')}</p>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+              placeholder={t('typeHere')}
+            />
+
+            <UserRegistration
+              userType={userType}
+              name={name}
+              invitation={invitationData}
+              availableVacancie={availableVacancie}
+            />
+          </>
         )}
-
-        <p className="text-gray-300 text-sm mt-8">{t('yourName')}</p>
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
-          placeholder={t('typeHere')}
-        />
-
-        <UserRegistration
-          userType={userType}
-          name={name}
-          invitation={invitationData}
-          availableVacancie={availableVacancie}
-        />
       </div>
     </ScreenPage>
   )
