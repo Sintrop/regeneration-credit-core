@@ -3,6 +3,7 @@ import { LatestPublications } from './components/FeedTabs/LatestPublications/Lat
 import { LatestOffsets } from './components/FeedTabs/LatestOffsets/LatestOffsets'
 import { ContributionsFeedTab } from './components/FeedTabs/ContributionsFeedTab/ContributionsFeedTab'
 import { ResearchesFeedTab } from './components/FeedTabs/ResearchesFeedTab/ResearchesFeedTab'
+import { ReportsFeed } from './components/FeedTabs/ReportsFeed/ReportsFeed'
 
 export function HomePage(): JSX.Element {
   return (
@@ -10,6 +11,7 @@ export function HomePage(): JSX.Element {
       <div className="w-full flex gap-10 overflow-x-scroll">
         <LatestPublications />
         <LatestOffsets />
+        <ReportsFeed />
         <ContributionsFeedTab />
         <ResearchesFeedTab />
       </div>
