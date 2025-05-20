@@ -10,6 +10,7 @@ export function UserInvalidatedCard(): JSX.Element {
       name="userInvalidated"
       photoHash=""
       userTypeName=""
+      indicator={0}
     />
   )
 }
