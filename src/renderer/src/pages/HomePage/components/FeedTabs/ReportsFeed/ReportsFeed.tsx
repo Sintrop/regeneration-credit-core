@@ -17,7 +17,7 @@ export function ReportsFeed(): JSX.Element {
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
     abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
-    functionName: 'reportsCount',
+    functionName: 'reportsTotalCount',
     args: []
   })
 

@@ -17,7 +17,7 @@ export function ContributionsTab(): JSX.Element {
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
     abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
-    functionName: 'contributionsCount',
+    functionName: 'contributionsTotalCount',
     args: []
   })
 

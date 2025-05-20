@@ -16,7 +16,7 @@ export function ReportsTab(): JSX.Element {
   const { data } = useReadContract({
     address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
     abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
-    functionName: 'reportsCount',
+    functionName: 'reportsTotalCount',
     args: []
   })
 
