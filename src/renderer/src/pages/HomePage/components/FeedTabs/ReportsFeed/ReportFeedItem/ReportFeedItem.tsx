@@ -9,6 +9,7 @@ import { formatUnits } from 'viem'
 import { ReportFeedHeader } from './ReportFeedHeader'
 import { ReportFeedContent } from './ReportFeedContent'
 import { ReportProps } from '@renderer/types/developer'
+import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
@@ -36,6 +37,11 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
           reportId={id}
           description={report.description}
           valid={report.valid.toString() === 'true' ? true : false}
+        />
+        <ResourceValidationsFeed
+          resourceId={id}
+          resourceType="report"
+          validationsCount={parseInt(formatUnits(BigInt(report.validationsCount), 0))}
         />
       </div>
     )
