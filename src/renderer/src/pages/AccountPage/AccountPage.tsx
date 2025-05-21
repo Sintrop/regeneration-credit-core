@@ -34,7 +34,7 @@ export function AccountPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t('account')}>
-      {userType && <UserTypeContent userType={userType} address={address as string} />}
+      {userType && <UserTypeContent userType={userType} address={address as string} profilePage />}
     </ScreenPage>
   )
 }

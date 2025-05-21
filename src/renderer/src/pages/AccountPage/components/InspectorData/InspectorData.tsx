@@ -13,7 +13,7 @@ import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 
-export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
+export function InspectorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -94,7 +94,7 @@ export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
             </p>
           </div>
 
-          <VoteToInvalidate resourceType="user" userWallet={address} />
+          {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       )}
 

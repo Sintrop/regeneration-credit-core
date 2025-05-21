@@ -16,7 +16,7 @@ import { useState } from 'react'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 
-export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element {
+export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
   const [coords, setCoords] = useState<PushCoordProps[]>([])
@@ -41,7 +41,6 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
   return (
     <div className="flex flex-col">
       <ProofPhoto address={address} hash={regenerator && regenerator?.proofPhoto} />
-
 
       <div className="flex flex-wrap gap-10">
         {regenerator && (
@@ -91,7 +90,7 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
 
         <div className="flex flex-col gap-5">
           <RegenerationAreaMap coords={coords} />
-          <VoteToInvalidate resourceType="user" userWallet={address} />
+          {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       </div>
 
