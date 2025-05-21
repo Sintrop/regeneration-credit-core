@@ -26,7 +26,8 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
   const {
     isLoading: checkingAvailableVote,
     canVote,
-    canVoteThisResource
+    canVoteThisResource,
+    canVoteIn
   } = useCanVote({
     address: address ? address : '',
     resource: 'user',
@@ -99,6 +100,9 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
                 ) : (
                   <div className="flex flex-col w-full h-[200px] items-center justify-center">
                     <p className="text-white">{t("youCan'tVoteNow")}</p>
+                    <p className="text-white">
+                      {t('wait')} {canVoteIn} {t('blocks')}
+                    </p>
                   </div>
                 )}
               </>

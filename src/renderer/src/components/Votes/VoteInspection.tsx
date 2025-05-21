@@ -28,7 +28,8 @@ export function VoteInspection({ close, inspectionId, inspectedEra }: Props): JS
     isLoading: checkingAvailableVote,
     canVote,
     canVoteThisResource,
-    differentEra
+    differentEra,
+    canVoteIn
   } = useCanVote({
     address: address ? address : '',
     resource: 'inspection',
@@ -109,6 +110,9 @@ export function VoteInspection({ close, inspectionId, inspectedEra }: Props): JS
                     ) : (
                       <div className="flex flex-col w-full h-[200px] items-center justify-center">
                         <p className="text-white">{t("youCan'tVoteNow")}</p>
+                        <p className="text-white">
+                          {t('wait')} {canVoteIn} {t('blocks')}
+                        </p>
                       </div>
                     )}
                   </>
