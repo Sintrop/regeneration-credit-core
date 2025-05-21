@@ -47,13 +47,13 @@ export function ContributionData({ id, setReport, setValidationsCount }: Props):
 
   return (
     <div className="flex gap-10">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 max-w-[500px]">
         <div className="flex items-center gap-2">
           <p className="text-white">{t('contributor')}:</p>
           <UserAddressLink address={contribution.user} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <p className="text-white">{t('description')}:</p>
           <p className="text-white">{contribution && contribution.description}</p>
         </div>

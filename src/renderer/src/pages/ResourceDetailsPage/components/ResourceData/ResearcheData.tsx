@@ -47,18 +47,18 @@ export function ResearcheData({ id, setReport, setValidationsCount }: Props): JS
 
   return (
     <div className="flex gap-10">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 max-w-[500px]">
         <div className="flex items-center gap-2">
           <p className="text-white">{t('researcher')}:</p>
           <UserAddressLink address={researche.createdBy} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <p className="text-white">{t('title')}:</p>
           <p className="text-white">{researche && researche.title}</p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <p className="text-white">{t('thesis')}:</p>
           <p className="text-white">{researche && researche.thesis}</p>
         </div>

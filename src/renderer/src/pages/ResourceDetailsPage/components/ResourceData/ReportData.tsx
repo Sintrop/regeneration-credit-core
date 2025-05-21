@@ -47,13 +47,13 @@ export function ReportData({ id, setReport, setValidationsCount }: Props): JSX.E
 
   return (
     <div className="flex gap-10">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 max-w-[500px]">
         <div className="flex items-center gap-2">
           <p className="text-white">{t('developer')}:</p>
           <UserAddressLink address={report.developer} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <p className="text-white">{t('description')}:</p>
           <p className="text-white">{report && report.description}</p>
         </div>
