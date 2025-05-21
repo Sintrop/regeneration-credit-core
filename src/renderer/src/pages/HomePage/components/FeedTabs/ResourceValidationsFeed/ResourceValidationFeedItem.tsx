@@ -6,6 +6,7 @@ import {
 } from '@renderer/services/contracts'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useChainId, useReadContract } from 'wagmi'
 
 interface Props {
@@ -19,6 +20,7 @@ export function ResourceValidationFeedItem({
   resourceType,
   validationId
 }: Props): JSX.Element {
+  const navigate = useNavigate()
   const [functionName, setFunctionName] = useState('')
 
   useEffect(() => {
@@ -46,8 +48,13 @@ export function ResourceValidationFeedItem({
 
   if (!data) return <div/>
 
+  function handleGoToUserDetails(): void {
+    const address = data ? data[0] : ''
+    navigate(`/user-details/${address}`)
+  }
+
   return (
-    <button className="flex gap-3 hover:cursor-pointer">
+    <button className="flex gap-3 hover:cursor-pointer" onClick={handleGoToUserDetails}>
       <Jazzicon className="w-7 h-7" address={data[0]}/>
 
       <div className="flex flex-col max-w-[90%] items-start">
