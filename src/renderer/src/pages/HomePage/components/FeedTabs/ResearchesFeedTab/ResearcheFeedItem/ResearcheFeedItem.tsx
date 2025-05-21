@@ -44,7 +44,12 @@ export function ResearcheFeedItem({ id }: Props): JSX.Element {
           address={research.createdBy}
         />
 
-        <ResearcheFeedContent title={research.title} thesis={research.thesis} researchId={id} />
+        <ResearcheFeedContent
+          title={research.title}
+          thesis={research.thesis}
+          researchId={id}
+          valid={research.valid.toString() === 'true' ? true : false}
+        />
       </div>
     )
   }

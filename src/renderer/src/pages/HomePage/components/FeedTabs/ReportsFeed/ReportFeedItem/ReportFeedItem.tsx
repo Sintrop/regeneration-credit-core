@@ -32,7 +32,11 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
           address={report?.developer}
           publishedAt={formatUnits(BigInt(report.createdAtBlockNumber), 0)}
         />
-        <ReportFeedContent reportId={id} description={report.description} />
+        <ReportFeedContent
+          reportId={id}
+          description={report.description}
+          valid={report.valid.toString() === 'true' ? true : false}
+        />
       </div>
     )
   }

@@ -20,4 +20,5 @@ export interface ContributionProps {
   report: string
   createdAtBlockNumber: number
   validationsCount: number
+  valid: boolean
 }

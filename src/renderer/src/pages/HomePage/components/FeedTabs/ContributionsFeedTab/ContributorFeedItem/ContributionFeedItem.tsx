@@ -32,7 +32,11 @@ export function ContributionFeedItem({ id }: Props): JSX.Element {
           address={contribution?.user}
           publishedAt={formatUnits(BigInt(contribution.createdAtBlockNumber), 0)}
         />
-        <ContributionFeedContent contributionId={id} description={contribution.description} />
+        <ContributionFeedContent
+          contributionId={id}
+          description={contribution.description}
+          valid={contribution.valid.toString() === 'true' ? true : false}
+        />
       </div>
     )
   }
