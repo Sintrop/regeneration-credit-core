@@ -23,8 +23,17 @@ export function ContributorData({ address }: UserTypeContentProps): JSX.Element 
     functionName: 'getContributor',
     args: [address]
   })
-
   const contributor = data as ContributorProps
+
+  const { data: responsePenalties } = useReadContract({
+    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
+    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    functionName: 'totalPenalties',
+    args: [address]
+  })
+  const totalPenalties = responsePenalties
+    ? parseInt(formatUnits(BigInt(responsePenalties as string), 0))
+    : 0
 
   return (
     <div className="flex flex-col">
@@ -60,6 +69,10 @@ export function ContributorData({ address }: UserTypeContentProps): JSX.Element 
             </p>
             <p className="text-white">
               <span className="text-white font-bold">{t('userType')}: </span> 5
+            </p>
+            <p className="text-red-500">
+              <span className="font-bold">{t('penalties')}: </span>
+              {totalPenalties}
             </p>
           </div>
 

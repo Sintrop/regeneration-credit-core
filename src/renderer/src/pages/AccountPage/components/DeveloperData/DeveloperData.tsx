@@ -25,8 +25,17 @@ export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
   })
 
   const developer = data as DeveloperProps
-
   const reportsCount = developer ? parseInt(formatUnits(BigInt(developer?.totalReports), 0)) : 0
+
+  const { data: responsePenalties } = useReadContract({
+    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
+    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    functionName: 'totalPenalties',
+    args: [address]
+  })
+  const totalPenalties = responsePenalties
+    ? parseInt(formatUnits(BigInt(responsePenalties as string), 0))
+    : 0
 
   return (
     <div className="flex flex-col">
@@ -70,6 +79,10 @@ export function DeveloperData({ address }: UserTypeContentProps): JSX.Element {
             </p>
             <p className="text-white">
               <span className="text-white font-bold">{t('userType')}: </span> 4
+            </p>
+            <p className="text-red-500">
+              <span className="font-bold">{t('penalties')}: </span>
+              {totalPenalties}
             </p>
           </div>
 

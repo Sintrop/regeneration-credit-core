@@ -29,6 +29,16 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
     ? parseInt(formatUnits(BigInt(researcher?.publishedResearches), 0))
     : 0
 
+  const { data: responsePenalties } = useReadContract({
+    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
+    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    functionName: 'totalPenalties',
+    args: [address]
+  })
+  const totalPenalties = responsePenalties
+    ? parseInt(formatUnits(BigInt(responsePenalties as string), 0))
+    : 0
+
   return (
     <div className="flex flex-col">
       <ProofPhoto address={address} hash={researcher && researcher?.proofPhoto} />
@@ -74,7 +84,11 @@ export function ResearcherData({ address }: UserTypeContentProps): JSX.Element {
               {formatUnits(BigInt(researcher?.createdAt), 0)}
             </p>
             <p className="text-white">
-              <span className="text-white font-bold">{t('userType')}: </span> 6
+              <span className="text-white font-bold">{t('userType')}: </span> 3
+            </p>
+            <p className="text-red-500">
+              <span className="font-bold">{t('penalties')}: </span>
+              {totalPenalties}
             </p>
           </div>
 

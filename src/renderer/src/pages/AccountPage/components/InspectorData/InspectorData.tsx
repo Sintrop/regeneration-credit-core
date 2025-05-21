@@ -23,8 +23,17 @@ export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
     functionName: 'getInspector',
     args: [address]
   })
-
   const inspector = data as InspectorProps
+
+  const { data: responsePenalties } = useReadContract({
+    address: chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress,
+    abi: chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi,
+    functionName: 'totalPenalties',
+    args: [address]
+  })
+  const totalPenalties = responsePenalties
+    ? parseInt(formatUnits(BigInt(responsePenalties as string), 0))
+    : 0
 
   return (
     <div className="flex flex-col">
@@ -72,6 +81,16 @@ export function InspectorData({ address }: UserTypeContentProps): JSX.Element {
             </p>
             <p className="text-white">
               <span className="text-white font-bold">{t('userType')}: </span> 2
+            </p>
+
+            <p className="text-red-500">
+              <span className="font-bold">{t('giveUps')}: </span>
+              {formatUnits(BigInt(inspector?.giveUps), 0)}
+            </p>
+
+            <p className="text-red-500">
+              <span className="font-bold">{t('penalties')}: </span>
+              {totalPenalties}
             </p>
           </div>
 
