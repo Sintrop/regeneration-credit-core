@@ -61,15 +61,25 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
         </div>
       )}
 
-      {status === 2 ||
-        (status === 3 && (
-          <button
-            className="text-green-500 underline hover:cursor-pointer mt-3"
-            onClick={handleGoToResourceDetails}
-          >
-            {t('seeInspection')}
-          </button>
-        ))}
+      {status === 2 ? (
+        <button
+          className="text-green-500 underline hover:cursor-pointer mt-3"
+          onClick={handleGoToResourceDetails}
+        >
+          {t('seeInspection')}
+        </button>
+      ) : (
+        <>
+          {status === 3 && (
+            <button
+              className="text-green-500 underline hover:cursor-pointer mt-3"
+              onClick={handleGoToResourceDetails}
+            >
+              {t('seeInspection')}
+            </button>
+          )}
+        </>
+      )}
     </div>
   )
 }
