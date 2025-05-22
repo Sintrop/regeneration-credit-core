@@ -12,6 +12,7 @@ import { UserTypeContentProps } from '../UserTypeContent'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
+import { UserCanVote } from '../UserCanVote/UserCanVote'
 
 export function ActivistData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -61,6 +62,8 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
             <p className="text-white">
               <span className="text-white font-bold">{t('userType')}: </span> 6
             </p>
+
+            <UserCanVote address={address} />
           </div>
 
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}

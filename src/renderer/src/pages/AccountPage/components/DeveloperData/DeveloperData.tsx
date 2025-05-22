@@ -12,6 +12,7 @@ import { UserTypeContentProps } from '../UserTypeContent'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
+import { UserCanVote } from '../UserCanVote/UserCanVote'
 
 export function DeveloperData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -80,6 +81,9 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
             <p className="text-white">
               <span className="text-white font-bold">{t('userType')}: </span> 4
             </p>
+
+            <UserCanVote address={address} />
+
             <p className="text-red-500">
               <span className="font-bold">{t('penalties')}: </span>
               {totalPenalties}
