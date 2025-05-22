@@ -11,6 +11,7 @@ export function UserTypeToText({ userType, ...restProps }: Props): JSX.Element {
 
   return (
     <p {...restProps}>
+      {userType === 0 && t('noRegistered')}
       {userType === 1 && t('regenerator')}
       {userType === 2 && t('inspector')}
       {userType === 3 && t('researcher')}
@@ -18,6 +19,7 @@ export function UserTypeToText({ userType, ...restProps }: Props): JSX.Element {
       {userType === 5 && t('contributor')}
       {userType === 6 && t('activist')}
       {userType === 7 && t('supporter')}
+      {userType === 8 && t('invalidated')}
     </p>
   )
 }
