@@ -12,7 +12,7 @@ interface Props {
   mainAction?: boolean
 }
 export function UserTypeActions({ userType, lastPublishedWork, mainAction }: Props): JSX.Element {
-  if (userType === 0) return <div />
+  if (userType === 0 || userType === 8) return <div />
 
   const Actions = userTypeActions[userType as UserTypeActions]
 
