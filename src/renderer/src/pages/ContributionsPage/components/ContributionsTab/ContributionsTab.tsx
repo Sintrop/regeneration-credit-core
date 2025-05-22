@@ -58,7 +58,8 @@ export function ContributionsTab(): JSX.Element {
               <th className="p-2 border-r border-container-secondary">{t('contributor')}</th>
               <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
               <th className="p-2 border-r border-container-secondary">{t('era')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('report')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('validationsCount')}</th>
+              <th className="p-2 border-r border-container-secondary"></th>
               <th className="p-2">{t('actions')}</th>
             </tr>
           </thead>
