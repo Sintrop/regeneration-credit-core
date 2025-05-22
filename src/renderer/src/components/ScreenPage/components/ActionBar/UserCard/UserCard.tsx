@@ -64,7 +64,7 @@ const userTypeToCard = {
   5: ContributorCard,
   6: ActivistCard,
   7: SupporterCard,
-  9: UserInvalidatedCard
+  8: UserInvalidatedCard
 }
 
 export type UserCardContentType = keyof typeof userTypeToCard

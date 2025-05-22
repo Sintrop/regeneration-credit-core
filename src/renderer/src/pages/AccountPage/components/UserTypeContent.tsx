@@ -2,6 +2,7 @@ import { ActivistData } from './ActivistData/ActivistData'
 import { ContributorData } from './ContributorData/ContributorData'
 import { DeveloperData } from './DeveloperData/DeveloperData'
 import { InspectorData } from './InspectorData/InspectorData'
+import { InvalidatedUser } from './InvalidatedUser/InvalidatedUser'
 import { RegeneratorData } from './RegeneratorData/RegeneratorData'
 import { ResearcherData } from './ResearcherData/ResearcherData'
 import { SupporterData } from './SupporterData/SupporterData'
@@ -32,7 +33,8 @@ const userTypeAvailable = {
   4: DeveloperData,
   5: ContributorData,
   6: ActivistData,
-  7: SupporterData
+  7: SupporterData,
+  8: InvalidatedUser
 }
 
 export type UserTypeAvailables = keyof typeof userTypeAvailable
