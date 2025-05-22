@@ -45,12 +45,17 @@ export function InspectionsTab(): JSX.Element {
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('regenerator')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('inspector')}</th>
+              <th className="p-2 border-r border-container-secondary max-w-[180px]">
+                {t('regenerator')}
+              </th>
+              <th className="p-2 border-r border-container-secondary max-w-[180px]">
+                {t('inspector')}
+              </th>
               <th className="p-2 border-r border-container-secondary">{t('status')}</th>
               <th className="p-2 border-r border-container-secondary">{t('trees')}</th>
               <th className="p-2 border-r border-container-secondary">{t('biodiversity')}</th>
               <th className="p-2 border-r border-container-secondary">{t('score')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('val.Count')}</th>
               <th className="p-2">{t('actions')}</th>
             </tr>
           </thead>

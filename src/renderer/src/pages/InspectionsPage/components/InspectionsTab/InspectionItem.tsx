@@ -55,14 +55,19 @@ export function InspectionItem({ id }: Props): JSX.Element {
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
-      <td className="p-2">{inspection && <UserAddressLink address={inspection?.regenerator} />}</td>
-      <td className="p-2">{inspection && <UserAddressLink address={inspection?.inspector} />}</td>
+      <td className="p-2 max-w-[180px]">
+        {inspection && <UserAddressLink address={inspection?.regenerator} />}
+      </td>
+      <td className="p-2 max-w-[180px]">
+        {inspection && <UserAddressLink address={inspection?.inspector} />}
+      </td>
       <td className="p-2">{inspection && <StatusInspection status={inspectionStatus} />}</td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.treesResult), 0)}</td>
       <td className="p-2">
         {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
       </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
+      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.validationsCount), 0)}</td>
       <td className="p-2 flex items-center gap-5">
         {inspectionStatus === 0 && (
           <button className="hover:cursor-pointer" onClick={handleShowAccept}>
