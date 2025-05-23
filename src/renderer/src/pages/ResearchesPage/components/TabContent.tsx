@@ -1,4 +1,5 @@
 import { CalculatorItemsTab } from './CalculatorItemsTab/CalculatorItemsTab'
+import { EvaluationMethodsTab } from './EvaluationMethodsTab/EvaluationMethodsTab'
 import { ResearchersTab } from './ResearchersTab/ResearchersTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
 
@@ -15,7 +16,8 @@ export function TabContent({ selectedTab }: Props): JSX.Element {
 const tabs = {
   researches: ResearchesTab,
   researchers: ResearchersTab,
-  calculatorItems: CalculatorItemsTab
+  calculatorItems: CalculatorItemsTab,
+  evaluationMethods: EvaluationMethodsTab
 }
 
 export type ResearchesTabs = keyof typeof tabs
