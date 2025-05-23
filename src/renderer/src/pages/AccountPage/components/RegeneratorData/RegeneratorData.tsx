@@ -14,8 +14,9 @@ import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { PushCoordProps } from '../Tabs/RegenerationAreaTab/RegenerationAreaTab'
 import { useState } from 'react'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
+import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 
-export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element {
+export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
   const [coords, setCoords] = useState<PushCoordProps[]>([])
@@ -41,11 +42,10 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
     <div className="flex flex-col">
       <ProofPhoto address={address} hash={regenerator && regenerator?.proofPhoto} />
 
-      <p className="text-white mt-5">{address}</p>
-
       <div className="flex flex-wrap gap-10">
         {regenerator && (
           <div className="flex flex-col gap-2 mt-2">
+            <p className="text-white mt-5">{address}</p>
             <p className="text-white">
               <span className="text-white font-bold">{t('id')}: </span>
               {formatUnits(BigInt(regenerator?.id), 0)}
@@ -88,12 +88,21 @@ export function RegeneratorData({ address }: UserTypeContentProps): JSX.Element 
           </div>
         )}
 
-        <RegenerationAreaMap coords={coords} />
+        <div className="flex flex-col gap-5">
+          <RegenerationAreaMap coords={coords} />
+          {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
+        </div>
       </div>
 
       <UserContentTabs
         address={address}
-        availableTabs={['regenerationArea', 'certificates', 'invitation']}
+        availableTabs={[
+          'regenerationArea',
+          'certificates',
+          'invitation',
+          'inspections',
+          'validations'
+        ]}
         coordinatesCount={coordinatesCount}
         pushCoord={handlePushCoord}
       />

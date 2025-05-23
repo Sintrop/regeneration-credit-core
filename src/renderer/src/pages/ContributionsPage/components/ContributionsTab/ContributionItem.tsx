@@ -8,12 +8,12 @@ import {
 import { formatUnits } from 'viem'
 import { ContributionProps } from '@renderer/types/contributor'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
-import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 import { FaRegEye } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { BiSolidMegaphone } from 'react-icons/bi'
 import { VoteContribution } from '@renderer/components/Votes/VoteContribution'
+import { ValidTag } from '@renderer/components/ValidTag/ValidTag'
 
 interface Props {
   id: number
@@ -40,26 +40,37 @@ export function ContributionItem({ id }: Props): JSX.Element {
     setShowVote(true)
   }
 
-  return (
-    <tr className="border-b border-container-primary text-white">
-      <td className="p-2">{id}</td>
-      <td className="p-2">{contribution && <UserAddressLink address={contribution?.user} />}</td>
-      <td className="p-2">
-        {contribution && formatUnits(BigInt(contribution?.createdAtBlockNumber), 0)}
-      </td>
-      <td className="p-2">{contribution && formatUnits(BigInt(contribution?.era), 0)}</td>
-      <td className="p-2">{contribution && <PdfHashLink hash={contribution.report} />}</td>
-      <td className="p-2 flex items-center gap-3">
-        <button className="hover:cursor-pointer" onClick={handleGoToContributionDetails}>
-          <FaRegEye color="white" />
-        </button>
+  if (contribution) {
+    return (
+      <tr className="border-b border-container-primary text-white">
+        <td className="p-2">{id}</td>
+        <td className="p-2">{<UserAddressLink address={contribution?.user} />}</td>
+        <td className="p-2">{formatUnits(BigInt(contribution?.createdAtBlockNumber), 0)}</td>
+        <td className="p-2">{formatUnits(BigInt(contribution?.era), 0)}</td>
+        <td className="p-2">{formatUnits(BigInt(contribution?.validationsCount), 0)}</td>
+        <td className="p-2">
+          <ValidTag valid={contribution.valid.toString() === 'true' ? true : false}/>
+        </td>
+        <td className="p-2 flex items-center gap-5">
+          <button className="hover:cursor-pointer" onClick={handleGoToContributionDetails}>
+            <FaRegEye color="white" />
+          </button>
 
-        <button className="hover:cursor-pointer" onClick={handleShowVote}>
-          <BiSolidMegaphone color="white" />
-        </button>
-      </td>
+          <button className="hover:cursor-pointer" onClick={handleShowVote}>
+            <BiSolidMegaphone color="white" />
+          </button>
+        </td>
 
-      {showVote && <VoteContribution contributionId={id} close={() => setShowVote(false)}/>}
-    </tr>
-  )
+        {showVote && (
+          <VoteContribution
+            contributionId={id}
+            close={() => setShowVote(false)}
+            publishedEra={parseInt(formatUnits(BigInt(contribution?.era), 0))}
+          />
+        )}
+      </tr>
+    )
+  }
+
+  return <tr />
 }

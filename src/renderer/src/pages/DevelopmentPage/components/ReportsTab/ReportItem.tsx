@@ -8,12 +8,12 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
-import { PdfHashLink } from '@renderer/components/PdfHashLink/PdfHashLink'
 import { FaRegEye } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { BiSolidMegaphone } from 'react-icons/bi'
 import { VoteReport } from '@renderer/components/Votes/VoteReport'
+import { ValidTag } from '@renderer/components/ValidTag/ValidTag'
 
 interface Props {
   id: number
@@ -40,24 +40,37 @@ export function ReportItem({ id }: Props): JSX.Element {
     setShowVote(true)
   }
 
-  return (
-    <tr className="border-b border-container-primary text-white">
-      <td className="p-2">{id}</td>
-      <td className="p-2">{report && <UserAddressLink address={report?.developer} />}</td>
-      <td className="p-2">{report && formatUnits(BigInt(report?.createdAtBlockNumber), 0)}</td>
-      <td className="p-2">{report && formatUnits(BigInt(report?.era), 0)}</td>
-      <td className="p-2">{report && <PdfHashLink hash={report.report} />}</td>
-      <td className="p-2 flex items-center gap-3">
-        <button className="hover:cursor-pointer" onClick={handleGoToReportDetails}>
-          <FaRegEye color="white" />
-        </button>
+  if (report) {
+    return (
+      <tr className="border-b border-container-primary text-white">
+        <td className="p-2">{id}</td>
+        <td className="p-2">{<UserAddressLink address={report?.developer} />}</td>
+        <td className="p-2">{formatUnits(BigInt(report?.createdAtBlockNumber), 0)}</td>
+        <td className="p-2">{formatUnits(BigInt(report?.era), 0)}</td>
+        <td className="p-2">{formatUnits(BigInt(report?.validationsCount), 0)}</td>
+        <td className="p-2">
+          <ValidTag valid={report.valid.toString() === 'true' ? true : false} />
+        </td>
+        <td className="p-2 flex items-center gap-5">
+          <button className="hover:cursor-pointer" onClick={handleGoToReportDetails}>
+            <FaRegEye color="white" />
+          </button>
+  
+          <button className="hover:cursor-pointer" onClick={handleShowVote}>
+            <BiSolidMegaphone color="white" />
+          </button>
+        </td>
+  
+        {showVote && (
+          <VoteReport
+            reportId={id}
+            close={() => setShowVote(false)}
+            publishedEra={parseInt(formatUnits(BigInt(report?.era), 0))}
+          />
+        )}
+      </tr>
+    )
+  }
 
-        <button className="hover:cursor-pointer" onClick={handleShowVote}>
-          <BiSolidMegaphone color="white" />
-        </button>
-      </td>
-
-      {showVote && <VoteReport reportId={id} close={() => setShowVote(false)} />}
-    </tr>
-  )
+  return <tr />
 }

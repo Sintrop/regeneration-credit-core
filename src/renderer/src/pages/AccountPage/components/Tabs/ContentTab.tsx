@@ -1,10 +1,13 @@
+import { ApprovedInvites } from './ApprovedInvites/ApprovedInvites'
 import { CertificatesTab } from './CertificatesTab/CertificatesTab'
+import { InspectionsHistoryTab } from './InspectionsHistory/InspectionsHistoryTab'
 import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { PublicationsTab } from './PublicationsTab/PublicationsTab'
 import { PushCoordProps, RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
+import { ValidationsTab } from './ValidationsTab/ValidationsTab'
 
 interface Props {
   address: string
@@ -52,7 +55,10 @@ const tabs = {
   offsets: OffsetsTab,
   reports: ReportsTab,
   researches: ResearchesTab,
-  regenerationArea: RegenerationAreaTab
+  regenerationArea: RegenerationAreaTab,
+  approvedInvites: ApprovedInvites,
+  inspections: InspectionsHistoryTab,
+  validations: ValidationsTab
 }
 
 export type UserTypeContentTabsName = keyof typeof tabs

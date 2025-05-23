@@ -15,7 +15,7 @@ export function ValidationsTab({ validationsCount, resourceId, resourceType }: P
   const validations = Array.from({ length: validationsCount }, (_, i) => i).reverse()
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-3">
       {validationsCount === 0 ? (
         <div>
           <p className="text-white">{t('thereAreNotValidations')}</p>

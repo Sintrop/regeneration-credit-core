@@ -26,10 +26,12 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
   const {
     isLoading: checkingAvailableVote,
     canVote,
-    canVoteThisResource
+    canVoteThisResource,
+    canVoteIn
   } = useCanVote({
     address: address ? address : '',
-    resource: 'user'
+    resource: 'user',
+    publishedEra: 0 //not available for user vote
   })
   const { writeContract, isPending, data: hash } = useWriteContract()
   const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
@@ -49,7 +51,7 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
       <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-100">
         <div className="flex items-center justify-between w-full">
           <p className="text-white">{t('voteUser')}</p>
@@ -98,6 +100,9 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
                 ) : (
                   <div className="flex flex-col w-full h-[200px] items-center justify-center">
                     <p className="text-white">{t("youCan'tVoteNow")}</p>
+                    <p className="text-white">
+                      {t('wait')} {canVoteIn} {t('blocks')}
+                    </p>
                   </div>
                 )}
               </>

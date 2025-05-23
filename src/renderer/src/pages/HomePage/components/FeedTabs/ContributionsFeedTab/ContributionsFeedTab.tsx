@@ -17,7 +17,7 @@ export function ContributionsFeedTab(): JSX.Element {
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
     abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
-    functionName: 'contributionsCount',
+    functionName: 'contributionsTotalCount',
     args: []
   })
 
@@ -40,6 +40,7 @@ export function ContributionsFeedTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
+      <p className="text-xs text-gray-300 mb-1">{t('contributions')}</p>
       {contributionsIds.length === 0 ? (
         <div className="items-center mt-10 w-[400px]">
           <p className="text-white text-center">{t('anyContributionAvailable')}</p>

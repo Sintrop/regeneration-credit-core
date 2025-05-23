@@ -8,8 +8,10 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { PublicationItem } from './PublicationItem/PublicationItem'
 import { Loading } from '@renderer/components/Loading/Loading'
+import { useTranslation } from 'react-i18next'
 
 export function LatestPublications(): JSX.Element {
+  const { t } = useTranslation()
   const chainId = useChainId()
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
@@ -28,6 +30,7 @@ export function LatestPublications(): JSX.Element {
 
   return (
     <div className="flex flex-col">
+      <p className="text-xs text-gray-300 mb-1">{t('publications')}</p>
       {isLoading ? (
         <div className="w-[400px] mt-5 flex justify-center">
           <Loading />

@@ -1,5 +1,6 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import {
   developerAbi,
   developerAddress,
@@ -45,14 +46,14 @@ export function ReportData({ id, setReport, setValidationsCount }: Props): JSX.E
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col gap-2">
+    <div className="flex gap-10">
+      <div className="flex flex-col gap-2 max-w-[500px]">
         <div className="flex items-center gap-2">
-          <p className="text-white">{t('report')}:</p>
+          <p className="text-white">{t('developer')}:</p>
           <UserAddressLink address={report.developer} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2">
           <p className="text-white">{t('description')}:</p>
           <p className="text-white">{report && report.description}</p>
         </div>
@@ -79,6 +80,12 @@ export function ReportData({ id, setReport, setValidationsCount }: Props): JSX.E
           <p className="text-white">{report && formatUnits(BigInt(report.validationsCount), 0)}</p>
         </div>
       </div>
+
+      <VoteToInvalidate
+        resourceId={id}
+        resourceType="report"
+        publishedEra={parseInt(formatUnits(BigInt(report.era), 0))}
+      />
     </div>
   )
 }
