@@ -26,10 +26,7 @@ export function ContentTab({
   address,
   selectedTab,
   name,
-  publicationsCount,
   offsetsCount,
-  reportsCount,
-  researchesCount,
   coordinatesCount,
   pushCoord
 }: Props): JSX.Element {
@@ -39,10 +36,7 @@ export function ContentTab({
     <Tab
       address={address}
       name={name}
-      publicationsCount={publicationsCount}
       offsetsCount={offsetsCount}
-      reportsCount={reportsCount}
-      researchesCount={researchesCount}
       coordinatesCount={coordinatesCount}
       pushCoord={pushCoord}
     />

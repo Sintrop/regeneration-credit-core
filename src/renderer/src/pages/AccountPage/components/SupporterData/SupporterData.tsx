@@ -25,10 +25,6 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
   const supporter = data as SupporterProps
 
-  const publicationsCount = supporter
-    ? parseInt(formatUnits(BigInt(supporter?.publicationsCount), 0))
-    : 0
-
   const offsetsCount = supporter ? parseInt(formatUnits(BigInt(supporter?.offsetsCount), 0)) : 0
 
   return (
@@ -60,7 +56,6 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
         address={address}
         availableTabs={['certificates', 'invitation', 'publications', 'offsets']}
         name={supporter && supporter?.name}
-        publicationsCount={publicationsCount}
         offsetsCount={offsetsCount}
       />
     </div>

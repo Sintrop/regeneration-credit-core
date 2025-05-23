@@ -21,10 +21,7 @@ export function UserContentTabs({
   address,
   availableTabs,
   name,
-  publicationsCount,
   offsetsCount,
-  reportsCount,
-  researchesCount,
   coordinatesCount,
   pushCoord
 }: Props): JSX.Element {
@@ -53,10 +50,7 @@ export function UserContentTabs({
         selectedTab={selectedTab as UserTypeContentTabsName}
         address={address}
         name={name}
-        publicationsCount={publicationsCount}
         offsetsCount={offsetsCount}
-        reportsCount={reportsCount}
-        researchesCount={researchesCount}
         coordinatesCount={coordinatesCount}
         pushCoord={pushCoord}
       />
