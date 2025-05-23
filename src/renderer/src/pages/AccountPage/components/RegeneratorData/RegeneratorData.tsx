@@ -11,15 +11,12 @@ import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
-import { PushCoordProps } from '../Tabs/RegenerationAreaTab/RegenerationAreaTab'
-import { useState } from 'react'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
-  const [coords, setCoords] = useState<PushCoordProps[]>([])
 
   const { data } = useReadContract({
     address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
@@ -29,14 +26,6 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
   })
 
   const regenerator = data as RegeneratorProps
-
-  const coordinatesCount = regenerator
-    ? parseInt(formatUnits(BigInt(regenerator?.coordinatesCount), 0))
-    : 0
-
-  function handlePushCoord(data: PushCoordProps[]): void {
-    setCoords(data)
-  }
 
   return (
     <div className="flex flex-col">
@@ -89,7 +78,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
         )}
 
         <div className="flex flex-col gap-5">
-          <RegenerationAreaMap coords={coords} />
+          <RegenerationAreaMap address={address} />
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       </div>
@@ -97,14 +86,12 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
       <UserContentTabs
         address={address}
         availableTabs={[
-          'regenerationArea',
-          'certificates',
-          'invitation',
           'inspections',
+          'certificates',
+          'regenerationArea',
+          'invitation',
           'validations'
         ]}
-        coordinatesCount={coordinatesCount}
-        pushCoord={handlePushCoord}
       />
     </div>
   )
