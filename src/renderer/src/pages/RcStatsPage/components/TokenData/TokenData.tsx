@@ -76,7 +76,7 @@ export function TokenData(): JSX.Element {
           />
           <StatsRcItem
             title={t('circulatingSupply')}
-            value={Intl.NumberFormat('pt-BR').format(totalSupply + totalCertified - totalLocked)}
+            value={Intl.NumberFormat('pt-BR').format(totalSupply - totalLocked)}
           />
         </div>
       )}
