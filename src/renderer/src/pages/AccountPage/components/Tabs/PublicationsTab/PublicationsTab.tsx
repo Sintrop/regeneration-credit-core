@@ -7,48 +7,50 @@ import {
 } from '@renderer/services/contracts'
 import { PublicationItem } from '@renderer/pages/HomePage/components/FeedTabs/LatestPublications/PublicationItem/PublicationItem'
 import { useTranslation } from 'react-i18next'
+import { Loading } from '@renderer/components/Loading/Loading'
+import { formatUnits } from 'viem'
 
 interface Props {
   address: string
-  publicationsCount?: number
 }
 
-export function PublicationsTab({ address, publicationsCount }: Props): JSX.Element {
+export function PublicationsTab({ address }: Props): JSX.Element {
   const { t } = useTranslation()
+  const chainId = useChainId()
+  const { data, isLoading } = useReadContract({
+    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
+    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    functionName: 'getPublications',
+    args: [address]
+  })
 
-  if (!publicationsCount || publicationsCount === 0) {
+  if (isLoading) {
     return (
-      <div className="flex flex-col items-center mt-5">
-        <p className="text-white">{t("thereAren'tAnyPublication")}</p>
+      <div className="mt-5 mx-auto overflow-hidden">
+        <Loading />
       </div>
     )
   }
 
-  const count = Array.from({ length: publicationsCount }, (_, i) => i)
+  const publicationsIds = data ? (data as string[]) : []
+
+  if (publicationsIds.length === 0) {
+    return <p className="mt-5 text-white">{t('noPublications')}</p>
+  }
 
   return (
     <div className="flex flex-col mt-5 max-w-[400px] gap-5">
-      {count.map((count) => (
-        <PubItem key={count} address={address} count={count} />
+      {publicationsIds.reverse().map((item) => (
+        <PubItem key={item} id={item} />
       ))}
     </div>
   )
 }
 
 interface PubItemProps {
-  count: number
-  address: string
+  id: string
 }
-function PubItem({ count, address }: PubItemProps): JSX.Element {
-  const chainId = useChainId()
-  const { data } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
-    functionName: 'publicationIds',
-    args: [address, count]
-  })
+function PubItem({ id }: PubItemProps): JSX.Element {
 
-  if (!data) return <div />
-
-  return <PublicationItem id={data as number} />
+  return <PublicationItem id={parseInt(formatUnits(BigInt(id), 0))} />
 }
