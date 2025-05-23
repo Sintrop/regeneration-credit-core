@@ -43,6 +43,18 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const eraData = responseEra as EraProps
 
+  const { data: responseTokensThisEra } = useReadContract({
+    //@ts-ignore
+    address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    functionName: 'tokensPerEra',
+    args: [1, 12]
+  })
+
+  const tokensThisEra = responseTokensThisEra
+    ? parseInt(formatUnits(BigInt(responseTokensThisEra as string), 18))
+    : 0
+
   return (
     <div className="flex flex-col mt-5">
       <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
@@ -58,6 +70,11 @@ export function EraData({ poolName }: Props): JSX.Element {
               <DataItem label={t('approvedUsers')} value={formatUnits(BigInt(eraData.users), 0)} />
               <DataItem label={t('tokens')} value={formatUnits(BigInt(eraData.tokens), 18)} />
               <DataItem label={t('difficulty')} value={formatUnits(BigInt(eraData.levels), 0)} />
+              <DataItem
+                label={t('tokensThisEra')}
+                value={Intl.NumberFormat('pt-BR').format(tokensThisEra)}
+                suffix="RC"
+              />
             </div>
           )}
         </div>
@@ -76,7 +93,7 @@ function DataItem({ label, value, suffix }: DataItemProps): JSX.Element {
     <div
       className={`flex flex-col justify-center p-3 rounded-md gap-1 w-[200px] h-[110px] bg-container-primary`}
     >
-      <p className="font-bold text-white text-center text-4xl">
+      <p className="font-bold text-white text-center text-2xl">
         {value} {suffix && suffix}
       </p>
       <p className="text-gray-300 text-center">{label}</p>
