@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { ContractPoolData } from './components/ContractPoolData'
 import { ContractsPoolName } from './contractsPoolList'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
+import { EraData } from './components/EraData'
 
 export function PoolPage(): JSX.Element {
   const { t } = useTranslation()
@@ -12,6 +13,7 @@ export function PoolPage(): JSX.Element {
   return (
     <ScreenPage pageTitle={t(poolName)}>
       <ContractPoolData poolName={poolName} />
+      <EraData poolName={poolName} />
     </ScreenPage>
   )
 }

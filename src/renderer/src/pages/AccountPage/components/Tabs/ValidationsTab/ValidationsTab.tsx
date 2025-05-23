@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useEra } from '@renderer/hooks/useEra'
 import {
@@ -10,8 +11,7 @@ import { ValidationProps } from '@renderer/types/validation'
 import { useTranslation } from 'react-i18next'
 import { useChainId, useReadContract } from 'wagmi'
 import { ValidationUserItem } from './ValidationUserItem'
-import { useEffect, useState } from 'react'
-import { EraSelector } from './EraSelector'
+import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
 
 interface Props {
   address: string

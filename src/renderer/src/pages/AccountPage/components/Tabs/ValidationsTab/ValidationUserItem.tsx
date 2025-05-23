@@ -8,7 +8,6 @@ interface Props {
 }
 
 export function ValidationUserItem({ validation }: Props): JSX.Element {
-  console.log(validation)
   const { t } = useTranslation()
   return (
     <div className="flex flex-col p-3 rounded-2xl bg-green-card">
