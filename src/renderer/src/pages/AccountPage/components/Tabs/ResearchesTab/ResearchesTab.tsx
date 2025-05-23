@@ -65,7 +65,7 @@ function ResearcheItem({ count, address }: ResearcheItemProps): JSX.Element {
   const report = data as ResearchProps
 
   function handleGoToPdfView(): void {
-    navigate(`/pdfview/${report?.file}`)
+    navigate(`/resource-details/researche/${report?.id}`)
   }
 
   return (
@@ -75,6 +75,14 @@ function ResearcheItem({ count, address }: ResearcheItemProps): JSX.Element {
     >
       <div className="flex flex-col items-start">
         <p className="text-white">ID: {formatUnits(BigInt(report?.id), 0)}</p>
+        <div className="flex gap-2">
+          <p className="text-white">{t('title')}:</p>
+          <p className="text-white">{report.title}</p>
+        </div>
+        <div className="flex gap-2">
+          <p className="text-white">{t('thesis')}:</p>
+          <p className="text-white">{report.thesis}</p>
+        </div>
         <p className="text-white">
           {t('publishedAt')}: {formatUnits(BigInt(report?.createdAtBlock), 0)}
         </p>

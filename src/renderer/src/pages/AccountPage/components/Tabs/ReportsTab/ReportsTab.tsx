@@ -65,7 +65,7 @@ function ReportItem({ count, address }: ReportItemProps): JSX.Element {
   const report = data as ReportProps
 
   function handleGoToPdfView(): void {
-    navigate(`/pdfview/${report?.report}`)
+    navigate(`/resource-details/report/${report?.id}`)
   }
 
   return (
