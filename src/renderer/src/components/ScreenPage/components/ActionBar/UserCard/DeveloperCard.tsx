@@ -9,8 +9,10 @@ import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ContentCardProps } from './UserCard'
 import { formatUnits } from 'viem'
+import { useUserContext } from '@renderer/hooks/useUserContext'
 
 export function DeveloperCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
+  const { setEraPool } = useUserContext()
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -25,6 +27,7 @@ export function DeveloperCard({ setLastPublishedWork }: ContentCardProps): JSX.E
 
   if (developer) {
     setLastPublishedWork(parseInt(formatUnits(BigInt(developer?.lastPublishedAt), 0)))
+    setEraPool(parseInt(formatUnits(BigInt(developer.pool.currentEra), 0)))
   }
 
   return (

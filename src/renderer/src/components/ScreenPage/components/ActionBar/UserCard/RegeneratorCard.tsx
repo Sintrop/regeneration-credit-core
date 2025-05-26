@@ -8,8 +8,10 @@ import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { formatUnits } from 'viem'
+import { useUserContext } from '@renderer/hooks/useUserContext'
 
 export function RegeneratorCard(): JSX.Element {
+  const { setEraPool } = useUserContext()
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -21,6 +23,10 @@ export function RegeneratorCard(): JSX.Element {
   })
 
   const regenerator = data as RegeneratorProps
+
+  if (regenerator) {
+    setEraPool(parseInt(formatUnits(BigInt(regenerator.pool.currentEra), 0)))
+  }
 
   return (
     <BasicData

@@ -9,8 +9,10 @@ import { BasicData } from './BasicData'
 import { ResearcherProps } from '@renderer/types/researcher'
 import { ContentCardProps } from './UserCard'
 import { formatUnits } from 'viem'
+import { useUserContext } from '@renderer/hooks/useUserContext'
 
 export function ResearcherCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
+  const { setEraPool } = useUserContext()
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -25,6 +27,7 @@ export function ResearcherCard({ setLastPublishedWork }: ContentCardProps): JSX.
 
   if (researcher) {
     setLastPublishedWork(parseInt(formatUnits(BigInt(researcher?.lastPublishedAt), 0)))
+    setEraPool(parseInt(formatUnits(BigInt(researcher.pool.currentEra), 0)))
   }
 
   return (
