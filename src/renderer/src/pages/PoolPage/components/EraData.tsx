@@ -24,8 +24,16 @@ export function EraData({ poolName }: Props): JSX.Element {
     functionName: 'currentContractEra',
     args: []
   })
-
   const currentEra = data ? parseInt(formatUnits(BigInt(data as string), 0)) : 1
+
+  const { data: epochContract } = useReadContract({
+    //@ts-ignore
+    address: chainId === 1600 ? contractPool?.addressTestnet : contractPool?.addressMainnet,
+    abi: chainId === 1600 ? contractPool?.abiTestnet : contractPool?.abiMainnet,
+    functionName: 'currentEpoch',
+    args: []
+  })
+  const epoch = epochContract ? parseInt(formatUnits(BigInt(epochContract as string), 0)) : 1
 
   const [era, setEra] = useState(1)
 
@@ -48,7 +56,7 @@ export function EraData({ poolName }: Props): JSX.Element {
     address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
     abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'tokensPerEra',
-    args: [era, 12]
+    args: [epoch, 12]
   })
 
   const tokensThisEra = responseTokensThisEra
