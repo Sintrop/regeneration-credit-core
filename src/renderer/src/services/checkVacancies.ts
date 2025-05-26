@@ -77,6 +77,6 @@ export function checkVacancies(props: CheckVacanciesProps): ReturnCheckVacancies
 
   return {
     availableVacancie,
-    ammount: ammountVacancies
+    ammount: Math.floor(ammountVacancies)
   }
 }

@@ -107,7 +107,7 @@ export function CommunityPage(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex gap-10 flex-wrap max-w-[1024px]">
+      <div className="flex gap-10 flex-wrap max-w-[1024px] mt-5">
         <UserCountCard
           user="regenerator"
           userType={1}
