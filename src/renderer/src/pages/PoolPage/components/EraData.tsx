@@ -48,7 +48,7 @@ export function EraData({ poolName }: Props): JSX.Element {
     address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
     abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'tokensPerEra',
-    args: [1, 12]
+    args: [era, 12]
   })
 
   const tokensThisEra = responseTokensThisEra
@@ -67,8 +67,16 @@ export function EraData({ poolName }: Props): JSX.Element {
         <div className="flex flex-col">
           {eraData && (
             <div className="flex gap-5">
-              <DataItem label={t('approvedUsers')} value={formatUnits(BigInt(eraData.users), 0)} />
-              <DataItem label={t('tokens')} value={formatUnits(BigInt(eraData.tokens), 18)} />
+              <DataItem
+                label={t('usersWhoCashedOut')}
+                value={formatUnits(BigInt(eraData.users), 0)}
+              />
+              <DataItem
+                label={t('withdrawnTokens')}
+                value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(
+                  parseFloat(formatUnits(BigInt(eraData.tokens), 18))
+                )}
+              />
               <DataItem label={t('difficulty')} value={formatUnits(BigInt(eraData.levels), 0)} />
               <DataItem
                 label={t('tokensThisEra')}
@@ -93,7 +101,7 @@ function DataItem({ label, value, suffix }: DataItemProps): JSX.Element {
     <div
       className={`flex flex-col justify-center p-3 rounded-md gap-1 w-[200px] h-[110px] bg-container-primary`}
     >
-      <p className="font-bold text-white text-center text-2xl">
+      <p className="font-bold text-white text-center text-xl">
         {value} {suffix && suffix}
       </p>
       <p className="text-gray-300 text-center">{label}</p>

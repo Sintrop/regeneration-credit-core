@@ -88,7 +88,7 @@ function DataItem({ label, value, suffix }: DataItemProps): JSX.Element {
       className={`flex flex-col justify-center p-3 rounded-md gap-1 w-[200px] h-[110px] bg-container-primary`}
     >
       <p className="text-white">{label}:</p>
-      <p className="font-bold text-white text-2xl">
+      <p className="font-bold text-white text-xl">
         {value} {suffix && suffix}
       </p>
     </div>
