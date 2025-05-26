@@ -41,20 +41,23 @@ export function RegeneratorItem({ id }: Props): JSX.Element {
     setShowVote(true)
   }
 
+  if (!regenerator) return <div />
+
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
-      <td className="p-2">
-        {regenerator && <UserAddressLink address={regenerator?.regeneratorWallet} />}
+      <td className="p-2 max-w-[100px]">
+        {<UserAddressLink address={regenerator?.regeneratorWallet} />}
       </td>
-      <td className="p-2">{regenerator && regenerator?.name}</td>
-      <td className="p-2">{regenerator && formatUnits(BigInt(regenerator?.createdAt), 0)}</td>
+      <td className="p-2">{regenerator?.name}</td>
+      <td className="p-2">{formatUnits(BigInt(regenerator?.createdAt), 0)}</td>
       <td className="p-2">
-        {regenerator && formatUnits(BigInt(regenerator?.totalInspections), 0)}
+        {Intl.NumberFormat('pt-BR').format(
+          parseInt(formatUnits(BigInt(regenerator?.totalArea), 0))
+        )}
       </td>
-      <td className="p-2">
-        {regenerator && formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
-      </td>
+      <td className="p-2">{formatUnits(BigInt(regenerator?.totalInspections), 0)}</td>
+      <td className="p-2">{formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}</td>
       <td className="p-2 flex items-center gap-5">
         <button className="hover:cursor-pointer" onClick={handleShowVote}>
           <BiSolidMegaphone color="white" />
