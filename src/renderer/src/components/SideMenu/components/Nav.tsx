@@ -12,7 +12,15 @@ export function Nav(): JSX.Element {
       <NavItem icon="pools" label="pools" path="/pools" />
       <NavItem icon="myTokens" label="myTokens" path="/my-tokens" />
       <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
-      <NavItem icon="community" label="community" path="/community" />
+      <DropdownMenu label="community" icon="community" pathMainPage="/community" haveMainPage>
+        <NavItem label="regenerators" path="/users/1" />
+        <NavItem label="inspectors" path="/users/2" />
+        <NavItem label="researchers" path="/users/3" />
+        <NavItem label="developers" path="/users/4" />
+        <NavItem label="contributors" path="/users/5" />
+        <NavItem label="activists" path="/users/6" />
+        <NavItem label="supporters" path="/users/7" />
+      </DropdownMenu>
       <DropdownMenu label="resources" icon="computer">
         <NavItem icon="inspections" label="inspections" path="/inspections" />
         <NavItem icon="researches" label="researches" path="/researches" />
@@ -51,8 +59,17 @@ interface DropdownMenuProps {
   label: string
   icon?: IconName
   children: React.ReactNode
+  haveMainPage?: boolean
+  pathMainPage?: string
 }
-function DropdownMenu({ label, icon, children }: DropdownMenuProps): JSX.Element {
+function DropdownMenu({
+  label,
+  icon,
+  children,
+  haveMainPage,
+  pathMainPage
+}: DropdownMenuProps): JSX.Element {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -60,18 +77,30 @@ function DropdownMenu({ label, icon, children }: DropdownMenuProps): JSX.Element
     setMenuOpen((value) => !value)
   }
 
+  function handleGoToMainPage(): void {
+    navigate(pathMainPage ? pathMainPage : '/')
+  }
+
   return (
     <div className={`flex flex-col`}>
       <button
         className="flex items-center justify-between w-full gap-3 py-3 text-white font-semibold hover:cursor-pointer"
-        onClick={toggleOpenMenu}
+        onClick={haveMainPage ? handleGoToMainPage : toggleOpenMenu}
       >
         <div className="flex items-center gap-3">
           {icon && <Icon name={icon} />}
           {t(label)}
         </div>
 
-        {menuOpen ? <FaChevronUp color="white" /> : <FaChevronDown color="white" />}
+        <div
+          onClick={(e) => {
+            e.stopPropagation()
+            toggleOpenMenu()
+          }}
+          className="z-20 p-2 rounded-md hover:cursor-pointer hover:bg-green-900 duration-300"
+        >
+          {menuOpen ? <FaChevronUp color="white" /> : <FaChevronDown color="white" />}
+        </div>
       </button>
 
       {menuOpen && <div className="flex flex-col ml-10">{children}</div>}
