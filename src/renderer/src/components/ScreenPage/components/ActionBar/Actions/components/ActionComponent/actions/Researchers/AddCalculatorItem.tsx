@@ -14,8 +14,8 @@ export function AddCalculatorItem({ abi, addressContract }: ActionContractProps)
   const [inputJustification, setInputJustification] = useState('')
   const [inputCarbonImpact, setInputCarbonImpact] = useState('')
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, error, isError } = useWaitForTransactionReceipt({ hash })
 
   async function handleSendTransaction(): Promise<void> {
     writeContract({
@@ -80,6 +80,7 @@ export function AddCalculatorItem({ abi, addressContract }: ActionContractProps)
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

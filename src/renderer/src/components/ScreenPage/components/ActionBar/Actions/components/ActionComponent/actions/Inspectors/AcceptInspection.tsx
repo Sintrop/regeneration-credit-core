@@ -11,8 +11,8 @@ export function AcceptInspection({ abi, addressContract }: ActionContractProps):
   const { t } = useTranslation()
   const [input, setInput] = useState('')
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   function handleSendTransaction(): void {
     const value = parseInt(input)
@@ -49,6 +49,7 @@ export function AcceptInspection({ abi, addressContract }: ActionContractProps):
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

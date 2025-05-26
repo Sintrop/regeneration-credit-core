@@ -13,8 +13,8 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
   const [inputAmmount, setInputAmmount] = useState('')
   const [itemId, setItemId] = useState<number>()
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   async function handleSendTransaction(): Promise<void> {
     writeContract({
@@ -52,6 +52,7 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

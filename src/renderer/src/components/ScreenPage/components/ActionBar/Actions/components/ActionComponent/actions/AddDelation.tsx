@@ -18,8 +18,8 @@ export function AddDelation(): JSX.Element {
   const [inputTitle, setInputTitle] = useState('')
   const [inputTestimony, setInputTestimony] = useState('')
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, error, isError } = useWaitForTransactionReceipt({ hash })
 
   function handleSendTransaction(): void {
     writeContract({
@@ -68,6 +68,7 @@ export function AddDelation(): JSX.Element {
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

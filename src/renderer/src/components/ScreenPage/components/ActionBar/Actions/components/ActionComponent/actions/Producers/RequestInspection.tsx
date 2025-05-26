@@ -12,8 +12,8 @@ interface Props {
 export function RequestInspection({ abi, addressContract }: Props): JSX.Element {
   const { t } = useTranslation()
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   function handleSendTransaction(): void {
     writeContract({
@@ -38,6 +38,7 @@ export function RequestInspection({ abi, addressContract }: Props): JSX.Element 
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )
