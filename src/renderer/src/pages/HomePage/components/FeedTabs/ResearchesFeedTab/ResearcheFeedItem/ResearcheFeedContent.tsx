@@ -1,6 +1,6 @@
-import { ValidTag } from '@renderer/components/ValidTag/ValidTag';
+import { ValidTag } from '@renderer/components/ValidTag/ValidTag'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   researchId: number
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function ResearcheFeedContent({ researchId, thesis, title, valid }: Props): JSX.Element {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   function handleGoToResourceDetails(): void {
@@ -19,11 +19,11 @@ export function ResearcheFeedContent({ researchId, thesis, title, valid }: Props
 
   return (
     <div className="flex flex-col mt-2">
-      <p className="text-gray-300 text-sm text-center">{t('publishedAResearch')}</p>
-
       <div className="flex justify-end w-full">
         <ValidTag valid={valid} />
       </div>
+
+      <p className="text-gray-300 text-sm text-center">{t('publishedAResearch')}</p>
 
       <p className="text-gray-300 text-sm mt-2">{t('title')}</p>
       <p className="text-white">{title}</p>
@@ -37,5 +37,5 @@ export function ResearcheFeedContent({ researchId, thesis, title, valid }: Props
         {t('seeResearch')}
       </button>
     </div>
-  );
+  )
 }

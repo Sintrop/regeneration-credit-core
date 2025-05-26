@@ -18,11 +18,11 @@ export function ReportFeedContent({ reportId, description, valid }: Props): JSX.
 
   return (
     <div className="flex flex-col mt-2">
-      <p className="text-gray-300 text-sm text-center">{t('publishedAReport')}</p>
-
       <div className="flex justify-end w-full">
         <ValidTag valid={valid} />
       </div>
+
+      <p className="text-gray-300 text-sm text-center">{t('publishedAReport')}</p>
 
       <p className="text-sm text-gray-300 mt-2">{t('description')}</p>
       <p className="text-white">{description}</p>
