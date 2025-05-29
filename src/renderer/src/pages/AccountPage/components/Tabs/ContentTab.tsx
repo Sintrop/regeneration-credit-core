@@ -5,6 +5,7 @@ import { InspectionsHistoryTab } from './InspectionsHistory/InspectionsHistoryTa
 import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { PublicationsTab } from './PublicationsTab/PublicationsTab'
+import { ReductionCommitmentsTab } from './ReductionCommitmentsTab/ReductionCommitmentsTab'
 import { RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
@@ -34,7 +35,8 @@ const tabs = {
   approvedInvites: ApprovedInvites,
   inspections: InspectionsHistoryTab,
   validations: ValidationsTab,
-  contributions: ContributionsTab
+  contributions: ContributionsTab,
+  reductionCommitments: ReductionCommitmentsTab
 }
 
 export type UserTypeContentTabsName = keyof typeof tabs
