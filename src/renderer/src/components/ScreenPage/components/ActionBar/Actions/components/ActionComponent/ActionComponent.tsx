@@ -18,6 +18,7 @@ interface Props {
   userTypeToInvite?: number
   label?: string
   mainAction?: boolean
+  withdrawPools?: boolean
 }
 export function ActionComponent({
   actionName,
@@ -26,7 +27,8 @@ export function ActionComponent({
   lastPublishedWork,
   userTypeToInvite,
   label,
-  mainAction
+  mainAction,
+  withdrawPools
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [openAction, setOpenAction] = useState(false)
@@ -38,23 +40,34 @@ export function ActionComponent({
 
   return (
     <>
-      {mainAction ? (
-        <div className="flex flex-col gap-1">
-          <p className="text-sm text-gray-300">{t('nextLevel')}</p>
-          <button
-            className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
-            onClick={toggleOpenAction}
-          >
-            {label ? label : Action.name}
-          </button>
-        </div>
-      ) : (
+      {withdrawPools ? (
         <button
-          className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
+          className="font-semibold text-white rounded-2xl bg-blue-primary px-5 h-10 hover:cursor-pointer"
           onClick={toggleOpenAction}
         >
           {label ? label : Action.name}
         </button>
+      ) : (
+        <>
+          {mainAction ? (
+            <div className="flex flex-col gap-1">
+              <p className="text-sm text-gray-300">{t('nextLevel')}</p>
+              <button
+                className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
+                onClick={toggleOpenAction}
+              >
+                {label ? label : Action.name}
+              </button>
+            </div>
+          ) : (
+            <button
+              className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
+              onClick={toggleOpenAction}
+            >
+              {label ? label : Action.name}
+            </button>
+          )}
+        </>
       )}
 
       {openAction && (

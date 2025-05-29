@@ -6,6 +6,7 @@ import { contractsPool, ContractsPoolName } from '../contractsPoolList'
 import { useUserContext } from '@renderer/hooks/useUserContext'
 import { formatUnits } from 'viem'
 import { useTranslation } from 'react-i18next'
+import { ActionComponent } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/ActionComponent/ActionComponent'
 
 interface Props {
   poolName: ContractsPoolName
@@ -56,8 +57,6 @@ export function WithdrawArea({ poolName }: Props): JSX.Element {
 
   if (!isConnected) return <div />
 
-  return <div />
-
   if (!hasAvailableWithdraw) {
     return (
       <div className="flex flex-col mt-5 p-3 rounded-2xl bg-container-primary w-[350px]">
@@ -67,8 +66,8 @@ export function WithdrawArea({ poolName }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex mt-5 p-3 rounded-2xl bg-container-primary w-fit items-center">
-      <div className="flex flex-col mr-10">
+    <div className="flex w-[400px] justify-between mt-5 p-3 rounded-2xl bg-container-primary items-center">
+      <div className="flex flex-col">
         <p className="text-gray-300 text-xs mb-1">{t('youHaveWithdrawsAvailable')}:</p>
         <div className="flex gap-2">
           <p className="text-white">{t('eraOfPool')}:</p>
@@ -84,13 +83,18 @@ export function WithdrawArea({ poolName }: Props): JSX.Element {
         </div>
       </div>
 
-      <button className="font-semibold text-white rounded-2xl bg-blue-primary px-5 h-10 hover:cursor-pointer">
-        {userType === 4 ? (
-          <>{haveTokensToWithdraw ? t('withdraw') : t('advanceToNextEra')}</>
-        ) : (
-          t('withdraw')
-        )}
-      </button>
+      {eraPoolUser < eraPool && (
+        <ActionComponent
+          actionName="withdraw"
+          addressContract={
+            chainId === 250225 ? contractPool.userAddressMainnet : contractPool.userAddressTestnet
+          }
+          //@ts-ignore
+          abi={chainId === 250225 ? contractPool.userAbiMainnet : contractPool.userAbiTestnet}
+          label={haveTokensToWithdraw ? t('withdraw') : t('advanceToNextEra')}
+          withdrawPools
+        />
+      )}
     </div>
   )
 }
