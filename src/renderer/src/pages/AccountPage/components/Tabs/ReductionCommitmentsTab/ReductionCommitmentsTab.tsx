@@ -45,7 +45,7 @@ export function ReductionCommitmentsTab({ address }: Props): JSX.Element {
   return (
     <div className="flex flex-col mt-5 gap-5">
       {calculatorItemIds.reverse().map((item) => (
-        <ReductionItem key={item} id={item} />
+        <ReductionItem key={item} id={item} address={address} />
       ))}
     </div>
   )
@@ -53,8 +53,9 @@ export function ReductionCommitmentsTab({ address }: Props): JSX.Element {
 
 interface ReductionItemProps {
   id: string
+  address: string
 }
-function ReductionItem({ id }: ReductionItemProps): JSX.Element {
+function ReductionItem({ id, address }: ReductionItemProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -65,9 +66,20 @@ function ReductionItem({ id }: ReductionItemProps): JSX.Element {
     args: [id]
   })
 
+  const { data: responseContributedWith } = useReadContract({
+    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
+    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    functionName: 'calculatorItemCertificates',
+    args: [address, id]
+  })
+
   if (!data) return <div />
 
   const item = data as CalculatorItemProps
+
+  const contributedWith = responseContributedWith
+    ? parseFloat(formatUnits(BigInt(responseContributedWith as string), 18))
+    : 0
 
   return (
     <div className="flex flex-col items-start p-3 rounded-2xl bg-green-card w-full hover:cursor-pointer">
@@ -75,6 +87,10 @@ function ReductionItem({ id }: ReductionItemProps): JSX.Element {
       <p className="text-white">{item?.title}</p>
       <p className="text-white">
         {t('carbonImpact')}: {formatUnits(BigInt(item?.carbonImpact), 0)} g
+      </p>
+      <p className="text-white">
+        {t('contributedWith')}:{' '}
+        {Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(contributedWith)} RC
       </p>
     </div>
   )
