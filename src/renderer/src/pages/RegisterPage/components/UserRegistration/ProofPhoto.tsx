@@ -6,8 +6,9 @@ import { ChangeEvent } from 'react'
 interface Props {
   proofPhoto: string
   onChange: (url: string) => void
+  labelProfilePhoto?: boolean
 }
-export function ProofPhoto({ proofPhoto, onChange }: Props): JSX.Element {
+export function ProofPhoto({ proofPhoto, onChange, labelProfilePhoto }: Props): JSX.Element {
   const { t } = useTranslation()
 
   function openBrowserFile(): void {
@@ -36,7 +37,9 @@ export function ProofPhoto({ proofPhoto, onChange }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
-      <p className="text-gray-300 text-sm">{t('proofPhoto')}</p>
+      <p className="text-gray-300 text-sm">
+        {labelProfilePhoto ? t('profilePhoto') : t('proofPhoto')}
+      </p>
       <input
         id="input-file"
         type="file"
