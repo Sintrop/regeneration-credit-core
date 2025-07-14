@@ -100,7 +100,7 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'inspections', 'validations']}
+        availableTabs={['certificates', 'invitation', 'validations']}
       />
     </div>
   )

@@ -1,7 +1,6 @@
 import { ApprovedInvites } from './ApprovedInvites/ApprovedInvites'
 import { CertificatesTab } from './CertificatesTab/CertificatesTab'
 import { ContributionsTab } from './ContributionsTab/ContributionsTab'
-import { InspectionsHistoryTab } from './InspectionsHistory/InspectionsHistoryTab'
 import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { PublicationsTab } from './PublicationsTab/PublicationsTab'
@@ -33,7 +32,6 @@ const tabs = {
   researches: ResearchesTab,
   regenerationArea: RegenerationAreaTab,
   approvedInvites: ApprovedInvites,
-  inspections: InspectionsHistoryTab,
   validations: ValidationsTab,
   contributions: ContributionsTab,
   reductionCommitments: ReductionCommitmentsTab
