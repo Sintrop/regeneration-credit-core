@@ -22,6 +22,7 @@ interface Props {
 export function RegeneratorRegistration({ name, invitation }: Props): JSX.Element {
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
+  const [description, setDescription] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const mapRef = useRef<mapboxgl.Map>()
   const mapContainerRef = useRef<HTMLDivElement>()
@@ -138,10 +139,15 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto, invitation, coordinates, totalArea])
+  }, [name, proofPhoto, invitation, coordinates, totalArea, description])
 
   function validityData(): void {
     if (!name.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!description.trim()) {
       setDisableBtnRegister(true)
       return
     }
@@ -210,6 +216,14 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
 
   return (
     <div className="flex flex-col mb-10 z-0">
+      <p className="text-gray-300 text-sm mt-3">{t('projectDescription')}</p>
+      <input
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        placeholder={t('typeHere')}
+      />
+
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
