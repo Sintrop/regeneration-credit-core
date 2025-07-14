@@ -3,7 +3,6 @@ import { CertificatesTab } from './CertificatesTab/CertificatesTab'
 import { ContributionsTab } from './ContributionsTab/ContributionsTab'
 import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
-import { PublicationsTab } from './PublicationsTab/PublicationsTab'
 import { ReductionCommitmentsTab } from './ReductionCommitmentsTab/ReductionCommitmentsTab'
 import { RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
@@ -26,7 +25,6 @@ export function ContentTab({ address, selectedTab, name, offsetsCount }: Props):
 const tabs = {
   invitation: InvitationTab,
   certificates: CertificatesTab,
-  publications: PublicationsTab,
   offsets: OffsetsTab,
   reports: ReportsTab,
   researches: ResearchesTab,

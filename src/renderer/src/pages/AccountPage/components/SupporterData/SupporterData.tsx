@@ -54,13 +54,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
       <UserContentTabs
         address={address}
-        availableTabs={[
-          'certificates',
-          'invitation',
-          'publications',
-          'offsets',
-          'reductionCommitments'
-        ]}
+        availableTabs={['certificates', 'invitation', 'offsets', 'reductionCommitments']}
         name={supporter && supporter?.name}
         offsetsCount={offsetsCount}
       />
