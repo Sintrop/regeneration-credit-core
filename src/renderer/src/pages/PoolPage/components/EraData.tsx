@@ -77,7 +77,7 @@ export function EraData({ poolName }: Props): JSX.Element {
             <div className="flex gap-5">
               <DataItem
                 label={t('usersWhoCashedOut')}
-                value={formatUnits(BigInt(eraData.users), 0)}
+                value={formatUnits(BigInt(eraData.claimsCount), 0)}
               />
               <DataItem
                 label={t('withdrawnTokens')}
