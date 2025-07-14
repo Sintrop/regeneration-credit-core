@@ -11,15 +11,18 @@ import { ConfirmButton } from './ConfirmButton'
 import { WriteContractErrorType } from 'viem'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ProofPhoto } from './ProofPhoto'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   name: string
 }
 
 export function SupporterRegistration({ name }: Props): JSX.Element {
+  const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [description, setDescription] = useState('')
 
   const chainId = useChainId()
   const { writeContract, data: hash, isPending, error } = useWriteContract()
@@ -27,10 +30,15 @@ export function SupporterRegistration({ name }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, profilePhoto])
+  }, [name, profilePhoto, description])
 
   function validityData(): void {
     if (!name.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!description.trim()) {
       setDisableBtnRegister(true)
       return
     }
@@ -65,12 +73,20 @@ export function SupporterRegistration({ name }: Props): JSX.Element {
       address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
       abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
       functionName: 'addSupporter',
-      args: [name, hashProofPhoto]
+      args: [name, description, hashProofPhoto]
     })
   }
 
   return (
     <div className="flex flex-col mb-10 z-0">
+      <p className="text-gray-300 text-sm mt-3">{t('description')}</p>
+      <input
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        placeholder={t('typeHere')}
+      />
+
       <ProofPhoto proofPhoto={profilePhoto} onChange={setProfilePhoto} />
 
       <ConfirmButton
