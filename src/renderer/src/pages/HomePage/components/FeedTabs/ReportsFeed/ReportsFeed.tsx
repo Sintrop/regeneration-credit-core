@@ -9,10 +9,12 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { ReportFeedItem } from './ReportFeedItem/ReportFeedItem'
 import { Loading } from '@renderer/components/Loading/Loading'
+import { useNavigate } from 'react-router-dom'
 
 export function ReportsFeed(): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+  const navigate = useNavigate()
 
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
@@ -28,6 +30,10 @@ export function ReportsFeed(): JSX.Element {
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     reportsIds = ids.reverse()
+  }
+
+  function handleGoToReports(): void {
+    navigate('/development')
   }
 
   if (isLoading) {
@@ -52,6 +58,17 @@ export function ReportsFeed(): JSX.Element {
           {reportsIds.map((item) => (
             <ReportFeedItem id={item} key={item} />
           ))}
+        </div>
+      )}
+
+      {reportsIds.length > 3 && (
+        <div className="flex items-center justify-center h-8 mt-3 border-t border-green-900 bg-card-1 rounded-b-2xl">
+          <button
+            className="text-green-500 underline hover:cursor-pointer text-start w-fit"
+            onClick={handleGoToReports}
+          >
+            {t('seeMore')}
+          </button>
         </div>
       )}
     </div>

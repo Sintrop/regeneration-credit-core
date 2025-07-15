@@ -27,7 +27,7 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
 
   if (report) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 w-full border-b">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <ReportFeedHeader
           address={report?.developer}
           publishedAt={formatUnits(BigInt(report.createdAtBlockNumber), 0)}

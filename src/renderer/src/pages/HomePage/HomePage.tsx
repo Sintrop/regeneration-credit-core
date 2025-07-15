@@ -11,24 +11,25 @@ import { useState } from 'react'
 
 export function HomePage(): JSX.Element {
   const { t } = useTranslation()
-  const [selectedTab, setSelectedTab] = useState('inspections')
+  const [selectedTab, setSelectedTab] = useState('publications')
+
   return (
     <ScreenPage pageTitle="feed">
       <div className="w-full flex gap-10 overflow-x-scroll">
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 h-10">
             <TabItem
-              label={t('inspections')}
-              onChange={setSelectedTab}
-              value="inspections"
-              isSelected={selectedTab === 'inspections'}
-            />
-
-            <TabItem
               label={t('publications')}
               onChange={setSelectedTab}
               value="publications"
               isSelected={selectedTab === 'publications'}
+            />
+
+            <TabItem
+              label={t('inspections')}
+              onChange={setSelectedTab}
+              value="inspections"
+              isSelected={selectedTab === 'inspections'}
             />
           </div>
 
