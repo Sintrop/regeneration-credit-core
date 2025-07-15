@@ -9,7 +9,6 @@ import { formatUnits } from 'viem'
 import { ContributionProps } from '@renderer/types/contributor'
 import { ContributionFeedHeader } from './ContributionFeedHeader'
 import { ContributionFeedContent } from './ContributionFeedContent'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
@@ -37,11 +36,6 @@ export function ContributionFeedItem({ id }: Props): JSX.Element {
           contributionId={id}
           description={contribution.description}
           valid={contribution.valid.toString() === 'true' ? true : false}
-        />
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="contribution"
-          validationsCount={parseInt(formatUnits(BigInt(contribution.validationsCount), 0))}
         />
       </div>
     )

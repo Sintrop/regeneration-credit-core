@@ -9,7 +9,6 @@ import { formatUnits } from 'viem'
 import { ResearcherProps, ResearchProps } from '@renderer/types/researcher'
 import { HeaderFeedItem } from '../../HeaderFeedItem/HeaderFeedItem'
 import { ResearcheFeedContent } from './ResearcheFeedContent'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
@@ -50,12 +49,6 @@ export function ResearcheFeedItem({ id }: Props): JSX.Element {
           thesis={research.thesis}
           researchId={id}
           valid={research.valid.toString() === 'true' ? true : false}
-        />
-
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="research"
-          validationsCount={parseInt(formatUnits(BigInt(research.validationsCount), 0))}
         />
       </div>
     )

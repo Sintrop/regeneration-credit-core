@@ -9,7 +9,6 @@ import { formatUnits } from 'viem'
 import { ReportFeedHeader } from './ReportFeedHeader'
 import { ReportFeedContent } from './ReportFeedContent'
 import { ReportProps } from '@renderer/types/developer'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
