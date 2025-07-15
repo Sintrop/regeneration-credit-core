@@ -15,10 +15,9 @@ import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToIn
 
 interface Props {
   id: number
-  setValidationsCount: (count: number) => void
   setReport: (report: string) => void
 }
-export function InspectionData({ id, setReport, setValidationsCount }: Props): JSX.Element {
+export function InspectionData({ id, setReport }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -33,7 +32,6 @@ export function InspectionData({ id, setReport, setValidationsCount }: Props): J
 
   if (inspection) {
     setReport(inspection.report)
-    setValidationsCount(parseInt(formatUnits(BigInt(inspection.validationsCount), 0)))
   }
 
   if (isLoading) {

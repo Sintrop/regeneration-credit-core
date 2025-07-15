@@ -5,13 +5,11 @@ import { ResourceData } from './components/ResourceData/ResourceData'
 import { useState } from 'react'
 import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { PdfTab } from './components/PdfTab/PdfTab'
-import { ValidationsTab } from './components/ValidationsTab/ValidationsTab'
 
 export function ResourceDetailsPage(): JSX.Element {
   const { t } = useTranslation()
   const { resourceType, id } = useParams()
   const [report, setReport] = useState<string>('')
-  const [validationsCount, setValidationsCount] = useState<number>(0)
   const [selectedTab, setSelectedTab] = useState('pdf')
 
   return (
@@ -20,7 +18,6 @@ export function ResourceDetailsPage(): JSX.Element {
         resourceType={resourceType as string}
         id={parseInt(id as string)}
         setReport={setReport}
-        setValidationsCount={setValidationsCount}
       />
 
       <div className="mt-5 flex items-center gap-3">
@@ -30,23 +27,9 @@ export function ResourceDetailsPage(): JSX.Element {
           onChange={setSelectedTab}
           isSelected={selectedTab === 'pdf'}
         />
-
-        <TabItem
-          value="validations"
-          label={t('validations')}
-          onChange={setSelectedTab}
-          isSelected={selectedTab === 'validations'}
-        />
       </div>
 
       {selectedTab === 'pdf' && <PdfTab report={report} />}
-      {selectedTab === 'validations' && (
-        <ValidationsTab
-          validationsCount={validationsCount}
-          resourceId={parseInt(id as string)}
-          resourceType={resourceType as string}
-        />
-      )}
     </ScreenPage>
   )
 }
