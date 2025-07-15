@@ -2,7 +2,6 @@ import { ApprovedInvites } from './ApprovedInvites/ApprovedInvites'
 import { CertificatesTab } from './CertificatesTab/CertificatesTab'
 import { ContributionsTab } from './ContributionsTab/ContributionsTab'
 import { InvitationTab } from './InvitationTab'
-import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { ReductionCommitmentsTab } from './ReductionCommitmentsTab/ReductionCommitmentsTab'
 import { RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
@@ -13,19 +12,17 @@ interface Props {
   address: string
   selectedTab: UserTypeContentTabsName
   name?: string
-  offsetsCount?: number
 }
 
-export function ContentTab({ address, selectedTab, name, offsetsCount }: Props): JSX.Element {
+export function ContentTab({ address, selectedTab, name }: Props): JSX.Element {
   const Tab = tabs[selectedTab]
 
-  return <Tab address={address} name={name} offsetsCount={offsetsCount} />
+  return <Tab address={address} name={name} />
 }
 
 const tabs = {
   invitation: InvitationTab,
   certificates: CertificatesTab,
-  offsets: OffsetsTab,
   reports: ReportsTab,
   researches: ResearchesTab,
   regenerationArea: RegenerationAreaTab,
