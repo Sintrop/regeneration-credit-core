@@ -26,9 +26,6 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
   })
 
   const researcher = data as ResearcherProps
-  const researchesCount = researcher
-    ? parseInt(formatUnits(BigInt(researcher?.publishedResearches), 0))
-    : 0
 
   const { data: responsePenalties } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
@@ -103,7 +100,6 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
       <UserContentTabs
         address={address}
         availableTabs={['certificates', 'invitation', 'researches', 'validations']}
-        researchesCount={researchesCount}
       />
     </div>
   )

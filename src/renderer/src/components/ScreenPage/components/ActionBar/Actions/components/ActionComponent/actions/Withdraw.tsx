@@ -8,9 +8,8 @@ import { ActionContractProps } from '../ActionComponent'
 
 export function Withdraw({ abi, addressContract }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
-
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   function handleSendTransaction(): void {
     writeContract({
@@ -35,6 +34,7 @@ export function Withdraw({ abi, addressContract }: ActionContractProps): JSX.Ele
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

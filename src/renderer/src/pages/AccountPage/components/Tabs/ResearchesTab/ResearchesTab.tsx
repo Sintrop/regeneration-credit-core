@@ -1,3 +1,4 @@
+import { Loading } from '@renderer/components/Loading/Loading'
 import {
   researcherAbi,
   researcherAddress,
@@ -13,59 +14,61 @@ import { useChainId, useReadContract } from 'wagmi'
 
 interface Props {
   address: string
-  researchesCount?: number
 }
 
-export function ResearchesTab({ address, researchesCount }: Props): JSX.Element {
+export function ResearchesTab({ address }: Props): JSX.Element {
   const { t } = useTranslation()
+  const chainId = useChainId()
+  const { data, isLoading } = useReadContract({
+    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
+    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    functionName: 'getResearchesIds',
+    args: [address]
+  })
 
-  if (!researchesCount || researchesCount === 0) {
+  if (isLoading) {
     return (
-      <div className="flex flex-col items-center mt-5">
-        <p className="text-white">{t("thisResearcherDoesn'tHaveResearches")}</p>
+      <div className="mt-5 mx-auto overflow-hidden">
+        <Loading />
       </div>
     )
   }
 
-  const count = Array.from({ length: researchesCount }, (_, i) => i)
+  const researchesIds = data ? (data as string[]) : []
+
+  if (researchesIds.length === 0) {
+    return <p className="mt-5 text-white">{t('noResearchesPublished')}</p>
+  }
 
   return (
     <div className="flex flex-col mt-5 gap-5">
-      {count.reverse().map((count) => (
-        <ResearcheItem key={count} address={address} count={count} />
+      {researchesIds.reverse().map((item) => (
+        <ResearcheItem key={item} id={item} />
       ))}
     </div>
   )
 }
 
 interface ResearcheItemProps {
-  count: number
-  address: string
+  id: string
 }
-function ResearcheItem({ count, address }: ResearcheItemProps): JSX.Element {
+function ResearcheItem({ id }: ResearcheItemProps): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const chainId = useChainId()
-  const { data: researchId } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
-    functionName: 'researchesIds',
-    args: [address, count]
-  })
-
   const { data } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
     abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
     functionName: 'getResearch',
-    args: [researchId]
+    args: [id]
   })
 
   if (!data) return <div />
 
-  const report = data as ResearchProps
+  const research = data as ResearchProps
 
   function handleGoToPdfView(): void {
-    navigate(`/pdfview/${report?.file}`)
+    navigate(`/resource-details/researche/${research?.id}`)
   }
 
   return (
@@ -74,15 +77,23 @@ function ResearcheItem({ count, address }: ResearcheItemProps): JSX.Element {
       onClick={handleGoToPdfView}
     >
       <div className="flex flex-col items-start">
-        <p className="text-white">ID: {formatUnits(BigInt(report?.id), 0)}</p>
+        <p className="text-white">ID: {formatUnits(BigInt(research?.id), 0)}</p>
+        <div className="flex gap-2">
+          <p className="text-white">{t('title')}:</p>
+          <p className="text-white">{research.title}</p>
+        </div>
+        <div className="flex gap-2">
+          <p className="text-white">{t('thesis')}:</p>
+          <p className="text-white">{research.thesis}</p>
+        </div>
         <p className="text-white">
-          {t('publishedAt')}: {formatUnits(BigInt(report?.createdAtBlock), 0)}
+          {t('publishedAt')}: {formatUnits(BigInt(research?.createdAtBlock), 0)}
         </p>
         <p className="text-white">
-          {t('era')}: {formatUnits(BigInt(report?.era), 0)}
+          {t('era')}: {formatUnits(BigInt(research?.era), 0)}
         </p>
         <p className="text-white">
-          {t('validationsCount')}: {formatUnits(BigInt(report?.validationsCount), 0)}
+          {t('validationsCount')}: {formatUnits(BigInt(research?.validationsCount), 0)}
         </p>
       </div>
 

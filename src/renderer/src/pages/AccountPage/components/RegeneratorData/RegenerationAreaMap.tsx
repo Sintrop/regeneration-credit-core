@@ -3,23 +3,39 @@
 import { useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { PushCoordProps } from '../Tabs/RegenerationAreaTab/RegenerationAreaTab'
 import { useTranslation } from 'react-i18next'
+import { useChainId, useReadContract } from 'wagmi'
+import {
+  regeneratorAbi,
+  regeneratorAddress,
+  sequoiaRegeneratorAbi,
+  sequoiaRegeneratorAddress
+} from '@renderer/services/contracts'
 
 interface Props {
-  coords: PushCoordProps[]
+  address: string
 }
 
-export function RegenerationAreaMap({ coords }: Props): JSX.Element {
+export function RegenerationAreaMap({ address }: Props): JSX.Element {
   const { t } = useTranslation()
   const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
   const mapRef = useRef<mapboxgl.Map>()
   const mapContainerRef = useRef<HTMLDivElement>()
   const markersRef = useRef<mapboxgl.Marker[]>([])
 
+  const chainId = useChainId()
+  const { data } = useReadContract({
+    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
+    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    functionName: 'getCoordinates',
+    args: [address]
+  })
+
+  const coords = data ? (data as { latitude: string; longitude: string }[]) : []
+
   const centerMap = {
-    lat: coords.length > 0 ? coords[0].lat : -23.29,
-    lng: coords.length > 0 ? coords[0].lng : -48.08
+    lat: coords.length > 0 ? parseFloat(coords[0].latitude) : -23.29,
+    lng: coords.length > 0 ? parseFloat(coords[0].longitude) : -48.08
   }
 
   useEffect(() => {
@@ -80,14 +96,17 @@ export function RegenerationAreaMap({ coords }: Props): JSX.Element {
 
     coords.forEach((coordinate) => {
       const marker = new mapboxgl.Marker()
-        .setLngLat([coordinate?.lng, coordinate?.lat])
+        .setLngLat([parseFloat(coordinate?.longitude), parseFloat(coordinate?.latitude)])
         .addTo(mapRef.current!)
 
       markersRef.current.push(marker)
     })
 
     if (coords.length > 2) {
-      const polygonCoords: [number, number][] = coords.map((coord) => [coord.lng, coord.lat])
+      const polygonCoords: [number, number][] = coords.map((coord) => [
+        parseFloat(coord?.longitude),
+        parseFloat(coord?.latitude)
+      ])
       if (polygonCoords.length > 0) {
         polygonCoords.push([...polygonCoords[0]])
       }

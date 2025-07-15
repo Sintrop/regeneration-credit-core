@@ -34,6 +34,14 @@ export function StatusInspection({ status }: Props): JSX.Element {
   if (status === 3) {
     return (
       <div className="w-fit px-5 h-8 flex items-center justify-center rounded-2xl border-2 border-red-500">
+        <p className="font-semibold text-orange-500">{t('expired')}</p>
+      </div>
+    )
+  }
+
+  if (status === 4) {
+    return (
+      <div className="w-fit px-5 h-8 flex items-center justify-center rounded-2xl border-2 border-red-500">
         <p className="font-semibold text-red-500">{t('invalidated')}</p>
       </div>
     )

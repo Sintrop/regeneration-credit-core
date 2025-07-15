@@ -1,10 +1,12 @@
 import { ApprovedInvites } from './ApprovedInvites/ApprovedInvites'
 import { CertificatesTab } from './CertificatesTab/CertificatesTab'
+import { ContributionsTab } from './ContributionsTab/ContributionsTab'
 import { InspectionsHistoryTab } from './InspectionsHistory/InspectionsHistoryTab'
 import { InvitationTab } from './InvitationTab'
 import { OffsetsTab } from './OffsetsTab/OffsetsTab'
 import { PublicationsTab } from './PublicationsTab/PublicationsTab'
-import { PushCoordProps, RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
+import { ReductionCommitmentsTab } from './ReductionCommitmentsTab/ReductionCommitmentsTab'
+import { RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
 import { ValidationsTab } from './ValidationsTab/ValidationsTab'
@@ -13,39 +15,13 @@ interface Props {
   address: string
   selectedTab: UserTypeContentTabsName
   name?: string
-  publicationsCount?: number
   offsetsCount?: number
-  reportsCount?: number
-  researchesCount?: number
-  coordinatesCount?: number
-  pushCoord?: (data: PushCoordProps[]) => void
 }
 
-export function ContentTab({
-  address,
-  selectedTab,
-  name,
-  publicationsCount,
-  offsetsCount,
-  reportsCount,
-  researchesCount,
-  coordinatesCount,
-  pushCoord
-}: Props): JSX.Element {
+export function ContentTab({ address, selectedTab, name, offsetsCount }: Props): JSX.Element {
   const Tab = tabs[selectedTab]
 
-  return (
-    <Tab
-      address={address}
-      name={name}
-      publicationsCount={publicationsCount}
-      offsetsCount={offsetsCount}
-      reportsCount={reportsCount}
-      researchesCount={researchesCount}
-      coordinatesCount={coordinatesCount}
-      pushCoord={pushCoord}
-    />
-  )
+  return <Tab address={address} name={name} offsetsCount={offsetsCount} />
 }
 
 const tabs = {
@@ -58,7 +34,9 @@ const tabs = {
   regenerationArea: RegenerationAreaTab,
   approvedInvites: ApprovedInvites,
   inspections: InspectionsHistoryTab,
-  validations: ValidationsTab
+  validations: ValidationsTab,
+  contributions: ContributionsTab,
+  reductionCommitments: ReductionCommitmentsTab
 }
 
 export type UserTypeContentTabsName = keyof typeof tabs

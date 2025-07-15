@@ -25,8 +25,8 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
     isLoading: loadingCanInvite
   } = useCanInvite({ userTypeToInvite })
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   function handleSendTransaction(): void {
     if (!userTypeToInvite) return
@@ -81,6 +81,7 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
             isPending={isPending}
             isSuccess={isSuccess}
             errorTx={error as WriteContractErrorType}
+            isError={isError}
           />
         </>
       ) : (

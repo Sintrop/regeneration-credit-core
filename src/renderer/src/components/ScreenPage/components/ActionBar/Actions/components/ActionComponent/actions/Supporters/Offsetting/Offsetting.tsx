@@ -6,15 +6,15 @@ import { useState } from 'react'
 import { SendTransactionButton } from '../../../../SendTransactionButton/SendTransactionButton'
 import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { ActionContractProps } from '../../../ActionComponent'
-import { SelectCalculatorItem } from './SelectCalculatorItem'
+import { SelectCalculatorItem } from '../ModalSelectCalculatorItem/SelectCalculatorItem'
 
 export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
   const [itemId, setItemId] = useState<number>()
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   async function handleSendTransaction(): Promise<void> {
     writeContract({
@@ -41,7 +41,7 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
       <SelectCalculatorItem onChangeItem={(item) => setItemId(item?.id)} />
 
       <SendTransactionButton
-        label={t('publish')}
+        label={t('offsetting')}
         handleSendTransaction={handleSendTransaction}
         disabled={!inputAmmount.trim() || !itemId || isPending}
       />
@@ -52,6 +52,7 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

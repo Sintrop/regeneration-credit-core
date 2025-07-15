@@ -7,6 +7,8 @@ import {
 import { useChainId, useReadContract } from 'wagmi'
 import { PublicationHeader } from './PublicationHeader'
 import { PublicationContent } from './PublicationContent'
+import { ContributionImpact } from '../../ContributionImpact/ContributionImpact'
+import { formatUnits } from 'viem'
 
 interface Props {
   id: number
@@ -29,6 +31,7 @@ export function PublicationItem({ id }: Props): JSX.Element {
         description={data && data[3]}
         hashImage={data && data[4]}
       />
+      <ContributionImpact burnedTokens={data ? parseFloat(formatUnits(BigInt(data[2]), 18)) : 0} />
     </div>
   )
 }

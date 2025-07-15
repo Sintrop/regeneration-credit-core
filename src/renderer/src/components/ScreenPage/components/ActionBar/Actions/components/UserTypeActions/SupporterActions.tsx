@@ -46,6 +46,12 @@ export function SupporterActions({ mainAction }: Props): JSX.Element {
       />
 
       <ActionComponent
+        actionName="declareReduction"
+        addressContract={supporterContractAddressToUse}
+        abi={supporterAbiToUse as Abi}
+      />
+
+      <ActionComponent
         actionName="updateProfilePhoto"
         addressContract={supporterContractAddressToUse}
         abi={supporterAbiToUse as Abi}

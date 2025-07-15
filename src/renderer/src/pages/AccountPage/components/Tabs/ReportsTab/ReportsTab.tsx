@@ -1,3 +1,5 @@
+import { Loading } from '@renderer/components/Loading/Loading'
+import { ValidTag } from '@renderer/components/ValidTag/ValidTag'
 import {
   developerAbi,
   developerAddress,
@@ -13,51 +15,54 @@ import { useChainId, useReadContract } from 'wagmi'
 
 interface Props {
   address: string
-  reportsCount?: number
 }
 
-export function ReportsTab({ address, reportsCount }: Props): JSX.Element {
+export function ReportsTab({ address }: Props): JSX.Element {
   const { t } = useTranslation()
+  const chainId = useChainId()
+  const { data, isLoading } = useReadContract({
+    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
+    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    functionName: 'getReportsIds',
+    args: [address]
+  })
 
-  if (!reportsCount || reportsCount === 0) {
+  if (isLoading) {
     return (
-      <div className="flex flex-col items-center mt-5">
-        <p className="text-white">{t("thereAren'tAnyReports")}</p>
+      <div className="mt-5 mx-auto overflow-hidden">
+        <Loading />
       </div>
     )
   }
 
-  const count = Array.from({ length: reportsCount }, (_, i) => i)
+  const reportsIds = data ? (data as string[]) : []
+
+  if (reportsIds.length === 0) {
+    return <p className="mt-5 text-white">{t('noReportsPublished')}</p>
+  }
 
   return (
     <div className="flex flex-col mt-5 gap-5">
-      {count.reverse().map((count) => (
-        <ReportItem key={count} address={address} count={count} />
+      {reportsIds.reverse().map((item) => (
+        <ReportItem key={item} id={item} />
       ))}
     </div>
   )
 }
 
 interface ReportItemProps {
-  count: number
-  address: string
+  id: string
 }
-function ReportItem({ count, address }: ReportItemProps): JSX.Element {
+function ReportItem({ id }: ReportItemProps): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const chainId = useChainId()
-  const { data: reportId } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
-    functionName: 'reportsIds',
-    args: [address, count]
-  })
 
   const { data } = useReadContract({
     address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
     abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
     functionName: 'getReport',
-    args: [reportId]
+    args: [id]
   })
 
   if (!data) return <div />
@@ -65,7 +70,7 @@ function ReportItem({ count, address }: ReportItemProps): JSX.Element {
   const report = data as ReportProps
 
   function handleGoToPdfView(): void {
-    navigate(`/pdfview/${report?.report}`)
+    navigate(`/resource-details/report/${report?.id}`)
   }
 
   return (
@@ -85,6 +90,8 @@ function ReportItem({ count, address }: ReportItemProps): JSX.Element {
         <p className="text-white">
           {t('validationsCount')}: {formatUnits(BigInt(report?.validationsCount), 0)}
         </p>
+
+        <ValidTag valid={report.valid.toString() === 'true' ? true : false} />
       </div>
 
       <FaChevronRight color="white" size={30} />

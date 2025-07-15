@@ -50,23 +50,28 @@ export function ContractPoolData({ poolName }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-wrap gap-5">
-      <DataItem
-        label="totalFunds"
-        value={Intl.NumberFormat('pt-BR').format(
-          parseFloat(formatUnits(contractPool.poolFunds, 18))
-        )}
-        suffix="RC"
-      />
-      {era && <DataItem label="currentEra" value={formatUnits(BigInt(era), 0)} bgGreen />}
-      {epoch && <DataItem label="atualEpoch" value={formatUnits(BigInt(epoch), 0)} bgGreen />}
-      {balance && (
+    <div className="flex flex-wrap gap-5 p-3 rounded-xl bg-green-card w-fit">
+      <div className="flex flex-col gap-5">
         <DataItem
-          label="balanceContract"
-          value={Intl.NumberFormat('pt-BR').format(Number(formatUnits(BigInt(balance), 18)))}
+          label="totalFunds"
+          value={Intl.NumberFormat('pt-BR').format(
+            parseFloat(formatUnits(contractPool.poolFunds, 18))
+          )}
           suffix="RC"
         />
-      )}
+        {era && <DataItem label="currentEra" value={formatUnits(BigInt(era), 0)} bgGreen />}
+      </div>
+
+      <div className="flex flex-col gap-5">
+        {balance && (
+          <DataItem
+            label="balanceContract"
+            value={Intl.NumberFormat('pt-BR').format(Number(formatUnits(BigInt(balance), 18)))}
+            suffix="RC"
+          />
+        )}
+        {epoch && <DataItem label="atualEpoch" value={formatUnits(BigInt(epoch), 0)} bgGreen />}
+      </div>
     </div>
   )
 }
@@ -77,10 +82,10 @@ interface DataItemProps {
   bgGreen?: boolean
   suffix?: string
 }
-function DataItem({ label, value, bgGreen, suffix }: DataItemProps): JSX.Element {
+function DataItem({ label, value, suffix }: DataItemProps): JSX.Element {
   return (
     <div
-      className={`flex flex-col justify-center p-3 rounded-2xl gap-1 w-[170px] h-[100px] ${bgGreen ? 'bg-green-card' : 'bg-container-primary'}`}
+      className={`flex flex-col justify-center p-3 rounded-md gap-1 w-[200px] h-[110px] bg-container-primary`}
     >
       <p className="text-white">{label}:</p>
       <p className="font-bold text-white text-xl">

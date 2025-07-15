@@ -23,9 +23,12 @@ export function Regenerators({ idsList }: Props): JSX.Element {
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('wallet')}</th>
+              <th className="p-2 border-r border-container-secondary max-w-[100px]">
+                {t('wallet')}
+              </th>
               <th className="p-2 border-r border-container-secondary">{t('name')}</th>
               <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('area(m²)')}</th>
               <th className="p-2 border-r border-container-secondary">{t('inspections')}</th>
               <th className="p-2 border-r border-container-secondary">{t('score')}</th>
               <th className="p-2">{t('actions')}</th>

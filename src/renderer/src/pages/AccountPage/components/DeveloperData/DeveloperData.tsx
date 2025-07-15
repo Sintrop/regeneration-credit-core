@@ -26,7 +26,6 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
   })
 
   const developer = data as DeveloperProps
-  const reportsCount = developer ? parseInt(formatUnits(BigInt(developer?.totalReports), 0)) : 0
 
   const { data: responsePenalties } = useReadContract({
     address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
@@ -97,7 +96,6 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
       <UserContentTabs
         address={address}
         availableTabs={['certificates', 'invitation', 'reports', 'validations']}
-        reportsCount={reportsCount}
       />
     </div>
   )

@@ -1,12 +1,5 @@
+import { useImpactPerToken } from '@renderer/hooks/useImpactPerToken'
 import { useTranslation } from 'react-i18next'
-import {
-  rcImpactAbi,
-  rcImpactAddress,
-  sequoiaRcImpactAbi,
-  sequoiaRcImpactAddress
-} from '@renderer/services/contracts'
-import { useChainId, useReadContracts } from 'wagmi'
-import { formatUnits } from 'viem'
 
 interface Props {
   certificateTokens: string
@@ -16,74 +9,12 @@ interface Props {
 
 export function ContributionCertificate({ certificateTokens, name, address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
-
-  const rcImpactContract = {
-    address: chainId === 250225 ? rcImpactAddress : sequoiaRcImpactAddress,
-    abi: chainId === 250225 ? rcImpactAbi : sequoiaRcImpactAbi
-  } as const
-
-  const { data } = useReadContracts({
-    contracts: [
-      {
-        ...rcImpactContract,
-        functionName: 'treesPerToken',
-        args: []
-      },
-      {
-        ...rcImpactContract,
-        functionName: 'carbonPerToken',
-        args: []
-      },
-      {
-        ...rcImpactContract,
-        functionName: 'soilPerToken',
-        args: []
-      },
-      {
-        ...rcImpactContract,
-        functionName: 'biodiversityPerToken',
-        args: []
-      }
-    ]
-  })
+  const { carbonPerToken, biodiversityPerToken, soilPerToken, treesPerToken } = useImpactPerToken()
 
   let totalCarbonImpact = 0
   let totalSoilImpact = 0
   let totalBiodiversityImpact = 0
   let totalTreesImpact = 0
-  let treesPerToken = 0
-  let carbonPerToken = 0
-  let soilPerToken = 0
-  let biodiversityPerToken = 0
-
-  if (data) {
-    const _treesPerToken = data[0].status === 'success' ? (data[0]?.result as string) : '0'
-    treesPerToken = parseFloat(
-      formatUnits(BigInt(_treesPerToken), _treesPerToken.length > 32 ? 32 : _treesPerToken.length)
-    )
-
-    const _carbonPerToken = data[1].status === 'success' ? (data[1]?.result as string) : '0'
-    carbonPerToken = parseFloat(
-      formatUnits(
-        BigInt(_carbonPerToken),
-        _carbonPerToken.length > 32 ? 32 : _carbonPerToken.length
-      )
-    )
-
-    const _soilPerToken = data[2].status === 'success' ? (data[2]?.result as string) : '0'
-    soilPerToken = parseFloat(
-      formatUnits(BigInt(_soilPerToken), _soilPerToken.length > 32 ? 32 : _soilPerToken.length)
-    )
-
-    const _biodiversityPerToken = data[3].status === 'success' ? (data[3]?.result as string) : '0'
-    biodiversityPerToken = parseFloat(
-      formatUnits(
-        BigInt(_biodiversityPerToken),
-        _biodiversityPerToken.length > 32 ? 32 : _biodiversityPerToken.length
-      )
-    )
-  }
 
   totalCarbonImpact = carbonPerToken * parseInt(certificateTokens)
   totalSoilImpact = soilPerToken * parseInt(certificateTokens)
@@ -109,19 +40,29 @@ export function ContributionCertificate({ certificateTokens, name, address }: Pr
           <p className="text-gray-300 text-sm">{t('impact')}</p>
           <ImpactItem
             label={t('carbon')}
-            value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
+            value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
+              totalCarbonImpact
+            )}
+            suffix="g"
           />
           <ImpactItem
             label={t('soil')}
-            value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
+            value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(totalSoilImpact)}
+            suffix="m²"
           />
           <ImpactItem
             label={t('bio.')}
-            value={Intl.NumberFormat('pt-BR').format(totalBiodiversityImpact)}
+            value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
+              totalBiodiversityImpact
+            )}
+            suffix="und"
           />
           <ImpactItem
             label={t('trees')}
-            value={Intl.NumberFormat('pt-BR').format(totalTreesImpact)}
+            value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
+              totalTreesImpact
+            )}
+            suffix="und"
           />
         </div>
 

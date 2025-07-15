@@ -14,8 +14,8 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
   const [image, setImage] = useState<string>()
   const [uploadingFile, setUploadingFile] = useState(false)
 
-  const { writeContract, isPending, data: hash, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   async function handleSendTransaction(): Promise<void> {
     if (!image) return
@@ -56,6 +56,7 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
         isPending={isPending}
         isSuccess={isSuccess}
         errorTx={error as WriteContractErrorType}
+        isError={isError}
       />
     </div>
   )

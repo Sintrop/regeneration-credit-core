@@ -8,8 +8,10 @@ import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ActivistProps } from '@renderer/types/activist'
 import { formatUnits } from 'viem'
+import { useUserContext } from '@renderer/hooks/useUserContext'
 
 export function ActivistCard(): JSX.Element {
+  const { setEraPool } = useUserContext()
   const { address } = useAccount()
   const chainId = useChainId()
 
@@ -21,6 +23,10 @@ export function ActivistCard(): JSX.Element {
   })
 
   const activist = data as ActivistProps
+
+  if (activist) {
+    setEraPool(parseInt(formatUnits(BigInt(activist.pool.currentEra), 0)))
+  }
 
   return (
     <BasicData
