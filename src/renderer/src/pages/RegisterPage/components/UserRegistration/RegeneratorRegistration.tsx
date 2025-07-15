@@ -10,16 +10,17 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { calculateArea } from '@renderer/services/calculateArea'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
-import { WriteContractErrorType } from 'viem'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
   name: string
   invitation: InvitationProps
+  success: () => void
 }
 
-export function RegeneratorRegistration({ name, invitation }: Props): JSX.Element {
+export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
   const [description, setDescription] = useState('')
@@ -30,10 +31,11 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
   const [coordinates, setCoordinates] = useState<{ longitude: number; latitude: number }[]>([])
   const [totalArea, setTotalArea] = useState(0)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
@@ -193,6 +195,7 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
       return
     }
 
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
       abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
@@ -258,13 +261,21 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
       <ConfirmButton
         btnDisabled={disableBtnRegister}
         handleRegister={handleRegister}
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        error={error as WriteContractErrorType}
         uploadingImage={uploadingImage}
       />
+
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          error={error}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

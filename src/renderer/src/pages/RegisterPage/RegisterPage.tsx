@@ -109,6 +109,7 @@ export function RegisterPage(): JSX.Element {
               name={name}
               invitation={invitationData}
               availableVacancie={availableVacancie}
+              success={handleGoToAccount}
             />
           </>
         )}
