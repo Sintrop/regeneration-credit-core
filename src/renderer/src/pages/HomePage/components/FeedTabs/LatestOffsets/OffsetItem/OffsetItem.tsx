@@ -24,7 +24,7 @@ export function OffsetItem({ id }: Props): JSX.Element {
   })
 
   return (
-    <div className="flex flex-col rounded-2xl p-3 w-full border-b">
+    <div className="flex flex-col rounded-2xl p-3 w-full border-t border-green-900">
       <OffsetHeader address={data && data[0]} publishedAt={data && data[1]} />
       <OffsetContent burnedTokens={data && data[2]} calculatorItemId={data && data[3]} />
       <ContributionImpact burnedTokens={data ? parseFloat(formatUnits(BigInt(data[2]), 18)) : 0} />

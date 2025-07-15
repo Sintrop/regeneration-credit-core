@@ -36,7 +36,7 @@ export function ResearcheFeedItem({ id }: Props): JSX.Element {
 
   if (researcher && research) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <HeaderFeedItem
           name={researcher.name}
           proofPhoto={researcher.proofPhoto}
