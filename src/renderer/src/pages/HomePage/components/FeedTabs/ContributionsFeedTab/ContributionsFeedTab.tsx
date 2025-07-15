@@ -39,14 +39,16 @@ export function ContributionsFeedTab(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="text-xs text-gray-300 mb-1">{t('contributions')}</p>
+    <div className="bg-card-2 rounded-2xl w-full">
+      <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
+        <p className="text-sm text-green-1 mb-1">{t('contributions')}</p>
+      </div>
       {contributionsIds.length === 0 ? (
-        <div className="items-center mt-10 w-[400px]">
-          <p className="text-white text-center">{t('anyContributionAvailable')}</p>
+        <div className="items-center my-10 w-[350px]">
+          <p className="text-white text-center">{t('noContributions')}</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-[400px]">
+        <div className="flex flex-col gap-5 w-full">
           {contributionsIds.map((item) => (
             <ContributionFeedItem id={item} key={item} />
           ))}

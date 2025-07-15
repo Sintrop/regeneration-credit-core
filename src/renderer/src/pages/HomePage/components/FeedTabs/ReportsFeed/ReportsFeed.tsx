@@ -39,14 +39,16 @@ export function ReportsFeed(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="text-xs text-gray-300 mb-1">{t('reports')}</p>
+    <div className="bg-card-2 rounded-2xl w-full">
+      <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
+        <p className="text-sm text-green-1 mb-1">{t('reports')}</p>
+      </div>
       {reportsIds.length === 0 ? (
-        <div className="items-center mt-10 w-[400px]">
+        <div className="items-center mt-10 w-[350px]">
           <p className="text-white text-center">{t('anyReportsAvailable')}</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-[400px]">
+        <div className="flex flex-col gap-5 w-full">
           {reportsIds.map((item) => (
             <ReportFeedItem id={item} key={item} />
           ))}

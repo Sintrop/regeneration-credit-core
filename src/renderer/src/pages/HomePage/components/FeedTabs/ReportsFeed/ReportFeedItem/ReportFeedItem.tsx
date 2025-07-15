@@ -28,7 +28,7 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
 
   if (report) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+      <div className="flex flex-col rounded-2xl p-3 w-full border-b">
         <ReportFeedHeader
           address={report?.developer}
           publishedAt={formatUnits(BigInt(report.createdAtBlockNumber), 0)}
@@ -37,11 +37,6 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
           reportId={id}
           description={report.description}
           valid={report.valid.toString() === 'true' ? true : false}
-        />
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="report"
-          validationsCount={parseInt(formatUnits(BigInt(report.validationsCount), 0))}
         />
       </div>
     )

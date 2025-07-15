@@ -10,6 +10,12 @@
     --color-green-header: #044640;
     --color-green-btn: #229B13;
     --color-blue-primary: #3E9EF5;
+
+    --color-green-1: #25B514;
+    --color-bg: #26282A;
+    --color-card-1: #2C2C2C;
+    --color-card-2: #373737;
+    --color-card-3: #323232;
 }
 
 ::-webkit-scrollbar {

@@ -85,7 +85,13 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'regenerationArea', 'invitation', 'validations']}
+        availableTabs={[
+          'certificates',
+          'inspections',
+          'regenerationArea',
+          'invitation',
+          'validations'
+        ]}
       />
     </div>
   )
