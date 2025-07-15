@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import LogoRC from '../../assets/images/rc.png'
 import { useNavigate } from 'react-router-dom'
+import { ChainSwitch } from './components/ChainSwitch'
 
 export function Header(): JSX.Element {
   const { t } = useTranslation()
@@ -18,7 +19,9 @@ export function Header(): JSX.Element {
           <p className="text-white font-bold text-xl">{t('regenerationCredit')}</p>
         </button>
 
-        <div className="flex items-center gap-5"></div>
+        <div className="flex items-center gap-5">
+          <ChainSwitch />
+        </div>
       </div>
     </header>
   )
