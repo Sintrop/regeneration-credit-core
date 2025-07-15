@@ -41,7 +41,7 @@ export function InspectionFeedItem({ id }: Props): JSX.Element {
 
   if (regenerator && regenerator) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 w-full border-b">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <HeaderFeedItem
           name={regenerator.name}
           proofPhoto={regenerator.proofPhoto}

@@ -24,7 +24,7 @@ export function PublicationItem({ id }: Props): JSX.Element {
   })
 
   return (
-    <div className="flex flex-col rounded-2xl p-3 w-full border-b">
+    <div className="flex flex-col p-3 w-full border-t border-green-900">
       <PublicationHeader address={data && data[0]} publishedAt={data && data[1]} />
       <PublicationContent
         burnedTokens={data && data[2]}
