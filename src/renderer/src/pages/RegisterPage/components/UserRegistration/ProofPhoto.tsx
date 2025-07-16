@@ -36,31 +36,36 @@ export function ProofPhoto({ proofPhoto, onChange, labelProfilePhoto }: Props): 
   }
 
   return (
-    <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
+    <div className="flex flex-col gap-1 mt-5">
       <p className="text-gray-300 text-sm">
         {labelProfilePhoto ? t('profilePhoto') : t('proofPhoto')}
       </p>
-      <input
-        id="input-file"
-        type="file"
-        onChange={selectedImageFromBrowser}
-        className="hidden"
-        accept="image/*"
-      />
+      <div className="flex flex-col p-3 rounded-2xl bg-container-secondary w-full">
+        <input
+          id="input-file"
+          type="file"
+          onChange={selectedImageFromBrowser}
+          className="hidden"
+          accept="image/*"
+        />
 
-      {proofPhoto && (
-        <img src={proofPhoto as string} className="w-32 h-32 rounded-2xl object-cover mb-5" />
-      )}
+        {proofPhoto && (
+          <img
+            src={proofPhoto as string}
+            className="w-32 h-32 rounded-2xl object-cover mb-5 mt-2"
+          />
+        )}
 
-      <div className="flex items-center gap-5">
-        <button
-          className="rounded-2xl bg-blue-primary text-white font-semibold px-10 w-fit h-10 hover:cursor-pointer"
-          onClick={openBrowserFile}
-        >
-          {t('selectImage')}
-        </button>
+        <div className="flex items-center gap-5 mt-2">
+          <button
+            className="rounded-2xl bg-blue-primary text-white font-semibold px-10 w-fit h-10 hover:cursor-pointer"
+            onClick={openBrowserFile}
+          >
+            {t('selectImage')}
+          </button>
 
-        <WebCam imageTaken={handleChangeProofPhoto} />
+          <WebCam imageTaken={handleChangeProofPhoto} />
+        </div>
       </div>
     </div>
   )

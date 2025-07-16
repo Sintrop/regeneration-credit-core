@@ -81,12 +81,12 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col mb-10 z-0">
-      <p className="text-gray-300 text-sm mt-3">{t('description')}</p>
+    <div className="flex flex-col z-0">
+      <p className="text-gray-300 text-sm mt-5">{t('description')}</p>
       <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
         placeholder={t('typeHere')}
       />
 

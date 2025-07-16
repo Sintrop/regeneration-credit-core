@@ -61,16 +61,16 @@ export function RegisterPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t('registration')}>
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-green-card rounded-2xl p-3 w-[500px] mb-10">
         <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
-        <div className="flex items-center gap-3 px-5 py-2 rounded-2xl bg-container-secondary w-fit">
+        <div className="flex items-center gap-3 px-5 py-2 rounded-2xl bg-container-secondary w-full">
           {address && <Jazzicon className="w-8 h-8" address={address as string} />}
           <p className="text-white text-sm">{address}</p>
         </div>
 
-        <p className="text-gray-300 text-sm mt-8">{t('selectUserType')}</p>
+        <p className="text-gray-300 text-sm mt-5">{t('selectUserType')}</p>
         <select
-          className="w-[200px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+          className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
           value={userType}
           onChange={(e) => setUserType(parseInt(e.target.value) as RegistrationUserType)}
         >
@@ -87,7 +87,7 @@ export function RegisterPage(): JSX.Element {
         {userType !== 0 && (
           <>
             {userType !== 7 && (
-              <div className="flex gap-5 p-3 rounded-2xl bg-green-card mt-8 w-fit">
+              <div className="flex gap-5 flex-col mt-5">
                 {userType !== 1 && (
                   <Vacancies userType={userType} onChange={setAvailableVacancie} />
                 )}
@@ -96,11 +96,11 @@ export function RegisterPage(): JSX.Element {
               </div>
             )}
 
-            <p className="text-gray-300 text-sm mt-8">{t('yourName')}</p>
+            <p className="text-gray-300 text-sm mt-5">{t('yourName')}</p>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+              className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
               placeholder={t('typeHere')}
             />
 

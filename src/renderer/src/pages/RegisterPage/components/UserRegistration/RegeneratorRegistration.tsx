@@ -224,24 +224,24 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
   }
 
   return (
-    <div className="flex flex-col mb-10 z-0">
-      <p className="text-gray-300 text-sm mt-3">{t('projectDescription')}</p>
+    <div className="flex flex-col z-0 mt-5">
+      <p className="text-gray-300 text-sm">{t('projectDescription')}</p>
       <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
         placeholder={t('typeHere')}
       />
 
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
-      <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
+      <div className="flex flex-col w-full mt-3">
         <p className="text-gray-300 text-sm">{t('demarcateYourRegenerationArea')}</p>
 
         <div
           //@ts-ignore
           ref={mapContainerRef}
-          className="w-[450px] h-[300px] rounded-2xl border-2 border-white mt-1"
+          className="w-full h-[300px] rounded-2xl border-2 border-white mt-1"
         />
 
         <p className="text-white mt-1">

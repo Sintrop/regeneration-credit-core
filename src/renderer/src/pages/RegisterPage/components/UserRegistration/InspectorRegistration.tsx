@@ -86,7 +86,7 @@ export function InspectorRegistration({
   }
 
   return (
-    <div className="flex flex-col mb-10 z-0">
+    <div className="flex flex-col z-0">
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <ConfirmButton
