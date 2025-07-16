@@ -12,7 +12,6 @@ import {
 import { formatUnits } from 'viem'
 import { HeaderFeedItem } from '../../HeaderFeedItem/HeaderFeedItem'
 import { InspectionFeedContent } from './InspectionFeedContent'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 import { InspectionProps } from '@renderer/types/inspection'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 
@@ -42,7 +41,7 @@ export function InspectionFeedItem({ id }: Props): JSX.Element {
 
   if (regenerator && regenerator) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <HeaderFeedItem
           name={regenerator.name}
           proofPhoto={regenerator.proofPhoto}
@@ -51,12 +50,6 @@ export function InspectionFeedItem({ id }: Props): JSX.Element {
         />
 
         <InspectionFeedContent inspection={inspection} />
-
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="inspection"
-          validationsCount={parseInt(formatUnits(BigInt(inspection.validationsCount), 0))}
-        />
       </div>
     )
   }

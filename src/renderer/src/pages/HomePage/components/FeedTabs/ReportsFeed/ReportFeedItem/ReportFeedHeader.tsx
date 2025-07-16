@@ -35,9 +35,9 @@ export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex items-center gap-3 border-b border-container-secondary pb-3">
-      <div className="relative w-10 h-10 rounded-full">
-        <Jazzicon className="w-10 h-10 z-0" address={address ? (address as string) : ''} />
+    <div className="flex items-center gap-3 pb-3">
+      <div className="relative w-8 h-8 rounded-full">
+        <Jazzicon className="w-full h-full z-0" address={address ? (address as string) : ''} />
 
         {developer && (
           <Img
@@ -49,7 +49,7 @@ export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
 
       <div className="flex flex-col">
         <p
-          className="text-white hover:cursor-pointer hover:underline"
+          className="text-white hover:cursor-pointer hover:underline text-xs"
           onClick={handleGoToUserDetails}
         >
           {developer ? developer?.name : address}

@@ -5,23 +5,30 @@ import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagm
 import { sequoiaInspectorAbi, sequoiaInspectorAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
-import { WriteContractErrorType } from 'viem'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 interface Props {
   name: string
   invitation: InvitationProps
   availableVacancie: boolean
+  success: () => void
 }
 
-export function InspectorRegistration({ name, invitation, availableVacancie }: Props): JSX.Element {
+export function InspectorRegistration({
+  name,
+  invitation,
+  availableVacancie,
+  success
+}: Props): JSX.Element {
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   useEffect(() => {
     validityData()
@@ -69,6 +76,7 @@ export function InspectorRegistration({ name, invitation, availableVacancie }: P
       return
     }
 
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 1600 ? sequoiaInspectorAddress : sequoiaInspectorAddress,
       abi: chainId === 1600 ? sequoiaInspectorAbi : sequoiaInspectorAbi,
@@ -84,13 +92,21 @@ export function InspectorRegistration({ name, invitation, availableVacancie }: P
       <ConfirmButton
         btnDisabled={disableBtnRegister}
         handleRegister={handleRegister}
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        error={error as WriteContractErrorType}
         uploadingImage={uploadingImage}
       />
+
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          error={error}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

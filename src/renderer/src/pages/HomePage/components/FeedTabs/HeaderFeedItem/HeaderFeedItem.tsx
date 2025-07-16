@@ -20,7 +20,7 @@ export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props
   }
 
   return (
-    <div className="flex items-center gap-3 border-b border-container-secondary pb-3 overflow-hidden">
+    <div className="flex items-center gap-3 pb-3 overflow-hidden">
       <div className="relative w-10 h-10 rounded-full">
         <Jazzicon className="w-10 h-10 z-0" address={address ? (address as string) : ''} />
 

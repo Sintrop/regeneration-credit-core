@@ -38,14 +38,16 @@ export function InspectionsFeedTab(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="text-xs text-gray-300 mb-1">{t('inspections')}</p>
+    <div className="bg-card-2 rounded-2xl w-full">
+      <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
+        <p className="text-sm text-green-1 mb-1">{t('inspections')}</p>
+      </div>
       {inspectionsIds.length === 0 ? (
         <div className="items-center my-10">
-          <p className="text-white text-center">{t('anyInspectionsAvailable')}</p>
+          <p className="text-white text-center">{t('noInspections')}</p>
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-[400px]">
+        <div className="flex flex-col gap-5 w-[500px]">
           {inspectionsIds.map((item) => (
             <InspectionFeedItem key={item} id={item} />
           ))}

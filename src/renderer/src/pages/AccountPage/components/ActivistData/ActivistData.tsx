@@ -72,7 +72,8 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'approvedInvites', 'validations']}
+        availableTabs={['invitation', 'approvedInvites', 'validations']}
+        userType={6}
       />
     </div>
   )

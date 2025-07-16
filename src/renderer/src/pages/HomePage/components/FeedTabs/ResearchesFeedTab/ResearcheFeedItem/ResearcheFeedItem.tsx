@@ -9,7 +9,6 @@ import { formatUnits } from 'viem'
 import { ResearcherProps, ResearchProps } from '@renderer/types/researcher'
 import { HeaderFeedItem } from '../../HeaderFeedItem/HeaderFeedItem'
 import { ResearcheFeedContent } from './ResearcheFeedContent'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
@@ -37,7 +36,7 @@ export function ResearcheFeedItem({ id }: Props): JSX.Element {
 
   if (researcher && research) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <HeaderFeedItem
           name={researcher.name}
           proofPhoto={researcher.proofPhoto}
@@ -50,12 +49,6 @@ export function ResearcheFeedItem({ id }: Props): JSX.Element {
           thesis={research.thesis}
           researchId={id}
           valid={research.valid.toString() === 'true' ? true : false}
-        />
-
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="research"
-          validationsCount={parseInt(formatUnits(BigInt(research.validationsCount), 0))}
         />
       </div>
     )

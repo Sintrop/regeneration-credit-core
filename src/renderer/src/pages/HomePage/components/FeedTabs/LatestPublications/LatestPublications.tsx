@@ -29,17 +29,27 @@ export function LatestPublications(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="text-xs text-gray-300 mb-1">{t('publications')}</p>
+    <div className="bg-card-2 rounded-2xl w-full">
+      <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
+        <p className="text-sm text-green-1 mb-1">{t('publications')}</p>
+      </div>
       {isLoading ? (
-        <div className="w-[400px] mt-5 flex justify-center">
+        <div className="mt-5 flex justify-center">
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-[400px]">
-          {publicationsIds.map((id) => (
-            <PublicationItem id={id} key={id} />
-          ))}
+        <div className="flex flex-col gap-5 w-[500px]">
+          {publicationsIds.length === 0 ? (
+            <div className="items-center my-10">
+              <p className="text-white text-center">{t('noPublications')}</p>
+            </div>
+          ) : (
+            <>
+              {publicationsIds.map((id) => (
+                <PublicationItem id={id} key={id} />
+              ))}
+            </>
+          )}
         </div>
       )}
     </div>

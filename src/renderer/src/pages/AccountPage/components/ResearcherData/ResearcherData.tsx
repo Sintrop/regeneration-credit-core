@@ -99,7 +99,8 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'researches', 'validations']}
+        availableTabs={['invitation', 'researches', 'validations']}
+        userType={3}
       />
     </div>
   )

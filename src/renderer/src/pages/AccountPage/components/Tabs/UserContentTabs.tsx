@@ -8,15 +8,10 @@ interface Props {
   address: string
   availableTabs: UserTypeContentTabsName[]
   name?: string
-  offsetsCount?: number
+  userType: number
 }
 
-export function UserContentTabs({
-  address,
-  availableTabs,
-  name,
-  offsetsCount
-}: Props): JSX.Element {
+export function UserContentTabs({ address, availableTabs, name, userType }: Props): JSX.Element {
   const { t } = useTranslation()
   const [selectedTab, setSelectedTab] = useState('invitation')
 
@@ -42,7 +37,7 @@ export function UserContentTabs({
         selectedTab={selectedTab as UserTypeContentTabsName}
         address={address}
         name={name}
-        offsetsCount={offsetsCount}
+        userType={userType}
       />
     </div>
   )

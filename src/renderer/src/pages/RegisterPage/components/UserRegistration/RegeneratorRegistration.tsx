@@ -10,29 +10,38 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { calculateArea } from '@renderer/services/calculateArea'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
-import { WriteContractErrorType } from 'viem'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
   name: string
   invitation: InvitationProps
+  success: () => void
 }
 
-export function RegeneratorRegistration({ name, invitation }: Props): JSX.Element {
+interface CoordinateProps { 
+  longitude: number
+  latitude: number 
+}
+
+export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
+  const [description, setDescription] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const mapRef = useRef<mapboxgl.Map>()
   const mapContainerRef = useRef<HTMLDivElement>()
   const markersRef = useRef<mapboxgl.Marker[]>([])
-  const [coordinates, setCoordinates] = useState<{ longitude: number; latitude: number }[]>([])
+  const [coordinates, setCoordinates] = useState<CoordinateProps[]>([])
   const [totalArea, setTotalArea] = useState(0)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending } = useWriteContract()
+  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
@@ -138,10 +147,15 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto, invitation, coordinates, totalArea])
+  }, [name, proofPhoto, invitation, coordinates, totalArea, description])
 
   function validityData(): void {
     if (!name.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!description.trim()) {
       setDisableBtnRegister(true)
       return
     }
@@ -187,11 +201,12 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
       return
     }
 
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
       abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
       functionName: 'addRegenerator',
-      args: [totalArea, name, hashProofPhoto, coordinates]
+      args: [totalArea, name, hashProofPhoto, description, coordinates]
     })
   }
 
@@ -210,10 +225,18 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
 
   return (
     <div className="flex flex-col mb-10 z-0">
+      <p className="text-gray-300 text-sm mt-3">{t('projectDescription')}</p>
+      <input
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        className="w-[450px] h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        placeholder={t('typeHere')}
+      />
+
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
-        <p className="text-gray-300 text-sm">{t('demarcateYourProperty')}</p>
+        <p className="text-gray-300 text-sm">{t('demarcateYourRegenerationArea')}</p>
 
         <div
           //@ts-ignore
@@ -239,18 +262,87 @@ export function RegeneratorRegistration({ name, invitation }: Props): JSX.Elemen
             {t('removeLastPoint')}
           </button>
         </div>
+
+        <InputCoordsManually addCoords={(data) => setCoordinates((value) => [...value, data])} />
       </div>
 
       <ConfirmButton
         btnDisabled={disableBtnRegister}
         handleRegister={handleRegister}
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        error={error as WriteContractErrorType}
         uploadingImage={uploadingImage}
       />
+
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          error={error}
+          transactionHash={hash}
+        />
+      )}
+    </div>
+  )
+}
+
+interface InputCoordsManuallyProps {
+  addCoords: (data: CoordinateProps) => void
+}
+function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Element {
+  const { t } = useTranslation()
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
+
+  function handleAddCoords(): void {
+    const validLat = validateLat(latitude)
+    const validLng = validateLng(longitude)
+
+    if (!validLat || !validLng) {
+      alert(t('invalidCoors'))
+      return
+    }
+
+    addCoords({ latitude: parseFloat(latitude), longitude: parseFloat(longitude) })
+    setLatitude('')
+    setLongitude('')
+  }
+
+  return (
+    <div className="mt-3 flex flex-col gap-1">
+      <p className="text-gray-300 text-sm">{t('addManually')}</p>
+
+      <div className="flex gap-3 items-end">
+        <div className="flex flex-col">
+          <p className="text-gray-300 text-sm">Latitude:</p>
+          <input
+            className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
+            placeholder={t('typeHere')}
+            value={latitude}
+            onChange={(e) => setLatitude(e.target.value)}
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <p className="text-gray-300 text-sm">Longitude:</p>
+          <input
+            className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
+            placeholder={t('typeHere')}
+            value={longitude}
+            onChange={(e) => setLongitude(e.target.value)}
+          />
+        </div>
+
+        <button
+          className="w-full h-10 text-white bg-green-1 rounded-2xl hover:cursor-pointer disabled:opacity-40 disabled:cursor-default"
+          disabled={!latitude.trim() || !longitude.trim()}
+          onClick={handleAddCoords}
+        >
+          Add
+        </button>
+      </div>
     </div>
   )
 }

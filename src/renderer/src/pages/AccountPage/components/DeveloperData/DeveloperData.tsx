@@ -95,7 +95,8 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'reports', 'validations']}
+        availableTabs={['invitation', 'reports', 'validations']}
+        userType={4}
       />
     </div>
   )
