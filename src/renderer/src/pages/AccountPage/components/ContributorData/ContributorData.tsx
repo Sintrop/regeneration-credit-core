@@ -86,7 +86,8 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
 
       <UserContentTabs
         address={address}
-        availableTabs={['certificates', 'invitation', 'contributions', 'validations']}
+        availableTabs={['invitation', 'contributions', 'validations']}
+        userType={5}
       />
     </div>
   )

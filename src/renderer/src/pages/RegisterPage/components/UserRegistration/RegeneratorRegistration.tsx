@@ -236,7 +236,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <div className="flex flex-col p-3 rounded-2xl bg-green-card w-fit mt-8">
-        <p className="text-gray-300 text-sm">{t('demarcateYourProperty')}</p>
+        <p className="text-gray-300 text-sm">{t('demarcateYourRegenerationArea')}</p>
 
         <div
           //@ts-ignore

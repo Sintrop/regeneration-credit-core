@@ -25,8 +25,6 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
   const supporter = data as SupporterProps
 
-  const offsetsCount = supporter ? parseInt(formatUnits(BigInt(supporter?.offsetsCount), 0)) : 0
-
   return (
     <div className="flex flex-col">
       <ProofPhoto address={address} hash={supporter?.profilePhoto} />
@@ -56,7 +54,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
         address={address}
         availableTabs={['certificates', 'invitation', 'reductionCommitments']}
         name={supporter && supporter?.name}
-        offsetsCount={offsetsCount}
+        userType={7}
       />
     </div>
   )

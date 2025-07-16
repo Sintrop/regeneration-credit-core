@@ -92,6 +92,8 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
           'invitation',
           'validations'
         ]}
+        userType={1}
+        name={regenerator && regenerator.name}
       />
     </div>
   )

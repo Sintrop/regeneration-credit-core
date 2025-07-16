@@ -13,12 +13,13 @@ interface Props {
   address: string
   selectedTab: UserTypeContentTabsName
   name?: string
+  userType: number
 }
 
-export function ContentTab({ address, selectedTab, name }: Props): JSX.Element {
+export function ContentTab({ address, selectedTab, name, userType }: Props): JSX.Element {
   const Tab = tabs[selectedTab]
 
-  return <Tab address={address} name={name} />
+  return <Tab address={address} name={name} userType={userType} />
 }
 
 const tabs = {
