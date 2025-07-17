@@ -9,10 +9,9 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
-import { InvitationCard } from '../InvitationCard/InvitationCard'
+import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 
 export function InspectorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -105,7 +104,7 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
         </div>
       )}
 
-      <UserContentTabs address={address} availableTabs={['validations']} userType={2} />
+      {/* <UserContentTabs address={address} availableTabs={['validations']} userType={2} /> */}
     </div>
   )
 }

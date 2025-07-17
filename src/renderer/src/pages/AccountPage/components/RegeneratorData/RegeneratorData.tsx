@@ -9,11 +9,11 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
-import { InvitationCard } from '../InvitationCard/InvitationCard'
+import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -62,7 +62,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
       <div className="flex flex-wrap gap-4 mt-5">
         {regenerator && (
           <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3 mt-3">
+            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
               <p className="text-gray-300 text-sm">{t('data')}</p>
               <p className="text-white">
                 <span className="text-white font-bold">{t('id')}: </span>
@@ -102,6 +102,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
             </div>
 
             <InvitationCard address={address} />
+            <InspectionsCard address={address} />
           </div>
         )}
 
@@ -111,12 +112,12 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
         </div>
       </div>
 
-      <UserContentTabs
+      {/* <UserContentTabs
         address={address}
         availableTabs={['certificates', 'inspections', 'validations']}
         userType={1}
         name={regenerator && regenerator.name}
-      />
+      /> */}
     </div>
   )
 }

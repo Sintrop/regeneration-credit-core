@@ -132,7 +132,7 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
   }, [coords])
 
   return (
-    <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3 mt-3">
+    <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
       <p className="text-gray-300 text-sm">{t('regenerationArea')}</p>
       <div
         //@ts-ignore
@@ -142,11 +142,15 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
 
       <div className="flex flex-col gap-1 mt-3">
         <p className="text-gray-300 text-sm">{t('coordinates')}</p>
-        {coords.map((item, index) => (
-          <p key={index} className="text-white text-sm">
-            Lat: {item.latitude}, Lng: {item.longitude}
-          </p>
-        ))}
+        {coords.length > 0 && (
+          <>
+            {coords.map((item, index) => (
+              <p key={index} className="text-white text-sm">
+                Lat: {item.latitude}, Lng: {item.longitude}
+              </p>
+            ))}
+          </>
+        )}
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
-import { InvitationCard } from '../InvitationCard/InvitationCard'
+import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()

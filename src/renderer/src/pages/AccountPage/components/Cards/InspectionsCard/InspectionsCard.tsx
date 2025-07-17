@@ -6,14 +6,14 @@ import {
   sequoiaInspectionAddress
 } from '@renderer/services/contracts'
 import { useChainId, useReadContract } from 'wagmi'
-import { InspectionHistoryItem } from './InspectionHistoryItem'
+import { InspectionCardItem } from './InspectionCardItem'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
   address: string
 }
 
-export function InspectionsHistoryTab({ address }: Props): JSX.Element {
+export function InspectionsCard({ address }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
   const { data, isLoading } = useReadContract({
@@ -35,7 +35,8 @@ export function InspectionsHistoryTab({ address }: Props): JSX.Element {
 
   if (inspectionsIds) {
     return (
-      <div className="flex flex-col gap-3 mt-5">
+      <div className="flex flex-col p-3 rounded-2xl bg-green-card mt-5 gap-3">
+        <p className="text-gray-300 text-sm">{t('inspections')}</p>
         {inspectionsIds.length === 0 ? (
           <div className="flex mt-3">
             <p className="text-white">{t('noInspections')}</p>
@@ -43,7 +44,7 @@ export function InspectionsHistoryTab({ address }: Props): JSX.Element {
         ) : (
           <>
             {inspectionsIds.reverse().map((item) => (
-              <InspectionHistoryItem key={item} inspectionId={parseInt(item)} />
+              <InspectionCardItem key={item} inspectionId={parseInt(item)} />
             ))}
           </>
         )}

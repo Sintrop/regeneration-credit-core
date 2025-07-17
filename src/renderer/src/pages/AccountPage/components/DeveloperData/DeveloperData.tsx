@@ -9,11 +9,10 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
-import { InvitationCard } from '../InvitationCard/InvitationCard'
+import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 
 export function DeveloperData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -99,8 +98,6 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       )}
-
-      <UserContentTabs address={address} availableTabs={['reports', 'validations']} userType={4} />
     </div>
   )
 }

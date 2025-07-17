@@ -13,7 +13,7 @@ import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
-import { InvitationCard } from '../InvitationCard/InvitationCard'
+import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 
 export function ResearcherData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()

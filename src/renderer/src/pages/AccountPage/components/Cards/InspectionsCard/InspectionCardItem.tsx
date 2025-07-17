@@ -17,7 +17,7 @@ interface Props {
   inspectionId: number
 }
 
-export function InspectionHistoryItem({ inspectionId }: Props): JSX.Element {
+export function InspectionCardItem({ inspectionId }: Props): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const chainId = useChainId()
@@ -36,7 +36,7 @@ export function InspectionHistoryItem({ inspectionId }: Props): JSX.Element {
 
   return (
     <button
-      className="w-full p-3 rounded-2xl bg-green-card flex items-center justify-between hover:cursor-pointer"
+      className="w-full flex items-center justify-between border-b pb-3 hover:cursor-pointer"
       onClick={handleGoToResourceDetails}
     >
       {isLoading ? (
@@ -44,7 +44,7 @@ export function InspectionHistoryItem({ inspectionId }: Props): JSX.Element {
           <Loading />
         </div>
       ) : (
-        <div className="flex items-center flex-wrap gap-5">
+        <div className="flex flex-col gap-5">
           {inspection && (
             <>
               <div className="flex flex-col">
