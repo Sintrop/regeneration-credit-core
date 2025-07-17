@@ -12,6 +12,7 @@ import { UserTypeContentProps } from '../UserTypeContent'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 
 export function InspectorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -36,7 +37,7 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
     : 0
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-10">
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
@@ -98,13 +99,12 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
             </div>
 
             <InvitationCard address={address} />
+            <ValidationsCard address={address} />
           </div>
 
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       )}
-
-      {/* <UserContentTabs address={address} availableTabs={['validations']} userType={2} /> */}
     </div>
   )
 }

@@ -9,11 +9,11 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 
 export function ActivistData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -29,7 +29,7 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
   const activist = data as ActivistProps
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-10">
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
@@ -71,17 +71,12 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
             </div>
 
             <InvitationCard address={address} />
+            <ValidationsCard address={address} />
           </div>
 
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       )}
-
-      <UserContentTabs
-        address={address}
-        availableTabs={['approvedInvites', 'validations']}
-        userType={6}
-      />
     </div>
   )
 }

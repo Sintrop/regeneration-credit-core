@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 
@@ -27,7 +26,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const supporter = data as SupporterProps
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-10">
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
@@ -58,13 +57,6 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
           </div>
         </div>
       )}
-
-      <UserContentTabs
-        address={address}
-        availableTabs={['certificates', 'reductionCommitments']}
-        name={supporter && supporter?.name}
-        userType={7}
-      />
     </div>
   )
 }

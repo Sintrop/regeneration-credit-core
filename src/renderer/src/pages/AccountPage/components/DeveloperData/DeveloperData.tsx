@@ -13,6 +13,7 @@ import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToIn
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 
 export function DeveloperData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -38,7 +39,7 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
     : 0
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-10">
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
@@ -93,6 +94,7 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
             </div>
 
             <InvitationCard address={address} />
+            <ValidationsCard address={address} />
           </div>
 
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}

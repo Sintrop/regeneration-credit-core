@@ -14,6 +14,7 @@ import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToIn
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
+import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -47,7 +48,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
   if (!regenerator) return <div />
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-10">
       <HeaderUser
         address={address}
         areaPhotoUpdated={refetch}
@@ -103,6 +104,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
 
             <InvitationCard address={address} />
             <InspectionsCard address={address} />
+            <ValidationsCard address={address} />
           </div>
         )}
 
