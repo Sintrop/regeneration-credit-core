@@ -9,10 +9,10 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
+import { HeaderUser } from '../HeaderUser/HeaderUser'
 
 export function ContributorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -38,19 +38,21 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
 
   return (
     <div className="flex flex-col">
-      <ProofPhoto address={address} hash={contributor && contributor?.proofPhoto} />
+      <HeaderUser
+        address={address}
+        areaPhotoUpdated={() => {}}
+        name={contributor.name}
+        userType={5}
+        proofPhoto={contributor.proofPhoto}
+      />
 
       {contributor && (
-        <div className="flex gap-10">
-          <div className="flex flex-col gap-2 mt-2">
-            <p className="text-white mt-5">{address}</p>
+        <div className="flex gap-10 mt-5">
+          <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3 mt-3">
+            <p className="text-gray-300 text-sm">{t('data')}</p>
             <p className="text-white">
               <span className="text-white font-bold">{t('id')}: </span>
               {formatUnits(BigInt(contributor?.id), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('name')}: </span>
-              {contributor?.name}
             </p>
             <p className="text-white">
               <span className="text-white font-bold">{t('proofPhoto')}: </span>

@@ -10,7 +10,7 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { UserContentTabs } from '../Tabs/UserContentTabs'
-import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
+import { HeaderUser } from '../HeaderUser/HeaderUser'
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -27,26 +27,30 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <ProofPhoto address={address} hash={supporter?.profilePhoto} />
+      <HeaderUser
+        address={address}
+        areaPhotoUpdated={() => {}}
+        name={supporter.name}
+        userType={7}
+        proofPhoto={supporter.profilePhoto}
+      />
 
-      <p className="text-white mt-5">{address}</p>
       {supporter && (
-        <div className="flex flex-col gap-2 mt-2">
-          <p className="text-white">
-            <span className="text-white font-bold">{t('id')}: </span>
-            {formatUnits(BigInt(supporter?.id), 0)}
-          </p>
-          <p className="text-white">
-            <span className="text-white font-bold">{t('name')}: </span>
-            {supporter?.name}
-          </p>
-          <p className="text-white">
-            <span className="text-white font-bold">{t('registeredAt')}: </span>
-            {formatUnits(BigInt(supporter?.createdAt), 0)}
-          </p>
-          <p className="text-white">
-            <span className="text-white font-bold">{t('userType')}: </span> 7
-          </p>
+        <div className="flex gap-10 mt-5">
+          <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
+            <p className="text-gray-300 text-sm">{t('data')}</p>
+            <p className="text-white">
+              <span className="text-white font-bold">{t('id')}: </span>
+              {formatUnits(BigInt(supporter?.id), 0)}
+            </p>
+            <p className="text-white">
+              <span className="text-white font-bold">{t('registeredAt')}: </span>
+              {formatUnits(BigInt(supporter?.createdAt), 0)}
+            </p>
+            <p className="text-white">
+              <span className="text-white font-bold">{t('userType')}: </span> 7
+            </p>
+          </div>
         </div>
       )}
 
