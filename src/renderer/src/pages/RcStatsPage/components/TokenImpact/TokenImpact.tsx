@@ -28,7 +28,7 @@ export function TokenImpact(): JSX.Element {
       },
       {
         ...rcImpactContract,
-        functionName: 'totalSoilImpact',
+        functionName: 'totalAreaImpact',
         args: []
       },
       {
@@ -53,7 +53,7 @@ export function TokenImpact(): JSX.Element {
       },
       {
         ...rcImpactContract,
-        functionName: 'soilPerToken',
+        functionName: 'areaPerToken',
         args: []
       },
       {
@@ -73,6 +73,8 @@ export function TokenImpact(): JSX.Element {
   let soilPerToken = 0
   let biodiversityPerToken = 0
 
+  console.log(data)
+
   if (data) {
     const _totalCarbonImpact = data[0].status === 'success' ? (data[0]?.result as string) : '0'
     totalCarbonImpact = parseFloat(formatUnits(BigInt(_totalCarbonImpact), 0))
@@ -88,16 +90,16 @@ export function TokenImpact(): JSX.Element {
     totalTreesImpact = parseFloat(formatUnits(BigInt(_totalTreesImpact), 0))
 
     const _treesPerToken = data[4].status === 'success' ? (data[4]?.result as string) : '0'
-    treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 14))
+    treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 18))
 
     const _carbonPerToken = data[5].status === 'success' ? (data[5]?.result as string) : '0'
-    carbonPerToken = parseFloat(formatUnits(BigInt(_carbonPerToken), 14))
+    carbonPerToken = parseFloat(formatUnits(BigInt(_carbonPerToken), 18))
 
     const _soilPerToken = data[6].status === 'success' ? (data[6]?.result as string) : '0'
-    soilPerToken = parseFloat(formatUnits(BigInt(_soilPerToken), 14))
+    soilPerToken = parseFloat(formatUnits(BigInt(_soilPerToken), 18))
 
     const _biodiversityPerToken = data[7].status === 'success' ? (data[7]?.result as string) : '0'
-    biodiversityPerToken = parseFloat(formatUnits(BigInt(_biodiversityPerToken), 14))
+    biodiversityPerToken = parseFloat(formatUnits(BigInt(_biodiversityPerToken), 18))
   }
 
   return (
@@ -115,7 +117,7 @@ export function TokenImpact(): JSX.Element {
               value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
             />
             <StatsRcItem
-              title={t('totalSoilImpact')}
+              title={t('totalAreaImpact')}
               value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
               suffix="m²"
             />
@@ -129,11 +131,11 @@ export function TokenImpact(): JSX.Element {
             />
           </div>
 
-          <p className="text-white mb-2 mt-10">{t('impactPerToken')}</p>
+          <p className="text-white mb-2 mt-7">{t('impactPerToken')}</p>
           <div className="flex flex-wrap gap-5">
             <StatsRcItem title={t('treesPerToken')} value={treesPerToken.toString()} />
             <StatsRcItem title={t('carbonPerToken')} value={carbonPerToken.toString()} />
-            <StatsRcItem title={t('soilPerToken')} value={soilPerToken.toString()} />
+            <StatsRcItem title={t('areaPerToken')} value={soilPerToken.toString()} />
             <StatsRcItem
               title={t('biodiversityPerToken')}
               value={biodiversityPerToken.toString()}
