@@ -54,7 +54,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
               </p>
             </div>
 
-            <CertificatesCard name={supporter.name} address={address} userType={7} />
+            <CertificatesCard name={supporter?.name} address={address} userType={7} />
             <InvitationCard address={address} />
           </div>
         </div>
