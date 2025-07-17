@@ -13,6 +13,7 @@ import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
+import { InvitationCard } from '../InvitationCard/InvitationCard'
 
 export function ContributorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -48,38 +49,42 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
 
       {contributor && (
         <div className="flex gap-10 mt-5">
-          <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3 mt-3">
-            <p className="text-gray-300 text-sm">{t('data')}</p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('id')}: </span>
-              {formatUnits(BigInt(contributor?.id), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('proofPhoto')}: </span>
-              {contributor?.proofPhoto}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('level')}: </span>
-              {formatUnits(BigInt(contributor?.pool?.level), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('eraPool')}: </span>
-              {formatUnits(BigInt(contributor?.pool?.currentEra), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('registeredAt')}: </span>
-              {formatUnits(BigInt(contributor?.createdAt), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('userType')}: </span> 5
-            </p>
+          <div className="flex flex-col">
+            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
+              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('id')}: </span>
+                {formatUnits(BigInt(contributor?.id), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('proofPhoto')}: </span>
+                {contributor?.proofPhoto}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('level')}: </span>
+                {formatUnits(BigInt(contributor?.pool?.level), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('eraPool')}: </span>
+                {formatUnits(BigInt(contributor?.pool?.currentEra), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                {formatUnits(BigInt(contributor?.createdAt), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('userType')}: </span> 5
+              </p>
 
-            <UserCanVote address={address} />
+              <UserCanVote address={address} />
 
-            <p className="text-red-500">
-              <span className="font-bold">{t('penalties')}: </span>
-              {totalPenalties}
-            </p>
+              <p className="text-red-500">
+                <span className="font-bold">{t('penalties')}: </span>
+                {totalPenalties}
+              </p>
+            </div>
+
+            <InvitationCard address={address} />
           </div>
 
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
@@ -88,7 +93,7 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
 
       <UserContentTabs
         address={address}
-        availableTabs={['invitation', 'contributions', 'validations']}
+        availableTabs={['contributions', 'validations']}
         userType={5}
       />
     </div>

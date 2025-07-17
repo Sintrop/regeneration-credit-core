@@ -13,6 +13,7 @@ import { UserContentTabs } from '../Tabs/UserContentTabs'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
+import { InvitationCard } from '../InvitationCard/InvitationCard'
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -58,7 +59,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
         proofPhoto={regenerator.proofPhoto}
       />
 
-      <div className="flex flex-wrap gap-10 mt-5">
+      <div className="flex flex-wrap gap-4 mt-5">
         {regenerator && (
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3 mt-3">
@@ -99,6 +100,8 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
                 <span className="text-white font-bold">{t('userType')}: </span> 1
               </p>
             </div>
+
+            <InvitationCard address={address} />
           </div>
         )}
 
@@ -110,13 +113,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
 
       <UserContentTabs
         address={address}
-        availableTabs={[
-          'certificates',
-          'inspections',
-          'regenerationArea',
-          'invitation',
-          'validations'
-        ]}
+        availableTabs={['certificates', 'inspections', 'validations']}
         userType={1}
         name={regenerator && regenerator.name}
       />

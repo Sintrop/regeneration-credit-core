@@ -1,4 +1,3 @@
-import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import {
   userAbi,
@@ -16,9 +15,10 @@ interface Props {
   address: string
 }
 
-export function InvitationTab({ address }: Props): JSX.Element {
+export function InvitationCard({ address }: Props): JSX.Element {
+  const { t } = useTranslation()
   const chainId = useChainId()
-  const { data, isLoading } = useReadContract({
+  const { data } = useReadContract({
     address: chainId === 250225 ? userAddress : sequoiaUserAddress,
     abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
     functionName: 'getInvitation',
@@ -27,16 +27,9 @@ export function InvitationTab({ address }: Props): JSX.Element {
 
   const invitationData = data as InvitationProps
 
-  if (isLoading) {
-    return (
-      <div className="mx-auto overflow-hidden mt-5">
-        <Loading />
-      </div>
-    )
-  }
-
   return (
     <div className="flex flex-col p-3 rounded-2xl bg-green-card mt-5 gap-1">
+      <p className="text-gray-300 text-sm">{t('invitation')}</p>
       {invitationData && (
         <>
           <CardData label="inviter">

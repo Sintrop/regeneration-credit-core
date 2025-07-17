@@ -2,9 +2,7 @@ import { ApprovedInvites } from './ApprovedInvites/ApprovedInvites'
 import { CertificatesTab } from './CertificatesTab/CertificatesTab'
 import { ContributionsTab } from './ContributionsTab/ContributionsTab'
 import { InspectionsHistoryTab } from './InspectionsHistory/InspectionsHistoryTab'
-import { InvitationTab } from './InvitationTab'
 import { ReductionCommitmentsTab } from './ReductionCommitmentsTab/ReductionCommitmentsTab'
-import { RegenerationAreaTab } from './RegenerationAreaTab/RegenerationAreaTab'
 import { ReportsTab } from './ReportsTab/ReportsTab'
 import { ResearchesTab } from './ResearchesTab/ResearchesTab'
 import { ValidationsTab } from './ValidationsTab/ValidationsTab'
@@ -23,11 +21,9 @@ export function ContentTab({ address, selectedTab, name, userType }: Props): JSX
 }
 
 const tabs = {
-  invitation: InvitationTab,
   certificates: CertificatesTab,
   reports: ReportsTab,
   researches: ResearchesTab,
-  regenerationArea: RegenerationAreaTab,
   approvedInvites: ApprovedInvites,
   validations: ValidationsTab,
   contributions: ContributionsTab,
