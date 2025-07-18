@@ -12,6 +12,7 @@ import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { CertificatesCard } from '../Cards/CertificatesCard/CertificatesCard'
+import { ReductionCommitmentsCard } from '../Cards/ReductionCommitmentsCard/ReductionCommitmentsCard'
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -37,8 +38,8 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
       />
 
       {supporter && (
-        <div className="flex gap-10 mt-5">
-          <div className="flex flex-col">
+        <div className="flex gap-5 mt-5 max-w-[1024px]">
+          <div className="flex flex-col flex-1">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
               <p className="text-gray-300 text-sm">{t('data')}</p>
               <p className="text-white">
@@ -56,6 +57,10 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
             <CertificatesCard name={supporter?.name} address={address} userType={7} />
             <InvitationCard address={address} />
+          </div>
+
+          <div className="flex flex-col flex-1">
+            <ReductionCommitmentsCard address={address} />
           </div>
         </div>
       )}
