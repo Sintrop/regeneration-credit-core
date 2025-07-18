@@ -28,7 +28,7 @@ export function InvitationCard({ address }: Props): JSX.Element {
   const invitationData = data as InvitationProps
 
   return (
-    <div className="flex flex-col p-3 rounded-2xl bg-green-card mt-5 gap-1">
+    <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
       <p className="text-gray-300 text-sm">{t('invitation')}</p>
       {invitationData && (
         <>

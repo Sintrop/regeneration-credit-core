@@ -137,7 +137,7 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
       <div
         //@ts-ignore
         ref={mapContainerRef}
-        className="w-[450px] h-[300px] rounded-2xl border-2 border-white mt-1"
+        className="w-full h-[350px] rounded-2xl border-2 border-white mt-1"
       />
 
       <div className="flex flex-col gap-1 mt-3">

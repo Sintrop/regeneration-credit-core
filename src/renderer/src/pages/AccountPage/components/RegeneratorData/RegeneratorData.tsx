@@ -60,9 +60,9 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
         proofPhoto={regenerator.proofPhoto}
       />
 
-      <div className="flex flex-wrap gap-4 mt-5">
+      <div className="flex gap-5 mt-5 max-w-[1024px]">
         {regenerator && (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-5 flex-1">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
               <p className="text-gray-300 text-sm">{t('data')}</p>
               <p className="text-white">
@@ -102,14 +102,14 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
               </p>
             </div>
 
-            <InvitationCard address={address} />
+            <RegenerationAreaMap address={address} />
             <InspectionsCard address={address} />
-            <ValidationsCard address={address} />
           </div>
         )}
 
-        <div className="flex flex-col gap-5">
-          <RegenerationAreaMap address={address} />
+        <div className="flex flex-col gap-5 max-w-[450px]">
+          <InvitationCard address={address} />
+          <ValidationsCard address={address} />
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       </div>

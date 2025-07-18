@@ -37,7 +37,7 @@ export function ValidationsCard({ address }: Props): JSX.Element {
   const validationsCount = data ? formatUnits(BigInt(data as string), 0) : 0
 
   return (
-    <div className="flex flex-col p-3 rounded-2xl bg-green-card mt-5 gap-1">
+    <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
       <p className="text-gray-300 text-sm">{t('validations')}</p>
       <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
 

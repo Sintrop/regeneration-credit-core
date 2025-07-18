@@ -35,7 +35,7 @@ export function InspectionsCard({ address }: Props): JSX.Element {
 
   if (inspectionsIds) {
     return (
-      <div className="flex flex-col p-3 rounded-2xl bg-green-card mt-5 gap-3">
+      <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-3">
         <p className="text-gray-300 text-sm">{t('inspections')}</p>
         {inspectionsIds.length === 0 ? (
           <div className="flex mt-3">
