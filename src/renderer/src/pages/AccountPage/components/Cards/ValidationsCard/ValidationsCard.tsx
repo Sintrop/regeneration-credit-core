@@ -14,6 +14,7 @@ import { formatUnits } from 'viem'
 
 interface Props {
   address: string
+  profilePage?: boolean
 }
 
 export function ValidationsCard({ address }: Props): JSX.Element {

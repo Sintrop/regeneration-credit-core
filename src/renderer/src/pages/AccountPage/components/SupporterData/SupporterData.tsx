@@ -56,10 +56,10 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
             </div>
 
             <CertificatesCard name={supporter?.name} address={address} userType={7} />
-            <InvitationCard address={address} />
           </div>
 
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
+            <InvitationCard address={address} />
             <ReductionCommitmentsCard address={address} />
           </div>
         </div>
