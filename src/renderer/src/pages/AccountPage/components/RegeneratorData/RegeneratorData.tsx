@@ -15,6 +15,7 @@ import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
+import { CertificatesCard } from '../Cards/CertificatesCard/CertificatesCard'
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -102,6 +103,14 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
               </p>
             </div>
 
+            <CertificatesCard
+              name={regenerator.name} 
+              address={address} 
+              userType={1} 
+              totalArea={parseInt(formatUnits(BigInt(regenerator?.totalArea), 0))}
+              totalInspections={parseInt(formatUnits(BigInt(regenerator?.totalInspections), 0))}
+              score={parseInt(formatUnits(BigInt(regenerator?.regenerationScore.score), 0))}
+            />
             <RegenerationAreaMap address={address} />
             <InspectionsCard address={address} />
           </div>
@@ -113,13 +122,6 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
           {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
         </div>
       </div>
-
-      {/* <UserContentTabs
-        address={address}
-        availableTabs={['certificates', 'inspections', 'validations']}
-        userType={1}
-        name={regenerator && regenerator.name}
-      /> */}
     </div>
   )
 }

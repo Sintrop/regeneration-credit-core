@@ -2,26 +2,22 @@ import { useImpactPerToken } from '@renderer/hooks/useImpactPerToken'
 import { useTranslation } from 'react-i18next'
 import { QRCode } from 'react-qrcode-logo'
 import RCLogo from '@renderer/assets/images/rc.png'
-import { useChainId } from 'wagmi'
-import { useEffect, useState } from 'react'
 
 interface Props {
   certificateTokens: string
+  url: string
   name?: string
   address?: string
-  userType: number
 }
 
 export function ContributionCertificate({
   certificateTokens,
   name,
   address,
-  userType
+  url
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const { carbonPerToken, biodiversityPerToken, soilPerToken, treesPerToken } = useImpactPerToken()
-  const chainId = useChainId()
-  const [urlQrCode, setUrlQrCode] = useState('')
 
   let totalCarbonImpact = 0
   let totalSoilImpact = 0
@@ -32,22 +28,6 @@ export function ContributionCertificate({
   totalSoilImpact = soilPerToken * parseInt(certificateTokens)
   totalBiodiversityImpact = biodiversityPerToken * parseInt(certificateTokens)
   totalTreesImpact = treesPerToken * parseInt(certificateTokens)
-
-  useEffect(() => {
-    createUrlUserPage()
-  }, [])
-
-  function createUrlUserPage(): void {
-    const baseUrlUsersPage =
-      chainId === 250225
-        ? import.meta.env.VITE_USERS_PAGE_URL
-        : import.meta.env.VITE_SEQUOIA_USERS_PAGE_URL
-    const nameFormated = name?.toLowerCase().replace(' ', '-')
-    const url = `${baseUrlUsersPage}/${
-      userType === 1 ? 'regenerator' : 'supporter'
-    }/${address}/${nameFormated}`
-    setUrlQrCode(url)
-  }
 
   return (
     <div className="flex flex-col rounded-2xl bg-green-card p-3 w-[500px]">
@@ -100,7 +80,7 @@ export function ContributionCertificate({
 
         <div className="flex-1 h-full flex flex-col items-center justify-center">
           <QRCode
-            value={urlQrCode}
+            value={url}
             size={120}
             qrStyle="fluid"
             logoImage={RCLogo}
