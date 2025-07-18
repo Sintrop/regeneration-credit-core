@@ -11,13 +11,14 @@ import { useTranslation } from 'react-i18next'
 import { useChainId, useReadContract } from 'wagmi'
 import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
 import { formatUnits } from 'viem'
+import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 
 interface Props {
   address: string
   profilePage?: boolean
 }
 
-export function ValidationsCard({ address }: Props): JSX.Element {
+export function ValidationsCard({ address, profilePage }: Props): JSX.Element {
   const { t } = useTranslation()
   const { currentEra } = useEra()
 
@@ -52,6 +53,12 @@ export function ValidationsCard({ address }: Props): JSX.Element {
             <p className="font-bold text-white text-xl">{validationsCount}</p>
             <p className="text-gray-300 text-xs">{t('validationsReceived')}</p>
           </div>
+
+          {!profilePage && (
+            <div className="w-full mt-5">
+              <VoteToInvalidate resourceType="user" userWallet={address} wFull />
+            </div>
+          )}
         </div>
       )}
     </div>

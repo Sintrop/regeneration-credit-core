@@ -12,13 +12,15 @@ interface Props {
   resourceId?: number
   userWallet?: string
   publishedEra?: number
+  wFull?: boolean
 }
 
 export function VoteToInvalidate({
   resourceType,
   resourceId,
   userWallet,
-  publishedEra
+  publishedEra,
+  wFull
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [showVote, setShowVote] = useState<boolean>(false)
@@ -34,7 +36,7 @@ export function VoteToInvalidate({
   return (
     <div className="">
       <button
-        className="px-10 h-10 w-fit rounded-2xl font-semibold text-white bg-red-500 flex items-center justify-center gap-3 hover:cursor-pointer"
+        className={`px-10 h-10 ${wFull ? 'w-full' : 'w-fit'} rounded-2xl font-semibold text-white bg-red-500 flex items-center justify-center gap-3 hover:cursor-pointer`}
         onClick={handleShowVote}
       >
         <BiSolidMegaphone color="white" />

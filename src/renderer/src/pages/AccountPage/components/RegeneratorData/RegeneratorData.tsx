@@ -10,7 +10,6 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
-import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
@@ -118,8 +117,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
 
         <div className="flex flex-col gap-5 max-w-[450px]">
           <InvitationCard address={address} />
-          <ValidationsCard address={address} />
-          {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
+          <ValidationsCard address={address} profilePage={profilePage} />
         </div>
       </div>
     </div>
