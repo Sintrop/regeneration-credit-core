@@ -21,6 +21,7 @@ import { UsersPage } from './pages/UsersPage/UsersPage'
 import { PdfPage } from './pages/PdfPage/PdfPage'
 import { UserDetailsPage } from './pages/UserDetailsPage/UserDetailsPage'
 import { ResourceDetailsPage } from './pages/ResourceDetailsPage/ResourceDetailsPage'
+import { IpfsPage } from './pages/IpfsPage/IpfsPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -46,6 +47,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/pdfview/:hash" element={<PdfPage />} />
         <Route path="/user-details/:address" element={<UserDetailsPage />} />
         <Route path="/resource-details/:resourceType/:id" element={<ResourceDetailsPage />} />
+        <Route path="/ipfs" element={<IpfsPage />} />
       </Routes>
     </Router>
   )
