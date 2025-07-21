@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom'
+import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
+import { useTranslation } from 'react-i18next'
+import { IPFSSettings } from './components/IPFSSettings'
 
 export function SettingsPage(): JSX.Element {
-  const navigate = useNavigate()
+  const { t } = useTranslation()
 
   return (
-    <div>
-      <p>Settings Page</p>
-      <button onClick={() => navigate(-1)}>back home</button>
-    </div>
+    <ScreenPage pageTitle={t('settings')}>
+      <div className="flex flex-col w-[500px] gap-5">
+        <IPFSSettings />
+      </div>
+    </ScreenPage>
   )
 }

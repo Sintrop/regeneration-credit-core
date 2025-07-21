@@ -40,7 +40,7 @@ export function RegisterPage(): JSX.Element {
   const userTypeWalletConnected = parseInt(data as string)
 
   function handleGoToAccount(): void {
-    navigate('/')
+    navigate('/', { replace: true })
   }
 
   if (userTypeWalletConnected && userTypeWalletConnected !== 0) {
