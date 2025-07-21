@@ -9,8 +9,10 @@ import { ActionContractProps } from '../../ActionComponent'
 import { ImageInput } from '@renderer/components/Input/ImageInput'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { PdfInput } from '@renderer/components/Input/PdfInput'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 export function RealizeInspection({ abi, addressContract }: ActionContractProps): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [inputTrees, setInputTrees] = useState('')
@@ -33,7 +35,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
 
     setUploadingImage(true)
     const blobFile = await base64ToBlob(image)
-    const proofPhotoHash = await uploadToIpfs({ file: blobFile })
+    const proofPhotoHash = await uploadToIpfs({ file: blobFile, ipfsApiUrl })
     if (!proofPhotoHash.success) {
       alert('error on upload proof photo')
       setUploadingImage(false)
@@ -41,7 +43,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
     setUploadingImage(false)
 
     setUploadingFile(true)
-    const reportHash = await uploadToIpfs({ file })
+    const reportHash = await uploadToIpfs({ file, ipfsApiUrl })
     if (!reportHash.success) {
       alert('error on upload report')
       setUploadingFile(false)

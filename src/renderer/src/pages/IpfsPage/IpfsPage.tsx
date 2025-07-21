@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { uploadToIpfs } from '@renderer/services/ipfs'
 import { ChangeEvent, JSX, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaRegCopy } from 'react-icons/fa'
 
 export function IpfsPage(): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [file, setFile] = useState<FileList>()
   const [loading, setLoading] = useState(false)
@@ -34,7 +36,7 @@ export function IpfsPage(): JSX.Element {
     if (!file || file.length === 0) return
     setHash('')
     setLoading(true)
-    const response = await uploadToIpfs({ file: file[0] })
+    const response = await uploadToIpfs({ file: file[0], ipfsApiUrl })
     if (response.success) {
       setHash(response.hash)
     } else {
@@ -77,7 +79,7 @@ export function IpfsPage(): JSX.Element {
           <p className="text-white">HASH: </p>
           <p className="text-white font-semibold">{hash}</p>
           <button className="hover:cursor-pointer ml-5" onClick={handleCopyHash}>
-            <FaRegCopy size={25} color="white" /> 
+            <FaRegCopy size={25} color="white" />
           </button>
         </div>
       )}

@@ -13,6 +13,7 @@ import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
@@ -21,12 +22,13 @@ interface Props {
   success: () => void
 }
 
-interface CoordinateProps { 
+interface CoordinateProps {
   longitude: number
-  latitude: number 
+  latitude: number
 }
 
 export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
   const [description, setDescription] = useState('')
@@ -186,7 +188,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
   async function uploadProofPhoto(): Promise<string> {
     setUploadingImage(true)
     const blobImage = base64ToBlob(proofPhoto)
-    const response = await uploadToIpfs({ file: blobImage })
+    const response = await uploadToIpfs({ file: blobImage, ipfsApiUrl })
     setUploadingImage(false)
     return response.hash
   }

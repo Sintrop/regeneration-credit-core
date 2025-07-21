@@ -12,7 +12,6 @@ export function Nav(): JSX.Element {
       <NavItem icon="pools" label="pools" path="/pools" />
       <NavItem icon="myTokens" label="myTokens" path="/my-tokens" />
       <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
-      <NavItem icon="dashboard" label="IPFS" path="/ipfs" />
       <DropdownMenu label="community" icon="community" pathMainPage="/community" haveMainPage>
         <NavItem label="regenerators" path="/users/1" />
         <NavItem label="inspectors" path="/users/2" />
@@ -28,6 +27,7 @@ export function Nav(): JSX.Element {
         <NavItem icon="development" label="development" path="/development" />
         <NavItem icon="contributions" label="contributions" path="/contributions" />
       </DropdownMenu>
+      <NavItem icon="dashboard" label="IPFS" path="/ipfs" />
     </nav>
   )
 }

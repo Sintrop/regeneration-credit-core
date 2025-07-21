@@ -7,6 +7,7 @@ import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   name: string
@@ -21,6 +22,7 @@ export function ContributorRegistration({
   availableVacancie,
   success
 }: Props): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
@@ -60,7 +62,7 @@ export function ContributorRegistration({
   async function uploadProofPhoto(): Promise<string> {
     setUploadingImage(true)
     const blobImage = base64ToBlob(proofPhoto)
-    const response = await uploadToIpfs({ file: blobImage })
+    const response = await uploadToIpfs({ file: blobImage, ipfsApiUrl })
     setUploadingImage(false)
     return response.hash
   }

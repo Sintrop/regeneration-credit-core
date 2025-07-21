@@ -25,10 +25,10 @@ export function Header(): JSX.Element {
         </button>
 
         <div className="flex items-center gap-5">
+          <ChainSwitch />
           <button onClick={handleGoToSettings} className="hover:cursor-pointer">
             <FaGear size={25} color="white" />
           </button>
-          <ChainSwitch />
         </div>
       </div>
     </header>

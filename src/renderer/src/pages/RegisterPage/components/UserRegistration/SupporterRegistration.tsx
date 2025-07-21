@@ -12,6 +12,7 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   name: string
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export function SupporterRegistration({ name, success }: Props): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -56,7 +58,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
   async function uploadProfilePhoto(): Promise<string> {
     setUploadingImage(true)
     const blobImage = base64ToBlob(profilePhoto)
-    const response = await uploadToIpfs({ file: blobImage })
+    const response = await uploadToIpfs({ file: blobImage, ipfsApiUrl })
     setUploadingImage(false)
     return response.hash
   }

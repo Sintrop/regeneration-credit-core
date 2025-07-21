@@ -10,12 +10,14 @@ import { PdfInput } from '@renderer/components/Input/PdfInput'
 import { uploadToIpfs } from '@renderer/services/ipfs'
 import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 export function AddResearch({
   abi,
   addressContract,
   lastPublishedWork
 }: ActionContractProps): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
   const [inputThesis, setInputThesis] = useState('')
@@ -34,7 +36,7 @@ export function AddResearch({
   async function handleSendTransaction(): Promise<void> {
     if (!file) return
     setUploadingFile(true)
-    const response = await uploadToIpfs({ file })
+    const response = await uploadToIpfs({ file, ipfsApiUrl })
     setUploadingFile(false)
 
     if (response.success) {

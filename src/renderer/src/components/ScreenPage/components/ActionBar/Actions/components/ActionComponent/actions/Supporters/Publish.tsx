@@ -8,8 +8,10 @@ import { TransactionData } from '@renderer/components/TransactionData/Transactio
 import { ActionContractProps } from '../../ActionComponent'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ImageInput } from '@renderer/components/Input/ImageInput'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 export function Publish({ abi, addressContract }: ActionContractProps): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
   const [inputDescription, setInputDescription] = useState('')
@@ -23,7 +25,7 @@ export function Publish({ abi, addressContract }: ActionContractProps): JSX.Elem
     if (!image) return
     setUploadingFile(true)
     const blobFile = await base64ToBlob(image)
-    const response = await uploadToIpfs({ file: blobFile })
+    const response = await uploadToIpfs({ file: blobFile, ipfsApiUrl })
     setUploadingFile(false)
 
     if (response.success) {
