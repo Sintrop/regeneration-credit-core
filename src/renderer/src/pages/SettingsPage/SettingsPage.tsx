@@ -1,7 +1,7 @@
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { useTranslation } from 'react-i18next'
 import { IPFSSettings } from './components/IPFSSettings'
-import { RpcSettings } from './components/RpcSettings'
+//import { RpcSettings } from './components/RpcSettings'
 
 export function SettingsPage(): JSX.Element {
   const { t } = useTranslation()
@@ -9,7 +9,7 @@ export function SettingsPage(): JSX.Element {
   return (
     <ScreenPage pageTitle={t('settings')}>
       <div className="flex flex-col w-[500px] gap-5 pb-10">
-        <RpcSettings />
+        {/* <RpcSettings /> */}
         <IPFSSettings />
       </div>
     </ScreenPage>
