@@ -29,21 +29,24 @@ export function LatestOffsets(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col">
-      <p className="text-xs text-gray-300 mb-1">{t('offsets')}</p>
+    <div className="bg-card-2 rounded-2xl w-full">
+      <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
+        <p className="text-sm text-green-1 mb-1">{t('offsets')}</p>
+      </div>
+
       {isLoading ? (
-        <div className="w-[400px] mt-5 flex justify-center">
+        <div className="w-[350px] my-5 flex justify-center">
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-[400px]">
+        <div className="flex flex-col gap-5 w-[350px]">
           {offsetsIds.length === 0 ? (
-            <div className="items-center mt-10 w-[400px]">
+            <div className="items-center my-10 w-full">
               <p className="text-white text-center">{t('noOffsets')}</p>
             </div>
           ) : (
             <>
-              {offsetsIds.slice(0, 5).map((id) => (
+              {offsetsIds.slice(0, 3).map((id) => (
                 <OffsetItem id={id} key={id} />
               ))}
             </>

@@ -19,21 +19,26 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col mt-2">
-      <div className="flex justify-end w-full">
-        <StatusInspection status={status} />
-      </div>
-
+    <div className="flex flex-col mt-2 pl-12">
       {status === 0 && (
         <div className="flex flex-col">
-          <p className="text-white">{t('requestedAnInspection')}</p>
-          <p className="text-white">ID: {formatUnits(BigInt(inspection.id), 0)}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#ED8A28]/80">
+            <p className="text-white">{t('requestedAnInspection')}</p>
+            <p className="text-yellow-500">{t('open')}</p>
+          </div>
+          <p className="text-white mt-2">
+            {t('inspectionId')}: {formatUnits(BigInt(inspection.id), 0)}
+          </p>
         </div>
       )}
 
       {status === 1 && (
         <div className="flex flex-col">
-          <p className="text-white">{t('thisInspectionWasAccepted')}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#044640]">
+            <p className="text-white">{t('thisInspectionWasAccepted')}</p>
+            <p className="text-green-1">{t('accepted')}</p>
+          </div>
+
           <p className="text-gray-300 text-sm mt-2">{t('inspector')}:</p>
           <InspectorCard address={inspection.inspector} />
         </div>
@@ -41,7 +46,11 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
 
       {status === 2 && (
         <div className="flex flex-col">
-          <p className="text-white">{t('thisInspectionWasRealized')}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#044640]">
+            <p className="text-white">{t('thisInspectionWasRealized')}</p>
+            <p className="text-green-1">{t('realized')}</p>
+          </div>
+
           <p className="text-gray-300 text-sm mt-2">{t('inspector')}:</p>
           <InspectorCard address={inspection.inspector} />
 

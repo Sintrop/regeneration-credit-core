@@ -5,27 +5,38 @@ import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagm
 import { sequoiaResearcherAbi, sequoiaResearcherAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
-import { WriteContractErrorType } from 'viem'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   name: string
   invitation: InvitationProps
   availableVacancie: boolean
+  success: () => void
 }
 
 export function ResearcherRegistration({
   name,
   invitation,
-  availableVacancie
+  availableVacancie,
+  success
 }: Props): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending, error } = useWriteContract()
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending, error, isError } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
 
   useEffect(() => {
     validityData()
@@ -58,7 +69,7 @@ export function ResearcherRegistration({
   async function uploadProofPhoto(): Promise<string> {
     setUploadingImage(true)
     const blobImage = base64ToBlob(proofPhoto)
-    const response = await uploadToIpfs({ file: blobImage })
+    const response = await uploadToIpfs({ file: blobImage, ipfsApiUrl })
     setUploadingImage(false)
     return response.hash
   }
@@ -73,6 +84,7 @@ export function ResearcherRegistration({
       return
     }
 
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 1600 ? sequoiaResearcherAddress : sequoiaResearcherAddress,
       abi: chainId === 1600 ? sequoiaResearcherAbi : sequoiaResearcherAbi,
@@ -82,19 +94,27 @@ export function ResearcherRegistration({
   }
 
   return (
-    <div className="flex flex-col mb-10 z-0">
+    <div className="flex flex-col z-0">
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <ConfirmButton
         btnDisabled={disableBtnRegister}
         handleRegister={handleRegister}
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        error={error as WriteContractErrorType}
         uploadingImage={uploadingImage}
       />
+
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

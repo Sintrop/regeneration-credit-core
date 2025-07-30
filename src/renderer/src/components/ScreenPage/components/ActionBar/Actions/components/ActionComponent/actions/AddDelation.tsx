@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import {
   userAddress,
@@ -6,10 +7,8 @@ import {
   sequoiaUserAddress
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
-import { WriteContractErrorType } from 'viem'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function AddDelation(): JSX.Element {
   const chainId = useChainId()
@@ -18,16 +17,32 @@ export function AddDelation(): JSX.Element {
   const [inputTitle, setInputTitle] = useState('')
   const [inputTestimony, setInputTestimony] = useState('')
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, error, isError } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   function handleSendTransaction(): void {
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 250225 ? userAddress : sequoiaUserAddress,
       abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
       functionName: 'addDelation',
       args: [inputAddress, inputTitle, inputTestimony]
     })
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('delationSent'))
+    setInputAddress('')
+    setInputTestimony('')
+    setInputTitle('')
   }
 
   return (
@@ -62,14 +77,18 @@ export function AddDelation(): JSX.Element {
         disabled={!inputAddress.trim() || !inputTestimony.trim() || !inputTitle.trim() || isPending}
       />
 
-      <TransactionData
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        errorTx={error as WriteContractErrorType}
-        isError={isError}
-      />
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

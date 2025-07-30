@@ -9,7 +9,7 @@ export function ContractsPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle="contracts">
-      <div className="flex flex-col gap-5 mb-10">
+      <div className="flex flex-wrap gap-5 mb-10">
         {listContracts.map((contract, index) => (
           <ContractItem key={index} contract={contract} />
         ))}

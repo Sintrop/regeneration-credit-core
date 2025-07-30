@@ -9,10 +9,10 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
-import { UserContentTabs } from '../Tabs/UserContentTabs'
-import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
+import { HeaderUser } from '../HeaderUser/HeaderUser'
+import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 
 export function ResearcherData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -38,69 +38,71 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
     : 0
 
   return (
-    <div className="flex flex-col">
-      <ProofPhoto address={address} hash={researcher && researcher?.proofPhoto} />
+    <div className="flex flex-col pb-10">
+      <HeaderUser
+        address={address}
+        areaPhotoUpdated={() => {}}
+        name={researcher.name}
+        userType={3}
+        proofPhoto={researcher.proofPhoto}
+      />
 
       {researcher && (
-        <div className="flex gap-10">
-          <div className="flex flex-col gap-2 mt-2">
-            <p className="text-white mt-5">{address}</p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('id')}: </span>
-              {formatUnits(BigInt(researcher?.id), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('name')}: </span>
-              {researcher?.name}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('proofPhoto')}: </span>
-              {researcher?.proofPhoto}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('level')}: </span>
-              {formatUnits(BigInt(researcher?.pool?.level), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('eraPool')}: </span>
-              {formatUnits(BigInt(researcher?.pool?.currentEra), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('publishedResearches')}: </span>
-              {formatUnits(BigInt(researcher?.publishedResearches), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('lastPublishedAt')}: </span>
-              {formatUnits(BigInt(researcher?.lastPublishedAt), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('lastCalculatorItemAt')}: </span>
-              {formatUnits(BigInt(researcher?.lastCalculatorItemAt), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('registeredAt')}: </span>
-              {formatUnits(BigInt(researcher?.createdAt), 0)}
-            </p>
-            <p className="text-white">
-              <span className="text-white font-bold">{t('userType')}: </span> 3
-            </p>
+        <div className="flex gap-5 mt-5 max-w-[1024px]">
+          <div className="flex flex-col gap-5 flex-1">
+            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
+              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('id')}: </span>
+                {formatUnits(BigInt(researcher?.id), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('proofPhoto')}: </span>
+                {researcher?.proofPhoto}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('level')}: </span>
+                {formatUnits(BigInt(researcher?.pool?.level), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('eraPool')}: </span>
+                {formatUnits(BigInt(researcher?.pool?.currentEra), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('publishedResearches')}: </span>
+                {formatUnits(BigInt(researcher?.publishedResearches), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('lastPublishedAt')}: </span>
+                {formatUnits(BigInt(researcher?.lastPublishedAt), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('lastCalculatorItemAt')}: </span>
+                {formatUnits(BigInt(researcher?.lastCalculatorItemAt), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                {formatUnits(BigInt(researcher?.createdAt), 0)}
+              </p>
+              <p className="text-white">
+                <span className="text-white font-bold">{t('userType')}: </span> 3
+              </p>
 
-            <UserCanVote address={address} />
+              <UserCanVote address={address} />
 
-            <p className="text-red-500">
-              <span className="font-bold">{t('penalties')}: </span>
-              {totalPenalties}
-            </p>
+              <p className="text-red-500">
+                <span className="font-bold">{t('penalties')}: </span>
+                {totalPenalties}
+              </p>
+            </div>
           </div>
 
-          {!profilePage && <VoteToInvalidate resourceType="user" userWallet={address} />}
+          <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
+            <InvitationCard address={address} />
+            <ValidationsCard address={address} profilePage={profilePage} />
+          </div>
         </div>
       )}
-
-      <UserContentTabs
-        address={address}
-        availableTabs={['certificates', 'invitation', 'researches', 'validations']}
-      />
     </div>
   )
 }

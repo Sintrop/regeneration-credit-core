@@ -11,6 +11,7 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { Img } from 'react-image'
 import { DeveloperProps } from '@renderer/types/developer'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   address?: string
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const navigate = useNavigate()
   const chainId = useChainId()
   const { data } = useReadContract({
@@ -35,13 +37,13 @@ export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex items-center gap-3 border-b border-container-secondary pb-3">
-      <div className="relative w-10 h-10 rounded-full">
-        <Jazzicon className="w-10 h-10 z-0" address={address ? (address as string) : ''} />
+    <div className="flex items-center gap-3 pb-3">
+      <div className="relative w-8 h-8 rounded-full">
+        <Jazzicon className="w-full h-full z-0" address={address ? (address as string) : ''} />
 
         {developer && (
           <Img
-            src={`https://ipfs.io/ipfs/${developer?.proofPhoto}`}
+            src={`${ipfsGatewayURL}/ipfs/${developer?.proofPhoto}`}
             className="w-full h-full rounded-full object-cover absolute top-0 left-0 z-10"
           />
         )}
@@ -49,7 +51,7 @@ export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
 
       <div className="flex flex-col">
         <p
-          className="text-white hover:cursor-pointer hover:underline"
+          className="text-white hover:cursor-pointer hover:underline text-xs"
           onClick={handleGoToUserDetails}
         >
           {developer ? developer?.name : address}

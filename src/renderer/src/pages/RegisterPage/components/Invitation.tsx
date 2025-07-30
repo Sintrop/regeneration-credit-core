@@ -1,4 +1,5 @@
 import { Loading } from '@renderer/components/Loading/Loading'
+import { UserTypeToText } from '@renderer/components/UserTypeToText/UserTypeToText'
 import { sequoiaUserAbi, sequoiaUserAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { useTranslation } from 'react-i18next'
@@ -27,7 +28,7 @@ export function Invitation({ onChangeInvitation, userType }: Props): JSX.Element
   return (
     <div className="flex flex-col">
       <p className="text-gray-300 text-sm">{t('invitation')}</p>
-      <div className="flex flex-col w-[300px] p-3 rounded-2xl bg-container-secondary ">
+      <div className="flex flex-col w-full p-3 rounded-2xl bg-container-secondary overflow-hidden">
         <p className="text-gray-300 text-sm">{t('descInvitation')}</p>
 
         {isLoading ? (
@@ -48,7 +49,7 @@ export function Invitation({ onChangeInvitation, userType }: Props): JSX.Element
                     <p className="text-white">{invitationData?.inviter}</p>
 
                     <p className="text-gray-300 text-sm mt-3">{t('toRegisterAs')}</p>
-                    <p className="text-white">{invitationData?.userType}</p>
+                    <UserTypeToText className="text-white" userType={invitationData?.userType} />
 
                     {invitationData?.userType !== userType && (
                       <p className="text-red-500 mt-3">

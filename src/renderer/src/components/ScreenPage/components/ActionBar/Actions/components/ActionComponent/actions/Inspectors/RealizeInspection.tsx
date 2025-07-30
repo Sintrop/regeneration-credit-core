@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useState } from 'react'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
-import { WriteContractErrorType } from 'viem'
-import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { ActionContractProps } from '../../ActionComponent'
 import { ImageInput } from '@renderer/components/Input/ImageInput'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { PdfInput } from '@renderer/components/Input/PdfInput'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function RealizeInspection({ abi, addressContract }: ActionContractProps): JSX.Element {
+  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [inputTrees, setInputTrees] = useState('')
@@ -21,8 +22,15 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [uploadingFile, setUploadingFile] = useState(false)
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleSendTransaction(): Promise<void> {
     if (!image) return
@@ -33,7 +41,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
 
     setUploadingImage(true)
     const blobFile = await base64ToBlob(image)
-    const proofPhotoHash = await uploadToIpfs({ file: blobFile })
+    const proofPhotoHash = await uploadToIpfs({ file: blobFile, ipfsApiUrl })
     if (!proofPhotoHash.success) {
       alert('error on upload proof photo')
       setUploadingImage(false)
@@ -41,13 +49,14 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
     setUploadingImage(false)
 
     setUploadingFile(true)
-    const reportHash = await uploadToIpfs({ file })
+    const reportHash = await uploadToIpfs({ file, ipfsApiUrl })
     if (!reportHash.success) {
       alert('error on upload report')
       setUploadingFile(false)
     }
     setUploadingFile(false)
 
+    setDisplayLoadingTx(true)
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',
@@ -55,6 +64,14 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
       functionName: 'realizeInspection',
       args: [id, proofPhotoHash.hash, reportHash.hash, trees, bio]
     })
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('realizedInspection'))
+    setInput('')
+    setInputTrees('')
+    setInputBio('')
   }
 
   return (
@@ -95,22 +112,24 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
       <SendTransactionButton
         label={t('realizeInspection')}
         handleSendTransaction={handleSendTransaction}
-        disabled={
-          !input.trim() || !inputTrees.trim() || !inputBio.trim() || !image || !file || isPending
-        }
+        disabled={!input.trim() || !inputTrees.trim() || !inputBio.trim() || !image || !file}
       />
 
       {uploadingFile && <p className="text-white">{t('uploadingFileToIPFS')}</p>}
       {uploadingImage && <p className="text-white">{t('uploadingImageToIPFS')}</p>}
 
-      <TransactionData
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        errorTx={error as WriteContractErrorType}
-        isError={isError}
-      />
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

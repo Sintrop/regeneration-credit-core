@@ -3,6 +3,7 @@ import { t } from 'i18next'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
 import { Img } from 'react-image'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   address?: string
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const navigate = useNavigate()
 
   function handleGoToUserDetails(): void {
@@ -20,13 +22,13 @@ export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props
   }
 
   return (
-    <div className="flex items-center gap-3 border-b border-container-secondary pb-3 overflow-hidden">
-      <div className="relative w-10 h-10 rounded-full">
-        <Jazzicon className="w-10 h-10 z-0" address={address ? (address as string) : ''} />
+    <div className="flex items-center gap-3 pb-3 overflow-hidden">
+      <div className="relative w-8 h-8 rounded-full">
+        <Jazzicon className="w-full h-full z-0" address={address ? (address as string) : ''} />
 
         {proofPhoto && (
           <Img
-            src={`https://ipfs.io/ipfs/${proofPhoto}`}
+            src={`${ipfsGatewayURL}/ipfs/${proofPhoto}`}
             className="w-full h-full rounded-full object-cover absolute top-0 left-0 z-10"
           />
         )}
@@ -34,7 +36,7 @@ export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props
 
       <div className="flex flex-col">
         <p
-          className="text-white hover:cursor-pointer hover:underline"
+          className="text-white hover:cursor-pointer hover:underline text-xs"
           onClick={handleGoToUserDetails}
         >
           {name ? name : address}

@@ -8,8 +8,8 @@ interface Props {
 
 export function ProofPhoto({ address, hash }: Props): JSX.Element {
   return (
-    <div className="relative w-20 h-20 rounded-full">
-      <Jazzicon className="w-20 h-20 z-0" address={address as string} />
+    <div className="relative w-26 h-26 rounded-full border-3 border-white">
+      <Jazzicon className="w-full h-full z-0" address={address as string} />
       {hash && (
         <Img
           src={`https://ipfs.io/ipfs/${hash}`}

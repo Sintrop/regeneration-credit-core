@@ -1,14 +1,17 @@
 import { MetamaskProvider } from '../../providers/metamask'
+import { SettingsProvider } from './contexts/SettingsContext'
 import { UserContextProvider } from './contexts/UserContext'
 import { AppRoutes } from './routes'
 
 function App(): JSX.Element {
   return (
-    <MetamaskProvider>
-      <UserContextProvider>
-        <AppRoutes />
-      </UserContextProvider>
-    </MetamaskProvider>
+    <SettingsProvider>
+      <MetamaskProvider>
+        <UserContextProvider>
+          <AppRoutes />
+        </UserContextProvider>
+      </MetamaskProvider>
+    </SettingsProvider>
   )
 }
 

@@ -17,18 +17,18 @@ export function ReportFeedContent({ reportId, description, valid }: Props): JSX.
   }
 
   return (
-    <div className="flex flex-col mt-2">
-      <div className="flex justify-end w-full">
+    <div className="flex flex-col mt-2 border border-white rounded-2xl p-3 relative">
+      <div className="absolute top-3 right-3">
         <ValidTag valid={valid} />
       </div>
 
-      <p className="text-gray-300 text-sm text-center">{t('publishedAReport')}</p>
+      <p className="text-white font-semibold text-sm">{t('publishedAReport')}</p>
 
-      <p className="text-sm text-gray-300 mt-2">{t('description')}</p>
-      <p className="text-white">{description}</p>
+      <p className="text-sm text-gray-300">{t('description')}</p>
+      <p className="text-white text-sm mt-1">{description}</p>
 
       <button
-        className="text-green-500 underline hover:cursor-pointer mt-3"
+        className="text-green-500 underline hover:cursor-pointer mt-3 text-start w-fit"
         onClick={handleGoToResourceDetails}
       >
         {t('seeReport')}

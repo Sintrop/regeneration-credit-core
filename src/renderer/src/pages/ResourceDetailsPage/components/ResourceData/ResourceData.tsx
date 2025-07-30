@@ -6,18 +6,12 @@ import { ResearcheData } from './ResearcheData'
 interface Props {
   resourceType: string
   id: number
-  setValidationsCount: (count: number) => void
   setReport: (report: string) => void
 }
-export function ResourceData({
-  resourceType,
-  id,
-  setReport,
-  setValidationsCount
-}: Props): JSX.Element {
+export function ResourceData({ resourceType, id, setReport }: Props): JSX.Element {
   const Resource = resourceData[resourceType as Resources]
 
-  return <Resource id={id} setReport={setReport} setValidationsCount={setValidationsCount} />
+  return <Resource id={id} setReport={setReport} />
 }
 
 const resourceData = {

@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import LogoRC from '../../assets/images/rc.png'
 import { useNavigate } from 'react-router-dom'
+import { ChainSwitch } from './components/ChainSwitch'
+import { FaGear } from 'react-icons/fa6'
 
 export function Header(): JSX.Element {
   const { t } = useTranslation()
@@ -8,6 +10,10 @@ export function Header(): JSX.Element {
 
   function handleBackToHome(): void {
     navigate('/', { replace: true })
+  }
+
+  function handleGoToSettings(): void {
+    navigate('/settings')
   }
 
   return (
@@ -18,7 +24,12 @@ export function Header(): JSX.Element {
           <p className="text-white font-bold text-xl">{t('regenerationCredit')}</p>
         </button>
 
-        <div className="flex items-center gap-5"></div>
+        <div className="flex items-center gap-5">
+          <ChainSwitch />
+          <button onClick={handleGoToSettings} className="hover:cursor-pointer">
+            <FaGear size={25} color="white" />
+          </button>
+        </div>
       </div>
     </header>
   )

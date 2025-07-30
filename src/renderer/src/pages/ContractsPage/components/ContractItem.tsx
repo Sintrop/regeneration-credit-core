@@ -1,4 +1,5 @@
 import { ContractListProps } from '@renderer/types/contract'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export function ContractItem({ contract }: Props): JSX.Element {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   function handleNavigateToContract(): void {
@@ -13,12 +15,15 @@ export function ContractItem({ contract }: Props): JSX.Element {
   }
 
   return (
-    <button
-      className="w-full rounded-2xl bg-container-primary p-5 gap-1 flex flex-col hover:cursor-pointer"
-      onClick={handleNavigateToContract}
-    >
+    <div className="w-64 rounded-2xl bg-container-primary p-5 gap-1 flex flex-col justify-between">
       <h3 className="font-semibold text-white text-start">{contract.name}</h3>
       <p className="text-gray-300 text-sm text-start">{contract.description}</p>
-    </button>
+      <button
+        className="mt-5 text-green-600 underline hover:cursor-pointer w-fit"
+        onClick={handleNavigateToContract}
+      >
+        {t('see')}
+      </button>
+    </div>
   )
 }

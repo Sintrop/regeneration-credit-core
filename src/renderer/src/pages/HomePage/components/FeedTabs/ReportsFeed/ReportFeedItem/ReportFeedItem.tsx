@@ -9,7 +9,6 @@ import { formatUnits } from 'viem'
 import { ReportFeedHeader } from './ReportFeedHeader'
 import { ReportFeedContent } from './ReportFeedContent'
 import { ReportProps } from '@renderer/types/developer'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
@@ -28,7 +27,7 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
 
   if (report) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <ReportFeedHeader
           address={report?.developer}
           publishedAt={formatUnits(BigInt(report.createdAtBlockNumber), 0)}
@@ -37,11 +36,6 @@ export function ReportFeedItem({ id }: Props): JSX.Element {
           reportId={id}
           description={report.description}
           valid={report.valid.toString() === 'true' ? true : false}
-        />
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="report"
-          validationsCount={parseInt(formatUnits(BigInt(report.validationsCount), 0))}
         />
       </div>
     )

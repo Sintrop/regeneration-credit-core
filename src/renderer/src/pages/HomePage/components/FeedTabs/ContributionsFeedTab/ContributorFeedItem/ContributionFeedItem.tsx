@@ -9,7 +9,6 @@ import { formatUnits } from 'viem'
 import { ContributionProps } from '@renderer/types/contributor'
 import { ContributionFeedHeader } from './ContributionFeedHeader'
 import { ContributionFeedContent } from './ContributionFeedContent'
-import { ResourceValidationsFeed } from '../../ResourceValidationsFeed/ResourceValidationsFeed'
 
 interface Props {
   id: number
@@ -28,7 +27,7 @@ export function ContributionFeedItem({ id }: Props): JSX.Element {
 
   if (contribution) {
     return (
-      <div className="flex flex-col rounded-2xl p-3 bg-container-primary w-full">
+      <div className="flex flex-col p-3 w-full border-t border-green-900">
         <ContributionFeedHeader
           address={contribution?.user}
           publishedAt={formatUnits(BigInt(contribution.createdAtBlockNumber), 0)}
@@ -37,11 +36,6 @@ export function ContributionFeedItem({ id }: Props): JSX.Element {
           contributionId={id}
           description={contribution.description}
           valid={contribution.valid.toString() === 'true' ? true : false}
-        />
-        <ResourceValidationsFeed
-          resourceId={id}
-          resourceType="contribution"
-          validationsCount={parseInt(formatUnits(BigInt(contribution.validationsCount), 0))}
         />
       </div>
     )

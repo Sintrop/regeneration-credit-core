@@ -7,9 +7,10 @@ import { formatUnits } from 'viem'
 interface Props {
   address: string
   name?: string
+  userType: number
 }
 
-export function CertificatesTab({ address, name }: Props): JSX.Element {
+export function CertificatesTab({ address, name, userType }: Props): JSX.Element {
   const chainId = useChainId()
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
@@ -35,6 +36,7 @@ export function CertificatesTab({ address, name }: Props): JSX.Element {
         certificateTokens={formatedCertificate}
         name={name}
         address={address}
+        userType={userType}
       />
     </div>
   )

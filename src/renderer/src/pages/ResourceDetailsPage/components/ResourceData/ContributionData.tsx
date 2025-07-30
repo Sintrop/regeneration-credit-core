@@ -14,10 +14,9 @@ import { useChainId, useReadContract } from 'wagmi'
 
 interface Props {
   id: number
-  setValidationsCount: (count: number) => void
   setReport: (report: string) => void
 }
-export function ContributionData({ id, setReport, setValidationsCount }: Props): JSX.Element {
+export function ContributionData({ id, setReport }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -32,7 +31,6 @@ export function ContributionData({ id, setReport, setValidationsCount }: Props):
 
   if (contribution) {
     setReport(contribution.report)
-    setValidationsCount(parseInt(formatUnits(BigInt(contribution.validationsCount), 0)))
   }
 
   if (isLoading) {
