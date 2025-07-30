@@ -38,7 +38,7 @@ export function ReportsFeed(): JSX.Element {
 
   if (isLoading) {
     return (
-      <div className="mx-auto overflow-hidden">
+      <div className="mx-auto overflow-hidden bg-card-2 my-5">
         <Loading />
       </div>
     )

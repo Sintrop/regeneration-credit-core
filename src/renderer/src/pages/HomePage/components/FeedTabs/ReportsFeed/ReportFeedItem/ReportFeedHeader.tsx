@@ -11,6 +11,7 @@ import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { Img } from 'react-image'
 import { DeveloperProps } from '@renderer/types/developer'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   address?: string
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const navigate = useNavigate()
   const chainId = useChainId()
   const { data } = useReadContract({
@@ -41,7 +43,7 @@ export function ReportFeedHeader({ address, publishedAt }: Props): JSX.Element {
 
         {developer && (
           <Img
-            src={`https://ipfs.io/ipfs/${developer?.proofPhoto}`}
+            src={`${ipfsGatewayURL}/ipfs/${developer?.proofPhoto}`}
             className="w-full h-full rounded-full object-cover absolute top-0 left-0 z-10"
           />
         )}
