@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useState } from 'react'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
-import { WriteContractErrorType } from 'viem'
-import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { ActionContractProps } from '../../ActionComponent'
 import { PdfInput } from '@renderer/components/Input/PdfInput'
 import { uploadToIpfs } from '@renderer/services/ipfs'
 import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function AddResearch({
   abi,
@@ -24,8 +23,15 @@ export function AddResearch({
   const [file, setFile] = useState<Blob>()
   const [uploadingFile, setUploadingFile] = useState(false)
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const {
     canPublish,
@@ -40,6 +46,7 @@ export function AddResearch({
     setUploadingFile(false)
 
     if (response.success) {
+      setDisplayLoadingTx(true)
       writeContract({
         //@ts-ignore
         address: addressContract ? addressContract : '',
@@ -50,6 +57,13 @@ export function AddResearch({
     } else {
       alert('error on upload file')
     }
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('publishedResearcher'))
+    setInputTitle('')
+    setInputThesis('')
   }
 
   if (loadingCanPublish) {
@@ -86,21 +100,23 @@ export function AddResearch({
           <SendTransactionButton
             label={t('addResearch')}
             handleSendTransaction={handleSendTransaction}
-            disabled={
-              !inputTitle.trim() || !inputThesis.trim() || !file || isPending || uploadingFile
-            }
+            disabled={!inputTitle.trim() || !inputThesis.trim() || !file || uploadingFile}
           />
 
           {uploadingFile && <p className="text-white">{t('uloadingFileToIPFS')}</p>}
 
-          <TransactionData
-            hash={hash}
-            isLoading={isLoading}
-            isPending={isPending}
-            isSuccess={isSuccess}
-            errorTx={error as WriteContractErrorType}
-            isError={isError}
-          />
+          {displayLoadingTx && (
+            <TransactionLoading
+              close={() => setDisplayLoadingTx(false)}
+              ok={success}
+              isError={isError || isErrorTx}
+              isPending={isPending}
+              isSuccess={isSuccess}
+              loading={isLoading}
+              errorMessage={errorMessage}
+              transactionHash={hash}
+            />
+          )}
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-[200px]">

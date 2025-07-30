@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useState } from 'react'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
-import { WriteContractErrorType } from 'viem'
-import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { ActionContractProps } from '../../ActionComponent'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ImageInput } from '@renderer/components/Input/ImageInput'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
@@ -16,8 +15,15 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
   const [image, setImage] = useState<string>()
   const [uploadingFile, setUploadingFile] = useState(false)
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleSendTransaction(): Promise<void> {
     if (!image) return
@@ -27,6 +33,7 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
     setUploadingFile(false)
 
     if (response.success) {
+      setDisplayLoadingTx(true)
       writeContract({
         //@ts-ignore
         address: addressContract ? addressContract : '',
@@ -37,6 +44,11 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
     } else {
       alert('error on upload image')
     }
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('profilePhotoUpdated'))
   }
 
   return (
@@ -52,14 +64,18 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
 
       {uploadingFile && <p className="text-white">{t('uloadingImageToIPFS')}</p>}
 
-      <TransactionData
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        errorTx={error as WriteContractErrorType}
-        isError={isError}
-      />
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

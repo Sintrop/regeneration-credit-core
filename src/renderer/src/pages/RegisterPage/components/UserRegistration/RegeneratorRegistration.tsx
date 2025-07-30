@@ -42,8 +42,14 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
 
   useEffect(() => {
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
@@ -278,11 +284,11 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
         <TransactionLoading
           close={() => setDisplayLoadingTx(false)}
           ok={success}
-          isError={isError}
+          isError={isError || isErrorTx}
           isPending={isPending}
           isSuccess={isSuccess}
           loading={isLoading}
-          error={error}
+          errorMessage={errorMessage}
           transactionHash={hash}
         />
       )}

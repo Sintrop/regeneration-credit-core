@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   useAccount,
   useChainId,
@@ -7,10 +8,9 @@ import {
 } from 'wagmi'
 import { rcAbi, sequoiaRcAbi, rcAddress, sequoiaRcAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { formatUnits, parseEther, WriteContractErrorType } from 'viem'
-import { useState } from 'react'
+import { formatUnits, parseEther } from 'viem'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function BurnTokens(): JSX.Element {
   const chainId = useChainId()
@@ -25,18 +25,32 @@ export function BurnTokens(): JSX.Element {
     args: [address]
   })
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, error, isError } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   function handleSendTransaction(): void {
     const value = parseEther(input, 'wei')
 
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
       abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
       functionName: 'burnTokens',
       args: [value]
     })
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('burnedTokens'))
+    setInput('')
   }
 
   return (
@@ -62,14 +76,18 @@ export function BurnTokens(): JSX.Element {
         disabled={!input.trim() || isPending}
       />
 
-      <TransactionData
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        errorTx={error as WriteContractErrorType}
-        isError={isError}
-      />
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

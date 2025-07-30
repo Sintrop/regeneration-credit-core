@@ -1,21 +1,28 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useState } from 'react'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
-import { WriteContractErrorType } from 'viem'
-import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { ActionContractProps } from '../../ActionComponent'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function AddResearchValidation({ abi, addressContract }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [inputId, setInputId] = useState('')
   const [inputJustification, setInputJustification] = useState('')
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleSendTransaction(): Promise<void> {
+    setDisplayLoadingTx(true)
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',
@@ -23,6 +30,13 @@ export function AddResearchValidation({ abi, addressContract }: ActionContractPr
       functionName: 'addResearchValidation',
       args: [parseInt(inputId), inputJustification]
     })
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('validationSent'))
+    setInputId('')
+    setInputJustification('')
   }
 
   return (
@@ -46,17 +60,21 @@ export function AddResearchValidation({ abi, addressContract }: ActionContractPr
       <SendTransactionButton
         label={t('addResearchValidation')}
         handleSendTransaction={handleSendTransaction}
-        disabled={!inputId.trim() || !inputJustification.trim() || isPending}
+        disabled={!inputId.trim() || !inputJustification.trim()}
       />
 
-      <TransactionData
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        errorTx={error as WriteContractErrorType}
-        isError={isError}
-      />
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

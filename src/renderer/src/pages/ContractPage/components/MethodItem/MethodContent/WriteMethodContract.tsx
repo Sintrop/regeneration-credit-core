@@ -11,8 +11,14 @@ interface Props {
 }
 
 export function WriteMethodContract({ contract, method, args }: Props): JSX.Element {
-  const { writeContract, data: hash, isPending, isError } = useWriteContract()
-  const { isLoading, isSuccess, isError: isErrorTx, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   useEffect(() => {
@@ -36,7 +42,7 @@ export function WriteMethodContract({ contract, method, args }: Props): JSX.Elem
           isPending={isPending}
           isSuccess={isSuccess}
           loading={isLoading}
-          error={error}
+          errorMessage={errorMessage}
           transactionHash={hash}
         />
       )}

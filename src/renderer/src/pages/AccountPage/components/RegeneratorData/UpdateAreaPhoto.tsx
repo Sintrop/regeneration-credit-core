@@ -21,8 +21,14 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
 
   function handleShowModal(): void {
     setShowModal(true)
@@ -90,12 +96,12 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
         <TransactionLoading
           close={() => setDisplayLoadingTx(false)}
           ok={updateSuccess}
-          isError={isError}
+          isError={isError || isErrorTx}
           isPending={isPending}
           isSuccess={isSuccess}
           loading={isLoading}
-          error={error}
           transactionHash={hash}
+          errorMessage={errorMessage}
         />
       )}
     </div>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import {
   sequoiaInvitationAddress,
@@ -6,13 +7,11 @@ import {
   sequoiaInvitationAbi
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
-import { WriteContractErrorType } from 'viem'
 import { ActionContractProps } from '../ActionComponent'
 import { useCanInvite } from '@renderer/hooks/useCanInvite'
 import { Loading } from '@renderer/components/Loading/Loading'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
   const chainId = useChainId()
@@ -25,20 +24,35 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
     isLoading: loadingCanInvite
   } = useCanInvite({ userTypeToInvite })
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   function handleSendTransaction(): void {
     if (!userTypeToInvite) return
 
     const functionName =
       userTypeToInvite === 1 || userTypeToInvite === 2 ? 'inviteRegeneratorInspector' : 'invite'
+
+    setDisplayLoadingTx(true)
     writeContract({
       address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,
       abi: chainId === 250225 ? invitationAbi : sequoiaInvitationAbi,
       functionName,
       args: [inputAddress, userTypeToInvite]
     })
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('burnedTokens'))
+    setInputAddress('')
   }
 
   if (loadingCanInvite) {
@@ -75,14 +89,18 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
             disabled={!inputAddress.trim() || isPending}
           />
 
-          <TransactionData
-            hash={hash}
-            isLoading={isLoading}
-            isPending={isPending}
-            isSuccess={isSuccess}
-            errorTx={error as WriteContractErrorType}
-            isError={isError}
-          />
+          {displayLoadingTx && (
+            <TransactionLoading
+              close={() => setDisplayLoadingTx(false)}
+              ok={success}
+              isError={isError || isErrorTx}
+              isPending={isPending}
+              isSuccess={isSuccess}
+              loading={isLoading}
+              errorMessage={errorMessage}
+              transactionHash={hash}
+            />
+          )}
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-[200px]">

@@ -28,8 +28,14 @@ export function ActivistRegistration({
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
   const chainId = useChainId()
-  const { writeContract, data: hash, isPending } = useWriteContract()
-  const { isLoading, isSuccess, error, isError } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    error: errorTx,
+    isError: isErrorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
 
   useEffect(() => {
     validityData()
@@ -100,11 +106,11 @@ export function ActivistRegistration({
         <TransactionLoading
           close={() => setDisplayLoadingTx(false)}
           ok={success}
-          isError={isError}
+          isError={isError || isErrorTx}
           isPending={isPending}
           isSuccess={isSuccess}
           loading={isLoading}
-          error={error}
+          errorMessage={errorMessage}
           transactionHash={hash}
         />
       )}

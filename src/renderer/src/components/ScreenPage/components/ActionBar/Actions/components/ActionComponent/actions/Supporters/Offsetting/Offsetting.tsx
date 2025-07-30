@@ -1,22 +1,30 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useState } from 'react'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
-import { parseUnits, WriteContractErrorType } from 'viem'
-import { useState } from 'react'
+import { parseUnits } from 'viem'
 import { SendTransactionButton } from '../../../../SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
 import { ActionContractProps } from '../../../ActionComponent'
 import { SelectCalculatorItem } from '../ModalSelectCalculatorItem/SelectCalculatorItem'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
-  const [itemId, setItemId] = useState<number>()
+  const [itemId, setItemId] = useState<number | null>()
 
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleSendTransaction(): Promise<void> {
+    setDisplayLoadingTx(true)
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',
@@ -24,6 +32,13 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
       functionName: 'offset',
       args: [parseUnits(inputAmmount, 18), itemId]
     })
+  }
+
+  function success(): void {
+    setDisplayLoadingTx(false)
+    alert(t('publishedOffset'))
+    setInputAmmount('')
+    setItemId(null)
   }
 
   return (
@@ -46,14 +61,18 @@ export function Offsetting({ abi, addressContract }: ActionContractProps): JSX.E
         disabled={!inputAmmount.trim() || !itemId || isPending}
       />
 
-      <TransactionData
-        hash={hash}
-        isLoading={isLoading}
-        isPending={isPending}
-        isSuccess={isSuccess}
-        errorTx={error as WriteContractErrorType}
-        isError={isError}
-      />
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }
