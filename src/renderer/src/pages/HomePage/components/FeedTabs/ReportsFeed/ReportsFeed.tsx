@@ -36,40 +36,41 @@ export function ReportsFeed(): JSX.Element {
     navigate('/development')
   }
 
-  if (isLoading) {
-    return (
-      <div className="mx-auto overflow-hidden bg-card-2 my-5">
-        <Loading />
-      </div>
-    )
-  }
-
   return (
     <div className="bg-card-2 rounded-2xl w-full">
       <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
         <p className="text-sm text-green-1 mb-1">{t('reports')}</p>
       </div>
-      {reportsIds.length === 0 ? (
-        <div className="items-center mt-10 w-[350px]">
-          <p className="text-white text-center">{t('anyReportsAvailable')}</p>
+
+      {isLoading ? (
+        <div className="w-[350px] my-5 flex justify-center">
+          <Loading />
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-full">
-          {reportsIds.map((item) => (
-            <ReportFeedItem id={item} key={item} />
-          ))}
-        </div>
-      )}
+        <>
+          {reportsIds.length === 0 ? (
+            <div className="items-center my-10 w-[350px]">
+              <p className="text-white text-center">{t('anyReportsAvailable')}</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-5 w-full">
+              {reportsIds.map((item) => (
+                <ReportFeedItem id={item} key={item} />
+              ))}
+            </div>
+          )}
 
-      {reportsIds.length > 3 && (
-        <div className="flex items-center justify-center h-8 mt-3 border-t border-green-900 bg-card-1 rounded-b-2xl">
-          <button
-            className="text-green-500 underline hover:cursor-pointer text-start w-fit"
-            onClick={handleGoToReports}
-          >
-            {t('seeMore')}
-          </button>
-        </div>
+          {reportsIds.length > 3 && (
+            <div className="flex items-center justify-center h-8 mt-3 border-t border-green-900 bg-card-1 rounded-b-2xl">
+              <button
+                className="text-green-500 underline hover:cursor-pointer text-start w-fit"
+                onClick={handleGoToReports}
+              >
+                {t('seeMore')}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   )

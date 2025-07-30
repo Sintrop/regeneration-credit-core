@@ -34,7 +34,7 @@ export function LatestPublications(): JSX.Element {
         <p className="text-sm text-green-1 mb-1">{t('publications')}</p>
       </div>
       {isLoading ? (
-        <div className="mt-5 flex justify-center">
+        <div className="my-5 flex justify-center">
           <Loading />
         </div>
       ) : (
