@@ -22,7 +22,7 @@ export function ContractItem({ contract }: Props): JSX.Element {
         className="mt-5 text-green-600 underline hover:cursor-pointer w-fit"
         onClick={handleNavigateToContract}
       >
-        {t('see')}
+        {t('contracts.see')}
       </button>
     </div>
   )

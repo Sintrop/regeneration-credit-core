@@ -14,7 +14,7 @@ export function HomePage(): JSX.Element {
   const [selectedTab, setSelectedTab] = useState('publications')
 
   return (
-    <ScreenPage pageTitle="feed">
+    <ScreenPage pageTitle={t('feed.title')}>
       <div className="w-full flex gap-10 overflow-x-scroll">
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 h-10">

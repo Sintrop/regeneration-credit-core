@@ -59,7 +59,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
           className="w-fit py-1 text-[#3B82F6] underline font-semibold mt-2 hover:cursor-pointer"
           onClick={handleReadContract}
         >
-          {t('getInfo')}
+          {t('contracts.read')}
         </button>
       </div>
     )
@@ -77,7 +77,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
         className="w-fit py-1 text-[#3B82F6] underline font-semibold mt-2 hover:cursor-pointer"
         onClick={handleWriteContract}
       >
-        {t('write')}
+        {t('contracts.write')}
       </button>
     </div>
   )

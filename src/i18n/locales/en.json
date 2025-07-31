@@ -12,6 +12,7 @@
     "noReports": "No reports",
     "noContributions": "No contributions",
     "noResearches": "No researches",
+    "noInspections": "No inspections",
     "publishedAContribution": "Published a contribution",
     "description": "Description",
     "see": "See",
@@ -35,6 +36,15 @@
     "thesis": "Thesis",
     "valid": "Valid",
     "invalid": "Invalid"
+  },
+  "contracts": {
+    "title": "Contracts",
+    "see": "See",
+    "methods": "Methods",
+    "typeHere": "Type here",
+    "address": "Address",
+    "read": "Read",
+    "write": "Write"
   },
   "rcIndex": {
     "title": "Regeneration index",
