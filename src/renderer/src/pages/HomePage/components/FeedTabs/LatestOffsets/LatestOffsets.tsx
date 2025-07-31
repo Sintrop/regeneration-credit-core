@@ -31,7 +31,7 @@ export function LatestOffsets(): JSX.Element {
   return (
     <div className="bg-card-2 rounded-2xl w-full">
       <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
-        <p className="text-sm text-green-1 mb-1">{t('offsets')}</p>
+        <p className="text-sm text-green-1 mb-1">{t('feed.offsets')}</p>
       </div>
 
       {isLoading ? (
@@ -42,7 +42,7 @@ export function LatestOffsets(): JSX.Element {
         <div className="flex flex-col gap-5 w-[350px]">
           {offsetsIds.length === 0 ? (
             <div className="items-center my-10 w-full">
-              <p className="text-white text-center">{t('noOffsets')}</p>
+              <p className="text-white text-center">{t('feed.noOffsets')}</p>
             </div>
           ) : (
             <>

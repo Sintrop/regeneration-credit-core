@@ -23,18 +23,18 @@ export function ResearcheFeedContent({ researchId, thesis, title, valid }: Props
         <ValidTag valid={valid} />
       </div>
 
-      <p className="text-white font-semibold text-sm">{t('publishedAResearch')}</p>
+      <p className="text-white font-semibold text-sm">{t('feed.publishedAResearch')}</p>
 
-      <p className="text-gray-300 text-xs mt-2">{t('title')}</p>
+      <p className="text-gray-300 text-xs mt-2">{t('feed.titleResearche')}</p>
       <p className="text-white text-sm">{title}</p>
-      <p className="text-xs text-gray-300 mt-2">{t('thesis')}</p>
+      <p className="text-xs text-gray-300 mt-2">{t('feed.thesis')}</p>
       <p className="text-white text-sm">{thesis}</p>
 
       <button
         className="text-green-500 underline hover:cursor-pointer mt-3 w-fit"
         onClick={handleGoToResourceDetails}
       >
-        {t('seeResearch')}
+        {t('feed.see')}
       </button>
     </div>
   )

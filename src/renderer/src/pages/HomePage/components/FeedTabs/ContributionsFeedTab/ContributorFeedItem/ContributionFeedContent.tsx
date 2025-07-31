@@ -26,16 +26,16 @@ export function ContributionFeedContent({
         <ValidTag valid={valid} />
       </div>
 
-      <p className="text-gray-300 text-sm">{t('publishedAContribution')}</p>
+      <p className="text-gray-300 text-sm">{t('feed.publishedAContribution')}</p>
 
-      <p className="text-sm text-gray-300 mt-2">{t('description')}</p>
+      <p className="text-sm text-gray-300 mt-2">{t('feed.description')}</p>
       <p className="text-white text-sm mt-1">{description}</p>
 
       <button
         className="text-green-500 underline hover:cursor-pointer mt-3 w-fit"
         onClick={handleGoToResourceDetails}
       >
-        {t('seeContribution')}
+        {t('feed.see')}
       </button>
     </div>
   )
