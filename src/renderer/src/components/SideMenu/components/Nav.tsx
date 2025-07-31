@@ -12,6 +12,7 @@ export function Nav(): JSX.Element {
       <NavItem icon="pools" label="pools" path="/pools" />
       <NavItem icon="myTokens" label="myTokens" path="/my-tokens" />
       <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
+      <NavItem icon="dashboard" label="rcIndex.title" path="/rc-index" />
       <DropdownMenu label="community" icon="community" pathMainPage="/community" haveMainPage>
         <NavItem label="regenerators" path="/users/1" />
         <NavItem label="inspectors" path="/users/2" />

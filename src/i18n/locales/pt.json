@@ -1,3 +1,8 @@
 {
-    "helloWorld": "Olá mundo"
+  "rcIndex": {
+    "title": "Índice de regeneração",
+    "description": "Descrição",
+    "result": "Resultado",
+    "regenerationIndexDescription": "Descrição do índice de regeneração"
+  }
 }

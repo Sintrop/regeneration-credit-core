@@ -22,6 +22,7 @@ import { PdfPage } from './pages/PdfPage/PdfPage'
 import { UserDetailsPage } from './pages/UserDetailsPage/UserDetailsPage'
 import { ResourceDetailsPage } from './pages/ResourceDetailsPage/ResourceDetailsPage'
 import { IpfsPage } from './pages/IpfsPage/IpfsPage'
+import { RcIndexPage } from './pages/RcIndexPage/RcIndexPage'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -48,6 +49,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/user-details/:address" element={<UserDetailsPage />} />
         <Route path="/resource-details/:resourceType/:id" element={<ResourceDetailsPage />} />
         <Route path="/ipfs" element={<IpfsPage />} />
+        <Route path="/rc-index" element={<RcIndexPage />} />
       </Routes>
     </Router>
   )
