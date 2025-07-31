@@ -4,5 +4,18 @@
     "description": "Description",
     "result": "Result",
     "regenerationIndexDescription": "Regeneration index description"
+  },
+  "myTokens": {
+    "title": "My tokens",
+    "balance": "Balance",
+    "lastUpdate": "Last update",
+    "youAreNotConnected": "You are not connected",
+    "sendTransaction": "Send transaction",
+    "typeHere": "Type here",
+    "to": "To",
+    "value": "Value",
+    "insufficientBalance": "Insufficient balance",
+    "send": "Send",
+    "today": "Today"
   }
 }

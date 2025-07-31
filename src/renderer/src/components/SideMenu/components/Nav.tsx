@@ -10,7 +10,7 @@ export function Nav(): JSX.Element {
       <NavItem icon="dashboard" label="feed" path="/" />
       <NavItem icon="contracts" label="contracts" path="/contracts" />
       <NavItem icon="pools" label="pools" path="/pools" />
-      <NavItem icon="myTokens" label="myTokens" path="/my-tokens" />
+      <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
       <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
       <NavItem icon="dashboard" label="rcIndex.title" path="/rc-index" />
       <DropdownMenu label="community" icon="community" pathMainPage="/community" haveMainPage>
