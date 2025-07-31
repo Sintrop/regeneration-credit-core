@@ -17,5 +17,14 @@
     "insufficientBalance": "Insufficient balance",
     "send": "Send",
     "today": "Today"
+  },
+  "ipfs": {
+    "uploadFileToIPFS": "Upload file to IPFS",
+    "description": "Use IPFS to hash and store files. Upload a photo or document and get back a unique hash identifier to store at the blockchain.",
+    "hashCopiedToClipboard": "Hash copied to clipboard",
+    "urlCopiedToClipboard": "URL copied to clipboard",
+    "errorOnUploadFile": "Error on upload file",
+    "selectFile": "Select file",
+    "upload": "Upload"
   }
 }

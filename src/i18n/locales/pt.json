@@ -17,5 +17,14 @@
     "insufficientBalance": "Saldo insuficiente",
     "send": "Enviar",
     "today": "Hoje"
+  },
+  "ipfs": {
+    "uploadFileToIPFS": "Upload de arquivos para o IPFS",
+    "description": "Use o IPFS para fazer hash e armazenar arquivos. Carregue uma foto ou documento e receba um identificador de hash exclusivo para armazenar no blockchain..",
+    "hashCopiedToClipboard": "Hash copiado para à área de transferência",
+    "urlCopiedToClipboard": "URL copiado para à área de transferência",
+    "errorOnUploadFile": "Erro ao fazer o upload do arquivo",
+    "selectFile": "Selecionar arquivo",
+    "upload": "Upload"
   }
 }
