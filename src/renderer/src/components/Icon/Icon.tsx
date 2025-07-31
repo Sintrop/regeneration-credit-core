@@ -5,6 +5,7 @@ import { ContributionsIcon } from '@renderer/assets/icon/ContributionsIcon'
 import { DashboardIcon } from '@renderer/assets/icon/DashboardIcon'
 import { DevelopmentIcon } from '@renderer/assets/icon/DevelopmentIcon'
 import { InspectionIcon } from '@renderer/assets/icon/InspectionIcon'
+import { IpfsIcon } from '@renderer/assets/icon/IpfsIcon'
 import { MyTokensIcon } from '@renderer/assets/icon/MyTokensIcon'
 import { PoolsIcon } from '@renderer/assets/icon/PoolsIcon'
 import { RcStatsIcon } from '@renderer/assets/icon/RcStatsIcon'
@@ -29,6 +30,7 @@ const icons = {
   development: DevelopmentIcon,
   dashboard: DashboardIcon,
   inspections: InspectionIcon,
+  ipfs: IpfsIcon,
   myTokens: MyTokensIcon,
   rcStats: RcStatsIcon,
   researches: ResearchesIcon,
