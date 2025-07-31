@@ -1,3 +1,8 @@
 {
-    "helloWorld": "Hello World"
+  "rcIndex": {
+    "title": "Regeneration index",
+    "description": "Description",
+    "result": "Result",
+    "regenerationIndexDescription": "Regeneration index description"
+  }
 }
