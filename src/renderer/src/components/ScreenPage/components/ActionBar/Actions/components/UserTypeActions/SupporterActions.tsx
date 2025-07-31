@@ -2,7 +2,15 @@ import {
   supporterAbi,
   supporterAddress,
   sequoiaSupporterAbi,
-  sequoiaSupporterAddress
+  sequoiaSupporterAddress,
+  rcAddress,
+  sequoiaRcAddress,
+  rcAbi,
+  sequoiaRcAbi,
+  invitationAddress,
+  sequoiaInvitationAddress,
+  sequoiaInvitationAbi,
+  invitationAbi
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useChainId } from 'wagmi'
@@ -20,12 +28,19 @@ export function SupporterActions({ mainAction }: Props): JSX.Element {
     chainId === 250225 ? supporterAddress : sequoiaSupporterAddress
   const supporterAbiToUse = chainId === 250225 ? supporterAbi : sequoiaSupporterAbi
 
+  const rcContractAddressToUse = chainId === 250225 ? rcAddress : sequoiaRcAddress
+  const rcAbiToUse = chainId === 250225 ? rcAbi : sequoiaRcAbi
+
+  const invitationContractAddressToUse =
+    chainId === 250225 ? invitationAddress : sequoiaInvitationAddress
+  const invitationAbiToUse = chainId === 250225 ? invitationAbi : sequoiaInvitationAbi
+
   if (mainAction) {
     return (
       <ActionComponent
         actionName="publish"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
+        addressContract={rcContractAddressToUse}
+        abi={rcAbiToUse as Abi}
         mainAction
       />
     )
@@ -35,14 +50,14 @@ export function SupporterActions({ mainAction }: Props): JSX.Element {
     <div className="flex flex-col">
       <ActionComponent
         actionName="publish"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
+        addressContract={rcContractAddressToUse}
+        abi={rcAbiToUse as Abi}
       />
 
       <ActionComponent
         actionName="offsetting"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
+        addressContract={rcContractAddressToUse}
+        abi={rcAbiToUse as Abi}
       />
 
       <ActionComponent
@@ -59,8 +74,8 @@ export function SupporterActions({ mainAction }: Props): JSX.Element {
 
       <ActionComponent
         actionName="invite"
-        addressContract={supporterContractAddressToUse}
-        abi={supporterAbiToUse as Abi}
+        addressContract={invitationContractAddressToUse}
+        abi={invitationAbiToUse as Abi}
         label={t('inviteSupporter')}
         userTypeToInvite={7}
       />
