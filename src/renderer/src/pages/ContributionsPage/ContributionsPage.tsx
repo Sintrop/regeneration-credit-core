@@ -9,24 +9,24 @@ export function ContributionsPage(): JSX.Element {
   const [selectedTab, setSelectedTab] = useState('contributions')
 
   return (
-    <ScreenPage pageTitle={t('contributions')}>
+    <ScreenPage pageTitle={t('resources.contributions')}>
       <div className="flex items-center gap-5">
         <TabItem
-          label={t('contributions')}
+          label={t('resources.contributions')}
           value="contributions"
           onChange={setSelectedTab}
           isSelected={selectedTab === 'contributions'}
         />
 
         <TabItem
-          label={t('contributors')}
+          label={t('resources.contributors')}
           value="contributors"
           onChange={setSelectedTab}
           isSelected={selectedTab === 'contributors'}
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-3">
         <TabContent selectedTab={selectedTab as ContributionsTab} />
       </div>
     </ScreenPage>

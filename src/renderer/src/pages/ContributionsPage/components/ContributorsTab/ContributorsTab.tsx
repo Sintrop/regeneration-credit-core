@@ -21,12 +21,10 @@ export function ContributorsTab(): JSX.Element {
     args: [5]
   })
 
-  let contributorsCount: number = 0
   let contributorsIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    contributorsCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     contributorsIds = ids.reverse()
@@ -42,25 +40,25 @@ export function ContributorsTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('contributorsCount')}: {contributorsCount}
-      </p>
-
       {contributorsIds.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyContributorsRegistered')}</p>
+          <p className="text-white text-center">{t('resources.noContributorsRegistered')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('wallet')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('name')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('totalConributions')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('level')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.wallet')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.name')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.createdAt')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.totalContributions')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.level')}</th>
+              <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>
           <tbody>

@@ -9,24 +9,24 @@ export function DevelopmentPage(): JSX.Element {
   const [selectedTab, setSelectedTab] = useState('reports')
 
   return (
-    <ScreenPage pageTitle={t('development')}>
+    <ScreenPage pageTitle={t('resources.development')}>
       <div className="flex items-center gap-5">
         <TabItem
-          label={t('reports')}
+          label={t('resources.reports')}
           value="reports"
           onChange={setSelectedTab}
           isSelected={selectedTab === 'reports'}
         />
 
         <TabItem
-          label={t('developers')}
+          label={t('resources.developers')}
           value="developers"
           onChange={setSelectedTab}
           isSelected={selectedTab === 'developers'}
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-3">
         <TabContent selectedTab={selectedTab as DevelopmentTabs} />
       </div>
     </ScreenPage>

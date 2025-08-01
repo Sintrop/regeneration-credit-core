@@ -20,12 +20,10 @@ export function DevelopersTab(): JSX.Element {
     args: [4]
   })
 
-  let developersCount: number = 0
   let developersIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    developersCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     developersIds = ids.reverse()
@@ -33,25 +31,25 @@ export function DevelopersTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('developersCount')}: {developersCount}
-      </p>
-
       {developersIds.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyDeveloperRegistered')}</p>
+          <p className="text-white text-center">{t('resources.noDevelopersRegistered')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('wallet')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('name')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('totalReports')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('level')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.wallet')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.name')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.createdAt')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.totalReports')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.level')}</th>
+              <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>
           <tbody>

@@ -20,12 +20,10 @@ export function ReportsTab(): JSX.Element {
     args: []
   })
 
-  let reportsCount: number = 0
   let reportsId: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    reportsCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     reportsId = ids.reverse()
@@ -33,25 +31,27 @@ export function ReportsTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('reportsCount')}: {reportsCount}
-      </p>
-
       {reportsId.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyReportAvailable')}</p>
+          <p className="text-white text-center">{t('resources.noReportAvailable')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('developer')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('era')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('validationsCount')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.developer')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.createdAt')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">Era</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.validationsCount')}
+              </th>
+              <th className="p-2 border-r border-container-secondary"></th>
+              <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>
           <tbody>

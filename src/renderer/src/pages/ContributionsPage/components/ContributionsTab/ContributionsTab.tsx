@@ -21,12 +21,10 @@ export function ContributionsTab(): JSX.Element {
     args: []
   })
 
-  let contributionsCount: number = 0
   let contributionsIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    contributionsCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     contributionsIds = ids.reverse()
@@ -42,25 +40,27 @@ export function ContributionsTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('contributionsCount')}: {contributionsCount}
-      </p>
-
       {contributionsIds.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyContributionAvailable')}</p>
+          <p className="text-white text-center">{t('resourcers.noContributionsAvailable')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('contributor')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('era')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('validationsCount')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resourcers.contributor')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resourcers.createdAt')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">Era</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resourcers.validationsCount')}
+              </th>
               <th className="p-2 border-r border-container-secondary"></th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2">{t('resourcers.actions')}</th>
             </tr>
           </thead>
           <tbody>
