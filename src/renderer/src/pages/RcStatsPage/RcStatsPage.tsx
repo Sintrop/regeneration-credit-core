@@ -7,9 +7,8 @@ export function RcStatsPage(): JSX.Element {
   const { t } = useTranslation()
 
   return (
-    <ScreenPage pageTitle={t('tokenImpact')}>
+    <ScreenPage pageTitle={t('tokenImpact.title')}>
       <TokenData />
-
       <TokenImpact />
     </ScreenPage>
   )
