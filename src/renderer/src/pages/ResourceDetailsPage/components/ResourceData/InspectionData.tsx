@@ -12,12 +12,14 @@ import { Img } from 'react-image'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   id: number
   setReport: (report: string) => void
 }
 export function InspectionData({ id, setReport }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -101,7 +103,7 @@ export function InspectionData({ id, setReport }: Props): JSX.Element {
 
         <div className="flex flex-col gap-5">
           <Img
-            src={`https://ipfs.io/ipfs/${inspection.proofPhoto}`}
+            src={`${ipfsGatewayURL}/ipfs/${inspection.proofPhoto}`}
             className="w-[200px] h-[200px] rounded-2xl object-cover"
           />
 

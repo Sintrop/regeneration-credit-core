@@ -1,5 +1,6 @@
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { UserTypeToText } from '@renderer/components/UserTypeToText/UserTypeToText'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { Img } from 'react-image'
 
@@ -11,13 +12,15 @@ interface Props {
 }
 
 export function BasicDataApprovedUser({ address, name, proofPhoto, userType }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
+
   return (
     <div className="flex items-center gap-5">
       <div className="relative w-14 h-14 rounded-full">
         <Jazzicon className="w-14 h-14 z-0" address={address as string} />
         {proofPhoto && (
           <Img
-            src={`https://ipfs.io/ipfs/${proofPhoto}`}
+            src={`${ipfsGatewayURL}/ipfs/${proofPhoto}`}
             className="w-full h-full rounded-full object-cover absolute top-0 left-0 z-10"
           />
         )}

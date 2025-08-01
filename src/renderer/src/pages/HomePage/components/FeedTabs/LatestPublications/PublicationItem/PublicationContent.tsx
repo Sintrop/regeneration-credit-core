@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import RcImage from '@renderer/assets/images/rc.png'
 import { Img } from 'react-image'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   description?: string
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function PublicationContent({ description, hashImage, burnedTokens }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const { t } = useTranslation()
 
   return (
@@ -31,7 +33,10 @@ export function PublicationContent({ description, hashImage, burnedTokens }: Pro
 
       {hashImage && (
         <div className="w-full max-h-[400px] rounded-2xl mt-1 bg-container-secondary overflow-hidden">
-          <Img src={`https://ipfs.io/ipfs/${hashImage}`} className="w-full h-full object-contain" />
+          <Img
+            src={`${ipfsGatewayURL}/ipfs/${hashImage}`}
+            className="w-full h-full object-contain"
+          />
         </div>
       )}
     </div>
