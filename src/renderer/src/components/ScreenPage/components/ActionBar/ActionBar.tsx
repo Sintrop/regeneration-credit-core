@@ -61,7 +61,7 @@ function YouArentConnected(): JSX.Element {
 
   return (
     <div className="w-full h-full flex items-center justify-between">
-      <p className="text-white font-semibold">{t('youAreNotConnected')}</p>
+      <p className="text-white font-semibold">{t('actionBar.youAreNotConnected')}</p>
 
       <ConnectionWalletButton />
     </div>

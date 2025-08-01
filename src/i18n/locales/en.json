@@ -281,7 +281,12 @@
     "": ""
   },
   "actionBar": {
-    "register": "Register"
+    "register": "Register",
+    "connectWallet": "Connect wallet",
+    "youAreNotRegistered": "You are not registered",
+    "yourLevel": "Your level",
+    "invalidatedUser": "Invalidated user",
+    "youAreNotConnected": "You are not connected"
   },
   "infoBar": {
     "currentEra": "Current era",
