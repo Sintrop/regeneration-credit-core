@@ -40,20 +40,20 @@ export function TransactionLoading({
         </button>
         {isPending && (
           <div className="w-full h-20 flex flex-col items-center justify-center">
-            <p className="text-white">{t('confirmInYourWallet')}...</p>
+            <p className="text-white">{t('txLoading.confirmInYourWallet')}...</p>
           </div>
         )}
 
         {loading && (
           <div className="flex flex-col gap-5 w-full items-center pt-5">
             <div className="w-20 h-20 rounded-sm bg-green-primary animate-spin" />
-            <p className="text-white">{t('processingTransaction')}...</p>
+            <p className="text-white">{t('txLoading.processingTransaction')}...</p>
           </div>
         )}
 
         {isSuccess && (
           <div className="flex flex-col items-center">
-            <p className="text-green-600">{t('transactionCompletedSuccessfully')}</p>
+            <p className="text-green-600">{t('txLoading.transactionCompletedSuccessfully')}</p>
           </div>
         )}
 

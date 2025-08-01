@@ -73,5 +73,15 @@
     "errorOnUploadFile": "Error on upload file",
     "selectFile": "Select file",
     "upload": "Upload"
+  },
+  "txLoading": {
+    "confirmInYourWallet": "Confirm in your wallet",
+    "processingTransaction": "Processing transaction",
+    "transactionCompletedSuccessfully": "Transaction Completed Successfully",
+    "transactionHash": "Transaction hash",
+    "continue": "Continue",
+    "errorOnExecuteTransaction": "Error on execute transaction",
+    "close": "Close",
+    "copiedToClipboard": "Copied to clipboard"
   }
 }

@@ -37,7 +37,7 @@ export function WriteMethodContract({ contract, method, args }: Props): JSX.Elem
       {displayLoadingTx && (
         <TransactionLoading
           close={() => setDisplayLoadingTx(false)}
-          ok={() => {}}
+          ok={() => setDisplayLoadingTx(false)}
           isError={isError || isErrorTx}
           isPending={isPending}
           isSuccess={isSuccess}
