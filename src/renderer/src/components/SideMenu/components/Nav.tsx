@@ -9,7 +9,7 @@ export function Nav(): JSX.Element {
     <nav className="flex flex-col">
       <NavItem icon="dashboard" label="feed.title" path="/" />
       <NavItem icon="contracts" label="contracts.title" path="/contracts" />
-      <NavItem icon="pools" label="pools" path="/pools" />
+      <NavItem icon="pools" label="pools.title" path="/pools" />
       <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
       <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
       <NavItem icon="dashboard" label="rcIndex.title" path="/rc-index" />

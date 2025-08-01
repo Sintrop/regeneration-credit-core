@@ -6,7 +6,7 @@ export function PoolsPage(): JSX.Element {
   const { t } = useTranslation()
 
   return (
-    <ScreenPage pageTitle={t('pools')}>
+    <ScreenPage pageTitle={t('pools.title')}>
       <div className="flex flex-wrap gap-5 mb-10">
         <PoolItem poolName="regenerator" />
         <PoolItem poolName="inspector" />

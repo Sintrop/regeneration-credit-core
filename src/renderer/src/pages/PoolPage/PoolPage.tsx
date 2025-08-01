@@ -12,7 +12,7 @@ export function PoolPage(): JSX.Element {
   const poolName = params.poolName as ContractsPoolName
 
   return (
-    <ScreenPage pageTitle={t(poolName)}>
+    <ScreenPage pageTitle={t(`pools.${poolName}`)}>
       <ContractPoolData poolName={poolName} />
       <WithdrawArea poolName={poolName} />
       <EraData poolName={poolName} />

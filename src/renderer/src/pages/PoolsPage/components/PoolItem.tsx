@@ -16,23 +16,27 @@ export function PoolItem({ poolName }: Props): JSX.Element {
   }
 
   return (
-    <div className="w-64 rounded-2xl bg-container-primary p-5 gap-1 flex flex-col">
-      <h3 className="font-semibold text-white text-start">{t(poolData.title)}</h3>
-      <p className="text-gray-300 text-sm text-start">{t(poolData.description)}</p>
-
-      <div className="mt-3 flex flex-col">
-        <p className="text-xs text-gray-300">{t('totalFunds')}</p>
-        <p className="text-white">
-          {Intl.NumberFormat('pt-BR').format(parseInt(formatUnits(poolData.poolFunds, 18)))} RC
-        </p>
+    <div className="w-64 rounded-2xl bg-container-primary p-5 gap-3 flex flex-col justify-between">
+      <div className="flex flex-col gap-1">
+        <h3 className="font-semibold text-white text-start">{t(poolData.title)}</h3>
+        <p className="text-gray-300 text-sm text-start">{t(poolData.description)}</p>
       </div>
 
-      <button
-        className="mt-10 text-green-600 underline hover:cursor-pointer w-fit"
-        onClick={handleNavigateToPool}
-      >
-        {t('see')}
-      </button>
+      <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
+          <p className="text-xs text-gray-300">{t('pools.totalFunds')}</p>
+          <p className="text-white">
+            {Intl.NumberFormat('pt-BR').format(parseInt(formatUnits(poolData.poolFunds, 18)))} RC
+          </p>
+        </div>
+
+        <button
+          className="text-green-600 underline hover:cursor-pointer w-fit"
+          onClick={handleNavigateToPool}
+        >
+          {t('see')}
+        </button>
+      </div>
     </div>
   )
 }
@@ -46,43 +50,43 @@ const ACTIVIST_POOL_FUNDS = import.meta.env.VITE_ACTIVIST_POOL_FUNDS
 
 const pools = {
   regenerator: {
-    title: 'regeneratorsPool',
-    description: 'descRegeneratorPool',
+    title: 'pools.regeneratorsPool',
+    description: 'pools.descRegeneratorPool',
     path: '/pools/regenerator',
     icon: null,
     poolFunds: BigInt(REGENERATOR_POOL_FUNDS)
   },
   inspector: {
-    title: 'inspectorsPool',
-    description: 'descInspectorsPool',
+    title: 'pools.inspectorsPool',
+    description: 'pools.descInspectorsPool',
     path: '/pools/inspector',
     icon: null,
     poolFunds: BigInt(INSPECTOR_POOL_FUNDS)
   },
   researcher: {
-    title: 'researchersPool',
-    description: 'descResearchersPool',
+    title: 'pools.researchersPool',
+    description: 'pools.descResearchersPool',
     path: '/pools/researcher',
     icon: null,
     poolFunds: BigInt(RESEARCHER_POOL_FUNDS)
   },
   developer: {
-    title: 'developersPool',
-    description: 'descDevelopersPool',
+    title: 'pools.developersPool',
+    description: 'pools.descDevelopersPool',
     path: '/pools/developer',
     icon: null,
     poolFunds: BigInt(DEVELOPER_POOL_FUNDS)
   },
   contributor: {
-    title: 'contributorsPool',
-    description: 'descContributorsPool',
+    title: 'pools.contributorsPool',
+    description: 'pools.descContributorsPool',
     path: '/pools/contributor',
     icon: null,
     poolFunds: BigInt(CONTRIBUTOR_POOL_FUNDS)
   },
   activist: {
-    title: 'activistsPool',
-    description: 'descActivistsPool',
+    title: 'pools.activistsPool',
+    description: 'pools.descActivistsPool',
     path: '/pools/activist',
     icon: null,
     poolFunds: BigInt(ACTIVIST_POOL_FUNDS)
