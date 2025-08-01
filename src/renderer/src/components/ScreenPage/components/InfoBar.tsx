@@ -8,18 +8,19 @@ export function InfoBar(): JSX.Element {
   return (
     <div className="flex items-center gap-8 w-full min-h-10 bg-green-700 px-5">
       <p className="text-gray-300 text-sm">
-        {t('currentEra')}: <span className="text-white font-semibold text-base">{currentEra}</span>
+        {t('infoBar.currentEra')}:{' '}
+        <span className="text-white font-semibold text-base">{currentEra}</span>
       </p>
 
       <p className="text-gray-300 text-sm">
-        {t('nextEraIn')}:{' '}
+        {t('infoBar.nextEraIn')}:{' '}
         <span className="text-white font-semibold text-base">
-          {Intl.NumberFormat('pt-BR').format(nextEraIn)} {t('blocks')}
+          {Intl.NumberFormat('pt-BR').format(nextEraIn)} {t('infoBar.blocks')}
         </span>
       </p>
 
       <p className="text-gray-300 text-sm">
-        {t('currentEpoch')}:{' '}
+        {t('infoBar.currentEpoch')}:{' '}
         <span className="text-white font-semibold text-base">{currentEpoch}</span>
       </p>
     </div>

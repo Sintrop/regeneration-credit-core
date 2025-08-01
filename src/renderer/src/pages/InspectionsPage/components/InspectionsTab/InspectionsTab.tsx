@@ -19,12 +19,10 @@ export function InspectionsTab(): JSX.Element {
     functionName: 'inspectionsTotalCount'
   })
 
-  let inspectionsCount: number = 0
   let inspectionsIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    inspectionsCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     inspectionsIds = ids.reverse()
@@ -32,13 +30,9 @@ export function InspectionsTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('inspectionsCount')}: {inspectionsCount}
-      </p>
-
       {inspectionsIds.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyInspectionsAvailable')}</p>
+          <p className="text-white text-center">{t('resources.noInspectionsAvailable')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
@@ -46,17 +40,19 @@ export function InspectionsTab(): JSX.Element {
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
               <th className="p-2 border-r border-container-secondary max-w-[180px]">
-                {t('regenerator')}
+                {t('resources.regenerator')}
               </th>
               <th className="p-2 border-r border-container-secondary max-w-[180px]">
-                {t('inspector')}
+                {t('resources.inspector')}
               </th>
-              <th className="p-2 border-r border-container-secondary">{t('status')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('trees')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('biodiversity')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('score')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('val.Count')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.status')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.trees')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.biodiversity')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.score')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.valCount')}</th>
+              <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>
           <tbody>

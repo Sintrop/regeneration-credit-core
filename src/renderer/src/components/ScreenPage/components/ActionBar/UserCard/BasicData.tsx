@@ -56,7 +56,7 @@ export function BasicData({
           <img src={CircleImage} className="w-full h-full rounded-full object-contain" />
           <p className="font-bold text-green-btn absolute">{indicator}</p>
         </div>
-        <p className="text-[10px] text-white text-center">{t('yourLevel')}</p>
+        <p className="text-[10px] text-white text-center">{t('actionBar.yourLevel')}</p>
       </div>
     </div>
   )

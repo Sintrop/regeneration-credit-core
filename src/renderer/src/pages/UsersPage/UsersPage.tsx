@@ -37,7 +37,7 @@ export function UsersPage(): JSX.Element {
   }
 
   return (
-    <ScreenPage pageTitle={t(nameFromUserType)}>
+    <ScreenPage pageTitle={t(`community.${nameFromUserType}`)}>
       {isLoading ? (
         <div className="mx-auto mt-10 overflow-hidden">
           <Loading />

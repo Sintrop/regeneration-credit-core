@@ -21,12 +21,10 @@ export function ResearchersTab(): JSX.Element {
     args: [3]
   })
 
-  let researchersCount: number = 0
   let researchersIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    researchersCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     researchersIds = ids.reverse()
@@ -42,25 +40,25 @@ export function ResearchersTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('researchersCount')}: {researchersCount}
-      </p>
-
       {researchersIds.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyResearchersRegistered')}</p>
+          <p className="text-white text-center">{t('community.noResearchersRegistered')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('wallet')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('name')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('totalResearches')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('level')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('community.wallet')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('community.name')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('community.createdAt')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('community.totalResearches')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('community.level')}</th>
+              <th className="p-2">{t('community.actions')}</th>
             </tr>
           </thead>
           <tbody>

@@ -4,8 +4,7 @@ import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
-import { ImageInput } from '@renderer/components/Input/ImageInput'
-import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
+import { uploadToIpfs } from '@renderer/services/ipfs'
 import { PdfInput } from '@renderer/components/Input/PdfInput'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
@@ -16,7 +15,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
   const [input, setInput] = useState('')
   const [inputTrees, setInputTrees] = useState('')
   const [inputBio, setInputBio] = useState('')
-  const [image, setImage] = useState<string>()
+  const [image, setImage] = useState<Blob>()
   const [file, setFile] = useState<Blob>()
 
   const [uploadingImage, setUploadingImage] = useState(false)
@@ -40,8 +39,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
     const bio = parseInt(inputBio)
 
     setUploadingImage(true)
-    const blobFile = await base64ToBlob(image)
-    const proofPhotoHash = await uploadToIpfs({ file: blobFile, ipfsApiUrl })
+    const proofPhotoHash = await uploadToIpfs({ file: image, ipfsApiUrl })
     if (!proofPhotoHash.success) {
       alert('error on upload proof photo')
       setUploadingImage(false)
@@ -68,7 +66,7 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('realizedInspection'))
+    alert(t('actions.realizedInspection'))
     setInput('')
     setInputTrees('')
     setInputBio('')
@@ -76,47 +74,47 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
 
   return (
     <div className="flex flex-col pt-5">
-      <p className="text-sm mt-3 text-gray-300">{t('inspectionID')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.inspectionID')}:</p>
       <input
         value={input}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeIDHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInput(e.target.value)}
         type="number"
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('image')}:</p>
-      <ImageInput onChange={setImage} />
+      <p className="text-sm mt-3 text-gray-300">{t('actions.images')}:</p>
+      <PdfInput onChangeFile={setImage} />
 
-      <p className="text-sm mt-3 text-gray-300">{t('reportFile')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
       <PdfInput onChangeFile={setFile} />
 
-      <p className="text-sm mt-3 text-gray-300">{t('treesResult')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.treesResult')}:</p>
       <input
         value={inputTrees}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInputTrees(e.target.value)}
         type="number"
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('biodiversityResult')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.biodiversityResult')}:</p>
       <input
         value={inputBio}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInputBio(e.target.value)}
         type="number"
       />
 
       <SendTransactionButton
-        label={t('realizeInspection')}
+        label={t('actions.realizeInspection')}
         handleSendTransaction={handleSendTransaction}
         disabled={!input.trim() || !inputTrees.trim() || !inputBio.trim() || !image || !file}
       />
 
-      {uploadingFile && <p className="text-white">{t('uploadingFileToIPFS')}</p>}
-      {uploadingImage && <p className="text-white">{t('uploadingImageToIPFS')}</p>}
+      {uploadingFile && <p className="text-white">{t('actions.uploadingFileToIPFS')}</p>}
+      {uploadingImage && <p className="text-white">{t('actions.uploadingImagesToIPFS')}</p>}
 
       {displayLoadingTx && (
         <TransactionLoading

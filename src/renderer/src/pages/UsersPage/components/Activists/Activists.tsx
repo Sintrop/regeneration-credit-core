@@ -10,25 +10,25 @@ export function Activists({ idsList }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('activistCount')}: {idsList.length}
-      </p>
-
       {idsList.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('anyActivistsRegistered')}</p>
+          <p className="text-white text-center">{t('community.noActivistsRegistered')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('wallet')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('name')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('createdAt')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('level')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('currentEra')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('community.wallet')}</th>
+              <th className="p-2 border-r border-container-secondary">{t('community.name')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('community.createdAt')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('community.level')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('community.currentEra')}
+              </th>
+              <th className="p-2">{t('community.actions')}</th>
             </tr>
           </thead>
           <tbody>

@@ -25,7 +25,7 @@ export function UserCard({ userType, setLastPublishedWork }: Props): JSX.Element
     return (
       <CardContainer>
         <div className="flex flex-col gap-1 items-center">
-          <p className="font-semibold text-white">{t('youAreNotRegistered')}</p>
+          <p className="font-semibold text-white">{t('actionBar.youAreNotRegistered')}</p>
           <ConnectionWalletButton />
         </div>
       </CardContainer>

@@ -45,18 +45,18 @@ export function ActionComponent({
           className="font-semibold text-white rounded-2xl bg-blue-primary px-5 h-10 hover:cursor-pointer"
           onClick={toggleOpenAction}
         >
-          {label ? label : Action.name}
+          {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
         </button>
       ) : (
         <>
           {mainAction ? (
             <div className="flex flex-col gap-1">
-              <p className="text-sm text-gray-300">{t('nextLevel')}</p>
+              <p className="text-sm text-gray-300">{t('actions.nextLevel')}</p>
               <button
                 className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
                 onClick={toggleOpenAction}
               >
-                {label ? label : Action.name}
+                {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
               </button>
             </div>
           ) : (
@@ -64,7 +64,7 @@ export function ActionComponent({
               className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
               onClick={toggleOpenAction}
             >
-              {label ? label : Action.name}
+              {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
             </button>
           )}
         </>
@@ -74,7 +74,9 @@ export function ActionComponent({
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
           <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
             <div className="flex items-center justify-between w-full">
-              <p className="text-white">{label ? label : Action.name}</p>
+              <p className="text-white">
+                {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
+              </p>
               <button className="hover:cursor-pointer text-white" onClick={toggleOpenAction}>
                 X
               </button>

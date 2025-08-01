@@ -61,7 +61,7 @@ export function AddResearch({
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('publishedResearcher'))
+    alert(t('actions.publishedResearche'))
     setInputTitle('')
     setInputThesis('')
   }
@@ -78,32 +78,32 @@ export function AddResearch({
     <div className="flex flex-col pt-5">
       {canPublish ? (
         <>
-          <p className="text-sm mt-3 text-gray-300">{t('title')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.title')}:</p>
           <input
             value={inputTitle}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-            placeholder={t('typeHere')}
+            placeholder={t('actions.typeHere')}
             onChange={(e) => setInputTitle(e.target.value)}
           />
 
-          <p className="text-sm mt-3 text-gray-300">{t('thesis')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.thesis')}:</p>
           <input
             value={inputThesis}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-            placeholder={t('typeHere')}
+            placeholder={t('actions.typeHere')}
             onChange={(e) => setInputThesis(e.target.value)}
           />
 
-          <p className="text-sm mt-3 text-gray-300">{t('file')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.file')}:</p>
           <PdfInput onChangeFile={setFile} />
 
           <SendTransactionButton
-            label={t('addResearch')}
+            label={t('actions.addResearch')}
             handleSendTransaction={handleSendTransaction}
             disabled={!inputTitle.trim() || !inputThesis.trim() || !file || uploadingFile}
           />
 
-          {uploadingFile && <p className="text-white">{t('uloadingFileToIPFS')}</p>}
+          {uploadingFile && <p className="text-white">{t('actions.uloadingFileToIPFS')}</p>}
 
           {displayLoadingTx && (
             <TransactionLoading
@@ -120,9 +120,9 @@ export function AddResearch({
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-[200px]">
-          <p className="text-white text-center">{t("youCan'tAddResearchNow")}</p>
+          <p className="text-white text-center">{t("actions.youCan'tAddResearchNow")}</p>
           <p className="text-white text-center">
-            {t('wait')} {canPublishIn} {t('blocks')}
+            {t('actions.wait')} {canPublishIn} {t('actions.blocks')}
           </p>
         </div>
       )}

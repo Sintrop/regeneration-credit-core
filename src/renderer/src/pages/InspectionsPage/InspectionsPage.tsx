@@ -9,17 +9,17 @@ export function InspectionsPage(): JSX.Element {
   const [selectedTab, setSelectedTab] = useState('inspections')
 
   return (
-    <ScreenPage pageTitle={t('inspections')}>
+    <ScreenPage pageTitle={t('resources.inspections')}>
       <div className="flex items-center gap-5">
         <TabItem
-          label={t('inspections')}
+          label={t('resources.inspections')}
           value="inspections"
           onChange={setSelectedTab}
           isSelected={selectedTab === 'inspections'}
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-3">
         <TabContent selectedTab={selectedTab as InspectionsTabs} />
       </div>
     </ScreenPage>

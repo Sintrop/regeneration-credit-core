@@ -21,12 +21,10 @@ export function EvaluationMethodsTab(): JSX.Element {
     args: []
   })
 
-  let evaluationMethodsCount: number = 0
   let methodItemsIds: number[] = []
 
   if (data) {
     const count = parseInt(formatUnits(BigInt(data as string), 0))
-    evaluationMethodsCount = count
 
     const ids = Array.from({ length: count }, (_, i) => i + 1)
     methodItemsIds = ids.reverse()
@@ -42,24 +40,24 @@ export function EvaluationMethodsTab(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white">
-        {t('evaluationMethodsCount')}: {evaluationMethodsCount}
-      </p>
-
       {methodItemsIds.length === 0 ? (
         <div className="items-center mt-10">
-          <p className="text-white text-center">{t('noMethodsRegistered')}</p>
+          <p className="text-white text-center">{t('resources.noMethodsRegistered')}</p>
         </div>
       ) : (
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
               <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('researcher')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('title')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('description')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('link')}</th>
-              <th className="p-2">{t('actions')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.researcher')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.title')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.description')}
+              </th>
+              <th className="p-2 border-r border-container-secondary">{t('resources.link')}</th>
+              <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>
           <tbody>

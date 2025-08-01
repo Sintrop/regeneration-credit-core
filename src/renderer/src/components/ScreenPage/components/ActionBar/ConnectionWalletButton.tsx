@@ -30,7 +30,7 @@ export function ConnectionWalletButton(): JSX.Element {
           </div>
         ) : (
           <>
-            {status === 'disconnected' && t('connectWallet')}
+            {status === 'disconnected' && t('actionBar.connectWallet')}
             {status === 'connected' && (
               <>
                 {address && <Jazzicon className="w-7 h-7" address={address} />}

@@ -35,13 +35,13 @@ export function RequestInspection({ abi, addressContract }: Props): JSX.Element 
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('requestedInspection'))
+    alert(t('actions.requestedInspection'))
   }
 
   return (
     <div className="flex flex-col pt-5">
       <SendTransactionButton
-        label={t('requestInspection')}
+        label={t('actions.requestInspection')}
         handleSendTransaction={handleSendTransaction}
         disabled={isLoading}
       />

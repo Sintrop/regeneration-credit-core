@@ -34,31 +34,31 @@ export function AddReportValidation({ abi, addressContract }: ActionContractProp
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('validationSent'))
+    alert(t('actions.validationSent'))
     setInputId('')
     setInputJustification('')
   }
 
   return (
     <div className="flex flex-col pt-5">
-      <p className="text-sm mt-3 text-gray-300">{t('idReport')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.idReport')}:</p>
       <input
         value={inputId}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInputId(e.target.value)}
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('justification')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.justification')}:</p>
       <input
         value={inputJustification}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInputJustification(e.target.value)}
       />
 
       <SendTransactionButton
-        label={t('addReportValidation')}
+        label={t('actions.addReportValidation')}
         handleSendTransaction={handleSendTransaction}
         disabled={!inputId.trim() || !inputJustification.trim()}
       />
