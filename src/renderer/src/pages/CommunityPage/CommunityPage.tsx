@@ -66,7 +66,7 @@ export function CommunityPage(): JSX.Element {
 
   if (isLoading) {
     return (
-      <ScreenPage pageTitle={t('community')}>
+      <ScreenPage pageTitle={t('community.title')}>
         <div className="mx-auto overflow-hidden">
           <Loading />
         </div>
@@ -76,7 +76,7 @@ export function CommunityPage(): JSX.Element {
 
   if (!data) {
     return (
-      <ScreenPage pageTitle={t('community')}>
+      <ScreenPage pageTitle={t('community.title')}>
         <div className="mx-auto overflow-hidden">
           <p className="text-white">error</p>
         </div>
@@ -85,7 +85,7 @@ export function CommunityPage(): JSX.Element {
   }
 
   return (
-    <ScreenPage pageTitle={t('community')}>
+    <ScreenPage pageTitle={t('community.title')}>
       <div className="flex gap-10 flex-wrap max-w-[1024px]">
         <UserCountCard
           user="all-users"
@@ -97,13 +97,8 @@ export function CommunityPage(): JSX.Element {
           }
         />
 
-        <div className="bg-container-primary p-3 rounded-2xl h-32 flex-1 flex items-center justify-between">
-          <p className="text-white">
-            A comunidade do Crédito de Regeneração é composta por esses 7 grupos. Para se candidatar
-            a algum usuário, conecte sua carteira e preencha os campos necessários. A quantidade de
-            vagas de cada tipo específico é proporcional a quantidade de produtores cadastrados,
-            obedecendo a proporção.
-          </p>
+        <div className="bg-container-primary p-4 rounded-2xl h-32 flex-1 flex items-center justify-between">
+          <p className="text-white text-sm">{t('community.description')}</p>
         </div>
       </div>
 
