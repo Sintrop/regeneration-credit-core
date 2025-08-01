@@ -34,7 +34,7 @@ export function RegisterButton(): JSX.Element {
       className="px-4 h-10 rounded-2xl bg-green-primary text-white font-semibold hover:cursor-pointer"
       onClick={handleGoToRegister}
     >
-      {t('register')}
+      {t('actionBar.register')}
     </button>
   )
 }

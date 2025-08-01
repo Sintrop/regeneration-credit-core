@@ -233,18 +233,18 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
   return (
     <div className="flex flex-col z-0 mt-5">
-      <p className="text-gray-300 text-sm">{t('projectDescription')}</p>
+      <p className="text-gray-300 text-sm">{t('register.projectDescription')}</p>
       <input
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
-        placeholder={t('typeHere')}
+        placeholder={t('register.typeHere')}
       />
 
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <div className="flex flex-col w-full mt-3">
-        <p className="text-gray-300 text-sm">{t('demarcateYourRegenerationArea')}</p>
+        <p className="text-gray-300 text-sm">{t('register.demarcateYourRegenerationArea')}</p>
 
         <div
           //@ts-ignore
@@ -253,7 +253,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
         />
 
         <p className="text-white mt-1">
-          {t('areaSize')}: {Intl.NumberFormat('pt-BR').format(totalArea)}m²
+          {t('register.areaSize')}: {Intl.NumberFormat('pt-BR').format(totalArea)}m²
         </p>
 
         <div className="flex items-center justify-center gap-5 mt-3">
@@ -261,13 +261,13 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
             onClick={handleClearSelection}
             className="text-white underline font-semibold hover:cursor-pointer"
           >
-            {t('clearSelection')}
+            {t('register.clearSelection')}
           </button>
           <button
             onClick={handleDeleteLastPoint}
             className="text-white underline font-semibold hover:cursor-pointer"
           >
-            {t('removeLastPoint')}
+            {t('register.removeLastPoint')}
           </button>
         </div>
 
@@ -320,14 +320,14 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
 
   return (
     <div className="mt-3 flex flex-col gap-1">
-      <p className="text-gray-300 text-sm">{t('addManually')}</p>
+      <p className="text-gray-300 text-sm">{t('register.addManually')}</p>
 
       <div className="flex gap-3 items-end">
         <div className="flex flex-col">
           <p className="text-gray-300 text-sm">Latitude:</p>
           <input
             className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
-            placeholder={t('typeHere')}
+            placeholder={t('register.typeHere')}
             value={latitude}
             onChange={(e) => setLatitude(e.target.value)}
           />
@@ -337,7 +337,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
           <p className="text-gray-300 text-sm">Longitude:</p>
           <input
             className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
-            placeholder={t('typeHere')}
+            placeholder={t('register.typeHere')}
             value={longitude}
             onChange={(e) => setLongitude(e.target.value)}
           />

@@ -28,7 +28,7 @@ export function WebCam({ imageTaken }: Props): JSX.Element {
         className="rounded-2xl bg-blue-primary text-white font-semibold px-10 w-fit h-10 hover:cursor-pointer"
         onClick={() => setOpenModal(true)}
       >
-        {t('useCamera')}
+        {t('register.useCamera')}
       </button>
 
       {openModal && (
@@ -46,14 +46,14 @@ export function WebCam({ imageTaken }: Props): JSX.Element {
                   className="bg-gray-200 rounded-2xl px-10 h-10 font-semibold text-black hover:cursor-pointer"
                   onClick={closeCam}
                 >
-                  {t('cancel')}
+                  {t('register.cancel')}
                 </button>
 
                 <button
                   className="bg-blue-primary rounded-2xl px-10 h-10 font-semibold text-white hover:cursor-pointer"
                   onClick={handleTakePicture}
                 >
-                  {t('takePicture')}
+                  {t('register.takePicture')}
                 </button>
               </div>
             </div>

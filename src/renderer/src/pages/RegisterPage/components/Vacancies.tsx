@@ -44,15 +44,15 @@ export function Vacancies({ userType, onChange }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-gray-300 text-sm">{t('vacancies')}</p>
+      <p className="text-gray-300 text-sm">{t('register.vacancies')}</p>
       <div className="flex flex-col w-full p-3 rounded-2xl bg-container-secondary ">
-        <p className="text-gray-300 text-sm">{t('descVacancies')}</p>
+        <p className="text-gray-300 text-sm">{t('register.descVacancies')}</p>
 
         {isLoading ? (
           <Loading size={50} />
         ) : (
           <p className="text-white">
-            {availableVacancies ? t('thereIsVacancie') : t('thereIsntVacancie')}
+            {availableVacancies ? t('register.thereIsVacancie') : t('register.thereIsntVacancie')}
           </p>
         )}
       </div>

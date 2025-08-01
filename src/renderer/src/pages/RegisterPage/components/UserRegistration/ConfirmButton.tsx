@@ -32,10 +32,10 @@ export function ConfirmButton({
         disabled={btnDisabled || isPending || isLoading || uploadingImage}
       >
         {uploadingImage
-          ? t('uploadingProofPhoto')
+          ? t('register.uploadingProofPhoto')
           : isPending
-            ? t('confirmInYourWallet...')
-            : t('register')}
+            ? t('register.confirmInYourWallet...')
+            : t('register.register')}
       </button>
 
       {hash && (
