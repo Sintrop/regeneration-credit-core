@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Img } from 'react-image'
 import { useNavigate } from 'react-router-dom'
 import CircleImage from '@renderer/assets/images/circle.png'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   address: string
@@ -19,6 +20,7 @@ export function BasicData({
   userTypeName,
   indicator
 }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -32,7 +34,7 @@ export function BasicData({
         <Jazzicon address={address} className="w-full h-full z-30" />
         {photoHash !== '' && (
           <Img
-            src={`https://ipfs.io/ipfs/${photoHash}`}
+            src={`${ipfsGatewayURL}/ipfs/${photoHash}`}
             className="absolute w-full h-full rounded-full top-0 left-0 object-cover z-40"
           />
         )}

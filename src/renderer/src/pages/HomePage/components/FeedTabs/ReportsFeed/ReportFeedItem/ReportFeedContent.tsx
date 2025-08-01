@@ -22,16 +22,16 @@ export function ReportFeedContent({ reportId, description, valid }: Props): JSX.
         <ValidTag valid={valid} />
       </div>
 
-      <p className="text-white font-semibold text-sm">{t('publishedAReport')}</p>
+      <p className="text-white font-semibold text-sm">{t('feed.publishedAReport')}</p>
 
-      <p className="text-sm text-gray-300">{t('description')}</p>
+      <p className="text-sm text-gray-300">{t('feed.description')}</p>
       <p className="text-white text-sm mt-1">{description}</p>
 
       <button
         className="text-green-500 underline hover:cursor-pointer mt-3 text-start w-fit"
         onClick={handleGoToResourceDetails}
       >
-        {t('seeReport')}
+        {t('feed.see')}
       </button>
     </div>
   )

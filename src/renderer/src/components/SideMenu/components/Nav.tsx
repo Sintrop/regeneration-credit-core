@@ -7,13 +7,13 @@ import { useNavigate } from 'react-router-dom'
 export function Nav(): JSX.Element {
   return (
     <nav className="flex flex-col">
-      <NavItem icon="dashboard" label="feed" path="/" />
-      <NavItem icon="contracts" label="contracts" path="/contracts" />
-      <NavItem icon="pools" label="pools" path="/pools" />
+      <NavItem icon="dashboard" label="feed.title" path="/" />
+      <NavItem icon="contracts" label="contracts.title" path="/contracts" />
+      <NavItem icon="pools" label="pools.title" path="/pools" />
       <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
-      <NavItem icon="rcStats" label="tokenImpact" path="/rcstats" />
+      <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
       <NavItem icon="dashboard" label="rcIndex.title" path="/rc-index" />
-      <DropdownMenu label="community" icon="community" pathMainPage="/community" haveMainPage>
+      <DropdownMenu label="community.title" icon="community" pathMainPage="/community" haveMainPage>
         <NavItem label="regenerators" path="/users/1" />
         <NavItem label="inspectors" path="/users/2" />
         <NavItem label="researchers" path="/users/3" />

@@ -39,7 +39,7 @@ export function ResearchesFeedTab(): JSX.Element {
   return (
     <div className="bg-card-2 rounded-2xl w-full">
       <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
-        <p className="text-sm text-green-1 mb-1">{t('researches')}</p>
+        <p className="text-sm text-green-1 mb-1">{t('feed.researches')}</p>
       </div>
 
       {isLoading ? (
@@ -50,7 +50,7 @@ export function ResearchesFeedTab(): JSX.Element {
         <>
           {researchesIds.length === 0 ? (
             <div className="items-center my-10">
-              <p className="text-white text-center">{t('noResearches')}</p>
+              <p className="text-white text-center">{t('feed.noResearches')}</p>
             </div>
           ) : (
             <div className="flex flex-col gap-5 w-full">
@@ -66,7 +66,7 @@ export function ResearchesFeedTab(): JSX.Element {
                 className="text-green-500 underline hover:cursor-pointer text-start w-fit"
                 onClick={handleGoToResearches}
               >
-                {t('seeMore')}
+                {t('feed.seeMore')}
               </button>
             </div>
           )}

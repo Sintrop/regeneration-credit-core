@@ -4,11 +4,13 @@ import { contractsPool, ContractsPoolName } from '../contractsPoolList'
 import { formatUnits } from 'viem'
 import { sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
 import { Loading } from '@renderer/components/Loading/Loading'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   poolName: ContractsPoolName
 }
 export function ContractPoolData({ poolName }: Props): JSX.Element {
+  const { t } = useTranslation()
   const chainId = useChainId()
 
   const contractPool = contractsPool[poolName]
@@ -53,24 +55,28 @@ export function ContractPoolData({ poolName }: Props): JSX.Element {
     <div className="flex flex-wrap gap-5 p-3 rounded-xl bg-green-card w-fit">
       <div className="flex flex-col gap-5">
         <DataItem
-          label="totalFunds"
+          label={t('pools.totalFunds')}
           value={Intl.NumberFormat('pt-BR').format(
             parseFloat(formatUnits(contractPool.poolFunds, 18))
           )}
           suffix="RC"
         />
-        {era && <DataItem label="currentEra" value={formatUnits(BigInt(era), 0)} bgGreen />}
+        {era && (
+          <DataItem label={t('pools.currentEra')} value={formatUnits(BigInt(era), 0)} bgGreen />
+        )}
       </div>
 
       <div className="flex flex-col gap-5">
         {balance && (
           <DataItem
-            label="balanceContract"
+            label={t('pools.contractBalance')}
             value={Intl.NumberFormat('pt-BR').format(Number(formatUnits(BigInt(balance), 18)))}
             suffix="RC"
           />
         )}
-        {epoch && <DataItem label="atualEpoch" value={formatUnits(BigInt(epoch), 0)} bgGreen />}
+        {epoch && (
+          <DataItem label={t('pools.currentEpoch')} value={formatUnits(BigInt(epoch), 0)} bgGreen />
+        )}
       </div>
     </div>
   )

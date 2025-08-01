@@ -1,3 +1,4 @@
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { useState } from 'react'
 import { pdfjs, Document, Page } from 'react-pdf'
 
@@ -10,6 +11,7 @@ interface Props {
   report?: string
 }
 export function PdfTab({ report }: Props): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const [numPages, setNumPages] = useState<number>(0)
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
@@ -37,7 +39,7 @@ export function PdfTab({ report }: Props): JSX.Element {
       <p className="text-white mb-5">HASH: {report}</p>
       {report && (
         <Document
-          file={`https://ipfs.io/ipfs/${report}`}
+          file={`${ipfsGatewayURL}/ipfs/${report}`}
           onLoadSuccess={onDocumentLoadSuccess}
           className="w-[700px]"
           loading={LoadingPdf}

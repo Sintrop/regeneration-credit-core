@@ -242,6 +242,7 @@ interface ComponentTuppleProps {
   onChange: ({ component, value }: OnChangeComponentProps) => void
 }
 function ComponentTupple({ field, onChange }: ComponentTuppleProps): JSX.Element {
+  const { t } = useTranslation()
   const [value, setValue] = useState('')
 
   function onChangeInput(e: ChangeEvent<HTMLInputElement>): void {
@@ -258,7 +259,7 @@ function ComponentTupple({ field, onChange }: ComponentTuppleProps): JSX.Element
       <input
         value={value}
         className="w-full rounded-lg px-3 bg-container-secondary text-white h-10"
-        placeholder="typeHere"
+        placeholder={t('contracts.typeHere')}
         onChange={onChangeInput}
       />
     </div>

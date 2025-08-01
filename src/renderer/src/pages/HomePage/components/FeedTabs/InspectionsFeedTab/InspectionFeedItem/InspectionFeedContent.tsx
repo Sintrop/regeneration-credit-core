@@ -1,4 +1,3 @@
-import { StatusInspection } from '@renderer/pages/InspectionsPage/components/InspectionsTab/StatusInspection'
 import { InspectionProps } from '@renderer/types/inspection'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
@@ -23,11 +22,11 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
       {status === 0 && (
         <div className="flex flex-col">
           <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#ED8A28]/80">
-            <p className="text-white">{t('requestedAnInspection')}</p>
-            <p className="text-yellow-500">{t('open')}</p>
+            <p className="text-white">{t('feed.requestedAnInspection')}</p>
+            <p className="text-yellow-500">{t('feed.open')}</p>
           </div>
           <p className="text-white mt-2">
-            {t('inspectionId')}: {formatUnits(BigInt(inspection.id), 0)}
+            {t('feed.inspectionId')}: {formatUnits(BigInt(inspection.id), 0)}
           </p>
         </div>
       )}
@@ -35,11 +34,11 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
       {status === 1 && (
         <div className="flex flex-col">
           <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#044640]">
-            <p className="text-white">{t('thisInspectionWasAccepted')}</p>
-            <p className="text-green-1">{t('accepted')}</p>
+            <p className="text-white">{t('feed.thisInspectionWasAccepted')}</p>
+            <p className="text-green-1">{t('feed.accepted')}</p>
           </div>
 
-          <p className="text-gray-300 text-sm mt-2">{t('inspector')}:</p>
+          <p className="text-gray-300 text-sm mt-2">{t('feed.inspector')}:</p>
           <InspectorCard address={inspection.inspector} />
         </div>
       )}
@@ -47,24 +46,24 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
       {status === 2 && (
         <div className="flex flex-col">
           <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#044640]">
-            <p className="text-white">{t('thisInspectionWasRealized')}</p>
-            <p className="text-green-1">{t('realized')}</p>
+            <p className="text-white">{t('feed.thisInspectionWasRealized')}</p>
+            <p className="text-green-1">{t('feed.realized')}</p>
           </div>
 
-          <p className="text-gray-300 text-sm mt-2">{t('inspector')}:</p>
+          <p className="text-gray-300 text-sm mt-2">{t('feed.inspector')}:</p>
           <InspectorCard address={inspection.inspector} />
 
-          <p className="text-gray-300 text-sm mt-2">{t('result')}:</p>
+          <p className="text-gray-300 text-sm mt-2">{t('feed.result')}:</p>
           <div className="flex items-center gap-2">
-            <p className="text-white">{t('trees')}: </p>
+            <p className="text-white">{t('feed.trees')}: </p>
             <p className="text-white">{formatUnits(BigInt(inspection.treesResult), 0)}</p>
           </div>
           <div className="flex items-center gap-2">
-            <p className="text-white">{t('biodiversity')}: </p>
+            <p className="text-white">{t('feed.biodiversity')}: </p>
             <p className="text-white">{formatUnits(BigInt(inspection.biodiversityResult), 0)}</p>
           </div>
           <div className="flex items-center gap-2">
-            <p className="text-white">{t('regenerationScore')}: </p>
+            <p className="text-white">{t('feed.regenerationScore')}: </p>
             <p className="text-white">{formatUnits(BigInt(inspection.regenerationScore), 0)}</p>
           </div>
         </div>
@@ -75,7 +74,7 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
           className="text-green-500 underline hover:cursor-pointer mt-3"
           onClick={handleGoToResourceDetails}
         >
-          {t('seeInspection')}
+          {t('feed.seeInspection')}
         </button>
       ) : (
         <>
@@ -84,7 +83,7 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
               className="text-green-500 underline hover:cursor-pointer mt-3"
               onClick={handleGoToResourceDetails}
             >
-              {t('seeInspection')}
+              {t('feed.seeInspection')}
             </button>
           )}
         </>

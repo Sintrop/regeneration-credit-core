@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { pdfjs, Document, Page } from 'react-pdf'
 import { useParams } from 'react-router-dom'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -9,6 +10,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString()
 
 export function PdfPage(): JSX.Element {
+  const { ipfsGatewayURL } = useSettingsContext()
   const params = useParams()
   const [numPages, setNumPages] = useState<number>(0)
 
@@ -37,7 +39,7 @@ export function PdfPage(): JSX.Element {
       <p className="text-white mb-5">HASH: {params?.hash}</p>
 
       <Document
-        file={`https://ipfs.io/ipfs/${params?.hash}`}
+        file={`${ipfsGatewayURL}/ipfs/${params?.hash}`}
         onLoadSuccess={onDocumentLoadSuccess}
         className="w-[700px]"
         loading={Loading}

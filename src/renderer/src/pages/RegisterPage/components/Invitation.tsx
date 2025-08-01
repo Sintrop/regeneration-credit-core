@@ -27,9 +27,9 @@ export function Invitation({ onChangeInvitation, userType }: Props): JSX.Element
 
   return (
     <div className="flex flex-col">
-      <p className="text-gray-300 text-sm">{t('invitation')}</p>
+      <p className="text-gray-300 text-sm">{t('register.invitation')}</p>
       <div className="flex flex-col w-full p-3 rounded-2xl bg-container-secondary overflow-hidden">
-        <p className="text-gray-300 text-sm">{t('descInvitation')}</p>
+        <p className="text-gray-300 text-sm">{t('register.descInvitation')}</p>
 
         {isLoading ? (
           <Loading size={50} />
@@ -39,24 +39,20 @@ export function Invitation({ onChangeInvitation, userType }: Props): JSX.Element
               <div className="flex flex-col">
                 <p className="text-white">
                   {invitationData?.userType === 0
-                    ? t('youDontHaveAnInvitation')
-                    : t('youHaveInvitation')}
+                    ? t('register.youDontHaveAnInvitation')
+                    : t('register.youHaveInvitation')}
                 </p>
 
                 {invitationData?.userType !== 0 && (
                   <>
-                    <p className="text-gray-300 text-sm mt-3">{t('activist')}</p>
+                    <p className="text-gray-300 text-sm mt-3">{t('register.activist')}</p>
                     <p className="text-white">{invitationData?.inviter}</p>
 
-                    <p className="text-gray-300 text-sm mt-3">{t('toRegisterAs')}</p>
+                    <p className="text-gray-300 text-sm mt-3">{t('register.toRegisterAs')}</p>
                     <UserTypeToText className="text-white" userType={invitationData?.userType} />
 
                     {invitationData?.userType !== userType && (
-                      <p className="text-red-500 mt-3">
-                        {t(
-                          'youAreTryingToRegisterWithADifferentUserTypeThanTheOneYouWereInvitedTo'
-                        )}
-                      </p>
+                      <p className="text-red-500 mt-3">{t('register.tryDiferentUser')}</p>
                     )}
                   </>
                 )}

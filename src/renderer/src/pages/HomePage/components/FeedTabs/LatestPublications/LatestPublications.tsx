@@ -31,7 +31,7 @@ export function LatestPublications(): JSX.Element {
   return (
     <div className="bg-card-2 rounded-2xl w-full">
       <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
-        <p className="text-sm text-green-1 mb-1">{t('publications')}</p>
+        <p className="text-sm text-green-1 mb-1">{t('feed.publications')}</p>
       </div>
       {isLoading ? (
         <div className="my-5 flex justify-center">
@@ -41,7 +41,7 @@ export function LatestPublications(): JSX.Element {
         <div className="flex flex-col gap-5 w-[500px]">
           {publicationsIds.length === 0 ? (
             <div className="items-center my-10">
-              <p className="text-white text-center">{t('noPublications')}</p>
+              <p className="text-white text-center">{t('feed.noPublications')}</p>
             </div>
           ) : (
             <>

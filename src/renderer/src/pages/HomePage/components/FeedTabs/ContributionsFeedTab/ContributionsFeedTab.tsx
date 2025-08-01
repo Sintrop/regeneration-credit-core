@@ -39,7 +39,7 @@ export function ContributionsFeedTab(): JSX.Element {
   return (
     <div className="bg-card-2 rounded-2xl w-full">
       <div className="flex items-center justify-center h-10 border-b border-green-900 bg-card-1 rounded-t-2xl">
-        <p className="text-sm text-green-1 mb-1">{t('contributions')}</p>
+        <p className="text-sm text-green-1 mb-1">{t('feed.contributions')}</p>
       </div>
 
       {isLoading ? (
@@ -50,7 +50,7 @@ export function ContributionsFeedTab(): JSX.Element {
         <>
           {contributionsIds.length === 0 ? (
             <div className="items-center my-10 w-[350px]">
-              <p className="text-white text-center">{t('noContributions')}</p>
+              <p className="text-white text-center">{t('feed.noContributions')}</p>
             </div>
           ) : (
             <div className="flex flex-col gap-5 w-full">
@@ -66,7 +66,7 @@ export function ContributionsFeedTab(): JSX.Element {
                 className="text-green-500 underline hover:cursor-pointer text-start w-fit"
                 onClick={handleGoToContributions}
               >
-                {t('seeMore')}
+                {t('feed.seeMore')}
               </button>
             </div>
           )}

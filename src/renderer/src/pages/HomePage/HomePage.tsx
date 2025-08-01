@@ -14,19 +14,19 @@ export function HomePage(): JSX.Element {
   const [selectedTab, setSelectedTab] = useState('publications')
 
   return (
-    <ScreenPage pageTitle="feed">
+    <ScreenPage pageTitle={t('feed.title')}>
       <div className="w-full flex gap-10 overflow-x-scroll">
         <div className="flex flex-col gap-5">
           <div className="flex gap-5 h-10">
             <TabItem
-              label={t('publications')}
+              label={t('feed.publications')}
               onChange={setSelectedTab}
               value="publications"
               isSelected={selectedTab === 'publications'}
             />
 
             <TabItem
-              label={t('inspections')}
+              label={t('feed.inspections')}
               onChange={setSelectedTab}
               value="inspections"
               isSelected={selectedTab === 'inspections'}

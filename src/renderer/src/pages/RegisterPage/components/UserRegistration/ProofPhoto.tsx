@@ -38,7 +38,7 @@ export function ProofPhoto({ proofPhoto, onChange, labelProfilePhoto }: Props): 
   return (
     <div className="flex flex-col gap-1 mt-5">
       <p className="text-gray-300 text-sm">
-        {labelProfilePhoto ? t('profilePhoto') : t('proofPhoto')}
+        {labelProfilePhoto ? t('register.profilePhoto') : t('register.proofPhoto')}
       </p>
       <div className="flex flex-col p-3 rounded-2xl bg-container-secondary w-full">
         <input
@@ -61,7 +61,7 @@ export function ProofPhoto({ proofPhoto, onChange, labelProfilePhoto }: Props): 
             className="rounded-2xl bg-blue-primary text-white font-semibold px-10 w-fit h-10 hover:cursor-pointer"
             onClick={openBrowserFile}
           >
-            {t('selectImage')}
+            {t('register.selectImage')}
           </button>
 
           <WebCam imageTaken={handleChangeProofPhoto} />

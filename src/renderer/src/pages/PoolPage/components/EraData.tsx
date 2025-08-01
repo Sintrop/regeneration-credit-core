@@ -76,18 +76,21 @@ export function EraData({ poolName }: Props): JSX.Element {
           {eraData && (
             <div className="flex gap-5">
               <DataItem
-                label={t('usersWhoCashedOut')}
+                label={t('pools.usersWhoCashedOut')}
                 value={formatUnits(BigInt(eraData.claimsCount), 0)}
               />
               <DataItem
-                label={t('withdrawnTokens')}
+                label={t('pools.withdrawnTokens')}
                 value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(
                   parseFloat(formatUnits(BigInt(eraData.tokens), 18))
                 )}
               />
-              <DataItem label={t('difficulty')} value={formatUnits(BigInt(eraData.levels), 0)} />
               <DataItem
-                label={t('tokensThisEra')}
+                label={t('pools.difficulty')}
+                value={formatUnits(BigInt(eraData.levels), 0)}
+              />
+              <DataItem
+                label={t('pools.tokensThisEra')}
                 value={Intl.NumberFormat('pt-BR').format(tokensThisEra)}
                 suffix="RC"
               />

@@ -45,14 +45,14 @@ export function RegisterPage(): JSX.Element {
 
   if (userTypeWalletConnected && userTypeWalletConnected !== 0) {
     return (
-      <ScreenPage pageTitle={t('registration')}>
+      <ScreenPage pageTitle={t('register.title')}>
         <div className="flex flex-col gap-5">
-          <p className="text-white">{t('youAlreadyRegistered')}</p>
+          <p className="text-white">{t('register.youAlreadyRegistered')}</p>
           <button
             className={`bg-green-btn rounded-2xl px-10 h-10 text-white font-semibold mt-10 w-fit hover:cursor-pointer`}
             onClick={handleGoToAccount}
           >
-            {t('goToAccount')}
+            {t('register.goToAccount')}
           </button>
         </div>
       </ScreenPage>
@@ -60,28 +60,28 @@ export function RegisterPage(): JSX.Element {
   }
 
   return (
-    <ScreenPage pageTitle={t('registration')}>
+    <ScreenPage pageTitle={t('register.title')}>
       <div className="flex flex-col bg-green-card rounded-2xl p-3 w-[500px] mb-10">
-        <p className="text-gray-300 text-sm">{t('walletConnected')}</p>
+        <p className="text-gray-300 text-sm">{t('register.walletConnected')}</p>
         <div className="flex items-center gap-3 px-5 py-2 rounded-2xl bg-container-secondary w-full">
           {address && <Jazzicon className="w-8 h-8" address={address as string} />}
           <p className="text-white text-sm">{address}</p>
         </div>
 
-        <p className="text-gray-300 text-sm mt-5">{t('selectUserType')}</p>
+        <p className="text-gray-300 text-sm mt-5">{t('register.selectUserType')}</p>
         <select
           className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
           value={userType}
           onChange={(e) => setUserType(parseInt(e.target.value) as RegistrationUserType)}
         >
-          <option value={0}>{t('selectAnUserType')}</option>
-          <option value={1}>{t('regenerator')}</option>
-          <option value={2}>{t('inspector')}</option>
-          <option value={3}>{t('researcher')}</option>
-          <option value={4}>{t('developer')}</option>
-          <option value={5}>{t('contributor')}</option>
-          <option value={6}>{t('activist')}</option>
-          <option value={7}>{t('supporter')}</option>
+          <option value={0}>{t('register.selectAnUserType')}</option>
+          <option value={1}>{t('register.regenerator')}</option>
+          <option value={2}>{t('register.inspector')}</option>
+          <option value={3}>{t('register.researcher')}</option>
+          <option value={4}>{t('register.developer')}</option>
+          <option value={5}>{t('register.contributor')}</option>
+          <option value={6}>{t('register.activist')}</option>
+          <option value={7}>{t('register.supporter')}</option>
         </select>
 
         {userType !== 0 && (
@@ -96,12 +96,12 @@ export function RegisterPage(): JSX.Element {
               </div>
             )}
 
-            <p className="text-gray-300 text-sm mt-5">{t('yourName')}</p>
+            <p className="text-gray-300 text-sm mt-5">{t('register.yourName')}</p>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
-              placeholder={t('typeHere')}
+              placeholder={t('register.typeHere')}
             />
 
             <UserRegistration

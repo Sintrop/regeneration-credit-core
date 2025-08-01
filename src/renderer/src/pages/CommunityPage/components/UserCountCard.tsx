@@ -98,12 +98,12 @@ function CardContainer({
 
       <div className="w-full mt-10 px-3 gap-3 flex flex-col">
         <div className="w-full h-10 flex items-center justify-between bg-container-secondary rounded-2xl px-2">
-          <p className="text-white">{t('registered')}</p>
+          <p className="text-white">{t('community.registered')}</p>
           <p className="font-bold text-green-500">{usersCount}</p>
         </div>
 
         <div className="w-full h-10 flex items-center justify-between bg-container-secondary rounded-2xl px-2">
-          <p className="text-white">{t('vacancies')}</p>
+          <p className="text-white">{t('community.vacancies')}</p>
           <p className="font-bold text-green-500">{vacancies}</p>
         </div>
 
@@ -120,36 +120,36 @@ function CardContainer({
 
 const dataByUserType = {
   0: {
-    label: 'allUsers',
+    label: 'community.allUsers',
     txtBtnSee: ''
   },
   1: {
-    label: 'regenerators',
-    txtBtnSee: 'seeRegenerators'
+    label: 'community.regenerators',
+    txtBtnSee: 'community.seeRegenerators'
   },
   2: {
-    label: 'inspectors',
-    txtBtnSee: 'seeInspectors'
+    label: 'community.inspectors',
+    txtBtnSee: 'community.seeInspectors'
   },
   3: {
-    label: 'researchers',
-    txtBtnSee: 'seeResearchers'
+    label: 'community.researchers',
+    txtBtnSee: 'community.seeResearchers'
   },
   4: {
-    label: 'developers',
-    txtBtnSee: 'seeDevelopers'
+    label: 'community.developers',
+    txtBtnSee: 'community.seeDevelopers'
   },
   5: {
-    label: 'contributors',
-    txtBtnSee: 'seeContributors'
+    label: 'community.contributors',
+    txtBtnSee: 'community.seeContributors'
   },
   6: {
-    label: 'activists',
-    txtBtnSee: 'seeActivists'
+    label: 'community.activists',
+    txtBtnSee: 'community.seeActivists'
   },
   7: {
-    label: 'supporters',
-    txtBtnSee: 'seeSupporters'
+    label: 'community.supporters',
+    txtBtnSee: 'community.seeSupporters'
   }
 }
 

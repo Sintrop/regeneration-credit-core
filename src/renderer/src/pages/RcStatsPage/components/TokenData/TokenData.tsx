@@ -51,7 +51,7 @@ export function TokenData(): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white mb-2">{t('tokenData')}</p>
+      <p className="text-white mb-2">{t('tokenImpact.tokenData')}</p>
 
       {isLoading ? (
         <div className="mx-auto overflow-hidden">
@@ -60,23 +60,24 @@ export function TokenData(): JSX.Element {
       ) : (
         <div className="flex flex-wrap gap-5">
           <StatsRcItem
-            title={t('totalSupply')}
+            title={t('tokenImpact.totalSupply')}
             value={Intl.NumberFormat('pt-BR').format(totalSupply)}
             suffix="RC"
           />
           <StatsRcItem
-            title={t('totalLocked')}
+            title={t('tokenImpact.totalLocked')}
             value={Intl.NumberFormat('pt-BR').format(totalLocked)}
             suffix="RC"
           />
           <StatsRcItem
-            title={t('totalCertified')}
+            title={t('tokenImpact.totalCertified')}
             value={Intl.NumberFormat('pt-BR').format(totalCertified)}
             suffix="RC"
           />
           <StatsRcItem
-            title={t('circulatingSupply')}
+            title={t('tokenImpact.circulatingSupply')}
             value={Intl.NumberFormat('pt-BR').format(totalSupply - totalLocked)}
+            suffix="RC"
           />
         </div>
       )}

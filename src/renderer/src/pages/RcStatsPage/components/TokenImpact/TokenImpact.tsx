@@ -73,8 +73,6 @@ export function TokenImpact(): JSX.Element {
   let soilPerToken = 0
   let biodiversityPerToken = 0
 
-  console.log(data)
-
   if (data) {
     const _totalCarbonImpact = data[0].status === 'success' ? (data[0]?.result as string) : '0'
     totalCarbonImpact = parseFloat(formatUnits(BigInt(_totalCarbonImpact), 0))
@@ -110,36 +108,45 @@ export function TokenImpact(): JSX.Element {
         </div>
       ) : (
         <>
-          <p className="text-white mb-2">{t('tokenTotalImpact')}</p>
+          <p className="text-white mb-2">{t('tokenImpact.tokenTotalImpact')}</p>
           <div className="flex flex-wrap gap-5">
             <StatsRcItem
-              title={t('totalCarbonImpact')}
+              title={t('tokenImpact.totalCarbonImpact')}
               value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
+              suffix="g"
             />
             <StatsRcItem
-              title={t('totalAreaImpact')}
+              title={t('tokenImpact.totalAreaImpact')}
               value={Intl.NumberFormat('pt-BR').format(totalSoilImpact)}
               suffix="m²"
             />
             <StatsRcItem
-              title={t('totalBiodiversityImpact')}
+              title={t('tokenImpact.totalBiodiversityImpact')}
               value={Intl.NumberFormat('pt-BR').format(totalBiodiversityImpact)}
             />
             <StatsRcItem
-              title={t('totalTreesImpact')}
+              title={t('tokenImpact.totalTreesImpact')}
               value={Intl.NumberFormat('pt-BR').format(totalTreesImpact)}
             />
           </div>
 
           <p className="text-white mb-2 mt-7">{t('impactPerToken')}</p>
           <div className="flex flex-wrap gap-5">
-            <StatsRcItem title={t('treesPerToken')} value={treesPerToken.toString()} />
-            <StatsRcItem title={t('carbonPerToken')} value={carbonPerToken.toString()} />
-            <StatsRcItem title={t('areaPerToken')} value={soilPerToken.toString()} />
             <StatsRcItem
-              title={t('biodiversityPerToken')}
+              title={t('tokenImpact.carbonPerToken')}
+              value={carbonPerToken.toString()}
+              suffix="g"
+            />
+            <StatsRcItem
+              title={t('tokenImpact.areaPerToken')}
+              value={soilPerToken.toString()}
+              suffix="m²"
+            />
+            <StatsRcItem
+              title={t('tokenImpact.biodiversityPerToken')}
               value={biodiversityPerToken.toString()}
             />
+            <StatsRcItem title={t('tokenImpact.treesPerToken')} value={treesPerToken.toString()} />
           </div>
         </>
       )}
