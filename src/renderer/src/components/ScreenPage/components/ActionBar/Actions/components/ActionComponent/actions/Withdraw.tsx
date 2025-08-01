@@ -30,13 +30,13 @@ export function Withdraw({ abi, addressContract }: ActionContractProps): JSX.Ele
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('withdrawnTokens'))
+    alert(t('actions.withdrawnTokens'))
   }
 
   return (
     <div className="flex flex-col pt-5">
       <SendTransactionButton
-        label={t('withdraw')}
+        label={t('actions.withdraw')}
         handleSendTransaction={handleSendTransaction}
         disabled={isPending || isLoading}
       />

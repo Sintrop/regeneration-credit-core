@@ -60,7 +60,7 @@ export function AddContribution({
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('contributionPublished'))
+    alert(t('actions.publishedContribution'))
     setInputDescription('')
   }
 
@@ -76,24 +76,24 @@ export function AddContribution({
     <div className="flex flex-col pt-5">
       {canPublish ? (
         <>
-          <p className="text-sm mt-3 text-gray-300">{t('description')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.description')}:</p>
           <input
             value={inputDescription}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-            placeholder={t('typeHere')}
+            placeholder={t('actions.typeHere')}
             onChange={(e) => setInputDescription(e.target.value)}
           />
 
-          <p className="text-sm mt-3 text-gray-300">{t('reportFile')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
           <PdfInput onChangeFile={setFile} />
 
           <SendTransactionButton
-            label={t('addContribution')}
+            label={t('actions.addContribution')}
             handleSendTransaction={handleSendTransaction}
             disabled={!inputDescription.trim() || !file || uploadingFile}
           />
 
-          {uploadingFile && <p className="text-white">{t('uloadingFileToIPFS')}</p>}
+          {uploadingFile && <p className="text-white">{t('actions.uloadingFileToIPFS')}</p>}
 
           {displayLoadingTx && (
             <TransactionLoading
@@ -110,9 +110,9 @@ export function AddContribution({
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-[200px]">
-          <p className="text-white text-center">{t("youCan'tAddContributionNow")}</p>
+          <p className="text-white text-center">{t("actions.youCan'tAddContributionNow")}</p>
           <p className="text-white text-center">
-            {t('wait')} {canPublishIn} {t('blocks')}
+            {t('actions.wait')} {canPublishIn} {t('actions.blocks')}
           </p>
         </div>
       )}

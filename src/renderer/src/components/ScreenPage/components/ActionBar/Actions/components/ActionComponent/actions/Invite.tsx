@@ -51,7 +51,7 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('burnedTokens'))
+    alert(t('actions.inviteSent'))
     setInputAddress('')
   }
 
@@ -66,7 +66,7 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
   if (!canInviteThisUserType) {
     return (
       <div className="flex flex-col items-center justify-center h-[200px]">
-        <p className="text-white text-center">{t("youCan'tInviteThisUserType")}</p>
+        <p className="text-white text-center">{t("actions.youCan'tInviteThisUserType")}</p>
       </div>
     )
   }
@@ -75,16 +75,16 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
     <div className="flex flex-col pt-5">
       {canInvite ? (
         <>
-          <p className="text-sm mt-3 text-gray-300">{t('whoDoYouWantToInvite')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.whoDoYouWantToInvite')}:</p>
           <input
             value={inputAddress}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-            placeholder={t('Wallet')}
+            placeholder={t('actions.wallet')}
             onChange={(e) => setInputAddress(e.target.value)}
           />
 
           <SendTransactionButton
-            label={t('invite')}
+            label={t('actions.invite')}
             handleSendTransaction={handleSendTransaction}
             disabled={!inputAddress.trim() || isPending}
           />
@@ -106,7 +106,7 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
         <div className="flex flex-col items-center justify-center h-[200px]">
           <p className="text-white text-center">{t("youCan'tInviteNow")}</p>
           <p className="text-white text-center">
-            {t('wait')} {canInviteIn} {t('blocks')}
+            {t('actions.wait')} {canInviteIn} {t('actions.blocks')}
           </p>
         </div>
       )}

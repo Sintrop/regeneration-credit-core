@@ -49,29 +49,29 @@ export function BurnTokens(): JSX.Element {
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('burnedTokens'))
+    alert(t('actions.burnedTokens'))
     setInput('')
   }
 
   return (
     <div className="flex flex-col pt-5">
       <p className="text-white">
-        {t('yourBalance')}:{' '}
+        {t('actions.yourBalance')}:{' '}
         {data ? Intl.NumberFormat().format(parseFloat(formatUnits(BigInt(data as string), 18))) : 0}{' '}
         RC
       </p>
 
-      <p className="text-sm mt-3 text-gray-300">{t('howMuchDoYouWantToBurn')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.howMuchDoYouWantToBurn')}:</p>
       <input
         value={input}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInput(e.target.value)}
         type="number"
       />
 
       <SendTransactionButton
-        label={t('burnTokens')}
+        label={t('actions.burnTokens')}
         handleSendTransaction={handleSendTransaction}
         disabled={!input.trim() || isPending}
       />

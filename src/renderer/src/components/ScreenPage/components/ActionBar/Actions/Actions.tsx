@@ -23,7 +23,7 @@ export function Actions({ userType, lastPublishedWork }: Props): JSX.Element {
         className="px-5 h-10 rounded-2xl bg-blue-primary font-semibold text-white hover:cursor-pointer flex items-center justify-center gap-5"
         onClick={toggleShowActions}
       >
-        {t('seeAllActions')}
+        {t('actions.seeAllActions')}
 
         {openActions ? <FaChevronDown color="white" /> : <FaChevronUp color="white" />}
       </button>

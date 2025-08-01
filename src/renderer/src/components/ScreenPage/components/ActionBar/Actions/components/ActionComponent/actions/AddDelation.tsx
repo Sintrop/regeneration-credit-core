@@ -39,7 +39,7 @@ export function AddDelation(): JSX.Element {
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('delationSent'))
+    alert(t('actions.delationSent'))
     setInputAddress('')
     setInputTestimony('')
     setInputTitle('')
@@ -47,32 +47,32 @@ export function AddDelation(): JSX.Element {
 
   return (
     <div className="flex flex-col pt-5">
-      <p className="text-sm mt-3 text-gray-300">{t('whoDoYouWantToReport')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.whoDoYouWantToReport')}:</p>
       <input
         value={inputAddress}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('Wallet')}
+        placeholder={t('actions.wallet')}
         onChange={(e) => setInputAddress(e.target.value)}
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('reportTitle')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.reportTitle')}:</p>
       <input
         value={inputTitle}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInputTitle(e.target.value)}
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('reportTestimony')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.reportTestimony')}:</p>
       <input
         value={inputTestimony}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeHere')}
+        placeholder={t('actions.typeHere')}
         onChange={(e) => setInputTestimony(e.target.value)}
       />
 
       <SendTransactionButton
-        label={t('report')}
+        label={t('actions.report')}
         handleSendTransaction={handleSendTransaction}
         disabled={!inputAddress.trim() || !inputTestimony.trim() || !inputTitle.trim() || isPending}
       />

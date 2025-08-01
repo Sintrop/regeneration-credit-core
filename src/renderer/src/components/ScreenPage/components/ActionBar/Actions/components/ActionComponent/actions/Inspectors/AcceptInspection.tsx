@@ -35,23 +35,23 @@ export function AcceptInspection({ abi, addressContract }: ActionContractProps):
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('inspectionAccepted'))
+    alert(t('actions.inspectionAccepted'))
     setInput('')
   }
 
   return (
     <div className="flex flex-col pt-5">
-      <p className="text-sm mt-3 text-gray-300">{t('whatInspectionDoYouWantToAccept')}:</p>
+      <p className="text-sm mt-3 text-gray-300">{t('actions.whatInspectionDoYouWantToAccept')}:</p>
       <input
         value={input}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
-        placeholder={t('typeIDHere')}
+        placeholder={t('actions.typeIDHere')}
         onChange={(e) => setInput(e.target.value)}
         type="number"
       />
 
       <SendTransactionButton
-        label={t('acceptInspection')}
+        label={t('actions.acceptInspection')}
         handleSendTransaction={handleSendTransaction}
         disabled={!input.trim()}
       />
