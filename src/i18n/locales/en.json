@@ -282,5 +282,11 @@
   },
   "actionBar": {
     "register": "Register"
+  },
+  "infoBar": {
+    "currentEra": "Current era",
+    "nextEraIn": "Next era in",
+    "blocks": "Blocks",
+    "currentEpoch": "Current epoch"
   }
 }
