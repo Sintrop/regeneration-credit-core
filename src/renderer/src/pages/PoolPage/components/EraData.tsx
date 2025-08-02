@@ -65,7 +65,9 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col mt-5">
-      <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
+      <div className="flex overflow-x-auto">
+        <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
+      </div>
 
       {loadingEra ? (
         <div className="mx-auto overflow-hidden mt-5">
