@@ -41,7 +41,9 @@ export function ValidationsCard({ address, profilePage }: Props): JSX.Element {
   return (
     <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
       <p className="text-gray-300 text-sm">{t('validations')}</p>
-      <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
+      <div className="flex overflow-x-auto">
+        <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
+      </div>
 
       {isLoading ? (
         <div className="overflow-hidden">
