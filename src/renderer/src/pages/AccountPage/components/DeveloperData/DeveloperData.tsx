@@ -42,9 +42,9 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
-        name={developer.name}
+        name={developer?.name}
         userType={4}
-        proofPhoto={developer.proofPhoto}
+        proofPhoto={developer?.proofPhoto}
       />
 
       {developer && (
