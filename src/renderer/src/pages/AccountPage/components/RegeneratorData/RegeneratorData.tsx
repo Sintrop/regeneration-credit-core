@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { RegenerationAreaMap } from './RegenerationAreaMap'
+// import { RegenerationAreaMap } from './RegenerationAreaMap'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
@@ -103,14 +103,14 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
             </div>
 
             <CertificatesCard
-              name={regenerator.name} 
-              address={address} 
-              userType={1} 
+              name={regenerator.name}
+              address={address}
+              userType={1}
               totalArea={parseInt(formatUnits(BigInt(regenerator?.totalArea), 0))}
               totalInspections={parseInt(formatUnits(BigInt(regenerator?.totalInspections), 0))}
               score={parseInt(formatUnits(BigInt(regenerator?.regenerationScore.score), 0))}
             />
-            <RegenerationAreaMap address={address} />
+            {/* <RegenerationAreaMap address={address} /> */}
             <InspectionsCard address={address} />
           </div>
         )}
