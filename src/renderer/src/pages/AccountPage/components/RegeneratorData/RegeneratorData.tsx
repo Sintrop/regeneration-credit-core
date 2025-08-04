@@ -52,12 +52,12 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
       <HeaderUser
         address={address}
         areaPhotoUpdated={refetch}
-        name={regenerator.name}
+        name={regenerator?.name}
         userType={1}
         areaPhoto={areaPhoto}
         canUpdateAreaPhoto={profilePage}
         description={projectDescription}
-        proofPhoto={regenerator.proofPhoto}
+        proofPhoto={regenerator?.proofPhoto}
       />
 
       <div className="flex gap-5 mt-5 max-w-[1024px]">
@@ -103,9 +103,9 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
             </div>
 
             <CertificatesCard
-              name={regenerator.name} 
-              address={address} 
-              userType={1} 
+              name={regenerator.name}
+              address={address}
+              userType={1}
               totalArea={parseInt(formatUnits(BigInt(regenerator?.totalArea), 0))}
               totalInspections={parseInt(formatUnits(BigInt(regenerator?.totalInspections), 0))}
               score={parseInt(formatUnits(BigInt(regenerator?.regenerationScore.score), 0))}

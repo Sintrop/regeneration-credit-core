@@ -42,9 +42,9 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
-        name={researcher.name}
+        name={researcher?.name}
         userType={3}
-        proofPhoto={researcher.proofPhoto}
+        proofPhoto={researcher?.proofPhoto}
       />
 
       {researcher && (

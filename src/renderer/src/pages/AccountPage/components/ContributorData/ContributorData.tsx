@@ -41,9 +41,9 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
-        name={contributor.name}
+        name={contributor?.name}
         userType={5}
-        proofPhoto={contributor.proofPhoto}
+        proofPhoto={contributor?.proofPhoto}
       />
 
       {contributor && (

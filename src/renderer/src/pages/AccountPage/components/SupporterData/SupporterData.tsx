@@ -32,9 +32,9 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
-        name={supporter.name}
+        name={supporter?.name}
         userType={7}
-        proofPhoto={supporter.profilePhoto}
+        proofPhoto={supporter?.profilePhoto}
       />
 
       {supporter && (
