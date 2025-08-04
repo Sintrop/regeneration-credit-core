@@ -8,8 +8,10 @@ import { ContractDetails } from './components/ContractDetails/ContractDetails'
 import { SelectorTabContract } from './components/ContractTabs/SelectorTabContract/SelectorTabContract'
 import { ContentTabs, ContractPageTabs } from './components/ContractTabs/ContentTabs/ContentTabs'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
+import { useTranslation } from 'react-i18next'
 
 export function ContractPage(): JSX.Element {
+  const { t } = useTranslation()
   const params = useParams()
   const chainId = useChainId()
   const [contractData, setContractData] = useState<ContractListProps>({} as ContractListProps)
@@ -29,7 +31,7 @@ export function ContractPage(): JSX.Element {
   }
 
   return (
-    <ScreenPage pageTitle={contractData?.name as string}>
+    <ScreenPage pageTitle={contractData.label ? t(contractData.label) : contractData.name}>
       <div className="flex flex-col w-full">
         <ContractDetails contract={contractData} />
 

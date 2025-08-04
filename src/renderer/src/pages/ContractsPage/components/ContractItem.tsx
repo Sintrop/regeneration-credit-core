@@ -16,8 +16,14 @@ export function ContractItem({ contract }: Props): JSX.Element {
 
   return (
     <div className="w-64 rounded-2xl bg-container-primary p-5 gap-1 flex flex-col justify-between">
-      <h3 className="font-semibold text-white text-start">{contract.name}</h3>
-      <p className="text-gray-300 text-sm text-start">{contract.description}</p>
+      <div className="flex flex-col">
+        <h3 className="font-semibold text-white text-start">
+          {contract.label ? t(contract.label) : contract.name}
+        </h3>
+        <p className="text-gray-300 text-sm text-start">
+          {contract.description ? t(contract.description) : ''}
+        </p>
+      </div>
       <button
         className="mt-5 text-green-600 underline hover:cursor-pointer w-fit"
         onClick={handleNavigateToContract}

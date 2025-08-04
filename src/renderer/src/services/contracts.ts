@@ -128,114 +128,148 @@ export const contractsSequoia: ContractListProps[] = [
     abi: sequoiaRcAbi,
     address: sequoiaRcAddress,
     name: SequoiaRcTokenContract.contractName,
-    label: 'regenerationCredit',
-    description: 'Regeneration Credit Token Contract'
+    label: 'contracts.regenerationCredit',
+    description: 'contracts.descRegenerationCredit'
   },
   {
     abi: sequoiaRcImpactAbi,
     address: sequoiaRcImpactAddress,
-    name: SequoiaRcImpactContract.contractName
+    name: SequoiaRcImpactContract.contractName,
+    label: 'contracts.rcImpact',
+    description: 'contracts.descRcImpact'
   },
   {
     abi: sequoiaRegeneratorAbi,
     address: sequoiaRegeneratorAddress,
-    name: SequoiaRegeneratorContract.contractName
+    name: SequoiaRegeneratorContract.contractName,
+    label: 'contracts.regenerator',
+    description: 'contracts.descRegenerator'
   },
   {
     abi: sequoiaRegeneratorPoolAbi,
     address: sequoiaRegeneratorPoolAddress,
-    name: SequoiaRegeneratorPoolContract.contractName
+    name: SequoiaRegeneratorPoolContract.contractName,
+    label: 'contracts.regeneratorPool',
+    description: 'contracts.descRegeneratorPool'
   },
   {
     abi: sequoiaInspectorAbi,
     address: sequoiaInspectorAddress,
-    name: SequoiaInspectorContract.contractName
+    name: SequoiaInspectorContract.contractName,
+    label: 'contracts.inspector',
+    description: 'contracts.descInpector'
   },
   {
     abi: sequoiaInspectorPoolAbi,
     address: sequoiaInspectorPoolAddress,
-    name: SequoiaInspectorPoolContract.contractName
+    name: SequoiaInspectorPoolContract.contractName,
+    label: 'contracts.inspectorPool',
+    description: 'contracts.descInspectorPool'
   },
   {
     abi: sequoiaResearcherAbi,
     address: sequoiaResearcherAddress,
-    name: SequoiaResearcherContract.contractName
+    name: SequoiaResearcherContract.contractName,
+    label: 'contracts.researcher',
+    description: 'contracts.descResearcher'
   },
   {
     abi: sequoiaResearcherPoolAbi,
     address: sequoiaResearcherPoolAddress,
-    name: SequoiaResearcherPoolContract.contractName
+    name: SequoiaResearcherPoolContract.contractName,
+    label: 'contracts.researcherPool',
+    description: 'contracts.descResearcherPool'
   },
   {
     abi: sequoiaDeveloperAbi,
     address: sequoiaDeveloperAddress,
     name: SequoiaDeveloperContract.contractName,
-    label: 'developerContract',
-    description: 'descDeveloperContract'
+    label: 'contracts.developer',
+    description: 'contracts.descDeveloper'
   },
   {
     abi: sequoiaDeveloperPoolAbi,
     address: sequoiaDeveloperPoolAddress,
     name: SequoiaDeveloperPoolContract.contractName,
-    label: 'developerPoolContract',
-    description: 'descDeveloperPoolContract'
+    label: 'contracts.developerPool',
+    description: 'contracts.descDeveloperPool'
   },
   {
     abi: sequoiaContributorAbi,
     address: sequoiaContributorAddress,
-    name: SequoiaContributorContract.contractName
+    name: SequoiaContributorContract.contractName,
+    label: 'contracts.contributor',
+    description: 'contracts.descContributor'
   },
   {
     abi: sequoiaContributorPoolAbi,
     address: sequoiaContributorPoolAddress,
-    name: SequoiaContributorPoolContract.contractName
+    name: SequoiaContributorPoolContract.contractName,
+    label: 'contracts.contributorPool',
+    description: 'contracts.descContributorPool'
   },
   {
     abi: sequoiaActivistAbi,
     address: sequoiaActivistAddress,
-    name: SequoiaActivistContract.contractName
+    name: SequoiaActivistContract.contractName,
+    label: 'contracts.activist',
+    description: 'contracts.descActivist'
   },
   {
     abi: sequoiaActivistPoolAbi,
     address: sequoiaActivistPoolAddress,
-    name: SequoiaActivistPoolContract.contractName
+    name: SequoiaActivistPoolContract.contractName,
+    label: 'contracts.activistPool',
+    description: 'contracts.descActivistPool'
   },
   {
     abi: sequoiaSupporterAbi,
     address: sequoiaSupporterAddress,
-    name: SequoiaSupporterContract.contractName
+    name: SequoiaSupporterContract.contractName,
+    label: 'contracts.supporter',
+    description: 'contracts.descSupporter'
   },
   {
     abi: sequoiaInspectionAbi,
     address: sequoiaInspectionAddress,
     name: SequoiaInspectionContract.contractName,
-    label: 'inspectionContract',
-    description: 'descInspectionContract'
+    label: 'contracts.inspection',
+    description: 'contracts.descInspection'
   },
   {
     abi: sequoiaInvitationAbi,
     address: sequoiaInvitationAddress,
-    name: SequoiaInvitationContract.contractName
+    name: SequoiaInvitationContract.contractName,
+    label: 'contracts.invitation',
+    description: 'contracts.descInvitation'
   },
   {
     abi: sequoiaUserAbi,
     address: sequoiaUserAddress,
-    name: SequoiaUserContract.contractName
+    name: SequoiaUserContract.contractName,
+    label: 'contracts.community',
+    description: 'contracts.descCommunity'
   },
   {
     abi: sequoiaVoteAbi,
     address: sequoiaVoteAddress,
-    name: SequoiaVoteContract.contractName
+    name: SequoiaVoteContract.contractName,
+    label: 'contracts.vote',
+    description: 'contracts.descVote'
   },
   {
     abi: sequoiaValidationAbi,
     address: sequoiaValidationAddress,
-    name: SequoiaValidationContract.contractName
+    name: SequoiaValidationContract.contractName,
+    label: 'contracts.validation',
+    description: 'contracts.descValidation'
   },
   {
     abi: sequoiaRcIndexAbi,
     address: sequoiaRcIndexAddress,
-    name: SequoiaRcIndexContract.contractName
+    name: SequoiaRcIndexContract.contractName,
+    label: 'contracts.rcIndex',
+    description: 'contracts.descRcIndex'
   }
 ]
 
