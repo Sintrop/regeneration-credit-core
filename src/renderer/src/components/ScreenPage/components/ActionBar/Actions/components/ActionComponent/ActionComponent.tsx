@@ -45,7 +45,7 @@ export function ActionComponent({
           className="font-semibold text-white rounded-2xl bg-blue-primary px-5 h-10 hover:cursor-pointer"
           onClick={toggleOpenAction}
         >
-          {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
+          {label ? label : t(`actions.${Action.name}`)}
         </button>
       ) : (
         <>
@@ -56,7 +56,7 @@ export function ActionComponent({
                 className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
                 onClick={toggleOpenAction}
               >
-                {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
+                {label ? label : t(`actions.${Action.name}`)}
               </button>
             </div>
           ) : (
