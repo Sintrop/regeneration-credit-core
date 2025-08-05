@@ -36,7 +36,7 @@ export function ResearcherItem({ id }: Props): JSX.Element {
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
-      <td className="p-2">
+      <td className="p-2 max-w-[100px]">
         {researcher && <UserAddressLink address={researcher?.researcherWallet} />}
       </td>
       <td className="p-2">{researcher && researcher?.name}</td>

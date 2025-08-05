@@ -43,15 +43,21 @@ export function ResearchesTab(): JSX.Element {
       <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
         <thead>
           <tr className="border-b border-container-secondary text-white">
-            <th className="p-2 border-r border-container-secondary">ID</th>
-            <th className="p-2 border-r border-container-secondary">{t('resources.researcher')}</th>
-            <th className="p-2 border-r border-container-secondary">{t('resources.createdAt')}</th>
-            <th className="p-2 border-r border-container-secondary">{t('resources.era')}</th>
-            <th className="p-2 border-r border-container-secondary">
+            <th className="p-2 border-r border-container-secondary text-start">ID</th>
+            <th className="p-2 border-r border-container-secondary text-start max-w-[100px]">
+              {t('resources.researcher')}
+            </th>
+            <th className="p-2 border-r border-container-secondary text-start">
+              {t('resources.createdAt')}
+            </th>
+            <th className="p-2 border-r border-container-secondary text-start">Era</th>
+            <th className="p-2 border-r border-container-secondary text-start">
               {t('resources.validationsCount')}
             </th>
-            <th className="p-2 border-r border-container-secondary">{t('resources.status')}</th>
-            <th className="p-2">{t('resources.actions')}</th>
+            <th className="p-2 border-r border-container-secondary text-start">
+              {t('resources.status')}
+            </th>
+            <th className="p-2 text-start">{t('resources.actions')}</th>
           </tr>
         </thead>
         <tbody>

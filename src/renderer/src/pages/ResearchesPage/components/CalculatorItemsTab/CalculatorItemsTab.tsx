@@ -48,13 +48,17 @@ export function CalculatorItemsTab(): JSX.Element {
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
-              <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">ID</th>
+              <th className="p-2 border-r border-container-secondary max-w-[100px] text-start">
                 {t('resources.researcher')}
               </th>
-              <th className="p-2 border-r border-container-secondary">{t('resources.title')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('resources.unit')}</th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">
+                {t('resources.item')}
+              </th>
+              <th className="p-2 border-r border-container-secondary text-start">
+                {t('resources.unit')}
+              </th>
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('resources.carbonImpact')}
               </th>
               <th className="p-2">{t('resources.actions')}</th>

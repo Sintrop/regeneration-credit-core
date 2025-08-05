@@ -29,7 +29,7 @@ export interface ResearchProps {
 export interface CalculatorItemProps {
   id: number
   createdBy: string
-  title: string
+  item: string
   unit: string
   justification: string
   carbonImpact: number

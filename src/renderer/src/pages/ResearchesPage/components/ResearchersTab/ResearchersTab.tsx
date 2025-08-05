@@ -48,16 +48,22 @@ export function ResearchersTab(): JSX.Element {
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
-              <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('community.wallet')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('community.name')}</th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">ID</th>
+              <th className="p-2 border-r border-container-secondary text-start max-w-[100px]">
+                {t('community.wallet')}
+              </th>
+              <th className="p-2 border-r border-container-secondary text-start">
+                {t('community.name')}
+              </th>
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('community.createdAt')}
               </th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('community.totalResearches')}
               </th>
-              <th className="p-2 border-r border-container-secondary">{t('community.level')}</th>
+              <th className="p-2 border-r border-container-secondary text-start">
+                {t('community.level')}
+              </th>
               <th className="p-2">{t('community.actions')}</th>
             </tr>
           </thead>

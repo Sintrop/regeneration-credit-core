@@ -259,7 +259,9 @@
     "link": "Link",
     "noCalculatorItemsAvailable": "No calculator items available",
     "unit": "Unit",
-    "carbonImpact": "Carbon impact"
+    "carbonImpact": "Carbon impact (g)",
+    "item": "Item",
+    "methodTitle": "Title"
   },
   "ipfs": {
     "uploadFileToIPFS": "Upload file to IPFS",
