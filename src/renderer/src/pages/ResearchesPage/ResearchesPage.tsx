@@ -3,6 +3,7 @@ import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ResearchesTabs, TabContent } from './components/TabContent'
+import { Subtitles } from '@renderer/components/Subtitles/Subtitles'
 
 export function ResearchesPage(): JSX.Element {
   const { t } = useTranslation()
@@ -10,34 +11,40 @@ export function ResearchesPage(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t('resources.researches')}>
-      <div className="flex items-center gap-5">
-        <TabItem
-          label={t('resources.researches')}
-          value="researches"
-          onChange={setSelectedTab}
-          isSelected={selectedTab === 'researches'}
-        />
+      <div className="flex items-end w-full justify-between gap-5 relative">
+        <div className="flex items-center gap-5">
+          <TabItem
+            label={t('resources.researches')}
+            value="researches"
+            onChange={setSelectedTab}
+            isSelected={selectedTab === 'researches'}
+          />
 
-        <TabItem
-          label={t('resources.researchers')}
-          value="researchers"
-          onChange={setSelectedTab}
-          isSelected={selectedTab === 'researchers'}
-        />
+          <TabItem
+            label={t('resources.researchers')}
+            value="researchers"
+            onChange={setSelectedTab}
+            isSelected={selectedTab === 'researchers'}
+          />
 
-        <TabItem
-          label={t('resources.calculatorItems')}
-          value="calculatorItems"
-          onChange={setSelectedTab}
-          isSelected={selectedTab === 'calculatorItems'}
-        />
+          <TabItem
+            label={t('resources.calculatorItems')}
+            value="calculatorItems"
+            onChange={setSelectedTab}
+            isSelected={selectedTab === 'calculatorItems'}
+          />
 
-        <TabItem
-          label={t('resources.evaluationMethods')}
-          value="evaluationMethods"
-          onChange={setSelectedTab}
-          isSelected={selectedTab === 'evaluationMethods'}
-        />
+          <TabItem
+            label={t('resources.evaluationMethods')}
+            value="evaluationMethods"
+            onChange={setSelectedTab}
+            isSelected={selectedTab === 'evaluationMethods'}
+          />
+        </div>
+
+        <div className="absolute top-[-30] right-0">
+          <Subtitles subtitles={['seeContent', 'vote']} />
+        </div>
       </div>
 
       <div className="flex flex-col mt-3">

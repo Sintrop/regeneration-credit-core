@@ -398,5 +398,10 @@
     "nextEraIn": "Next era in",
     "blocks": "Blocks",
     "currentEpoch": "Current epoch"
+  },
+  "subtitles": {
+    "acceptInspection": "Accept inspection",
+    "seeContent": "See content",
+    "voteToInvalidate": "Vote to invalidate"
   }
 }
