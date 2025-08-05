@@ -39,18 +39,18 @@ export function ReportsTab(): JSX.Element {
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
-              <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">ID</th>
+              <th className="p-2 border-r border-container-secondary text-start max-w-[100px]">
                 {t('resources.developer')}
               </th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('resources.createdAt')}
               </th>
-              <th className="p-2 border-r border-container-secondary">Era</th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">Era</th>
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('resources.validationsCount')}
               </th>
-              <th className="p-2 border-r border-container-secondary"></th>
+              <th className="p-2 border-r border-container-secondary text-start">Status</th>
               <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>

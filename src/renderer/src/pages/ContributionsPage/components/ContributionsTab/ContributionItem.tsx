@@ -44,12 +44,12 @@ export function ContributionItem({ id }: Props): JSX.Element {
     return (
       <tr className="border-b border-container-primary text-white">
         <td className="p-2">{id}</td>
-        <td className="p-2">{<UserAddressLink address={contribution?.user} />}</td>
+        <td className="p-2 max-w-[100px]">{<UserAddressLink address={contribution?.user} />}</td>
         <td className="p-2">{formatUnits(BigInt(contribution?.createdAtBlockNumber), 0)}</td>
         <td className="p-2">{formatUnits(BigInt(contribution?.era), 0)}</td>
         <td className="p-2">{formatUnits(BigInt(contribution?.validationsCount), 0)}</td>
         <td className="p-2">
-          <ValidTag valid={contribution.valid.toString() === 'true' ? true : false}/>
+          <ValidTag valid={contribution.valid.toString() === 'true' ? true : false} />
         </td>
         <td className="p-2 flex items-center gap-5">
           <button className="hover:cursor-pointer" onClick={handleGoToContributionDetails}>
