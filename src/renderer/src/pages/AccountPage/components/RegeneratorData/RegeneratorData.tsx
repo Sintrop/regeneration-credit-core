@@ -14,7 +14,7 @@ import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
-import { CertificatesCard } from '../Cards/CertificatesCard/CertificatesCard'
+import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()

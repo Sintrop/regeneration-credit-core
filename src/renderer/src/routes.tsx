@@ -23,6 +23,7 @@ import { UserDetailsPage } from './pages/UserDetailsPage/UserDetailsPage'
 import { ResourceDetailsPage } from './pages/ResourceDetailsPage/ResourceDetailsPage'
 import { IpfsPage } from './pages/IpfsPage/IpfsPage'
 import { RcIndexPage } from './pages/RcIndexPage/RcIndexPage'
+import { ImpactCalculator } from './pages/ImpactCalculator/ImpactCalculator'
 
 export function AppRoutes(): React.JSX.Element {
   return (
@@ -50,6 +51,7 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/resource-details/:resourceType/:id" element={<ResourceDetailsPage />} />
         <Route path="/ipfs" element={<IpfsPage />} />
         <Route path="/rc-index" element={<RcIndexPage />} />
+        <Route path="/impact-calculator" element={<ImpactCalculator />} />
       </Routes>
     </Router>
   )

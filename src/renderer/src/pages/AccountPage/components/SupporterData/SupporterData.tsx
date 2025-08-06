@@ -11,7 +11,7 @@ import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
-import { CertificatesCard } from '../Cards/CertificatesCard/CertificatesCard'
+import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
 import { ReductionCommitmentsCard } from '../Cards/ReductionCommitmentsCard/ReductionCommitmentsCard'
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {

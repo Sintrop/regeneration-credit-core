@@ -263,6 +263,21 @@
     "item": "Item",
     "methodTitle": "Title"
   },
+  "impactCalculator": {
+    "title": "Impact calculator",
+    "burnTokens": "Burn tokens",
+    "descBurnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
+    "publish": "Publish",
+    "descPublish": "Allows a supporter to burn tokens to post content.",
+    "offset": "Offset",
+    "descOffset": "Allows a supporter to burn tokens to compensate for a specific item's degradation.",
+    "noCalculatorItemsAvailable": "No calculator items available",
+    "item": "Item",
+    "unit": "Unit",
+    "carbonImpact": "Carbon impact (g)",
+    "actions": "Actions",
+    "declareReduction": "Declare reduction"
+  },
   "ipfs": {
     "uploadFileToIPFS": "Upload file to IPFS",
     "description": "Use IPFS to hash and store files. Upload a photo or document and get back a unique hash identifier to store at the blockchain.",
@@ -391,7 +406,8 @@
     "calculatorItemAdded": "Calculator item added",
     "carbonImpact": "Carbon impact",
     "addCalculatorItem": "Add calculator item",
-    "unit": "Unit"
+    "unit": "Unit",
+    "publish": "Publish"
   },
   "infoBar": {
     "currentEra": "Current era",

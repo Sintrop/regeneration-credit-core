@@ -19,6 +19,7 @@ interface Props {
   label?: string
   mainAction?: boolean
   withdrawPools?: boolean
+  hideNextLevel?: boolean
 }
 export function ActionComponent({
   actionName,
@@ -28,7 +29,8 @@ export function ActionComponent({
   userTypeToInvite,
   label,
   mainAction,
-  withdrawPools
+  withdrawPools,
+  hideNextLevel
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [openAction, setOpenAction] = useState(false)
@@ -51,7 +53,7 @@ export function ActionComponent({
         <>
           {mainAction ? (
             <div className="flex flex-col gap-1">
-              <p className="text-sm text-gray-300">{t('actions.nextLevel')}</p>
+              {!hideNextLevel && <p className="text-sm text-gray-300">{t('actions.nextLevel')}</p>}
               <button
                 className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
                 onClick={toggleOpenAction}
