@@ -276,7 +276,12 @@
     "unit": "Unit",
     "carbonImpact": "Carbon impact (g)",
     "actions": "Actions",
-    "declareReduction": "Declare reduction"
+    "declareReduction": "Declare reduction",
+    "quantityItemUse": "Quantity used of the item",
+    "youMustCompensate": "You must compensate",
+    "yourBalance": "Your balance",
+    "typeHere": "Type here",
+    "": ""
   },
   "ipfs": {
     "uploadFileToIPFS": "Upload file to IPFS",

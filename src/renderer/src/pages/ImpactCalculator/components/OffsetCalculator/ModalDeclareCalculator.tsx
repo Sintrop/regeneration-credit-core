@@ -3,7 +3,12 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { sequoiaSupporterAbi, supporterAbi, supporterAddress } from '@renderer/services/contracts'
+import {
+  sequoiaSupporterAbi,
+  sequoiaSupporterAddress,
+  supporterAbi,
+  supporterAddress
+} from '@renderer/services/contracts'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 
 interface Props {
@@ -28,7 +33,7 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
     setDisplayLoadingTx(true)
     writeContract({
       //@ts-ignore
-      address: chainId === 250225 ? supporterAddress : supporterAbi,
+      address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
       abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
       functionName: 'declareReductionCommitment',
       args: [item.id]
@@ -76,7 +81,7 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
                 className="w-full h-10 rounded-2xl mt-5 text-white bg-green-1 hover:cursor-pointer"
                 onClick={handleSendTransaction}
               >
-                {t('declare')}
+                {t('impactCalculator.declare')}
               </button>
             </div>
           </div>
