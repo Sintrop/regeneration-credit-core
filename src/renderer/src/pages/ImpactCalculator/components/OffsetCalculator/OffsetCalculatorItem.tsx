@@ -7,7 +7,6 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { CalculatorItemProps } from '@renderer/types/researcher'
-import { useTranslation } from 'react-i18next'
 import { ModalOffsetCalculator } from './ModalOffsetCalculator'
 import { ModalDeclareCalculator } from './ModalDeclareCalculator'
 
@@ -16,8 +15,6 @@ interface Props {
 }
 
 export function OffsetCalculatorItem({ id }: Props): JSX.Element {
-  const { t } = useTranslation()
-
   const chainId = useChainId()
   const { data } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,

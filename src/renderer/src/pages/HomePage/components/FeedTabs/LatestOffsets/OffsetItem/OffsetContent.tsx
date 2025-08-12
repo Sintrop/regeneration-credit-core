@@ -50,7 +50,7 @@ export function OffsetContent({ burnedTokens, calculatorItemId }: Props): JSX.El
           <p className="text-gray-300 text-sm">{t('calculatorItem')}</p>
           <p className="text-white">
             ID: {calculatorItem && formatUnits(BigInt(calculatorItem?.id), 0)} -{' '}
-            {calculatorItem?.title}
+            {calculatorItem?.item}
           </p>
         </div>
       )}

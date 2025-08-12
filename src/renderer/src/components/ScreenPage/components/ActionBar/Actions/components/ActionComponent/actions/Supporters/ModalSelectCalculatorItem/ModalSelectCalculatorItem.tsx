@@ -74,14 +74,14 @@ function CalculatorItem({ id, onChange }: SelectCalculatorItemProps): JSX.Elemen
   return (
     <button
       className="flex items-center gap-3 px-5 py-2 border-b hover:cursor-pointer"
-      onClick={() => onChange({ id, name: calculatorItem?.title })}
+      onClick={() => onChange({ id, name: calculatorItem?.item })}
     >
       <p className="text-black">ID: {id}</p>
 
       {calculatorItem && (
         <>
           <p className="text-black">
-            {t('name')}: {calculatorItem?.title}
+            {t('name')}: {calculatorItem?.item}
           </p>
         </>
       )}
