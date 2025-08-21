@@ -84,10 +84,10 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.images')}:</p>
-      <PdfInput onChangeFile={setImage} />
+      <PdfInput onChangeFile={setImage} idInput="images" />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
-      <PdfInput onChangeFile={setFile} />
+      <PdfInput onChangeFile={setFile} idInput="report" />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.treesResult')}:</p>
       <input

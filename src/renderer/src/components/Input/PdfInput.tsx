@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next'
 
 interface Props {
   onChangeFile: (file: Blob) => void
+  idInput?: string
 }
 
-export function PdfInput({ onChangeFile }: Props): JSX.Element {
+export function PdfInput({ onChangeFile, idInput = '1' }: Props): JSX.Element {
   const { t } = useTranslation()
   const [nameFile, setNameFile] = useState('')
 
   function handleOpenBrowserFind(): void {
-    const input = document.querySelector('#input-pdf')
+    const input = document.querySelector(`#input-pdf-${idInput}`)
     if (!input) return
     //@ts-ignore
     input.click()
@@ -32,7 +33,7 @@ export function PdfInput({ onChangeFile }: Props): JSX.Element {
         accept="application/pdf"
         onChange={handleFileChange}
         className="text-white hidden"
-        id="input-pdf"
+        id={`input-pdf-${idInput}`}
       />
 
       <div className="flex items-center gap-3">
