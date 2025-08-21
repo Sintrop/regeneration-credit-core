@@ -8,18 +8,16 @@ import {
 } from '@renderer/services/contracts'
 import { InspectionProps } from '@renderer/types/inspection'
 import { useTranslation } from 'react-i18next'
-import { Img } from 'react-image'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
-import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   id: number
   setReport: (report: string) => void
+  setProofPhotos?: (report: string) => void
 }
-export function InspectionData({ id, setReport }: Props): JSX.Element {
-  const { ipfsGatewayURL } = useSettingsContext()
+export function InspectionData({ id, setReport, setProofPhotos }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
 
@@ -33,7 +31,8 @@ export function InspectionData({ id, setReport }: Props): JSX.Element {
   const inspection = data as InspectionProps
 
   if (inspection) {
-    setReport(inspection.report)
+    setReport(inspection.justificationReport)
+    if (setProofPhotos) setProofPhotos(inspection.proofPhotos)
   }
 
   if (isLoading) {
@@ -62,7 +61,7 @@ export function InspectionData({ id, setReport }: Props): JSX.Element {
 
           <div className="flex items-center gap-2">
             <p className="text-white">{t('proofPhoto')}:</p>
-            <p className="text-white">{inspection && inspection.proofPhoto}</p>
+            <p className="text-white">{inspection && inspection.proofPhotos}</p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -102,11 +101,6 @@ export function InspectionData({ id, setReport }: Props): JSX.Element {
         </div>
 
         <div className="flex flex-col gap-5">
-          <Img
-            src={`${ipfsGatewayURL}/ipfs/${inspection.proofPhoto}`}
-            className="w-[200px] h-[200px] rounded-2xl object-cover"
-          />
-
           <VoteToInvalidate
             resourceId={id}
             resourceType="inspection"

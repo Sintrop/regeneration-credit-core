@@ -4,8 +4,8 @@ export interface InspectionProps {
   regenerator: string
   inspector: string
   regenerationScore: number
-  proofPhoto: string
-  report: string
+  proofPhotos: string
+  justificationReport: string
   validationsCount: number
   createdAt: number
   acceptedAt: number
