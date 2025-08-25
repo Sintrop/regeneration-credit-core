@@ -74,7 +74,7 @@ export function ActionComponent({
 
       {openAction && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
+          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-[500px]">
             <div className="flex items-center justify-between w-full">
               <p className="text-white">
                 {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
