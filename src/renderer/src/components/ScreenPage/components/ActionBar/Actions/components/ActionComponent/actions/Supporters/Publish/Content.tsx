@@ -19,7 +19,7 @@ export function Content({ tokensAllowed, refecthAllowance }: Props): JSX.Element
   const [image, setImage] = useState<string>()
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const { isError, isPending, publish, error, hash, uploadingImage } = usePublish()
+  const { isError, isPending, publish, error, hash, uploadingImage, uploadedError } = usePublish()
   const {
     isLoading,
     isSuccess,
@@ -110,6 +110,8 @@ export function Content({ tokensAllowed, refecthAllowance }: Props): JSX.Element
           loading={isLoading}
           errorMessage={errorMessage}
           transactionHash={hash}
+          uploadingFile={uploadingImage}
+          uploadedError={uploadedError}
         />
       )}
     </div>

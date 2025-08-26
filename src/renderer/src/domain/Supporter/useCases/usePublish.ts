@@ -11,7 +11,6 @@ import {
   supporterAbi,
   supporterAddress
 } from '@renderer/services/contracts'
-import { useTranslation } from 'react-i18next'
 
 interface PublishProps {
   description: string
@@ -26,17 +25,19 @@ interface ReturnUsePublishProps {
   error?: string
   hash?: `0x${string}`
   uploadingImage: boolean
+  uploadedError: boolean
 }
 
 export function usePublish(): ReturnUsePublishProps {
-  const { t } = useTranslation()
   const { ipfsApiUrl } = useSettingsContext()
   const mainnet = useMainnet()
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
   const [uploadingImage, setUploadingImage] = useState(false)
+  const [uploadedError, setUploadedError] = useState(false)
 
   async function handlePublish(data: PublishProps): Promise<void> {
+    setUploadedError(false)
     const commissionPercentage = parseInt(import.meta.env.VITE_COMMISSION_PERCENTAGE)
     const value = parseEther(data.ammount.toString())
 
@@ -52,7 +53,7 @@ export function usePublish(): ReturnUsePublishProps {
       if (response.success) {
         content = response.hash
       } else {
-        alert(t('commom.erroOnUploadFileToIpfs'))
+        setUploadedError(true)
         setUploadingImage(false)
         return
       }
@@ -73,6 +74,7 @@ export function usePublish(): ReturnUsePublishProps {
     error: error?.message,
     hash: data,
     publish: handlePublish,
-    uploadingImage
+    uploadingImage,
+    uploadedError
   }
 }
