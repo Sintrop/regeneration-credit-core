@@ -412,7 +412,19 @@
     "carbonImpact": "Carbon impact",
     "addCalculatorItem": "Add calculator item",
     "unit": "Unit",
-    "publish": "Publish"
+    "publish": "Publish",
+    "descApproveToPublish": "To call the offset/publish functions, you must first call the approve function. Approve the SupporterRules for the number of tokens you want to offset.",
+    "labelInputAmmount": "Ammount",
+    "approve": "Approve",
+    "descPublish": "",
+    "totalTokensAllowed": "Total tokens allowed",
+    "labelAmmountPublish": "Ammount",
+    "insufficientTokensAllowed": "Insufficient tokens allowed",
+    "labelDescPublish": "Description",
+    "labelImageSelect": "Image (optional)",
+    "uploadingFile": "Uploading file",
+    "": "",
+    "": ""
   },
   "infoBar": {
     "currentEra": "Current era",
@@ -424,5 +436,8 @@
     "acceptInspection": "Accept inspection",
     "seeContent": "See content",
     "voteToInvalidate": "Vote to invalidate"
+  },
+  "common": {
+    "typeHere": "Type here"
   }
 }
