@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useAllowance } from '@renderer/domain/Supporter/useCases/useAllowance'
-import { Approve } from './Approve'
+import { Approve } from '../Approve'
 import { Content } from './Content'
 import { Loading } from '@renderer/components/Loading/Loading'
 

@@ -413,7 +413,7 @@
     "addCalculatorItem": "Add calculator item",
     "unit": "Unit",
     "publish": "Publish",
-    "descApproveToPublish": "To call the offset/publish functions, you must first call the approve function. Approve the SupporterRules for the number of tokens you want to offset.",
+    "descApproveToPublish": "To call the offset/publish functions, you must first call the approve function. Approve the SupporterRules for the number of tokens you want to publish/offset.",
     "labelInputAmmount": "Ammount",
     "approve": "Approve",
     "descPublish": "",
@@ -423,6 +423,21 @@
     "labelDescPublish": "Description",
     "labelImageSelect": "Image (optional)",
     "uploadingFile": "Uploading file",
+    "publishedOffset": "Published offset",
+    "descOffset": "",
+    "selectCalculatorItem": "Select calculator item",
+    "offset": "Offset",
+    "selectedItem": "Selected item",
+    "chooseCalculatorItem": "Choose calculator item",
+    "chooseAnItem": "Choose an item",
+    "noCalculatorItems": "No calculator items",
+    "addResearch": "Add research",
+    "inviteResearcher": "Invite researcher",
+    "declareReduction": "Declare reduction",
+    "offseting": "Offset",
+    "inviteSupporter": "Invite supporter",
+    "updateProfilePhoto": "Update photo",
+    "": "",
     "": "",
     "": ""
   },
@@ -438,6 +453,7 @@
     "voteToInvalidate": "Vote to invalidate"
   },
   "common": {
-    "typeHere": "Type here"
+    "typeHere": "Type here",
+    "name": "Name"
   }
 }

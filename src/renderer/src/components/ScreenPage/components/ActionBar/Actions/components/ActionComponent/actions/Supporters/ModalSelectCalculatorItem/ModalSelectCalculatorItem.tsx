@@ -31,7 +31,7 @@ export function ModalSelectCalculatorItem({ close, ids, onChange }: Props): JSX.
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
       <div className="bg-white p-6 rounded-2xl shadow-2xl w-96">
         <div className="flex items-center justify-between w-full">
-          <p className="">{t('chooseAnItem')}</p>
+          <p className="">{t('actions.chooseAnItem')}</p>
           <button className="hover:cursor-pointer" onClick={close}>
             X
           </button>
@@ -40,7 +40,7 @@ export function ModalSelectCalculatorItem({ close, ids, onChange }: Props): JSX.
         <div className="flex flex-col mt-5 max-h-[400px] overflow-y-auto">
           {ids.length === 0 ? (
             <div className="items-center mt-10">
-              <p className="text-white text-center">{t('anyCalculatorItemsAvailable')}</p>
+              <p className="text-white text-center">{t('actions.noCalculatorItems')}</p>
             </div>
           ) : (
             <>
@@ -81,7 +81,7 @@ function CalculatorItem({ id, onChange }: SelectCalculatorItemProps): JSX.Elemen
       {calculatorItem && (
         <>
           <p className="text-black">
-            {t('name')}: {calculatorItem?.item}
+            {t('common.name')}: {calculatorItem?.item}
           </p>
         </>
       )}
