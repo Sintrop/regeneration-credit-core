@@ -44,7 +44,7 @@ export function ResearcheItem({ id }: Props): JSX.Element {
     return (
       <tr className="border-b border-container-primary text-white">
         <td className="p-2">{id}</td>
-        <td className="p-2">{<UserAddressLink address={research?.createdBy} />}</td>
+        <td className="p-2 max-w-[100px]">{<UserAddressLink address={research?.createdBy} />}</td>
         <td className="p-2">{formatUnits(BigInt(research?.createdAtBlock), 0)}</td>
         <td className="p-2">{formatUnits(BigInt(research?.era), 0)}</td>
         <td className="p-2">{formatUnits(BigInt(research?.validationsCount), 0)}</td>
@@ -55,12 +55,12 @@ export function ResearcheItem({ id }: Props): JSX.Element {
           <button className="hover:cursor-pointer" onClick={handleGoToResearcheDetails}>
             <FaRegEye color="white" />
           </button>
-  
+
           <button className="hover:cursor-pointer" onClick={handleShowVote}>
             <BiSolidMegaphone color="white" />
           </button>
         </td>
-  
+
         {showVote && (
           <VoteResearch
             close={() => setShowVote(false)}

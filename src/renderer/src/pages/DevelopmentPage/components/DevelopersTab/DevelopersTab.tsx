@@ -39,16 +39,22 @@ export function DevelopersTab(): JSX.Element {
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
-              <th className="p-2 border-r border-container-secondary">ID</th>
-              <th className="p-2 border-r border-container-secondary">{t('resources.wallet')}</th>
-              <th className="p-2 border-r border-container-secondary">{t('resources.name')}</th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">ID</th>
+              <th className="p-2 border-r border-container-secondary text-start max-w-[100px]">
+                {t('resources.wallet')}
+              </th>
+              <th className="p-2 border-r border-container-secondary text-start">
+                {t('resources.name')}
+              </th>
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('resources.createdAt')}
               </th>
-              <th className="p-2 border-r border-container-secondary">
+              <th className="p-2 border-r border-container-secondary text-start">
                 {t('resources.totalReports')}
               </th>
-              <th className="p-2 border-r border-container-secondary">{t('resources.level')}</th>
+              <th className="p-2 border-r border-container-secondary text-start">
+                {t('resources.level')}
+              </th>
               <th className="p-2">{t('resources.actions')}</th>
             </tr>
           </thead>

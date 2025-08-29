@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +11,8 @@ import {
   sequoiaRegeneratorAbi,
   sequoiaRegeneratorAddress
 } from '@renderer/services/contracts'
+import { validateLat, validateLng } from '@renderer/utils/validateCoords'
+import { Loading } from '@renderer/components/Loading/Loading'
 
 interface Props {
   address: string
@@ -22,9 +24,10 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
   const mapRef = useRef<mapboxgl.Map>()
   const mapContainerRef = useRef<HTMLDivElement>()
   const markersRef = useRef<mapboxgl.Marker[]>([])
+  const [invalidCoords, setInvalidCoords] = useState(true)
 
   const chainId = useChainId()
-  const { data } = useReadContract({
+  const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
     abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
     functionName: 'getCoordinates',
@@ -33,12 +36,28 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
 
   const coords = data ? (data as { latitude: string; longitude: string }[]) : []
 
+  useEffect(() => {
+    if (coords.length > 0) {
+      for (let i = 0; i < coords.length; i++) {
+        const latValid = validateLat(coords[i].latitude)
+        const lngValid = validateLng(coords[i].longitude)
+
+        if (!latValid || !lngValid) {
+          setInvalidCoords(true)
+        } else {
+          setInvalidCoords(false)
+        }
+      }
+    }
+  }, [coords])
+
   const centerMap = {
     lat: coords.length > 0 ? parseFloat(coords[0].latitude) : -23.29,
     lng: coords.length > 0 ? parseFloat(coords[0].longitude) : -48.08
   }
 
   useEffect(() => {
+    if (invalidCoords) return
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef?.current as HTMLDivElement,
@@ -86,9 +105,10 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
     return (): void => {
       mapRef.current?.remove()
     }
-  }, [centerMap])
+  }, [centerMap, invalidCoords])
 
   useEffect(() => {
+    if (invalidCoords) return
     if (!mapRef.current) return
 
     markersRef.current.forEach((marker) => marker.remove())
@@ -129,7 +149,29 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
         }
       })
     }
-  }, [coords])
+  }, [coords, invalidCoords])
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
+        <p className="text-gray-300 text-sm">{t('regenerationArea')}</p>
+
+        <div className="flex justify-center my-5">
+          <Loading />
+        </div>
+      </div>
+    )
+  }
+
+  if (invalidCoords) {
+    return (
+      <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
+        <p className="text-gray-300 text-sm">{t('regenerationArea')}</p>
+
+        <p className="text-yellow-500 text-center my-5">{t('invalidCoords')}!</p>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">

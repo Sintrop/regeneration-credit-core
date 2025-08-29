@@ -36,7 +36,7 @@ export function DeveloperItem({ id }: Props): JSX.Element {
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
-      <td className="p-2">
+      <td className="p-2 max-w-[100px]">
         {developer && <UserAddressLink address={developer?.developerWallet} />}
       </td>
       <td className="p-2">{developer && developer?.name}</td>

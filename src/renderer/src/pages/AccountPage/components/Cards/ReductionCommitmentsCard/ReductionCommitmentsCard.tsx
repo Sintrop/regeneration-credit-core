@@ -90,7 +90,7 @@ function ReductionItem({ id, address }: ReductionItemProps): JSX.Element {
   return (
     <div className="flex flex-col items-start border-b pb-3 w-full hover:cursor-pointer">
       <p className="text-white">ID: {formatUnits(BigInt(item?.id), 0)}</p>
-      <p className="text-white">{item?.title}</p>
+      <p className="text-white">{item?.item}</p>
       <p className="text-white">
         {t('carbonImpact')}: {formatUnits(BigInt(item?.carbonImpact), 0)} g
       </p>

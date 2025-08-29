@@ -1,10 +1,10 @@
 {
   "name": "regeneration-credit",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "Regeneration Credit Core",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://regenerationcredit.com",
+  "author": "Regeneration Credit",
+  "homepage": "https://regenerationcredit.org",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",

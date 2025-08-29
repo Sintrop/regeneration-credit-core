@@ -7,13 +7,14 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { CalculatorItemProps } from '@renderer/types/researcher'
-import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
+import { ModalOffsetCalculator } from './ModalOffsetCalculator'
+import { ModalDeclareCalculator } from './ModalDeclareCalculator'
 
 interface Props {
   id: number
 }
 
-export function CalculatorItem({ id }: Props): JSX.Element {
+export function OffsetCalculatorItem({ id }: Props): JSX.Element {
   const chainId = useChainId()
   const { data } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
@@ -21,15 +22,11 @@ export function CalculatorItem({ id }: Props): JSX.Element {
     functionName: 'getCalculatorItem',
     args: [id]
   })
-
   const calculatorItem = data as CalculatorItemProps
 
   return (
     <tr className="border-b border-container-primary text-white">
       <td className="p-2">{id}</td>
-      <td className="p-2 max-w-[100px]">
-        {calculatorItem && <UserAddressLink address={calculatorItem?.createdBy} />}
-      </td>
       <td className="p-2">{calculatorItem && calculatorItem?.item}</td>
       <td className="p-2">{calculatorItem && calculatorItem?.unit}</td>
       <td className="p-2">
@@ -38,7 +35,14 @@ export function CalculatorItem({ id }: Props): JSX.Element {
             parseInt(formatUnits(BigInt(calculatorItem?.carbonImpact), 0))
           )}
       </td>
-      <td className="p-2"></td>
+      <td className="p-2 flex gap-3 max-w-[250px]">
+        {calculatorItem && (
+          <>
+            <ModalOffsetCalculator item={calculatorItem} />
+            <ModalDeclareCalculator item={calculatorItem} />
+          </>
+        )}
+      </td>
     </tr>
   )
 }

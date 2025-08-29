@@ -32,9 +32,9 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
-        name={activist.name}
+        name={activist?.name}
         userType={6}
-        proofPhoto={activist.proofPhoto}
+        proofPhoto={activist?.proofPhoto}
       />
 
       {activist && (

@@ -54,7 +54,7 @@ export function ReportsFeed(): JSX.Element {
             </div>
           ) : (
             <div className="flex flex-col gap-5 w-full">
-              {reportsIds.map((item) => (
+              {reportsIds.slice(0, 3).map((item) => (
                 <ReportFeedItem id={item} key={item} />
               ))}
             </div>

@@ -40,9 +40,9 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
       <HeaderUser
         address={address}
         areaPhotoUpdated={() => {}}
-        name={inspector.name}
+        name={inspector?.name}
         userType={2}
-        proofPhoto={inspector.proofPhoto}
+        proofPhoto={inspector?.proofPhoto}
       />
 
       {inspector && (
