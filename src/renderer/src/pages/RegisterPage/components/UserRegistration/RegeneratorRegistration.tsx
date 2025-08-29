@@ -23,8 +23,8 @@ interface Props {
 }
 
 interface CoordinateProps {
-  longitude: number
-  latitude: number
+  longitude: string
+  latitude: string
 }
 
 export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
@@ -99,7 +99,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
     mapRef.current.on('click', (e) => {
       setCoordinates((prevState) => [
         ...prevState,
-        { latitude: e.lngLat.lat, longitude: e.lngLat.lng }
+        { latitude: e.lngLat.lat.toString(), longitude: e.lngLat.lng.toString() }
       ])
     })
 
@@ -116,7 +116,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
     coordinates.forEach((coordinate) => {
       const marker = new mapboxgl.Marker()
-        .setLngLat([coordinate?.longitude, coordinate?.latitude])
+        .setLngLat([parseFloat(coordinate?.longitude), parseFloat(coordinate?.latitude)])
         .addTo(mapRef.current!)
 
       markersRef.current.push(marker)
@@ -124,8 +124,8 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
     if (coordinates.length > 2) {
       const polygonCoords: [number, number][] = coordinates.map((coord) => [
-        coord.longitude,
-        coord.latitude
+        parseFloat(coord.longitude),
+        parseFloat(coord.latitude)
       ])
       if (polygonCoords.length > 0) {
         polygonCoords.push([...polygonCoords[0]])
@@ -313,7 +313,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
       return
     }
 
-    addCoords({ latitude: parseFloat(latitude), longitude: parseFloat(longitude) })
+    addCoords({ latitude: latitude, longitude: longitude })
     setLatitude('')
     setLongitude('')
   }
