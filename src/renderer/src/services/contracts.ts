@@ -14,7 +14,6 @@ import SequoiaContributorPoolContract from '../../../data/abis/sequoia/Contribut
 import SequoiaActivistContract from '../../../data/abis/sequoia/ActivistRules.json'
 import SequoiaActivistPoolContract from '../../../data/abis/sequoia/ActivistPool.json'
 import SequoiaSupporterContract from '../../../data/abis/sequoia/SupporterRules.json'
-import SequoiaSupporterPoolContract from '../../../data/abis/sequoia/SupporterPool.json'
 import SequoiaInspectionContract from '../../../data/abis/sequoia/InspectionRules.json'
 import SequoiaInvitationContract from '../../../data/abis/sequoia/InvitationRules.json'
 import SequoiaVoteContract from '../../../data/abis/sequoia/VoteRules.json'
@@ -92,7 +91,6 @@ export const sequoiaContributorPoolAbi = SequoiaContributorPoolContract.abi
 export const sequoiaActivistAbi = SequoiaActivistContract.abi
 export const sequoiaActivistPoolAbi = SequoiaActivistPoolContract.abi
 export const sequoiaSupporterAbi = SequoiaSupporterContract.abi
-export const sequoiaSupporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
 export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
 export const sequoiaVoteAbi = SequoiaVoteContract.abi
@@ -116,7 +114,6 @@ export const contributorPoolAbi = SequoiaContributorPoolContract.abi
 export const activistAbi = SequoiaActivistContract.abi
 export const activistPoolAbi = SequoiaActivistPoolContract.abi
 export const supporterAbi = SequoiaSupporterContract.abi
-export const supporterPoolAbi = SequoiaSupporterPoolContract.abi
 export const inspectionAbi = SequoiaInspectionContract.abi
 export const invitationAbi = SequoiaInvitationContract.abi
 export const voteAbi = SequoiaVoteContract.abi

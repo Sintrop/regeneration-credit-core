@@ -10,6 +10,7 @@ export function ResourceDetailsPage(): JSX.Element {
   const { t } = useTranslation()
   const { resourceType, id } = useParams()
   const [report, setReport] = useState<string>('')
+  const [reportPhotos, setReportPhotos] = useState<string>('')
   const [selectedTab, setSelectedTab] = useState('pdf')
 
   return (
@@ -18,6 +19,7 @@ export function ResourceDetailsPage(): JSX.Element {
         resourceType={resourceType as string}
         id={parseInt(id as string)}
         setReport={setReport}
+        setProofPhotos={setReportPhotos}
       />
 
       <div className="mt-5 flex items-center gap-3">
@@ -27,9 +29,19 @@ export function ResourceDetailsPage(): JSX.Element {
           onChange={setSelectedTab}
           isSelected={selectedTab === 'pdf'}
         />
+
+        {resourceType === 'inspection' && (
+          <TabItem
+            value="proofPhotos"
+            label={t('proofPhotos')}
+            onChange={setSelectedTab}
+            isSelected={selectedTab === 'proofPhotos'}
+          />
+        )}
       </div>
 
       {selectedTab === 'pdf' && <PdfTab report={report} />}
+      {selectedTab === 'proofPhotos' && <PdfTab report={reportPhotos} />}
     </ScreenPage>
   )
 }

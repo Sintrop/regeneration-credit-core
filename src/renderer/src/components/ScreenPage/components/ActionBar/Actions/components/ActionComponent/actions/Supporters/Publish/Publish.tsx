@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Loading } from '@renderer/components/Loading/Loading'
 import { useAllowance } from '@renderer/domain/Supporter/useCases/useAllowance'
-
 import { Approve } from '../Approve'
-import { SelectItem } from './SelectItem'
+import { Content } from './Content'
+import { Loading } from '@renderer/components/Loading/Loading'
 
-export function Offsetting(): JSX.Element {
+export function Publish(): JSX.Element {
   const { tokensAllowed, isLoading: isLoadingAllowance, refetch } = useAllowance()
 
   if (isLoadingAllowance) {
@@ -21,7 +20,7 @@ export function Offsetting(): JSX.Element {
       {tokensAllowed === 0 ? (
         <Approve refetchAllowance={refetch} />
       ) : (
-        <SelectItem tokensAllowed={tokensAllowed} refecthAllowance={refetch} />
+        <Content tokensAllowed={tokensAllowed} refecthAllowance={refetch} />
       )}
     </div>
   )

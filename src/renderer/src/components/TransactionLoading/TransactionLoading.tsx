@@ -13,6 +13,8 @@ interface Props {
   errorMessage?: string
   ok: () => void
   close: () => void
+  uploadingFile?: boolean
+  uploadedError?: boolean
 }
 
 export function TransactionLoading({
@@ -23,7 +25,9 @@ export function TransactionLoading({
   isSuccess,
   errorMessage,
   close,
-  ok
+  ok,
+  uploadingFile,
+  uploadedError
 }: Props): JSX.Element {
   const { t } = useTranslation()
 
@@ -38,6 +42,18 @@ export function TransactionLoading({
         <button className="absolute top-3 right-3 hover:cursor-pointer" onClick={close}>
           <MdClose size={25} color="white" />
         </button>
+        {uploadedError && (
+          <div className="w-full h-20 flex flex-col items-center justify-center">
+            <p className="text-red-500">{t('txLoading.erroOnUploadFileToIpfs')}</p>
+          </div>
+        )}
+
+        {uploadingFile && (
+          <div className="w-full h-20 flex flex-col items-center justify-center">
+            <p className="text-white">{t('txLoading.uploadingFile')}</p>
+          </div>
+        )}
+
         {isPending && (
           <div className="w-full h-20 flex flex-col items-center justify-center">
             <p className="text-white">{t('txLoading.confirmInYourWallet')}...</p>

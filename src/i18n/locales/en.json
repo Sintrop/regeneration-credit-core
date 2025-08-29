@@ -300,7 +300,9 @@
     "continue": "Continue",
     "errorOnExecuteTransaction": "Error on execute transaction",
     "close": "Close",
-    "copiedToClipboard": "Copied to clipboard"
+    "copiedToClipboard": "Copied to clipboard",
+    "uploadingFile": "Uploading file",
+    "erroOnUploadFileToIpfs": "Error on upload file to IPFS"
   },
   "register": {
     "title": "Registration",
@@ -412,7 +414,34 @@
     "carbonImpact": "Carbon impact",
     "addCalculatorItem": "Add calculator item",
     "unit": "Unit",
-    "publish": "Publish"
+    "publish": "Publish",
+    "descApproveToPublish": "To call the offset/publish functions, you must first call the approve function. Approve the SupporterRules for the number of tokens you want to publish/offset.",
+    "labelInputAmmount": "Ammount",
+    "approve": "Approve",
+    "descPublish": "",
+    "totalTokensAllowed": "Total tokens allowed",
+    "labelAmmountPublish": "Ammount",
+    "insufficientTokensAllowed": "Insufficient tokens allowed",
+    "labelDescPublish": "Description",
+    "labelImageSelect": "Image (optional)",
+    "uploadingFile": "Uploading file",
+    "publishedOffset": "Published offset",
+    "descOffset": "",
+    "selectCalculatorItem": "Select calculator item",
+    "offset": "Offset",
+    "selectedItem": "Selected item",
+    "chooseCalculatorItem": "Choose calculator item",
+    "chooseAnItem": "Choose an item",
+    "noCalculatorItems": "No calculator items",
+    "addResearch": "Add research",
+    "inviteResearcher": "Invite researcher",
+    "declareReduction": "Declare reduction",
+    "offseting": "Offset",
+    "inviteSupporter": "Invite supporter",
+    "updateProfilePhoto": "Update photo",
+    "": "",
+    "": "",
+    "": ""
   },
   "infoBar": {
     "currentEra": "Current era",
@@ -424,5 +453,9 @@
     "acceptInspection": "Accept inspection",
     "seeContent": "See content",
     "voteToInvalidate": "Vote to invalidate"
+  },
+  "common": {
+    "typeHere": "Type here",
+    "name": "Name"
   }
 }

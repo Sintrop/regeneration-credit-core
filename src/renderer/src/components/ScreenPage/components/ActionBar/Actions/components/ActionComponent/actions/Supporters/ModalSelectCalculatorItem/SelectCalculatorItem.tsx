@@ -50,7 +50,7 @@ export function SelectCalculatorItem({ onChangeItem }: Props): JSX.Element {
     <div className="flex flex-col">
       {itemSelected && (
         <div className="flex flex-col gap-1 my-3">
-          <p className="text-sm mt-3 text-gray-300">{t('selectedItem')}:</p>
+          <p className="text-sm mt-3 text-gray-300">{t('actions.selectedItem')}:</p>
           <p className="text-white">
             ID: {itemSelected.id} - {itemSelected?.name}
           </p>
@@ -61,7 +61,7 @@ export function SelectCalculatorItem({ onChangeItem }: Props): JSX.Element {
         className="rounded-2xl px-10 w-fit h-8 text-white font-semibold bg-green-btn hover:cursor-pointer"
         onClick={() => setShowModalSelect(true)}
       >
-        {t('chooseCalculatorItem')}
+        {t('actions.chooseCalculatorItem')}
       </button>
 
       {showModalSelect && (

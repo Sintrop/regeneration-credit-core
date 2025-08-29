@@ -44,7 +44,7 @@ export function ImageInput({ onChange }: Props): JSX.Element {
       {image && <img src={image as string} className="w-32 h-32 rounded-2xl object-cover mb-5" />}
 
       <button
-        className="rounded-2xl bg-green-primary text-white font-semibold px-10 w-fit h-8 hover:cursor-pointer"
+        className="rounded-2xl bg-green-primary text-white font-semibold px-10 w-fit h-10 hover:cursor-pointer"
         onClick={handleOpenBroswerFile}
       >
         {t('selectImage')}
