@@ -1,9 +1,12 @@
 import { useEra } from '@renderer/hooks/useEra'
+import { useUserContext } from '@renderer/hooks/useUserContext'
 import { useTranslation } from 'react-i18next'
+import { TimesUser } from './TimesUser/TimesUser'
 
 export function InfoBar(): JSX.Element {
   const { t } = useTranslation()
   const { currentEpoch, currentEra, nextEraIn } = useEra()
+  const { userType } = useUserContext()
 
   return (
     <div className="flex items-center gap-8 w-full min-h-10 bg-green-700 px-5">
@@ -23,6 +26,8 @@ export function InfoBar(): JSX.Element {
         {t('infoBar.currentEpoch')}:{' '}
         <span className="text-white font-semibold text-base">{currentEpoch}</span>
       </p>
+
+      {userType !== 0 && <TimesUser />}
     </div>
   )
 }

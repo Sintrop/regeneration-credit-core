@@ -17,6 +17,7 @@ export interface UserContextProps {
   address: `0x${string}` | undefined
   eraPool: number
   setEraPool: (era: number) => void
+  refetchUserType: () => void
 }
 
 export const UserContext = createContext({} as UserContextProps)
@@ -27,7 +28,7 @@ export function UserContextProvider({ children }: UserContextProviderProps): JSX
   const [userType, setUserType] = useState<number>(0)
   const [eraPool, setEraPool] = useState<number>(1)
 
-  const { data: responseUserType } = useReadContract({
+  const { data: responseUserType, refetch: refetchUserType } = useReadContract({
     address: chainId === 250225 ? userAddress : sequoiaUserAddress,
     abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
     functionName: 'getUser',
@@ -41,7 +42,9 @@ export function UserContextProvider({ children }: UserContextProviderProps): JSX
   }, [responseUserType])
 
   return (
-    <UserContext.Provider value={{ userType, isConnected, address, eraPool, setEraPool }}>
+    <UserContext.Provider
+      value={{ userType, isConnected, address, eraPool, setEraPool, refetchUserType }}
+    >
       {children}
     </UserContext.Provider>
   )
