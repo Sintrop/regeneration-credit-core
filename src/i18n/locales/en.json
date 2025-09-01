@@ -447,7 +447,9 @@
     "currentEra": "Current era",
     "nextEraIn": "Next era in",
     "blocks": "Blocks",
-    "currentEpoch": "Current epoch"
+    "currentEpoch": "Current epoch",
+    "canPublishReport": "Can publish report",
+    "canPublishResearch": "Can publish research"
   },
   "subtitles": {
     "acceptInspection": "Accept inspection",
@@ -456,6 +458,13 @@
   },
   "common": {
     "typeHere": "Type here",
-    "name": "Name"
+    "name": "Name",
+    "yes": "Yes",
+    "no": "No",
+    "wait": "Wait",
+    "blocks": "Blocks",
+    "block": "Block",
+    "": "",
+    "": ""
   }
 }

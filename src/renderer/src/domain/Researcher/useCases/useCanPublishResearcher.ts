@@ -1,13 +1,13 @@
 import { useAccount, useBlockNumber, useReadContract } from 'wagmi'
 import { useMainnet } from '@renderer/hooks/useMainnet'
 import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
+  researcherAbi,
+  researcherAddress,
+  sequoiaResearcherAbi,
+  sequoiaResearcherAddress
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
-import { DeveloperProps } from '@renderer/types/developer'
+import { ResearcherProps } from '@renderer/types/researcher'
 
 interface ReturnUseCanPublishReport {
   canPublish: boolean
@@ -16,21 +16,21 @@ interface ReturnUseCanPublishReport {
   refetch: () => void
   waitBlocks: number
 }
-export function useCanPublishReport(): ReturnUseCanPublishReport {
+export function useCanPublishResearcher(): ReturnUseCanPublishReport {
   const mainnet = useMainnet()
   const { address } = useAccount()
   const {
-    data: responseDeveloper,
-    refetch: refetchDeveloper,
-    isLoading: isLoadingDeveloper
+    data: responseResearcher,
+    refetch: refetchResearcher,
+    isLoading: isLoadingResearcher
   } = useReadContract({
-    address: mainnet ? developerAddress : sequoiaDeveloperAddress,
-    abi: mainnet ? developerAbi : sequoiaDeveloperAbi,
-    functionName: 'getDeveloper',
+    address: mainnet ? researcherAddress : sequoiaResearcherAddress,
+    abi: mainnet ? researcherAbi : sequoiaResearcherAbi,
+    functionName: 'getResearcher',
     args: [address]
   })
 
-  const developer = responseDeveloper as DeveloperProps
+  const developer = responseResearcher as ResearcherProps
   const lastPublishedAt = developer
     ? parseInt(formatUnits(BigInt(developer?.lastPublishedAt), 0))
     : 0
@@ -40,8 +40,8 @@ export function useCanPublishReport(): ReturnUseCanPublishReport {
     refetch: refetchTime,
     isLoading: isLoadingTime
   } = useReadContract({
-    address: mainnet ? developerAddress : sequoiaDeveloperAddress,
-    abi: mainnet ? developerAbi : sequoiaDeveloperAbi,
+    address: mainnet ? researcherAddress : sequoiaResearcherAddress,
+    abi: mainnet ? researcherAbi : sequoiaResearcherAbi,
     functionName: 'timeBetweenWorks',
     args: []
   })
@@ -53,7 +53,7 @@ export function useCanPublishReport(): ReturnUseCanPublishReport {
   const blockNumber = responseBlock ? parseInt(formatUnits(responseBlock, 0)) : 0
 
   function refetch(): void {
-    refetchDeveloper()
+    refetchResearcher()
     refetchTime()
   }
 
@@ -63,7 +63,7 @@ export function useCanPublishReport(): ReturnUseCanPublishReport {
   return {
     canPublish,
     isError: false,
-    isLoading: isLoadingDeveloper || isLoadingTime,
+    isLoading: isLoadingResearcher || isLoadingTime,
     refetch,
     waitBlocks
   }

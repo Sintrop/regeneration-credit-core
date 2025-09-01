@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next'
 
-import { useCanPublishReport } from '@renderer/domain/Developer/useCases/useCanPublishReport'
+import { useCanPublishResearcher } from '@renderer/domain/Researcher/useCases/useCanPublishResearcher'
 
-export function TimesDeveloper(): JSX.Element {
+export function TimesResearcher(): JSX.Element {
   const { t } = useTranslation()
-  const { canPublish, waitBlocks } = useCanPublishReport()
+  const { canPublish, waitBlocks } = useCanPublishResearcher()
 
   return (
     <div className="flex gap-8 items-center">
       <p className="text-gray-300 text-sm">
-        {t('infoBar.canPublishReport')}:{' '}
+        {t('infoBar.canPublishResearch')}:{' '}
         <span className="text-white font-semibold text-base">
           {t(canPublish ? 'common.yes' : 'common.no')}
           {waitBlocks > 0 && ` (${t('common.wait')} ${waitBlocks} ${t('common.blocks')})`}
