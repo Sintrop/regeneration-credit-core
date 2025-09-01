@@ -9,7 +9,7 @@ export function InfoBar(): JSX.Element {
   const { userType } = useUserContext()
 
   return (
-    <div className="flex items-center gap-8 w-full min-h-10 bg-green-700 px-5">
+    <div className="flex items-center gap-8 w-full h-10 bg-green-700 px-5 overflow-y-hidden overflow-x-auto">
       <p className="text-gray-300 text-sm">
         {t('infoBar.currentEra')}:{' '}
         <span className="text-white font-semibold text-base">{currentEra}</span>

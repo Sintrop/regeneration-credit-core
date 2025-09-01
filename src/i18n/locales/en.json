@@ -35,7 +35,10 @@
     "titleResearche": "Title",
     "thesis": "Thesis",
     "valid": "Valid",
-    "invalid": "Invalid"
+    "invalid": "Invalid",
+    "burnedTokens": "Burned tokens",
+    "calculatorItem": "Calculator item",
+    "message": "Message"
   },
   "contracts": {
     "name": "Name",
@@ -449,7 +452,8 @@
     "blocks": "Blocks",
     "currentEpoch": "Current epoch",
     "canPublishReport": "Can publish report",
-    "canPublishResearch": "Can publish research"
+    "canPublishResearch": "Can publish research",
+    "canPublishContribution": "Can publish contribution"
   },
   "subtitles": {
     "acceptInspection": "Accept inspection",
@@ -464,7 +468,7 @@
     "wait": "Wait",
     "blocks": "Blocks",
     "block": "Block",
-    "": "",
+    "regenerationCredit": "Regeneration Credit",
     "": ""
   }
 }

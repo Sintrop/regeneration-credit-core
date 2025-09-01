@@ -21,7 +21,7 @@ export function Header(): JSX.Element {
       <div className="px-10 flex items-center justify-between h-full">
         <button className="flex items-center gap-3 hover:cursor-pointer" onClick={handleBackToHome}>
           <img src={LogoRC} alt="Logo regeneration credit" className="w-10 h-10 object-contain" />
-          <p className="text-white font-bold text-xl">{t('regenerationCredit')}</p>
+          <p className="text-white font-bold text-xl">{t('common.regenerationCredit')}</p>
         </button>
 
         <div className="flex items-center gap-5">
