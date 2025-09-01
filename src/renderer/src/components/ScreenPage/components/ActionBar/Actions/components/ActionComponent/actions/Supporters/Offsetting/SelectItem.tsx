@@ -14,6 +14,7 @@ interface Props {
 export function SelectItem({ refecthAllowance, tokensAllowed }: Props): JSX.Element {
   const { t } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
+  const [inputMessage, setInputMessage] = useState('')
   const [itemId, setItemId] = useState<number | null>()
   const [insufficientTokens, setInsufficientTokens] = useState(false)
 
@@ -40,7 +41,8 @@ export function SelectItem({ refecthAllowance, tokensAllowed }: Props): JSX.Elem
     setDisplayLoadingTx(true)
     offset({
       ammount: parseFloat(inputAmmount),
-      calculatorItemId: itemId
+      calculatorItemId: itemId,
+      message: inputMessage
     })
   }
 
@@ -80,6 +82,14 @@ export function SelectItem({ refecthAllowance, tokensAllowed }: Props): JSX.Elem
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.selectCalculatorItem')}:</p>
       <SelectCalculatorItem onChangeItem={(item) => setItemId(item?.id)} />
+
+      <p className="text-sm mt-3 text-gray-300">{t('actions.labelMessage')}:</p>
+      <input
+        value={inputMessage}
+        className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
+        placeholder={t('common.typeHere')}
+        onChange={(e) => setInputMessage(e.target.value)}
+      />
 
       <button
         className="w-full h-10 mt-5 rounded-2xl bg-blue-primary text-white font-semibold hover:cursor-pointer disabled:cursor-default disabled:opacity-50"

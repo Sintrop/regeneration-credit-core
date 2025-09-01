@@ -28,7 +28,7 @@ export function OffsetCalculator(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col mt-10">
+    <div className="flex flex-col my-10">
       <h3 className="font-bold text-white text-xl">{t('impactCalculator.offset')}</h3>
       <p className="text-gray-200">{t('impactCalculator.descOffset')}</p>
 

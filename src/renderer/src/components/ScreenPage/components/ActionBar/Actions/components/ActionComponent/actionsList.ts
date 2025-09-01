@@ -10,7 +10,6 @@ import { Invite } from './actions/Invite'
 import { RequestInspection } from './actions/Producers/RequestInspection'
 import { Withdraw } from './actions/Withdraw'
 import { AddContribution } from './actions/Contributors/AddContribution'
-import { Publish } from './actions/Supporters/Publish/Publish'
 import { Offsetting } from './actions/Supporters/Offsetting/Offsetting'
 import { RealizeInspection } from './actions/Inspectors/RealizeInspection'
 import { UpdateProfilePhoto } from './actions/Supporters/UpdateProfilePhoto'
@@ -76,11 +75,6 @@ export const actionsList = {
     name: 'addContribution',
     description: 'shortDescriptionaddContribution',
     component: AddContribution
-  },
-  publish: {
-    name: 'publish',
-    description: 'shortDescriptionPublish',
-    component: Publish
   },
   offsetting: {
     name: 'offsetting',

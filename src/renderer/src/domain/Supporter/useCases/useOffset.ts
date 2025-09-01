@@ -12,6 +12,7 @@ import {
 interface OffsetProps {
   ammount: number
   calculatorItemId: number
+  message?: string
 }
 
 interface ReturnUseOffsetProps {
@@ -36,7 +37,12 @@ export function useOffset(): ReturnUseOffsetProps {
       address: mainnet ? supporterAddress : sequoiaSupporterAddress,
       abi: mainnet ? supporterAbi : sequoiaSupporterAbi,
       functionName: 'offset',
-      args: [value, minAmmountToBurnParsed, data.calculatorItemId]
+      args: [
+        value,
+        minAmmountToBurnParsed,
+        data.calculatorItemId,
+        data?.message ? data.message : ''
+      ]
     })
   }
 

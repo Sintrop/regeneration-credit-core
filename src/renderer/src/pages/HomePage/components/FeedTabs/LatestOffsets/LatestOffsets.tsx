@@ -39,7 +39,7 @@ export function LatestOffsets(): JSX.Element {
           <Loading />
         </div>
       ) : (
-        <div className="flex flex-col gap-5 w-[350px]">
+        <div className="flex flex-col gap-5 w-[500px]">
           {offsetsIds.length === 0 ? (
             <div className="items-center my-10 w-full">
               <p className="text-white text-center">{t('feed.noOffsets')}</p>
