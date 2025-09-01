@@ -1,6 +1,6 @@
 import proj4 from 'proj4'
 
-export function calculateArea(coords: { latitude: number; longitude: number }[]): number {
+export function calculateArea(coords: { latitude: string; longitude: string }[]): number {
   proj4.defs('WGS84_UTM', '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs')
 
   if (coords.length < 3) return 0
@@ -10,8 +10,8 @@ export function calculateArea(coords: { latitude: number; longitude: number }[])
     const coord = coords[i]
 
     const coordUTM = proj4(proj4.defs('WGS84'), proj4.defs('EPSG:3785'), [
-      coord.longitude,
-      coord.latitude
+      parseFloat(coord.longitude),
+      parseFloat(coord.latitude)
     ])
     const data = {
       x: coordUTM[0],
