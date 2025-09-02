@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { contractsSequoia } from '@renderer/services/contracts'
+import { contractsMainnet, contractsSequoia } from '@renderer/services/contracts'
 import { ContractListProps } from '@renderer/types/contract'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useChainId } from 'wagmi'
 import { ContractDetails } from './components/ContractDetails/ContractDetails'
 import { SelectorTabContract } from './components/ContractTabs/SelectorTabContract/SelectorTabContract'
 import { ContentTabs, ContractPageTabs } from './components/ContractTabs/ContentTabs/ContentTabs'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { useTranslation } from 'react-i18next'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 export function ContractPage(): JSX.Element {
   const { t } = useTranslation()
   const params = useParams()
-  const chainId = useChainId()
+  const mainnet = useMainnet()
   const [contractData, setContractData] = useState<ContractListProps>({} as ContractListProps)
   const [selectedTab, setSelectedTab] = useState<ContractPageTabs>('methods')
 
@@ -22,7 +22,12 @@ export function ContractPage(): JSX.Element {
   }, [params])
 
   function handleGetContractData(): void {
-    if (chainId === 1600) {
+    if (mainnet) {
+      const contract = contractsMainnet.find((contract) => contract.address === params.address)
+      if (contract) {
+        setContractData(contract)
+      }
+    } else {
       const contract = contractsSequoia.find((contract) => contract.address === params.address)
       if (contract) {
         setContractData(contract)

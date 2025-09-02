@@ -3,8 +3,13 @@ import { useEffect, useState } from 'react'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { useTranslation } from 'react-i18next'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
-import { sequoiaUserAbi, sequoiaUserAddress } from '@renderer/services/contracts'
+import { useAccount, useReadContract } from 'wagmi'
+import {
+  sequoiaUserAbi,
+  sequoiaUserAddress,
+  userAbi,
+  userAddress
+} from '@renderer/services/contracts'
 import {
   RegistrationUserType,
   UserRegistration
@@ -13,11 +18,12 @@ import { Vacancies } from './components/Vacancies'
 import { useNavigate } from 'react-router-dom'
 import { Invitation } from './components/Invitation'
 import { InvitationProps } from '@renderer/types/invitation'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 export function RegisterPage(): JSX.Element {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const chainId = useChainId()
+  const mainnet = useMainnet()
   const { address, isDisconnected } = useAccount()
   const [name, setName] = useState('')
   const [userType, setUserType] = useState<RegistrationUserType>(0)
@@ -31,8 +37,8 @@ export function RegisterPage(): JSX.Element {
   }, [isDisconnected])
 
   const { data } = useReadContract({
-    address: chainId === 1600 ? sequoiaUserAddress : sequoiaUserAddress,
-    abi: chainId === 1600 ? sequoiaUserAbi : sequoiaUserAbi,
+    address: mainnet ? userAddress : sequoiaUserAddress,
+    abi: mainnet ? userAbi : sequoiaUserAbi,
     functionName: 'getUser',
     args: [address]
   })

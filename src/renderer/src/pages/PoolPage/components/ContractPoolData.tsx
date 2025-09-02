@@ -1,42 +1,43 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { contractsPool, ContractsPoolName } from '../contractsPoolList'
 import { formatUnits } from 'viem'
 import { sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useTranslation } from 'react-i18next'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   poolName: ContractsPoolName
 }
 export function ContractPoolData({ poolName }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
+  const mainnet = useMainnet()
 
   const contractPool = contractsPool[poolName]
 
   const { data: eraContract, isLoading: loading1 } = useReadContract({
     //@ts-ignore
-    address: chainId === 1600 ? contractPool?.addressTestnet : contractPool?.addressMainnet,
-    abi: chainId === 1600 ? contractPool?.abiTestnet : contractPool?.abiMainnet,
+    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'currentContractEra',
     args: []
   })
 
   const { data: epochContract, isLoading: loading2 } = useReadContract({
     //@ts-ignore
-    address: chainId === 1600 ? contractPool?.addressTestnet : contractPool?.addressMainnet,
-    abi: chainId === 1600 ? contractPool?.abiTestnet : contractPool?.abiMainnet,
+    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'currentEpoch',
     args: []
   })
 
   const { data: balanceContract, isLoading: loading3 } = useReadContract({
     //@ts-ignore
-    address: chainId === 1600 ? sequoiaRcAddress : sequoiaRcAddress,
-    abi: chainId === 1600 ? sequoiaRcAbi : sequoiaRcAbi,
+    address: mainnet ? sequoiaRcAddress : sequoiaRcAddress,
+    abi: mainnet ? sequoiaRcAbi : sequoiaRcAbi,
     functionName: 'balanceOf',
-    args: [`${chainId === 1600 ? contractPool?.addressTestnet : contractPool?.addressMainnet}`]
+    args: [`${mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet}`]
   })
 
   const epoch = epochContract as string

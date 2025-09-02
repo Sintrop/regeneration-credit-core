@@ -1,13 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { sequoiaInspectorAbi, sequoiaInspectorAddress } from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import {
+  inspectorAbi,
+  inspectorAddress,
+  sequoiaInspectorAbi,
+  sequoiaInspectorAddress
+} from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   name: string
@@ -28,7 +34,7 @@ export function InspectorRegistration({
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
+  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, error, isError } = useWriteContract()
   const {
     isLoading,
@@ -86,8 +92,8 @@ export function InspectorRegistration({
 
     setDisplayLoadingTx(true)
     writeContract({
-      address: chainId === 1600 ? sequoiaInspectorAddress : sequoiaInspectorAddress,
-      abi: chainId === 1600 ? sequoiaInspectorAbi : sequoiaInspectorAbi,
+      address: mainnet ? inspectorAddress : sequoiaInspectorAddress,
+      abi: mainnet ? inspectorAbi : sequoiaInspectorAbi,
       functionName: 'addInspector',
       args: [name, hashProofPhoto]
     })
