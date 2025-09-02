@@ -262,20 +262,33 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
           {t('register.areaSize')}: {Intl.NumberFormat('pt-BR').format(totalArea)}m²
         </p>
 
-        <div className="flex items-center justify-center gap-5 mt-3">
-          <button
-            onClick={handleClearSelection}
-            className="text-white underline font-semibold hover:cursor-pointer"
-          >
-            {t('register.clearSelection')}
-          </button>
-          <button
-            onClick={handleDeleteLastPoint}
-            className="text-white underline font-semibold hover:cursor-pointer"
-          >
-            {t('register.removeLastPoint')}
-          </button>
-        </div>
+        {coordinates.length > 0 && (
+          <>
+            <div className="flex flex-col gap-1 my-3">
+              <p className="text-xs text-gray-300">{t('common.coordinates')}</p>
+              {coordinates.map((item, index) => (
+                <p className="text-white" key={index}>
+                  {index + 1} = Lat: {item.latitude}, Lng: {item.longitude}
+                </p>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-center gap-5">
+              <button
+                onClick={handleClearSelection}
+                className="text-white underline font-semibold hover:cursor-pointer"
+              >
+                {t('register.clearSelection')}
+              </button>
+              <button
+                onClick={handleDeleteLastPoint}
+                className="text-white underline font-semibold hover:cursor-pointer"
+              >
+                {t('register.removeLastPoint')}
+              </button>
+            </div>
+          </>
+        )}
 
         <InputCoordsManually addCoords={(data) => setCoordinates((value) => [...value, data])} />
       </div>

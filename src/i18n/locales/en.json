@@ -489,7 +489,8 @@
     "report": "Report",
     "inspection": "Inspection",
     "contribution": "Contribution",
-    "contributor": "Contributor"
+    "contributor": "Contributor",
+    "coordinates": "Coordinates"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
