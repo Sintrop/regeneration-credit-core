@@ -46,43 +46,44 @@ export function ResearcheData({ id, setReport }: Props): JSX.Element {
   return (
     <div className="flex gap-10">
       <div className="flex flex-col gap-2 max-w-[500px]">
-        <div className="flex items-center gap-2">
-          <p className="text-white">{t('researcher')}:</p>
-          <UserAddressLink address={researche.createdBy} />
-        </div>
-
-        <div className="flex gap-2">
-          <p className="text-white">{t('title')}:</p>
+        <div className="p-3 rounded-2xl bg-container-primary w-full">
+          <p className="text-xs text-gray-300">{t('common.title')}</p>
           <p className="text-white">{researche && researche.title}</p>
         </div>
 
-        <div className="flex gap-2">
-          <p className="text-white">{t('thesis')}:</p>
+        <div className="p-3 rounded-2xl bg-container-primary w-full">
+          <p className="text-xs text-gray-300">{t('common.thesis')}</p>
           <p className="text-white">{researche && researche.thesis}</p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <p className="text-white">{t('valid')}:</p>
-          <p className="text-white">{researche && researche.valid.toString()}</p>
-        </div>
+        <div className="p-3 rounded-2xl bg-container-primary w-full">
+          <p className="text-xs text-gray-300">{t('common.data')}</p>
+          <div className="flex items-center gap-2">
+            <p className="text-white">{t('common.researcher')}:</p>
+            <UserAddressLink address={researche.createdBy} />
+          </div>
+          <div className="flex items-center gap-2">
+            <p className="text-white">{t('common.valid')}:</p>
+            <p className="text-white">{researche && researche.valid.toString()}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <p className="text-white">{t('common.createdAt')}:</p>
+            <p className="text-white">
+              {researche && formatUnits(BigInt(researche.createdAtBlock), 0)}
+            </p>
+          </div>
 
-        <div className="flex items-center gap-2">
-          <p className="text-white">{t('createdAt')}:</p>
-          <p className="text-white">
-            {researche && formatUnits(BigInt(researche.createdAtBlock), 0)}
-          </p>
-        </div>
+          <div className="flex items-center gap-2">
+            <p className="text-white">Era:</p>
+            <p className="text-white">{researche && formatUnits(BigInt(researche.era), 0)}</p>
+          </div>
 
-        <div className="flex items-center gap-2">
-          <p className="text-white">{t('era')}:</p>
-          <p className="text-white">{researche && formatUnits(BigInt(researche.era), 0)}</p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <p className="text-white">{t('validationsCount')}:</p>
-          <p className="text-white">
-            {researche && formatUnits(BigInt(researche.validationsCount), 0)}
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="text-white">{t('common.validationsCount')}:</p>
+            <p className="text-white">
+              {researche && formatUnits(BigInt(researche.validationsCount), 0)}
+            </p>
+          </div>
         </div>
       </div>
 

@@ -474,10 +474,19 @@
     "area": "Area",
     "bio": "Biodiversity",
     "trees": "Trees",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "researcher": "Researcher",
+    "valid": "Valid",
+    "createdAt": "Created at",
+    "validationsCount": "Validations count",
+    "title": "Title",
+    "thesis": "Thesis",
+    "data": "Data",
+    "researche": "Research",
+    "description": "Description",
+    "developer": "Developer",
+    "report": "Report",
+    "inspection": "Inspection",
+    "contribution": "Contribution",
+    "contributor": "Contributor"
   }
 }
