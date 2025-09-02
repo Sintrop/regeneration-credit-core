@@ -1,7 +1,12 @@
 import { useUserContext } from '@renderer/hooks/useUserContext'
+
 import { TimesDeveloper } from './TimesDeveloper'
 import { TimesResearcher } from './TimesResearcher'
 import { TimesContributor } from './TimesContributor'
+import { TimesSupporter } from './TimesSupporter'
+import { TimesActivist } from './TimesActivist'
+import { TimesInspector } from './TimesInspector'
+import { TimesRegenerator } from './TimesRegenerator'
 
 export function TimesUser(): JSX.Element {
   const { userType } = useUserContext()
@@ -15,11 +20,11 @@ export function TimesUser(): JSX.Element {
 }
 
 const component = {
-  1: TimesDeveloper,
-  2: TimesDeveloper,
+  1: TimesRegenerator,
+  2: TimesInspector,
   3: TimesResearcher,
   4: TimesDeveloper,
   5: TimesContributor,
-  6: TimesDeveloper,
-  7: TimesDeveloper
+  6: TimesActivist,
+  7: TimesSupporter
 }

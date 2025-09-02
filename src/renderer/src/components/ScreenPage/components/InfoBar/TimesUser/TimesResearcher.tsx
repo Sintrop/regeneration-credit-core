@@ -8,9 +8,9 @@ export function TimesResearcher(): JSX.Element {
 
   return (
     <div className="flex gap-8 items-center">
-      <p className="text-gray-300 text-sm">
+      <p className="text-gray-300 text-xs">
         {t('infoBar.canPublishResearch')}:{' '}
-        <span className="text-white font-semibold text-base">
+        <span className="text-white font-semibold text-sm">
           {t(canPublish ? 'common.yes' : 'common.no')}
           {waitBlocks > 0 && ` (${t('common.wait')} ${waitBlocks} ${t('common.blocks')})`}
         </span>

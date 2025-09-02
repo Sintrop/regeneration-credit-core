@@ -9,22 +9,22 @@ export function InfoBar(): JSX.Element {
   const { userType } = useUserContext()
 
   return (
-    <div className="flex items-center gap-8 w-full h-10 bg-green-700 px-5 overflow-y-hidden overflow-x-auto">
-      <p className="text-gray-300 text-sm">
+    <div className="flex items-center gap-8 w-full min-h-10 bg-green-700 px-5 overflow-y-hidden overflow-x-auto">
+      <p className="text-gray-300 text-xs">
         {t('infoBar.currentEra')}:{' '}
-        <span className="text-white font-semibold text-base">{currentEra}</span>
+        <span className="text-white font-semibold text-sm">{currentEra}</span>
       </p>
 
-      <p className="text-gray-300 text-sm">
+      <p className="text-gray-300 text-xs">
         {t('infoBar.nextEraIn')}:{' '}
-        <span className="text-white font-semibold text-base">
+        <span className="text-white font-semibold text-sm">
           {Intl.NumberFormat('pt-BR').format(nextEraIn)} {t('infoBar.blocks')}
         </span>
       </p>
 
-      <p className="text-gray-300 text-sm">
+      <p className="text-gray-300 text-xs">
         {t('infoBar.currentEpoch')}:{' '}
-        <span className="text-white font-semibold text-base">{currentEpoch}</span>
+        <span className="text-white font-semibold text-sm">{currentEpoch}</span>
       </p>
 
       {userType !== 0 && <TimesUser />}
