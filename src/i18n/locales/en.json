@@ -35,7 +35,10 @@
     "titleResearche": "Title",
     "thesis": "Thesis",
     "valid": "Valid",
-    "invalid": "Invalid"
+    "invalid": "Invalid",
+    "burnedTokens": "Burned tokens",
+    "calculatorItem": "Item",
+    "message": "Message"
   },
   "contracts": {
     "name": "Name",
@@ -83,7 +86,7 @@
     "descInvitation": "This contract manages the rules and logic for users to invite others into the community.",
     "community": "Community Rules",
     "descCommunity": "This contract serves as the central registry for user management within the community.",
-    "vote": "Vore Rules",
+    "vote": "Vote Rules",
     "descVote": "Defines the rules and logic for determining if a user is eligible to vote for invalidation.",
     "validation": "Validation Rules",
     "descValidation": "Responsible for reviewing and voting to invalidate users and resources.",
@@ -439,15 +442,20 @@
     "offseting": "Offset",
     "inviteSupporter": "Invite supporter",
     "updateProfilePhoto": "Update photo",
-    "": "",
-    "": "",
-    "": ""
+    "offsetting": "Offset",
+    "labelMessage": "Message (Optional)",
+    "invite": "Invite"
   },
   "infoBar": {
     "currentEra": "Current era",
     "nextEraIn": "Next era in",
     "blocks": "Blocks",
-    "currentEpoch": "Current epoch"
+    "currentEpoch": "Current epoch",
+    "canPublishReport": "Can publish report",
+    "canPublishResearch": "Can publish research",
+    "canPublishContribution": "Can publish contribution",
+    "isVoter": "Is voter",
+    "canVoteNow": "Can vote now"
   },
   "subtitles": {
     "acceptInspection": "Accept inspection",
@@ -456,6 +464,50 @@
   },
   "common": {
     "typeHere": "Type here",
-    "name": "Name"
+    "name": "Name",
+    "yes": "Yes",
+    "no": "No",
+    "wait": "Wait",
+    "blocks": "Blocks",
+    "block": "Block",
+    "regenerationCredit": "Regeneration Credit",
+    "impact": "Impact",
+    "carbon": "Carbon",
+    "area": "Area",
+    "bio": "Biodiversity",
+    "trees": "Trees",
+    "researcher": "Researcher",
+    "valid": "Valid",
+    "createdAt": "Created at",
+    "validationsCount": "Validations count",
+    "title": "Title",
+    "thesis": "Thesis",
+    "data": "Data",
+    "researche": "Research",
+    "description": "Description",
+    "developer": "Developer",
+    "report": "Report",
+    "inspection": "Inspection",
+    "contribution": "Contribution",
+    "contributor": "Contributor",
+    "coordinates": "Coordinates"
+  },
+  "descActions": {
+    "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
+    "invite": "Allows a user to attempt to invite another wallet to the community.",
+    "addDelation": "Allows registered users (excluding Supporters) to report other users or resources that may require invalidation.",
+    "withdraw": "",
+    "requestInspection": "Regenerators agree to receive an inspector to assess their registered area. They can make an allowedInitialRequests number of requests without delay. After that, they must wait timeBetweenInspections blocks between requests. A hard limit of 12 total inspections is enforced.",
+    "acceptInspection": "Inspectors must only accept inspections they are capable of performing, being aware of the safety risks and responsibilities. Accepting an inspection counts as a 'give-up' until realized. Inspectors can only accept one open inspection at a time and cannot inspect the same regenerator twice. They must also adhere to specific delays and security windows.",
+    "addResearch": "Allows a registered researcher to publish a new 'research' report. A 'research' can be a new calculator item, a new methodology or improvement of current ones or a generic regeneration research.",
+    "addResearchValidation": "Allows a voter to vote to invalidate a research.",
+    "addCalculatorItem": "Allows a researcher to publish a calculator item, used by users to calculate degradation.",
+    "addContribution": "Contributions can only be published if certain time conditions and user type requirements are met.",
+    "offset": "Allows a supporter to burn tokens to compensate for a specific item's degradation, with a message to the community. Before calling this function, supporters must approve the SupporterRules contract to burn the tokens.",
+    "realizeInspection": "Inspectors must evaluate the amount of trees and species of the regeneration area. How many trees, palm trees and other plants over 1m high and 3cm in diameter there is in the regenerating area? Justify your answer in the report. How many different species of those plants/trees were found? Each different species is equivalent to one unity and only trees and plants managed or planted by the regenerator should be counted. Justify your answer in the report. Max result of 200.000 trees and 300 biodiversity.",
+    "updateProfilePhoto": "Allows a supporter to update their profile photo.",
+    "declareReduction": "Allows a supporter to declare a reduction commitment for a specific calculator item.",
+    "addReportValidation": "Allows a validator to vote to invalidate a specific development report. This process increments the validation count for the report and may trigger its invalidation.",
+    "addReport": "Development reports can only be published if certain time conditions and user type requirements are met."
   }
 }

@@ -38,7 +38,7 @@ export function SupporterActions({ mainAction }: Props): JSX.Element {
   if (mainAction) {
     return (
       <ActionComponent
-        actionName="publish"
+        actionName="offsetting"
         addressContract={rcContractAddressToUse}
         abi={rcAbiToUse as Abi}
         mainAction
@@ -48,12 +48,6 @@ export function SupporterActions({ mainAction }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <ActionComponent
-        actionName="publish"
-        addressContract={rcContractAddressToUse}
-        abi={rcAbiToUse as Abi}
-      />
-
       <ActionComponent
         actionName="offsetting"
         addressContract={rcContractAddressToUse}

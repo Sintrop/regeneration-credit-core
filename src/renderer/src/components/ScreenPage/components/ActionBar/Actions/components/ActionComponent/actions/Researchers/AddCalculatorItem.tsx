@@ -30,7 +30,7 @@ export function AddCalculatorItem({ abi, addressContract }: ActionContractProps)
       address: addressContract ? addressContract : '',
       abi: abi ? abi : [],
       functionName: 'addCalculatorItem',
-      args: [inputTitle, inputUnit, inputJustification, parseInt(inputCarbonImpact)]
+      args: [inputTitle, inputJustification, inputUnit, parseInt(inputCarbonImpact)]
     })
   }
 

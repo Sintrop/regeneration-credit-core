@@ -1,26 +1,27 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from 'react'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { formatUnits } from 'viem'
 import { contractsPool, ContractsPoolName } from '../contractsPoolList'
 import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useTranslation } from 'react-i18next'
 import { EraProps } from '@renderer/types/era'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   poolName: ContractsPoolName
 }
 export function EraData({ poolName }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
+  const mainnet = useMainnet()
 
   const contractPool = contractsPool[poolName]
 
   const { data } = useReadContract({
     //@ts-ignore
-    address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'currentContractEra',
     args: []
   })
@@ -28,8 +29,8 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const { data: epochContract } = useReadContract({
     //@ts-ignore
-    address: chainId === 1600 ? contractPool?.addressTestnet : contractPool?.addressMainnet,
-    abi: chainId === 1600 ? contractPool?.abiTestnet : contractPool?.abiMainnet,
+    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'currentEpoch',
     args: []
   })
@@ -43,8 +44,8 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const { data: responseEra, isLoading: loadingEra } = useReadContract({
     //@ts-ignore
-    address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'getEra',
     args: [era]
   })
@@ -53,8 +54,8 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const { data: responseTokensThisEra } = useReadContract({
     //@ts-ignore
-    address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
+    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
     functionName: 'tokensPerEra',
     args: [epoch, 12]
   })

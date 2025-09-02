@@ -21,28 +21,28 @@ export function ContributionImpact({ burnedTokens }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col w-full border rounded-2xl border-container-secondary p-2 mt-5">
-      <p className="text-gray-300 text-sm text-center">{t('impact')}</p>
+      <p className="text-gray-300 text-sm text-center">{t('common.impact')}</p>
 
       <div className="flex flex-col mt-1">
         <ImpactItem
-          label={t('carbon')}
+          label={t('common.carbon')}
           value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(totalCarbonImpact)}
           suffix="g"
         />
         <ImpactItem
-          label={t('soil')}
+          label={t('common.area')}
           value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(totalSoilImpact)}
           suffix="m²"
         />
         <ImpactItem
-          label={t('bio.')}
+          label={t('common.bio')}
           value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(
             totalBiodiversityImpact
           )}
           suffix="und"
         />
         <ImpactItem
-          label={t('trees')}
+          label={t('common.trees')}
           value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(totalTreesImpact)}
           suffix="und"
         />

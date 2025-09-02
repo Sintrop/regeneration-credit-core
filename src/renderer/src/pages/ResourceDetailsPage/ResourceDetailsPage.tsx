@@ -14,7 +14,7 @@ export function ResourceDetailsPage(): JSX.Element {
   const [selectedTab, setSelectedTab] = useState('pdf')
 
   return (
-    <ScreenPage pageTitle={`${t(resourceType as string)} #${id}`}>
+    <ScreenPage pageTitle={`${t(`common.${resourceType as string}`)} #${id}`}>
       <ResourceData
         resourceType={resourceType as string}
         id={parseInt(id as string)}

@@ -3,8 +3,13 @@
 import { useEffect, useState, useRef } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { sequoiaRegeneratorAbi, sequoiaRegeneratorAddress } from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import {
+  regeneratorAbi,
+  regeneratorAddress,
+  sequoiaRegeneratorAbi,
+  sequoiaRegeneratorAddress
+} from '@renderer/services/contracts'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { calculateArea } from '@renderer/services/calculateArea'
@@ -14,6 +19,7 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
@@ -41,7 +47,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
+  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -211,8 +217,8 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
     setDisplayLoadingTx(true)
     writeContract({
-      address: chainId === 1600 ? sequoiaRegeneratorAddress : sequoiaRegeneratorAddress,
-      abi: chainId === 1600 ? sequoiaRegeneratorAbi : sequoiaRegeneratorAbi,
+      address: mainnet ? regeneratorAddress : sequoiaRegeneratorAddress,
+      abi: mainnet ? regeneratorAbi : sequoiaRegeneratorAbi,
       functionName: 'addRegenerator',
       args: [totalArea, name, hashProofPhoto, description, coordinates]
     })
@@ -256,20 +262,33 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
           {t('register.areaSize')}: {Intl.NumberFormat('pt-BR').format(totalArea)}m²
         </p>
 
-        <div className="flex items-center justify-center gap-5 mt-3">
-          <button
-            onClick={handleClearSelection}
-            className="text-white underline font-semibold hover:cursor-pointer"
-          >
-            {t('register.clearSelection')}
-          </button>
-          <button
-            onClick={handleDeleteLastPoint}
-            className="text-white underline font-semibold hover:cursor-pointer"
-          >
-            {t('register.removeLastPoint')}
-          </button>
-        </div>
+        {coordinates.length > 0 && (
+          <>
+            <div className="flex flex-col gap-1 my-3">
+              <p className="text-xs text-gray-300">{t('common.coordinates')}</p>
+              {coordinates.map((item, index) => (
+                <p className="text-white" key={index}>
+                  {index + 1} = Lat: {item.latitude}, Lng: {item.longitude}
+                </p>
+              ))}
+            </div>
+
+            <div className="flex items-center justify-center gap-5">
+              <button
+                onClick={handleClearSelection}
+                className="text-white underline font-semibold hover:cursor-pointer"
+              >
+                {t('register.clearSelection')}
+              </button>
+              <button
+                onClick={handleDeleteLastPoint}
+                className="text-white underline font-semibold hover:cursor-pointer"
+              >
+                {t('register.removeLastPoint')}
+              </button>
+            </div>
+          </>
+        )}
 
         <InputCoordsManually addCoords={(data) => setCoordinates((value) => [...value, data])} />
       </div>

@@ -1,13 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { sequoiaActivistAbi, sequoiaActivistAddress } from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import {
+  activistAbi,
+  activistAddress,
+  sequoiaActivistAbi,
+  sequoiaActivistAddress
+} from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   name: string
@@ -27,7 +33,7 @@ export function ActivistRegistration({
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-  const chainId = useChainId()
+  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -85,8 +91,8 @@ export function ActivistRegistration({
 
     setDisplayLoadingTx(true)
     writeContract({
-      address: chainId === 1600 ? sequoiaActivistAddress : sequoiaActivistAddress,
-      abi: chainId === 1600 ? sequoiaActivistAbi : sequoiaActivistAbi,
+      address: mainnet ? activistAddress : sequoiaActivistAddress,
+      abi: mainnet ? activistAbi : sequoiaActivistAbi,
       functionName: 'addActivist',
       args: [name, hashProofPhoto]
     })

@@ -50,16 +50,16 @@ export function useImpactPerToken(): ReturnUseImpactPerTokenProps {
 
   if (data) {
     const _treesPerToken = data[0].status === 'success' ? (data[0]?.result as string) : '0'
-    treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 14))
+    treesPerToken = parseFloat(formatUnits(BigInt(_treesPerToken), 18))
 
     const _carbonPerToken = data[1].status === 'success' ? (data[1]?.result as string) : '0'
-    carbonPerToken = parseFloat(formatUnits(BigInt(_carbonPerToken), 14))
+    carbonPerToken = parseFloat(formatUnits(BigInt(_carbonPerToken), 18))
 
     const _soilPerToken = data[2].status === 'success' ? (data[2]?.result as string) : '0'
-    soilPerToken = parseFloat(formatUnits(BigInt(_soilPerToken), 14))
+    soilPerToken = parseFloat(formatUnits(BigInt(_soilPerToken), 18))
 
     const _biodiversityPerToken = data[3].status === 'success' ? (data[3]?.result as string) : '0'
-    biodiversityPerToken = parseFloat(formatUnits(BigInt(_biodiversityPerToken), 14))
+    biodiversityPerToken = parseFloat(formatUnits(BigInt(_biodiversityPerToken), 18))
   }
 
   return {
