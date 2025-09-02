@@ -86,7 +86,7 @@
     "descInvitation": "This contract manages the rules and logic for users to invite others into the community.",
     "community": "Community Rules",
     "descCommunity": "This contract serves as the central registry for user management within the community.",
-    "vote": "Vore Rules",
+    "vote": "Vote Rules",
     "descVote": "Defines the rules and logic for determining if a user is eligible to vote for invalidation.",
     "validation": "Validation Rules",
     "descValidation": "Responsible for reviewing and voting to invalidate users and resources.",
