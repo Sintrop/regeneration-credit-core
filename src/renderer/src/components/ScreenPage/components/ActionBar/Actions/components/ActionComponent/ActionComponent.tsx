@@ -85,6 +85,7 @@ export function ActionComponent({
             </div>
 
             <div className="max-h-[400px] overflow-y-auto">
+              <p className="text-white my-5">{t(Action.description)}</p>
               <Action.component
                 addressContract={addressContract}
                 abi={abi}

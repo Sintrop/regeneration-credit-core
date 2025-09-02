@@ -18,82 +18,82 @@ import { DeclareReduction } from './actions/Supporters/DeclareReduction/DeclareR
 export const actionsList = {
   burnTokens: {
     name: 'burnTokens',
-    description: 'shortDescriptionBurntokens',
+    description: 'descActions.burnTokens',
     component: BurnTokens
   },
   invite: {
     name: 'invite',
-    description: 'shortDescriptionInvite',
+    description: 'descActions.invite',
     component: Invite
   },
   addDelation: {
     name: 'addDelation',
-    description: 'shortDescriptionAddDelation',
+    description: 'descActions.addDelation',
     component: AddDelation
   },
   withdraw: {
     name: 'withdraw',
-    description: 'shortDescriptionWithdraw',
+    description: 'descActions.withdraw',
     component: Withdraw
   },
   requestInspection: {
     name: 'requestInspection',
-    description: 'shortDescriptionRequestInspection',
+    description: 'descActions.requestInspection',
     component: RequestInspection
   },
   acceptInspection: {
     name: 'acceptInspection',
-    description: 'shortDescriptionAcceptInspection',
+    description: 'descActions.acceptInspection',
     component: AcceptInspection
   },
   addResearch: {
     name: 'addResearch',
-    description: 'shortDescriptionaddResearch',
+    description: 'descActions.addResearch',
     component: AddResearch
   },
   addResearchValidation: {
     name: 'addResearchValidation',
-    description: 'shortDescriptionaddResearchValidation',
+    description: 'descActions.addResearchValidation',
     component: AddResearchValidation
   },
   addCalculatorItem: {
     name: 'addCalculatorItem',
-    description: 'shortDescriptionaddCalculatorItem',
+    description: 'descActions.addCalculatorItem',
     component: AddCalculatorItem
   },
   addReport: {
     name: 'addReport',
-    description: 'shortDescriptionaddReport',
+    description: 'descActions.addReport',
     component: AddReport
   },
   addReportValidation: {
     name: 'addReportValidation',
-    description: 'shortDescriptionaddReportValidation',
+    description: 'descActions.addReportValidation',
     component: AddReportValidation
   },
   addContribution: {
     name: 'addContribution',
-    description: 'shortDescriptionaddContribution',
+    description: 'descActions.addContribution',
     component: AddContribution
   },
   offsetting: {
     name: 'offsetting',
-    description: 'shortDescriptionoffsetting',
+    description: 'descActions.offset',
     component: Offsetting
   },
   realizeInspection: {
     name: 'realizeInspection',
-    description: 'shortDescription',
+    description: 'descActions.realizeInspection',
     component: RealizeInspection
   },
   updateProfilePhoto: {
     name: 'updateProfilePhoto',
-    description: 'shortDescription',
+    description: 'descActions.updateProfilePhoto',
     component: UpdateProfilePhoto
   },
   declareReduction: {
     name: 'declareReduction',
-    description: 'descDeclareReduction',
+    description: 'descActions.declareReduction',
     component: DeclareReduction
   }
 }
