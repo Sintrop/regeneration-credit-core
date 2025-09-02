@@ -453,7 +453,9 @@
     "currentEpoch": "Current epoch",
     "canPublishReport": "Can publish report",
     "canPublishResearch": "Can publish research",
-    "canPublishContribution": "Can publish contribution"
+    "canPublishContribution": "Can publish contribution",
+    "isVoter": "Is voter",
+    "canVoteNow": "Can vote now"
   },
   "subtitles": {
     "acceptInspection": "Accept inspection",
