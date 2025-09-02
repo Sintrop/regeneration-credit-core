@@ -24,7 +24,7 @@ export function OffsetItem({ id }: Props): JSX.Element {
   })
 
   return (
-    <div className="flex flex-col p-3 w-full border-t border-green-900">
+    <div className="flex flex-col p-3 w-full border-t-4 border-green-900">
       <OffsetHeader address={data && data[0]} publishedAt={data && data[1]} />
       <OffsetContent
         burnedTokens={data && data[2]}

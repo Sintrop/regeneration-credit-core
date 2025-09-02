@@ -37,7 +37,7 @@
     "valid": "Valid",
     "invalid": "Invalid",
     "burnedTokens": "Burned tokens",
-    "calculatorItem": "Calculator item",
+    "calculatorItem": "Item",
     "message": "Message"
   },
   "contracts": {
@@ -469,6 +469,15 @@
     "blocks": "Blocks",
     "block": "Block",
     "regenerationCredit": "Regeneration Credit",
+    "impact": "Impact",
+    "carbon": "Carbon",
+    "area": "Area",
+    "bio": "Biodiversity",
+    "trees": "Trees",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
     "": ""
   }
 }

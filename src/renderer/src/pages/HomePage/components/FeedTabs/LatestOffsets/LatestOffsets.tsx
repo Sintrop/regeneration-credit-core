@@ -35,7 +35,7 @@ export function LatestOffsets(): JSX.Element {
       </div>
 
       {isLoading ? (
-        <div className="w-[350px] my-5 flex justify-center">
+        <div className="w-[500px] my-5 flex justify-center">
           <Loading />
         </div>
       ) : (
