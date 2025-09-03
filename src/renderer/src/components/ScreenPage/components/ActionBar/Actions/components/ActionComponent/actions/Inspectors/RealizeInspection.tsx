@@ -8,8 +8,13 @@ import { uploadToIpfs } from '@renderer/services/ipfs'
 import { PdfInput } from '@renderer/components/Input/PdfInput'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function RealizeInspection({ abi, addressContract }: ActionContractProps): JSX.Element {
+export function RealizeInspection({
+  abi,
+  addressContract,
+  close
+}: ActionContractProps): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [input, setInput] = useState('')
@@ -66,10 +71,11 @@ export function RealizeInspection({ abi, addressContract }: ActionContractProps)
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.realizedInspection'))
+    toast(t('actions.realizedInspection'), { type: 'success' })
     setInput('')
     setInputTrees('')
     setInputBio('')
+    close()
   }
 
   return (

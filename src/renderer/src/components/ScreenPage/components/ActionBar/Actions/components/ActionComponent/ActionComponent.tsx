@@ -8,6 +8,7 @@ export interface ActionContractProps {
   abi?: Abi
   lastPublishedWork?: number
   userTypeToInvite?: number
+  close: () => void
 }
 
 interface Props {
@@ -91,6 +92,7 @@ export function ActionComponent({
                 abi={abi}
                 lastPublishedWork={lastPublishedWork}
                 userTypeToInvite={userTypeToInvite}
+                close={toggleOpenAction}
               />
             </div>
           </div>

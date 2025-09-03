@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function Withdraw({ abi, addressContract }: ActionContractProps): JSX.Element {
+export function Withdraw({ abi, addressContract, close }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -30,7 +31,8 @@ export function Withdraw({ abi, addressContract }: ActionContractProps): JSX.Ele
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.withdrawnTokens'))
+    toast(t('actions.withdrawnTokens'), { type: 'success' })
+    close()
   }
 
   return (

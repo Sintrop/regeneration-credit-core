@@ -10,11 +10,13 @@ import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
 export function AddResearch({
   abi,
   addressContract,
-  lastPublishedWork
+  lastPublishedWork,
+  close
 }: ActionContractProps): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
@@ -61,9 +63,10 @@ export function AddResearch({
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.publishedResearche'))
+    toast(t('actions.publishedResearche'), { type: 'success' })
     setInputTitle('')
     setInputThesis('')
+    close()
   }
 
   if (loadingCanPublish) {

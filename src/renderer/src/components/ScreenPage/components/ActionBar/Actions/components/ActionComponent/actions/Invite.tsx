@@ -12,8 +12,9 @@ import { ActionContractProps } from '../ActionComponent'
 import { useCanInvite } from '@renderer/hooks/useCanInvite'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
+export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.Element {
   const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
@@ -51,8 +52,9 @@ export function Invite({ userTypeToInvite }: ActionContractProps): JSX.Element {
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.inviteSent'))
+    toast(t('actions.inviteSent'), { type: 'success' })
     setInputAddress('')
+    close()
   }
 
   if (loadingCanInvite) {

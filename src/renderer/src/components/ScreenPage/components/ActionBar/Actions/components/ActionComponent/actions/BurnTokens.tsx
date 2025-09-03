@@ -11,8 +11,12 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits, parseEther } from 'viem'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function BurnTokens(): JSX.Element {
+interface Props {
+  close: () => void
+}
+export function BurnTokens({ close }: Props): JSX.Element {
   const chainId = useChainId()
   const { address } = useAccount()
   const { t } = useTranslation()
@@ -49,8 +53,9 @@ export function BurnTokens(): JSX.Element {
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.burnedTokens'))
+    toast(t('actions.burnedTokens'), { type: 'success' })
     setInput('')
+    close()
   }
 
   return (
