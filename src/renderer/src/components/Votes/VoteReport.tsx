@@ -6,12 +6,13 @@ import {
 } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAccount, useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import { TransactionData } from '../TransactionData/TransactionData'
-import { WriteContractErrorType } from 'viem'
+import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
+import { useMainnet } from '@renderer/hooks/useMainnet'
+import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
 interface Props {
   reportId: number
@@ -22,7 +23,7 @@ interface Props {
 export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Element {
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
-  const chainId = useChainId()
+  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     isLoading: checkingAvailableVote,
@@ -35,15 +36,23 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
     resource: 'report',
     publishedEra
   })
-  const { writeContract, isPending, data: hash } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const { writeContract, isPending, data: hash, error, isError } = useWriteContract()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleVoteReport(): Promise<void> {
     if (!justification.trim()) return
 
-    const address = chainId === 250225 ? developerAddress : sequoiaDeveloperAddress
-    const abi = chainId === 250225 ? developerAbi : sequoiaDeveloperAbi
+    const address = mainnet ? developerAddress : sequoiaDeveloperAddress
+    const abi = mainnet ? developerAbi : sequoiaDeveloperAbi
 
+    setDisplayLoadingTx(true)
     writeContract({
       abi,
       address,
@@ -52,11 +61,17 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
     })
   }
 
+  function success(): void {
+    setDisplayLoadingTx(false)
+    toast(t('vote.votedReport'), { type: 'success' })
+    close()
+  }
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
-      <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
+      <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-[500px]">
         <div className="flex items-center justify-between w-full">
-          <p className="text-white">{t('voteReport')}</p>
+          <p className="text-white">{t('vote.voteReport')}</p>
           <button className="hover:cursor-pointer text-white" onClick={close}>
             X
           </button>
@@ -70,9 +85,7 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
           <div className="mt-5">
             {differentEra ? (
               <div className="flex flex-col w-full h-[200px] items-center justify-center">
-                <p className="text-white">
-                  {t('youCannotVoteOnAReportThatWasPublishedInAnEraOtherThanTheCurrentOne')}
-                </p>
+                <p className="text-white">{t('vote.voteReportDifferentEra')}</p>
               </div>
             ) : (
               <>
@@ -81,44 +94,48 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
                     {canVote ? (
                       <div className="">
                         <p className="text-white">
-                          {t('youAreVotingToInvalidateTheReport')}: #{reportId}
+                          {t('vote.youAreVotingToInvalidateTheReport')}: #{reportId}
                         </p>
 
-                        <p className="text-gray-300 text-sm mt-5">{t('justification')}</p>
+                        <p className="text-gray-300 text-sm mt-5">{t('common.justification')}</p>
                         <input
                           value={justification}
                           onChange={(e) => setJustification(e.target.value)}
-                          placeholder={t('typeHere')}
+                          placeholder={t('common.typeHere')}
                           className="w-full rounded-2xl bg-container-secondary px-3 text-white h-10"
                         />
 
                         <SendTransactionButton
-                          label={t('vote')}
+                          label={t('vote.vote')}
                           handleSendTransaction={handleVoteReport}
                           disabled={!justification.trim() || isLoading || isPending}
                         />
 
-                        <TransactionData
-                          errorTx={error as WriteContractErrorType}
-                          hash={hash}
-                          isLoading={isLoading}
-                          isPending={isPending}
-                          isSuccess={isSuccess}
-                          isError={isError}
-                        />
+                        {displayLoadingTx && (
+                          <TransactionLoading
+                            close={() => setDisplayLoadingTx(false)}
+                            ok={success}
+                            isError={isError || isErrorTx}
+                            isPending={isPending}
+                            isSuccess={isSuccess}
+                            loading={isLoading}
+                            errorMessage={errorMessage}
+                            transactionHash={hash}
+                          />
+                        )}
                       </div>
                     ) : (
                       <div className="flex flex-col w-full h-[200px] items-center justify-center">
-                        <p className="text-white">{t("youCan'tVoteNow")}</p>
+                        <p className="text-white">{t('vote.youCanNotVoteNow')}</p>
                         <p className="text-white">
-                          {t('wait')} {canVoteIn} {t('blocks')}
+                          {t('common.wait')} {canVoteIn} {t('common.blocks')}
                         </p>
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="flex flex-col w-full h-[200px] items-center justify-center">
-                    <p className="text-white">{t("youCan'tVoteThisResource")}</p>
+                    <p className="text-white">{t('vote.youCanNotVoteThisResource')}</p>
                   </div>
                 )}
               </>

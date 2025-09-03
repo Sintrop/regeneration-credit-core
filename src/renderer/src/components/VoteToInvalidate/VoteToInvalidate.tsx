@@ -40,7 +40,7 @@ export function VoteToInvalidate({
         onClick={handleShowVote}
       >
         <BiSolidMegaphone color="white" />
-        {t('voteToInvalidate')}
+        {t('vote.voteToInvalidate')}
       </button>
 
       {showVote && (

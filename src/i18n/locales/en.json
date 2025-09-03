@@ -490,7 +490,8 @@
     "inspection": "Inspection",
     "contribution": "Contribution",
     "contributor": "Contributor",
-    "coordinates": "Coordinates"
+    "coordinates": "Coordinates",
+    "justification": "Justification"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
@@ -509,5 +510,33 @@
     "declareReduction": "Allows a supporter to declare a reduction commitment for a specific calculator item.",
     "addReportValidation": "Allows a validator to vote to invalidate a specific development report. This process increments the validation count for the report and may trigger its invalidation.",
     "addReport": "Development reports can only be published if certain time conditions and user type requirements are met."
+  },
+  "vote": {
+    "voteToInvalidate": "Vote to invalidate",
+    "voteInspection": "Vote inspection",
+    "voteInspectionDifferentEra": "You can not vote on a inspection that was inspected in an era other than the current one",
+    "youAreVotingToInvalidateTheInspection": "You are voting to invalidate the inspection",
+    "vote": "vote",
+    "youCanNotVoteThisResource": "You can not vote this resource",
+    "votedInspection": "Voted for inspection successfully",
+    "voteReport": "Vote report",
+    "voteReportDifferentEra": "You can not vote on a report that was published in an era other than the current one",
+    "youAreVotingToInvalidateTheReport": "You are voting to invalidate the report",
+    "youCanNotVoteNow": "You can not vote now",
+    "votedReport": "Voted for report successfully",
+    "voteContribution": "Vote contribution",
+    "voteContributionDifferentEra": "You can not vote on a contribution that was published in an era other than the current one",
+    "youAreVotingToInvalidateTheContribution": "You are voting to invalidate the contribution",
+    "votedContribution": "Voted for contribution successfully",
+    "voteResearch": "Vote research",
+    "voteResearchDifferentEra": "You can not vote on a research that was published in an era other than the current one",
+    "youAreVotingToInvalidateTheResearch": "You are voting to invalidate the research",
+    "votedResearch": "Voted for research successfully",
+    "votedUser": "Voter for user successfully",
+    "voteUser": "Vote user",
+    "youAreVotingToInvalidateTheUser": "You are voting to invalidate the user",
+    "youCanNotVote": "You can not vote",
+    "": "",
+    "": ""
   }
 }
