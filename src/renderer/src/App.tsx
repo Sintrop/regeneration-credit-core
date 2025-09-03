@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify'
 import { MetamaskProvider } from '../../providers/metamask'
 import { SettingsProvider } from './contexts/SettingsContext'
 import { UserContextProvider } from './contexts/UserContext'
@@ -9,6 +10,7 @@ function App(): JSX.Element {
       <MetamaskProvider>
         <UserContextProvider>
           <AppRoutes />
+          <ToastContainer />
         </UserContextProvider>
       </MetamaskProvider>
     </SettingsProvider>
