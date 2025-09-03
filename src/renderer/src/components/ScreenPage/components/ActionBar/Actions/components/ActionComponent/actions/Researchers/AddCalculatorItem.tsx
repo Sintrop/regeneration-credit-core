@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function AddCalculatorItem({ abi, addressContract }: ActionContractProps): JSX.Element {
+export function AddCalculatorItem({
+  abi,
+  addressContract,
+  close
+}: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
   const [inputUnit, setInputUnit] = useState('')
@@ -36,11 +41,12 @@ export function AddCalculatorItem({ abi, addressContract }: ActionContractProps)
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('calculatorItemAdded'))
+    toast(t('calculatorItemAdded'), { type: 'success' })
     setInputTitle('')
     setInputCarbonImpact('')
     setInputJustification('')
     setInputUnit('')
+    close()
   }
 
   return (

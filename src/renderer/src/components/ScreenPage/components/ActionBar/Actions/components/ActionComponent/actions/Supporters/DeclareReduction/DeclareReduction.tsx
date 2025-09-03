@@ -6,8 +6,13 @@ import { SendTransactionButton } from '../../../../SendTransactionButton/SendTra
 import { ActionContractProps } from '../../../ActionComponent'
 import { SelectCalculatorItem } from '../ModalSelectCalculatorItem/SelectCalculatorItem'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function DeclareReduction({ abi, addressContract }: ActionContractProps): JSX.Element {
+export function DeclareReduction({
+  abi,
+  addressContract,
+  close
+}: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [itemId, setItemId] = useState<number | null>()
 
@@ -34,8 +39,9 @@ export function DeclareReduction({ abi, addressContract }: ActionContractProps):
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('declaredReduction'))
+    toast(t('declaredReduction'), { type: 'success' })
     setItemId(null)
+    close()
   }
 
   return (

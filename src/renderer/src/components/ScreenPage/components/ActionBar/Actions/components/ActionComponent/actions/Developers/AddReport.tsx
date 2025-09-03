@@ -10,11 +10,13 @@ import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
 export function AddReport({
   abi,
   addressContract,
-  lastPublishedWork
+  lastPublishedWork,
+  close
 }: ActionContractProps): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
@@ -59,8 +61,9 @@ export function AddReport({
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.reportPublished'))
     setInputDescription('')
+    toast(t('actions.reportPublished'), { type: 'success' })
+    close()
   }
 
   if (loadingCanPublish) {

@@ -10,11 +10,13 @@ import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
 export function AddContribution({
   abi,
   addressContract,
-  lastPublishedWork
+  lastPublishedWork,
+  close
 }: ActionContractProps): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
@@ -60,8 +62,9 @@ export function AddContribution({
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.publishedContribution'))
     setInputDescription('')
+    close()
+    toast(t('actions.publishedContribution'), { type: 'success' })
   }
 
   if (loadingCanPublish) {

@@ -9,8 +9,12 @@ import {
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function AddDelation(): JSX.Element {
+interface Props {
+  close: () => void
+}
+export function AddDelation({ close }: Props): JSX.Element {
   const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
@@ -39,10 +43,11 @@ export function AddDelation(): JSX.Element {
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.delationSent'))
+    toast(t('actions.delationSent'), { type: 'success' })
     setInputAddress('')
     setInputTestimony('')
     setInputTitle('')
+    close()
   }
 
   return (

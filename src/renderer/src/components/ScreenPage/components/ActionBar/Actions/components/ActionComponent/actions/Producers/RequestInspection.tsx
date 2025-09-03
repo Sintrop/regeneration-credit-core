@@ -5,12 +5,14 @@ import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { Abi } from 'viem'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
 interface Props {
   addressContract?: string
   abi?: Abi
+  close: () => void
 }
-export function RequestInspection({ abi, addressContract }: Props): JSX.Element {
+export function RequestInspection({ abi, addressContract, close }: Props): JSX.Element {
   const { t } = useTranslation()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
@@ -35,7 +37,8 @@ export function RequestInspection({ abi, addressContract }: Props): JSX.Element 
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.requestedInspection'))
+    toast(t('actions.requestedInspection'), { type: 'success' })
+    close()
   }
 
   return (

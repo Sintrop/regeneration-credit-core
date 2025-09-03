@@ -5,8 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function AcceptInspection({ abi, addressContract }: ActionContractProps): JSX.Element {
+export function AcceptInspection({
+  abi,
+  addressContract,
+  close
+}: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [input, setInput] = useState('')
 
@@ -35,8 +40,9 @@ export function AcceptInspection({ abi, addressContract }: ActionContractProps):
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.inspectionAccepted'))
+    toast(t('actions.inspectionAccepted'), { type: 'success' })
     setInput('')
+    close()
   }
 
   return (

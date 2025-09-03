@@ -5,8 +5,13 @@ import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
 
-export function AddReportValidation({ abi, addressContract }: ActionContractProps): JSX.Element {
+export function AddReportValidation({
+  abi,
+  addressContract,
+  close
+}: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
   const [inputId, setInputId] = useState('')
   const [inputJustification, setInputJustification] = useState('')
@@ -34,9 +39,10 @@ export function AddReportValidation({ abi, addressContract }: ActionContractProp
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.validationSent'))
+    toast(t('actions.validationSent'), { type: 'success' })
     setInputId('')
     setInputJustification('')
+    close()
   }
 
   return (
