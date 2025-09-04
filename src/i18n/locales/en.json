@@ -38,7 +38,8 @@
     "invalid": "Invalid",
     "burnedTokens": "Burned tokens",
     "calculatorItem": "Item",
-    "message": "Message"
+    "message": "Message",
+    "acceptInspection": "Accept inspection"
   },
   "contracts": {
     "name": "Name",

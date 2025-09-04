@@ -1,5 +1,8 @@
+import { useUserContext } from '@renderer/hooks/useUserContext'
+import { AcceptInspection } from '@renderer/pages/InspectionsPage/components/InspectionsTab/AcceptInspection'
 import { InspectionProps } from '@renderer/types/inspection'
 import { Jazzicon } from '@ukstv/jazzicon-react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
@@ -11,18 +14,29 @@ interface Props {
 export function InspectionFeedContent({ inspection }: Props): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { userType } = useUserContext()
   const status = parseInt(formatUnits(BigInt(inspection.status), 0))
+
+  const [showAccept, setShowAccept] = useState(false)
 
   function handleGoToResourceDetails(): void {
     navigate(`/resource-details/inspection/${inspection.id}`)
+  }
+
+  function handleShowAccept(): void {
+    setShowAccept(true)
+  }
+
+  function handleCloseAccept(): void {
+    setShowAccept(false)
   }
 
   return (
     <div className="flex flex-col mt-2 pl-12">
       {status === 0 && (
         <div className="flex flex-col">
-          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#ED8A28]/80">
-            <p className="text-white">{t('feed.requestedAnInspection')}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 border-2 border-yellow-500">
+            <p className="text-yellow-500">{t('feed.requestedAnInspection')}</p>
             <p className="text-yellow-500">{t('feed.open')}</p>
           </div>
           <p className="text-white mt-2">
@@ -33,8 +47,8 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
 
       {status === 1 && (
         <div className="flex flex-col">
-          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#044640]">
-            <p className="text-white">{t('feed.thisInspectionWasAccepted')}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 border-2 border-green-1">
+            <p className="text-green-1">{t('feed.thisInspectionWasAccepted')}</p>
             <p className="text-green-1">{t('feed.accepted')}</p>
           </div>
 
@@ -45,8 +59,8 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
 
       {status === 2 && (
         <div className="flex flex-col">
-          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 bg-[#044640]">
-            <p className="text-white">{t('feed.thisInspectionWasRealized')}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 border-2 border-green-1">
+            <p className="text-green-1">{t('feed.thisInspectionWasRealized')}</p>
             <p className="text-green-1">{t('feed.realized')}</p>
           </div>
 
@@ -69,6 +83,19 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
         </div>
       )}
 
+      {userType === 2 && (
+        <>
+          {status === 0 && (
+            <button
+              className="text-green-500 underline hover:cursor-pointer mt-3"
+              onClick={handleShowAccept}
+            >
+              {t('feed.acceptInspection')}
+            </button>
+          )}
+        </>
+      )}
+
       {status === 2 ? (
         <button
           className="text-green-500 underline hover:cursor-pointer mt-3"
@@ -87,6 +114,14 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
             </button>
           )}
         </>
+      )}
+
+      {showAccept && (
+        <AcceptInspection
+          inspectionId={inspection.id}
+          createdAt={inspection ? parseInt(formatUnits(BigInt(inspection?.createdAt), 0)) : 0}
+          close={handleCloseAccept}
+        />
       )}
     </div>
   )
