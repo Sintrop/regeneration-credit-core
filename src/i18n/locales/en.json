@@ -456,7 +456,9 @@
     "updateProfilePhoto": "Update photo",
     "offsetting": "Offset",
     "labelMessage": "Message (Optional)",
-    "invite": "Invite"
+    "invite": "Invite",
+    "approveMore": "Approve more",
+    "insufficientBalance": "Insufficient balance"
   },
   "infoBar": {
     "currentEra": "Current era",

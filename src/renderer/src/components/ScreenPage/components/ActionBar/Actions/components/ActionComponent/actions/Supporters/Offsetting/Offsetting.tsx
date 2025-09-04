@@ -4,9 +4,27 @@ import { useAllowance } from '@renderer/domain/Supporter/useCases/useAllowance'
 
 import { Approve } from '../Approve'
 import { SelectItem } from './SelectItem'
+import { useState } from 'react'
 
-export function Offsetting(): JSX.Element {
+interface Props {
+  close: () => void
+}
+export function Offsetting({ close }: Props): JSX.Element {
   const { tokensAllowed, isLoading: isLoadingAllowance, refetch } = useAllowance()
+  const [approveMore, setApproveMore] = useState(false)
+
+  function handleApproveMore(): void {
+    setApproveMore(true)
+  }
+
+  function handleCloseApproveMore(): void {
+    setApproveMore(false)
+  }
+
+  function handleRefetchTokensAllowed(): void {
+    handleCloseApproveMore()
+    refetch()
+  }
 
   if (isLoadingAllowance) {
     return (
@@ -18,10 +36,21 @@ export function Offsetting(): JSX.Element {
 
   return (
     <div className="flex flex-col pt-5">
-      {tokensAllowed === 0 ? (
-        <Approve refetchAllowance={refetch} />
+      {approveMore ? (
+        <Approve refetchAllowance={handleRefetchTokensAllowed} />
       ) : (
-        <SelectItem tokensAllowed={tokensAllowed} refecthAllowance={refetch} />
+        <>
+          {tokensAllowed === 0 ? (
+            <Approve refetchAllowance={handleRefetchTokensAllowed} />
+          ) : (
+            <SelectItem
+              tokensAllowed={tokensAllowed}
+              refecthAllowance={handleRefetchTokensAllowed}
+              handleApproveMore={handleApproveMore}
+              close={close}
+            />
+          )}
+        </>
       )}
     </div>
   )
