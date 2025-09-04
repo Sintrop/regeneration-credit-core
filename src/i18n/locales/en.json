@@ -287,11 +287,16 @@
     "descDeclareReduction": "Allows a supporter to declare a reduction commitment for a specific calculator item.",
     "declare": "Declare",
     "declaredReduction": "Reduction declaration completed successfully",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "descApproveToPublish": "To call the offset/publish functions, you must first call the approve function. Approve the SupporterRules for the number of tokens you want to publish/offset.",
+    "labelInputAmmount": "Ammount",
+    "insufficientBalance": "Insufficient balance",
+    "approve": "Approve",
+    "tokensApproved": "Tokens approved",
+    "howMuchDoYouWantToCompensate": "How much do you want to compensate",
+    "insufficientTokensApproved": "Insufficient tokens approved",
+    "inputMessage": "Message (Optional)",
+    "realizedOffset": "Offset completed successfully",
+    "approveMore": "Approve more"
   },
   "ipfs": {
     "uploadFileToIPFS": "Upload file to IPFS",
@@ -498,7 +503,8 @@
     "contribution": "Contribution",
     "contributor": "Contributor",
     "coordinates": "Coordinates",
-    "justification": "Justification"
+    "justification": "Justification",
+    "yourBalance": "Your balance"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
