@@ -284,6 +284,13 @@
     "youMustCompensate": "You must compensate",
     "yourBalance": "Your balance",
     "typeHere": "Type here",
+    "descDeclareReduction": "Allows a supporter to declare a reduction commitment for a specific calculator item.",
+    "declare": "Declare",
+    "declaredReduction": "Reduction declaration completed successfully",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
     "": ""
   },
   "ipfs": {
