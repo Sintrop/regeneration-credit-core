@@ -43,7 +43,7 @@ export function HeaderUser({
           <p className="text-gray-300">-</p>
           <UserTypeToText userType={userType} className="text-gray-300" />
         </div>
-        {description && <p className="text-white">{description}</p>}
+        {description && <p className="text-gray-300 mt-2">{description}</p>}
 
         <div className="absolute top-8 right-3">
           {canUpdateAreaPhoto && <UpdateAreaPhoto updated={areaPhotoUpdated} />}
