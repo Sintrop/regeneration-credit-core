@@ -33,7 +33,7 @@ export function AccountPage(): JSX.Element {
   }, [isDisconnected, navigate])
 
   return (
-    <ScreenPage pageTitle={t('account')}>
+    <ScreenPage pageTitle={t('account.title')}>
       {userType && <UserTypeContent userType={userType} address={address as string} profilePage />}
     </ScreenPage>
   )

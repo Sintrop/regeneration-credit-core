@@ -29,17 +29,24 @@ export function InvitationCard({ address }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
-      <p className="text-gray-300 text-sm">{t('invitation')}</p>
+      <p className="text-gray-300 text-sm">{t('account.invitation')}</p>
       {invitationData && (
         <>
-          <CardData label="inviter">
-            <UserAddressLink address={invitationData?.inviter} />
-          </CardData>
-          <CardData
-            label="invitedAt"
-            value={formatUnits(BigInt(invitationData?.createdAtBlock), 0)}
-          />
-          <CardData label="userType" value={invitationData?.userType} />
+          {invitationData?.inviter.includes('0x00000000000000000000000000') ? (
+            <div className="flex items-center justify-center py-3">
+              <p className="text-white text-center">{t('account.userWithoutInvitation')}</p>
+            </div>
+          ) : (
+            <>
+              <CardData label={t('account.inviter')}>
+                <UserAddressLink address={invitationData?.inviter} />
+              </CardData>
+              <CardData
+                label={t('account.invitedAt')}
+                value={formatUnits(BigInt(invitationData?.createdAtBlock), 0)}
+              />
+            </>
+          )}
         </>
       )}
     </div>

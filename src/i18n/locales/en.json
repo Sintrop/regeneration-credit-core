@@ -557,5 +557,12 @@
   },
   "certificate": {
     "contributedWith": "Contributed with"
+  },
+  "account": {
+    "title": "Account",
+    "invitation": "Invitation",
+    "userWithoutInvitation": "User without invitation",
+    "inviter": "Inviter",
+    "invitedAt": "Invited at"
   }
 }
