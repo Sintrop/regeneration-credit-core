@@ -40,7 +40,7 @@ export function OffsetCalculator(): JSX.Element {
             </p>
           </div>
         ) : (
-          <table className="max-w-[1024px] w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
+          <table className="max-w-[940px] w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
             <thead>
               <tr className="border-b border-container-secondary text-white">
                 <th className="p-2 border-r border-container-secondary text-start">ID</th>

@@ -34,7 +34,7 @@ export function ContributionCertificate({
       <div className="flex flex-col items-center justify-center w-full h-14 border-b border-container-secondary pb-2">
         <div className="flex gap-3 items-center">
           <img src={RCLogo} className="w-10 h-10 object-contain" />
-          <p className="font-semibold text-white text-lg">{t('regenerationCredit')}</p>
+          <p className="font-semibold text-white text-lg">{t('common.regenerationCredit')}</p>
         </div>
       </div>
 
@@ -42,35 +42,35 @@ export function ContributionCertificate({
         <div className="flex flex-col flex-1 p-3 h-full">
           <p className="text-white">{name}</p>
           <p className="text-white">
-            {t('contributedWith')}{' '}
+            {t('certificate.contributedWith')}{' '}
             <span className="font-bold text-green-600">
               {Intl.NumberFormat('pt-BR').format(parseInt(certificateTokens))}
             </span>{' '}
             RC
           </p>
 
-          <p className="text-gray-300 text-sm mt-1">{t('impact')}</p>
+          <p className="text-gray-300 text-sm mt-1">{t('common.impact')}</p>
           <ImpactItem
-            label={t('carbon')}
+            label={t('common.carbon')}
             value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
               totalCarbonImpact
             )}
             suffix="g"
           />
           <ImpactItem
-            label={t('soil')}
+            label={t('common.area')}
             value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(totalSoilImpact)}
             suffix="m²"
           />
           <ImpactItem
-            label={t('bio.')}
+            label={t('common.bio')}
             value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
               totalBiodiversityImpact
             )}
             suffix="und"
           />
           <ImpactItem
-            label={t('trees')}
+            label={t('common.trees')}
             value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
               totalTreesImpact
             )}

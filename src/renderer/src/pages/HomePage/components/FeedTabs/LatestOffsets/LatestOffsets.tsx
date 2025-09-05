@@ -46,7 +46,7 @@ export function LatestOffsets(): JSX.Element {
             </div>
           ) : (
             <>
-              {offsetsIds.slice(0, 3).map((id) => (
+              {offsetsIds.map((id) => (
                 <OffsetItem id={id} key={id} />
               ))}
             </>

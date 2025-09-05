@@ -10,6 +10,8 @@ import {
   supporterAddress
 } from '@renderer/services/contracts'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { toast } from 'react-toastify'
+import { MdClose } from 'react-icons/md'
 
 interface Props {
   item: CalculatorItemProps
@@ -43,7 +45,8 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
   function success(): void {
     setDisplayLoadingTx(false)
     handleCloseModal()
-    alert(t('impactCalculator.declaredReduction'))
+    toast(t('impactCalculator.declaredReduction'), { type: 'success' })
+    setShowModal(false)
   }
 
   function handleShowModal(): void {
@@ -64,11 +67,11 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
       </button>
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
+          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-[500px]">
             <div className="flex items-center justify-between w-full">
               <p className="text-white">{t('impactCalculator.declareReduction')}</p>
               <button className="hover:cursor-pointer text-white" onClick={handleCloseModal}>
-                X
+                <MdClose size={25} color="white" />
               </button>
             </div>
 

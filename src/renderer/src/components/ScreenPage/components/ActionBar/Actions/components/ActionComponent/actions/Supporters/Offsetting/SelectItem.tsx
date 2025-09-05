@@ -6,12 +6,20 @@ import { SelectCalculatorItem } from '../ModalSelectCalculatorItem/SelectCalcula
 import { useOffset } from '@renderer/domain/Supporter/useCases/useOffset'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import RCLogo from '@renderer/assets/images/rc.png'
+import { toast } from 'react-toastify'
 
 interface Props {
   refecthAllowance: () => void
   tokensAllowed: number
+  handleApproveMore: () => void
+  close: () => void
 }
-export function SelectItem({ refecthAllowance, tokensAllowed }: Props): JSX.Element {
+export function SelectItem({
+  refecthAllowance,
+  tokensAllowed,
+  handleApproveMore,
+  close
+}: Props): JSX.Element {
   const { t } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
   const [inputMessage, setInputMessage] = useState('')
@@ -48,22 +56,29 @@ export function SelectItem({ refecthAllowance, tokensAllowed }: Props): JSX.Elem
 
   function success(): void {
     setDisplayLoadingTx(false)
-    alert(t('actions.publishedOffset'))
+    toast(t('actions.publishedOffset'), { type: 'success' })
     setInputAmmount('')
     setItemId(null)
     refecthAllowance()
+    close()
   }
 
   return (
-    <div className="flex flex-col pt-5">
+    <div className="flex flex-col">
       <p className="text-white">{t('actions.descOffset')}</p>
 
-      <div className="flex items-center gap-3 my-3">
+      <div className="flex items-center gap-3 mb-3">
         <img src={RCLogo} className="w-10 h-10 object-contain" />
         <div className="flex flex-col">
           <p className="text-gray-300 text-sm">{t('actions.totalTokensAllowed')}</p>
           <p className="font-bold text-white text-xl">
             {Intl.NumberFormat('pt-BR').format(tokensAllowed)} RC
+          </p>
+          <p
+            className="text-sm text-white underline hover:cursor-pointer"
+            onClick={handleApproveMore}
+          >
+            {t('actions.approveMore')}
           </p>
         </div>
       </div>

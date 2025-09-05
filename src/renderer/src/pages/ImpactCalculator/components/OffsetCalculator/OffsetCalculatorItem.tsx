@@ -7,7 +7,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { CalculatorItemProps } from '@renderer/types/researcher'
-//import { ModalOffsetCalculator } from './ModalOffsetCalculator'
+import { ModalOffsetCalculator } from './ModalOffsetCalculator/ModalOffsetCalculator'
 import { ModalDeclareCalculator } from './ModalDeclareCalculator'
 
 interface Props {
@@ -38,7 +38,7 @@ export function OffsetCalculatorItem({ id }: Props): JSX.Element {
       <td className="p-2 flex gap-3 max-w-[250px]">
         {calculatorItem && (
           <>
-            {/* <ModalOffsetCalculator item={calculatorItem} /> */}
+            <ModalOffsetCalculator item={calculatorItem} />
             <ModalDeclareCalculator item={calculatorItem} />
           </>
         )}

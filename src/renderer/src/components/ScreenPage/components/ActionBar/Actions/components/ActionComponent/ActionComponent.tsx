@@ -56,7 +56,7 @@ export function ActionComponent({
             <div className="flex flex-col gap-1">
               {!hideNextLevel && <p className="text-sm text-gray-300">{t('actions.nextLevel')}</p>}
               <button
-                className="w-full h-10 text-x text-white bg-green-primary hover:cursor-pointer px-5 rounded-2xl"
+                className="w-full h-10 text-x text-white bg-green-500 hover:cursor-pointer px-5 rounded-2xl"
                 onClick={toggleOpenAction}
               >
                 {label ? label : t(`actions.${Action.name}`)}

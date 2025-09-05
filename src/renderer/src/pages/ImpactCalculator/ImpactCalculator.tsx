@@ -11,9 +11,9 @@ export function ImpactCalculator(): JSX.Element {
 
   return (
     <ScreenPage pageTitle={t('impactCalculator.title')}>
-      <CertificatesCard address={isConnected ? (address as string) : ''} userType={7} />
-
       <div className="flex gap-10 mt-10">
+        <CertificatesCard address={isConnected ? (address as string) : ''} userType={7} />
+
         <BurnTokensCalculator />
       </div>
 

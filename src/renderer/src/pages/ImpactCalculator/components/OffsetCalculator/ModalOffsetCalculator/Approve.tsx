@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 
 import { useApprove } from '@renderer/domain/Supporter/useCases/useApprove'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useBalance } from '@renderer/domain/RegenerationCredit/useCases/useBalance'
 
 import RCLogo from '@renderer/assets/images/rc.png'
-import { useBalance } from '@renderer/domain/RegenerationCredit/useCases/useBalance'
 
 interface Props {
   refetchAllowance: () => void
@@ -16,9 +16,9 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
   const [inputAmmount, setInputAmmount] = useState('')
   const [insufficientBalance, setInsufficientBalance] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-  const { balance } = useBalance()
-  const { approve, isError, isPending, error, hash } = useApprove()
 
+  const { approve, isError, isPending, error, hash } = useApprove()
+  const { balance } = useBalance()
   const {
     isLoading,
     isSuccess,
@@ -54,8 +54,8 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col gap-5">
-      <p className="text-white">{t('actions.descApproveToPublish')}</p>
+    <div className="flex flex-col gap-5 mt-5">
+      <p className="text-white">{t('impactCalculator.descApproveToPublish')}</p>
 
       <div className="flex flex-col gap-1">
         <p className="text-gray-300">{t('common.yourBalance')}</p>
@@ -68,7 +68,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
       </div>
 
       <div className="flex flex-col gap-1">
-        <p className="text-gray-300">{t('actions.labelInputAmmount')}</p>
+        <p className="text-gray-300">{t('impactCalculator.labelInputAmmount')}</p>
         <input
           value={inputAmmount}
           className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
@@ -77,7 +77,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
           type="number"
         />
         {insufficientBalance && (
-          <p className="text-red-500 mt-2">{t('actions.insufficientBalance')}</p>
+          <p className="text-red-500 mt-2">{t('impactCalculator.insufficientBalance')}</p>
         )}
       </div>
 
@@ -86,7 +86,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
         onClick={handleApprove}
         disabled={!inputAmmount.trim() || insufficientBalance}
       >
-        {t('actions.approve')}
+        {t('impactCalculator.approve')}
       </button>
 
       {displayLoadingTx && (

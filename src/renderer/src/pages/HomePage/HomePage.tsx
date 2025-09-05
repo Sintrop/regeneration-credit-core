@@ -39,9 +39,9 @@ export function HomePage(): JSX.Element {
         </div>
 
         <div className="flex flex-col w-[350px] gap-10">
+          <ResearchesFeedTab />
           <ReportsFeed />
           <ContributionsFeedTab />
-          <ResearchesFeedTab />
         </div>
       </div>
     </ScreenPage>
