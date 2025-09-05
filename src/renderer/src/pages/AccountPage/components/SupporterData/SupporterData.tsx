@@ -42,17 +42,17 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
         <div className="flex gap-5 mt-5 max-w-[1024px]">
           <div className="flex flex-col flex-1">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-gray-300 text-sm">{t('common.data')}</p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('id')}: </span>
+                <span className="text-white font-bold">ID: </span>
                 {formatUnits(BigInt(supporter?.id), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
                 {formatUnits(BigInt(supporter?.createdAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('userType')}: </span> 7
+                <span className="text-white font-bold">{t('common.userType')}: </span> 7
               </p>
             </div>
 

@@ -27,7 +27,7 @@ export function UserDetailsPage(): JSX.Element {
   const userType = data as UserTypeAvailables
 
   return (
-    <ScreenPage pageTitle={t('userDetails')}>
+    <ScreenPage pageTitle={t('account.userDetails')}>
       {isLoading ? (
         <div className="mx-auto overflow-hidden mt-10">
           <Loading />

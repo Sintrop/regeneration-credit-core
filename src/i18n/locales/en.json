@@ -507,7 +507,13 @@
     "contributor": "Contributor",
     "coordinates": "Coordinates",
     "justification": "Justification",
-    "yourBalance": "Your balance"
+    "yourBalance": "Your balance",
+    "proofPhoto": "Proof photo",
+    "level": "Level",
+    "userType": "User type",
+    "regenerationScore": "Regeneration score",
+    "regenerator": "Regenerator",
+    "inspector": "Inspector"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
@@ -560,9 +566,33 @@
   },
   "account": {
     "title": "Account",
+    "userDetails": "User details",
     "invitation": "Invitation",
     "userWithoutInvitation": "User without invitation",
     "inviter": "Inviter",
-    "invitedAt": "Invited at"
+    "invitedAt": "Invited at",
+    "eraPool": "Era on pool",
+    "registeredAt": "Registered at",
+    "penalties": "Penalties",
+    "canVote": "Can vote",
+    "totalReports": "Total reports",
+    "lastPublishedAt": "Last published at",
+    "poolLevel": "Pool level",
+    "totalInspections": "Total inspections",
+    "lastAcceptedAt": "Last accepted at",
+    "lastInspection": "Last inspection",
+    "giveUps": "Give ups",
+    "totalArea": "Total area",
+    "lastRequestAt": "Last request at",
+    "publishedResearches": "Published researchs",
+    "lastCalculatorItemAt": "Last calculator item at",
+    "regenerationArea": "Regeneration area",
+    "invalidCoords": "Invalid coords",
+    "coordinates": "Coordinates",
+    "inspectedAt": "Inspected at",
+    "inspections": "Inspections",
+    "validations": "Validations",
+    "validationsReceived": "Validations received",
+    "": ""
   }
 }

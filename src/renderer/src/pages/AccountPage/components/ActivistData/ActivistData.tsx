@@ -41,29 +41,29 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
         <div className="flex gap-5 mt-5 max-w-[1024px]">
           <div className="flex flex-col gap-5 flex-1">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-gray-300 text-sm">{t('common.data')}</p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('id')}: </span>
+                <span className="text-white font-bold">ID: </span>
                 {formatUnits(BigInt(activist?.id), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('proofPhoto')}: </span>
+                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
                 {activist?.proofPhoto}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('level')}: </span>
+                <span className="text-white font-bold">{t('common.level')}: </span>
                 {formatUnits(BigInt(activist?.pool?.level), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('eraPool')}: </span>
+                <span className="text-white font-bold">{t('account.eraPool')}: </span>
                 {formatUnits(BigInt(activist?.pool?.currentEra), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
                 {formatUnits(BigInt(activist?.createdAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('userType')}: </span> 6
+                <span className="text-white font-bold">{t('common.userType')}: </span> 6
               </p>
 
               <UserCanVote address={address} />
