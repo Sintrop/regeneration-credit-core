@@ -35,6 +35,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
         name={supporter?.name}
         userType={7}
         proofPhoto={supporter?.profilePhoto}
+        description={supporter ? supporter?.description : ''}
       />
 
       {supporter && (
