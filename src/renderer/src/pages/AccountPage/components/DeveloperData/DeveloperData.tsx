@@ -51,43 +51,43 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
         <div className="flex gap-5 mt-5 max-w-[1024px]">
           <div className="flex flex-col flex-1">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-gray-300 text-sm">{t('common.data')}</p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('id')}: </span>
+                <span className="text-white font-bold">ID: </span>
                 {formatUnits(BigInt(developer?.id), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('proofPhoto')}: </span>
+                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
                 {developer?.proofPhoto}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('totalReports')}: </span>
+                <span className="text-white font-bold">{t('account.totalReports')}: </span>
                 {formatUnits(BigInt(developer?.totalReports), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('lastPublishedAt')}: </span>
+                <span className="text-white font-bold">{t('account.lastPublishedAt')}: </span>
                 {formatUnits(BigInt(developer?.lastPublishedAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('poolEra')}: </span>
+                <span className="text-white font-bold">{t('account.eraPool')}: </span>
                 {formatUnits(BigInt(developer?.pool?.currentEra), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('poolLevel')}: </span>
+                <span className="text-white font-bold">{t('account.poolLevel')}: </span>
                 {formatUnits(BigInt(developer?.pool?.level), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
                 {formatUnits(BigInt(developer?.createdAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('userType')}: </span> 4
+                <span className="text-white font-bold">{t('common.userType')}: </span> 4
               </p>
 
               <UserCanVote address={address} />
 
               <p className="text-red-500">
-                <span className="font-bold">{t('penalties')}: </span>
+                <span className="font-bold">{t('account.penalties')}: </span>
                 {totalPenalties}
               </p>
             </div>

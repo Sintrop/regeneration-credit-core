@@ -49,50 +49,50 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
         <div className="flex gap-5 mt-5 max-w-[1024px]">
           <div className="flex flex-col flex-1 gap-5">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-gray-300 text-sm">{t('common.data')}</p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('id')}: </span>
+                <span className="text-white font-bold">ID: </span>
                 {formatUnits(BigInt(inspector?.id), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('proofPhoto')}: </span>
+                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
                 {inspector?.proofPhoto}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('totalInspections')}: </span>
+                <span className="text-white font-bold">{t('account.totalInspections')}: </span>
                 {formatUnits(BigInt(inspector?.totalInspections), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('lastAcceptedAt')}: </span>
+                <span className="text-white font-bold">{t('account.lastAcceptedAt')}: </span>
                 {formatUnits(BigInt(inspector?.lastAcceptedAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('lastInspection')}: </span>
+                <span className="text-white font-bold">{t('account.lastInspection')}: </span>
                 {formatUnits(BigInt(inspector?.lastInspection), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('level')}: </span>
+                <span className="text-white font-bold">{t('common.level')}: </span>
                 {formatUnits(BigInt(inspector?.pool?.level), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('eraPool')}: </span>
+                <span className="text-white font-bold">{t('account.eraPool')}: </span>
                 {formatUnits(BigInt(inspector?.pool?.currentEra), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
                 {formatUnits(BigInt(inspector?.createdAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('userType')}: </span> 2
+                <span className="text-white font-bold">{t('common.userType')}: </span> 2
               </p>
 
               <p className="text-red-500">
-                <span className="font-bold">{t('giveUps')}: </span>
+                <span className="font-bold">{t('account.giveUps')}: </span>
                 {formatUnits(BigInt(inspector?.giveUps), 0)}
               </p>
 
               <p className="text-red-500">
-                <span className="font-bold">{t('penalties')}: </span>
+                <span className="font-bold">{t('account.penalties')}: </span>
                 {totalPenalties}
               </p>
             </div>

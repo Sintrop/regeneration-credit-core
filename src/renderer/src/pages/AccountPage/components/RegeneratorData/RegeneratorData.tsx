@@ -64,41 +64,41 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
         {regenerator && (
           <div className="flex flex-col gap-5 flex-1">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('data')}</p>
+              <p className="text-gray-300 text-sm">{t('common.data')}</p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('id')}: </span>
+                <span className="text-white font-bold">ID: </span>
                 {formatUnits(BigInt(regenerator?.id), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('proofPhoto')}: </span>
+                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
                 {regenerator?.proofPhoto}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('totalArea')}: </span>
+                <span className="text-white font-bold">{t('account.totalArea')}: </span>
                 {formatUnits(BigInt(regenerator?.totalArea), 0)} m²
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('totalInspections')}: </span>
+                <span className="text-white font-bold">{t('account.totalInspections')}: </span>
                 {formatUnits(BigInt(regenerator?.totalInspections), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('lastRequestAt')}: </span>
+                <span className="text-white font-bold">{t('account.lastRequestAt')}: </span>
                 {formatUnits(BigInt(regenerator?.lastRequestAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('regenerationScore')}: </span>
+                <span className="text-white font-bold">{t('common.regenerationScore')}: </span>
                 {formatUnits(BigInt(regenerator?.regenerationScore?.score), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('eraPool')}: </span>
+                <span className="text-white font-bold">{t('account.eraPool')}: </span>
                 {formatUnits(BigInt(regenerator?.pool?.currentEra), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('registeredAt')}: </span>
+                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
                 {formatUnits(BigInt(regenerator?.createdAt), 0)}
               </p>
               <p className="text-white">
-                <span className="text-white font-bold">{t('userType')}: </span> 1
+                <span className="text-white font-bold">{t('common.userType')}: </span> 1
               </p>
             </div>
 

@@ -154,7 +154,7 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-        <p className="text-gray-300 text-sm">{t('regenerationArea')}</p>
+        <p className="text-gray-300 text-sm">{t('account.regenerationArea')}</p>
 
         <div className="flex justify-center my-5">
           <Loading />
@@ -166,16 +166,16 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
   if (invalidCoords) {
     return (
       <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-        <p className="text-gray-300 text-sm">{t('regenerationArea')}</p>
+        <p className="text-gray-300 text-sm">{t('account.regenerationArea')}</p>
 
-        <p className="text-yellow-500 text-center my-5">{t('invalidCoords')}!</p>
+        <p className="text-yellow-500 text-center my-5">{t('account.invalidCoords')}!</p>
       </div>
     )
   }
 
   return (
     <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-      <p className="text-gray-300 text-sm">{t('regenerationArea')}</p>
+      <p className="text-gray-300 text-sm">{t('account.regenerationArea')}</p>
       <div
         //@ts-ignore
         ref={mapContainerRef}
@@ -183,7 +183,7 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
       />
 
       <div className="flex flex-col gap-1 mt-3">
-        <p className="text-gray-300 text-sm">{t('coordinates')}</p>
+        <p className="text-gray-300 text-sm">{t('account.coordinates')}</p>
         {coords.length > 0 && (
           <>
             {coords.map((item, index) => (
