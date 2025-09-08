@@ -30,7 +30,7 @@ export function ContributionCertificate({
   totalTreesImpact = treesPerToken * parseInt(certificateTokens)
 
   return (
-    <div className="flex flex-col rounded-2xl bg-green-card p-3 w-[500px]">
+    <div className="flex flex-col rounded-2xl bg-green-card p-3 w-full">
       <div className="flex flex-col items-center justify-center w-full h-14 border-b border-container-secondary pb-2">
         <div className="flex gap-3 items-center">
           <img src={RCLogo} className="w-10 h-10 object-contain" />

@@ -59,7 +59,7 @@ export function CertificatesCard({
 
   if (userType === 7) {
     return (
-      <div className="mt-5">
+      <div className="w-full">
         <ContributionCertificate
           certificateTokens={formatedCertificate}
           name={name}
