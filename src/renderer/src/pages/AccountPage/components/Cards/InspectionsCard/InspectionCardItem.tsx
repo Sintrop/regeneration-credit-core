@@ -12,12 +12,15 @@ import { BiChevronRight } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
+import { UpdateTotalProps } from './InspectionsCard'
+import { useEffect } from 'react'
 
 interface Props {
   inspectionId: number
+  updateTotal: (data: UpdateTotalProps) => void
 }
 
-export function InspectionCardItem({ inspectionId }: Props): JSX.Element {
+export function InspectionCardItem({ inspectionId, updateTotal }: Props): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const chainId = useChainId()
@@ -33,6 +36,16 @@ export function InspectionCardItem({ inspectionId }: Props): JSX.Element {
   }
 
   const inspection = data as InspectionProps
+
+  useEffect(() => {
+    if (inspection) {
+      updateTotal({
+        inspectionId,
+        bio: parseInt(formatUnits(BigInt(inspection.biodiversityResult), 0)),
+        trees: parseInt(formatUnits(BigInt(inspection.treesResult), 0))
+      })
+    }
+  }, [inspection])
 
   return (
     <button

@@ -17,6 +17,8 @@ interface Props {
   totalInspections?: number
   totalArea?: number
   score?: number
+  trees?: number
+  bio?: number
   showDownload?: boolean
 }
 
@@ -28,7 +30,9 @@ export function RegeneratorCertificate1({
   totalInspections,
   proofPhoto,
   url,
-  showDownload
+  showDownload,
+  bio,
+  trees
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const { ipfsGatewayURL } = useSettingsContext()
@@ -100,12 +104,12 @@ export function RegeneratorCertificate1({
               </div>
               <div className="flex w-full h-9 pl-3 items-center border-b">
                 <p className="text-xs">
-                  {t('common.bio')}: {totalInspections}
+                  {t('common.bio')}: {bio}
                 </p>
               </div>
               <div className="flex w-full h-9 pl-3 items-center">
                 <p className="text-xs">
-                  {t('common.trees')}: {totalInspections}
+                  {t('common.trees')}: {trees}
                 </p>
               </div>
             </div>

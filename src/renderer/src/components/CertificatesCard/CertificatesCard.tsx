@@ -7,6 +7,7 @@ import { RegeneratorCertificate1 } from './RegeneratorCertificate/RegeneratorCer
 import { useEffect, useState } from 'react'
 import { RegeneratorCertificate2 } from './RegeneratorCertificate/RegeneratorCertificate2'
 import { RegeneratorCertificateShort } from './RegeneratorCertificate/RegeneratorCertificateShort'
+import { AverageInspectionsProps } from '@renderer/pages/AccountPage/components/RegeneratorData/RegeneratorData'
 
 interface Props {
   address: string
@@ -16,6 +17,7 @@ interface Props {
   totalInspections?: number
   totalArea?: number
   score?: number
+  averageInspections?: AverageInspectionsProps
 }
 
 export function CertificatesCard({
@@ -25,7 +27,8 @@ export function CertificatesCard({
   proofPhoto,
   score,
   totalArea,
-  totalInspections
+  totalInspections,
+  averageInspections
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
@@ -83,6 +86,8 @@ export function CertificatesCard({
             score={score}
             totalArea={totalArea}
             totalInspections={totalInspections}
+            bio={averageInspections?.bio}
+            trees={averageInspections?.trees}
             url={urlQrCode}
             showDownload
           />
@@ -94,6 +99,8 @@ export function CertificatesCard({
             score={score}
             totalArea={totalArea}
             totalInspections={totalInspections}
+            bio={averageInspections?.bio}
+            trees={averageInspections?.trees}
             url={urlQrCode}
             showDownload
           />

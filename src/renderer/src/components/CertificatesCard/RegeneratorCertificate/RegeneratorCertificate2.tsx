@@ -14,6 +14,8 @@ interface Props {
   totalInspections?: number
   totalArea?: number
   score?: number
+  trees?: number
+  bio?: number
   showDownload?: boolean
 }
 
@@ -24,7 +26,9 @@ export function RegeneratorCertificate2({
   score,
   showDownload,
   totalArea,
-  totalInspections
+  totalInspections,
+  bio,
+  trees
 }: Props): JSX.Element {
   const { t } = useTranslation()
 
@@ -75,8 +79,8 @@ export function RegeneratorCertificate2({
             />
             <DataItem label={t('certificate.totalInspections')} value={totalInspections} />
 
-            <DataItem label={t('common.bio')} value={totalInspections} />
-            <DataItem label={t('common.trees')} value={totalInspections} />
+            <DataItem label={t('common.bio')} value={bio} />
+            <DataItem label={t('common.trees')} value={trees} />
           </div>
 
           <div className="flex-1 h-full flex flex-col items-center justify-center">
