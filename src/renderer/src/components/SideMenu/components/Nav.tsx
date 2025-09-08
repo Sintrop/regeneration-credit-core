@@ -12,8 +12,8 @@ export function Nav(): JSX.Element {
       <NavItem icon="pools" label="pools.title" path="/pools" />
       <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
       <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
-      <NavItem icon="dashboard" label="rcIndex.title" path="/rc-index" />
-      <NavItem icon="dashboard" label="impactCalculator.title" path="/impact-calculator" />
+      <NavItem icon="rcIndex" label="rcIndex.title" path="/rc-index" />
+      <NavItem icon="impactCalculator" label="impactCalculator.title" path="/impact-calculator" />
       <DropdownMenu label="community.title" icon="community" pathMainPage="/community" haveMainPage>
         <NavItem label="regenerators" path="/users/1" />
         <NavItem label="inspectors" path="/users/2" />
