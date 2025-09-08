@@ -115,7 +115,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
           </div>
         )}
 
-        <div className="flex flex-col gap-5 max-w-[450px]">
+        <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
           <InvitationCard address={address} />
           <ValidationsCard address={address} profilePage={profilePage} />
         </div>

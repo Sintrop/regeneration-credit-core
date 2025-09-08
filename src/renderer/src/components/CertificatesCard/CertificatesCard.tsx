@@ -3,8 +3,10 @@ import { ContributionCertificate } from './ContributionCertificate/ContributionC
 import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { useTranslation } from 'react-i18next'
-import { RegeneratorCertificate } from './RegeneratorCertificate/RegeneratorCertificate'
+import { RegeneratorCertificate1 } from './RegeneratorCertificate/RegeneratorCertificate1'
 import { useEffect, useState } from 'react'
+import { RegeneratorCertificate2 } from './RegeneratorCertificate/RegeneratorCertificate2'
+import { RegeneratorCertificateShort } from './RegeneratorCertificate/RegeneratorCertificateShort'
 
 interface Props {
   address: string
@@ -71,17 +73,33 @@ export function CertificatesCard({
   if (userType === 1) {
     return (
       <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
-        <p className="text-gray-300 text-sm">{t('certificate')}</p>
+        <p className="text-gray-300 text-sm">{t('certificate.certificates')}</p>
 
-        <RegeneratorCertificate
-          address={address}
-          name={name}
-          proofPhoto={proofPhoto}
-          score={score}
-          totalArea={totalArea}
-          totalInspections={totalInspections}
-          url={urlQrCode}
-        />
+        <div className="flex flex-col gap-10">
+          <RegeneratorCertificate1
+            address={address}
+            name={name}
+            proofPhoto={proofPhoto}
+            score={score}
+            totalArea={totalArea}
+            totalInspections={totalInspections}
+            url={urlQrCode}
+            showDownload
+          />
+
+          <RegeneratorCertificate2
+            address={address}
+            name={name}
+            proofPhoto={proofPhoto}
+            score={score}
+            totalArea={totalArea}
+            totalInspections={totalInspections}
+            url={urlQrCode}
+            showDownload
+          />
+
+          <RegeneratorCertificateShort address={address} url={urlQrCode} showDownload />
+        </div>
       </div>
     )
   }

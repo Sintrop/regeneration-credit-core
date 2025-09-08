@@ -562,7 +562,22 @@
     "": ""
   },
   "certificate": {
-    "contributedWith": "Contributed with"
+    "contributedWith": "Contributed with",
+    "certificates": "Certificates",
+    "totalArea": "Total area",
+    "totalInspections": "Total inspections",
+    "regenerationScore": "Regeneration score",
+    "version1": "Version 1",
+    "version2": "Version 2",
+    "versionShort": "Version short",
+    "download": "Download",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
   },
   "account": {
     "title": "Account",
