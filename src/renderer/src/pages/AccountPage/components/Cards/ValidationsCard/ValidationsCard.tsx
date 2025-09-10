@@ -40,7 +40,7 @@ export function ValidationsCard({ address, profilePage }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
-      <p className="text-gray-300 text-sm">{t('validations')}</p>
+      <p className="text-gray-300 text-sm">{t('account.validations')}</p>
       <EraSelector currentEra={currentEra} onChange={setEra} selectedEra={era} />
 
       {isLoading ? (
@@ -51,7 +51,7 @@ export function ValidationsCard({ address, profilePage }: Props): JSX.Element {
         <div className="flex flex-col">
           <div className="w-34 h-16 rounded-2xl flex flex-col items-center justify-center bg-container-primary">
             <p className="font-bold text-white text-xl">{validationsCount}</p>
-            <p className="text-gray-300 text-xs">{t('validationsReceived')}</p>
+            <p className="text-gray-300 text-xs">{t('account.validationsReceived')}</p>
           </div>
 
           {!profilePage && (

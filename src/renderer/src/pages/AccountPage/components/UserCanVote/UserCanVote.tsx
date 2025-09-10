@@ -25,7 +25,8 @@ export function UserCanVote({ address }: Props): JSX.Element {
 
   return (
     <p className="text-white font-bold">
-      {t('canVote')}: <span className="text-white font-normal">{canVote ? t('yes') : t('no')}</span>
+      {t('account.canVote')}:{' '}
+      <span className="text-white font-normal">{canVote ? t('common.yes') : t('common.no')}</span>
     </p>
   )
 }

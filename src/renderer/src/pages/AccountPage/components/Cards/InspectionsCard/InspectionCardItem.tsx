@@ -53,21 +53,21 @@ export function InspectionCardItem({ inspectionId }: Props): JSX.Element {
                   <p className="text-white font-semibold">{inspectionId}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white">{t('regenerator')}:</p>
+                  <p className="text-white">{t('common.regenerator')}:</p>
                   <UserAddressLink address={inspection?.regenerator} />
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white">{t('inspector')}:</p>
+                  <p className="text-white">{t('common.inspector')}:</p>
                   <UserAddressLink address={inspection?.inspector} />
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white">{t('era')}:</p>
+                  <p className="text-white">Era:</p>
                   <p className="text-white font-semibold">
                     {formatUnits(BigInt(inspection.inspectedAtEra), 0)}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white">{t('inspectedAt')}:</p>
+                  <p className="text-white">{t('account.inspectedAt')}:</p>
                   <p className="text-white font-semibold">
                     {formatUnits(BigInt(inspection.inspectedAt), 0)}
                   </p>
@@ -79,21 +79,21 @@ export function InspectionCardItem({ inspectionId }: Props): JSX.Element {
                   <p className="font-bold text-white text-xl">
                     {inspection && formatUnits(BigInt(inspection.treesResult), 0)}
                   </p>
-                  <p className="text-gray-300 text-xs">{t('trees')}</p>
+                  <p className="text-gray-300 text-xs">{t('common.trees')}</p>
                 </div>
 
                 <div className="w-24 h-16 rounded-2xl flex flex-col items-center justify-center bg-container-primary">
                   <p className="font-bold text-white text-xl">
                     {inspection && formatUnits(BigInt(inspection.biodiversityResult), 0)}
                   </p>
-                  <p className="text-gray-300 text-xs">{t('biodiversity')}</p>
+                  <p className="text-gray-300 text-xs">{t('common.bio')}</p>
                 </div>
 
                 <div className="w-24 h-16 rounded-2xl flex flex-col items-center justify-center bg-container-primary">
                   <p className="font-bold text-white text-xl">
                     {inspection && formatUnits(BigInt(inspection.regenerationScore), 0)}
                   </p>
-                  <p className="text-gray-300 text-xs">{t('regenerationScore')}</p>
+                  <p className="text-gray-300 text-xs">{t('common.regenerationScore')}</p>
                 </div>
               </div>
             </>
