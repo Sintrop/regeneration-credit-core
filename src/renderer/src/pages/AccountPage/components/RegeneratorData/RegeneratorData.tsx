@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   regeneratorAbi,
   regeneratorAddress,
@@ -16,8 +17,18 @@ import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
 
+export interface AverageInspectionsProps {
+  bio: number
+  trees: number
+}
+
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
+  const [averageInspections, setAverageInspections] = useState<AverageInspectionsProps>({
+    bio: 0,
+    trees: 0
+  })
+
   const chainId = useChainId()
 
   const { data: responseRegenerator } = useReadContract({
@@ -109,13 +120,14 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
               totalArea={parseInt(formatUnits(BigInt(regenerator?.totalArea), 0))}
               totalInspections={parseInt(formatUnits(BigInt(regenerator?.totalInspections), 0))}
               score={parseInt(formatUnits(BigInt(regenerator?.regenerationScore.score), 0))}
+              averageInspections={averageInspections}
             />
             <RegenerationAreaMap address={address} />
-            <InspectionsCard address={address} />
+            <InspectionsCard address={address} updateAverage={setAverageInspections} />
           </div>
         )}
 
-        <div className="flex flex-col gap-5 max-w-[450px]">
+        <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
           <InvitationCard address={address} />
           <ValidationsCard address={address} profilePage={profilePage} />
         </div>

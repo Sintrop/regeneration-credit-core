@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useChainId, useReadContract } from 'wagmi'
 import { Loading } from '@renderer/components/Loading/Loading'
 import {
   inspectionAbi,
@@ -5,16 +8,24 @@ import {
   sequoiaInspectionAbi,
   sequoiaInspectionAddress
 } from '@renderer/services/contracts'
-import { useChainId, useReadContract } from 'wagmi'
 import { InspectionCardItem } from './InspectionCardItem'
-import { useTranslation } from 'react-i18next'
+import { AverageInspectionsProps } from '../../RegeneratorData/RegeneratorData'
+
+export interface UpdateTotalProps {
+  inspectionId: number
+  trees: number
+  bio: number
+}
 
 interface Props {
   address: string
+  updateAverage: (data: AverageInspectionsProps) => void
 }
 
-export function InspectionsCard({ address }: Props): JSX.Element {
+export function InspectionsCard({ address, updateAverage }: Props): JSX.Element {
   const { t } = useTranslation()
+  const [inspectionsList] = useState<UpdateTotalProps[]>([])
+
   const chainId = useChainId()
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
@@ -22,8 +33,30 @@ export function InspectionsCard({ address }: Props): JSX.Element {
     functionName: 'getInspectionsHistory',
     args: [address]
   })
-
   const inspectionsIds = data as string[]
+
+  function updateTotal(data: UpdateTotalProps): void {
+    const inspectionExists = inspectionsList.find((item) => item.inspectionId === data.inspectionId)
+    if (inspectionExists) return
+
+    inspectionsList.push(data)
+  }
+
+  useEffect(() => {
+    if (inspectionsIds) {
+      const totalInspections = inspectionsIds.length
+      const totalTrees = inspectionsList.reduce((acc, item) => acc + item.trees, 0)
+      const totalBio = inspectionsList.reduce((acc, item) => acc + item.bio, 0)
+      const averageTrees = Math.ceil(totalTrees / totalInspections)
+      const averageBio = Math.ceil(totalBio / totalInspections)
+      updateAverage({
+        bio: averageBio,
+        trees: averageTrees
+      })
+    }
+
+    console.log(inspectionsList)
+  }, [inspectionsList, inspectionsIds])
 
   if (isLoading) {
     return (
@@ -44,7 +77,11 @@ export function InspectionsCard({ address }: Props): JSX.Element {
         ) : (
           <>
             {inspectionsIds.reverse().map((item) => (
-              <InspectionCardItem key={item} inspectionId={parseInt(item)} />
+              <InspectionCardItem
+                key={item}
+                inspectionId={parseInt(item)}
+                updateTotal={updateTotal}
+              />
             ))}
           </>
         )}

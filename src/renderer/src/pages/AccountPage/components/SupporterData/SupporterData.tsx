@@ -40,7 +40,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
 
       {supporter && (
         <div className="flex gap-5 mt-5 max-w-[1024px]">
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col flex-1 gap-5">
             <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
               <p className="text-gray-300 text-sm">{t('common.data')}</p>
               <p className="text-white">
