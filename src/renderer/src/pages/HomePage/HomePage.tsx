@@ -7,6 +7,7 @@ import { InspectionsFeedTab } from './components/FeedTabs/InspectionsFeedTab/Ins
 import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
+import { DelationsFeed } from './components/FeedTabs/DelationsFeed/DelationsFeed'
 
 export function HomePage(): JSX.Element {
   const { t } = useTranslation()
@@ -42,6 +43,7 @@ export function HomePage(): JSX.Element {
           <ResearchesFeedTab />
           <ReportsFeed />
           <ContributionsFeedTab />
+          <DelationsFeed />
         </div>
       </div>
     </ScreenPage>
