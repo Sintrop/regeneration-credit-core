@@ -39,7 +39,16 @@
     "burnedTokens": "Burned tokens",
     "calculatorItem": "Item",
     "message": "Message",
-    "acceptInspection": "Accept inspection"
+    "acceptInspection": "Accept inspection",
+    "delations": "Delations",
+    "publishedAt": "Published at",
+    "reportedAnUser": "Reported a user",
+    "reported": "Reported",
+    "titleDelation": "Title",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
   },
   "contracts": {
     "name": "Name",

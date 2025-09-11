@@ -27,7 +27,12 @@ export function DelationFeedItem({ id }: Props): JSX.Element {
     return (
       <div className="flex flex-col p-3 w-full border-t border-green-900">
         <Informer createdAt={10000} informer={delation[1]} />
-        <DelationFeedContent delationId={id} description={delation[4]} title={delation[3]} />
+        <DelationFeedContent
+          delationId={id}
+          description={delation[4]}
+          title={delation[3]}
+          reported={delation[2]}
+        />
       </div>
     )
   }
