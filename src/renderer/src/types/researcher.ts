@@ -1,3 +1,18 @@
+export interface ResearcherContractProps {
+  id: string
+  researcherWallet: string
+  name: string
+  proofPhoto: string
+  publishedResearches: string
+  lastPublishedAt: string
+  lastCalculatorItemAt: string
+  pool: {
+    level: string
+    currentEra: string
+  }
+  createdAt: string
+}
+
 export interface ResearcherProps {
   id: number
   researcherWallet: string

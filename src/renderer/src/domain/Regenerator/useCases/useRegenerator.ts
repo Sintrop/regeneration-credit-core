@@ -49,7 +49,7 @@ export function useRegenerator({ address }: Props): ReturnUserRegenerator {
     regenerationScore: {
       score: data ? bigNumberToFloat(data?.regenerationScore.score) : 0
     },
-    regeneratorWallet: data.regeneratorWallet,
+    regeneratorWallet: data ? data.regeneratorWallet : '',
     totalArea: data ? bigNumberToFloat(data.totalArea) : 0,
     totalInspections: data ? bigNumberToFloat(data.totalInspections) : 0
   }
