@@ -1,6 +1,11 @@
-import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { FaRegCopy } from 'react-icons/fa'
 import { pdfjs, Document, Page } from 'react-pdf'
+import { toast } from 'react-toastify'
+
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -11,8 +16,27 @@ interface Props {
   report?: string
 }
 export function PdfTab({ report }: Props): JSX.Element {
+  const { t } = useTranslation()
   const { ipfsGatewayURL } = useSettingsContext()
+  const [sourceUrl, setSourceUrl] = useState<string>('')
   const [numPages, setNumPages] = useState<number>(0)
+
+  useEffect(() => {
+    checkOriginSource()
+  }, [report])
+
+  function checkOriginSource(): void {
+    if (report?.includes('http://') || report?.includes('https://')) {
+      setSourceUrl(report)
+    } else {
+      setSourceUrl(`${ipfsGatewayURL}/ipfs/${report}`)
+    }
+  }
+
+  function handleCopyUrl(): void {
+    navigator.clipboard.writeText(sourceUrl)
+    toast(t('common.urlCopiedToClipboard'), { type: 'success' })
+  }
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages)
@@ -36,10 +60,16 @@ export function PdfTab({ report }: Props): JSX.Element {
 
   return (
     <div className="flex flex-col">
-      <p className="text-white mb-5">HASH: {report}</p>
+      <div className="flex items-center gap-5 my-3">
+        <p className="text-white">URL: {sourceUrl}</p>
+        <button onClick={handleCopyUrl} className="hover:cursor-pointer">
+          <FaRegCopy size={25} color="white" />
+        </button>
+      </div>
+
       {report && (
         <Document
-          file={`${ipfsGatewayURL}/ipfs/${report}`}
+          file={sourceUrl}
           onLoadSuccess={onDocumentLoadSuccess}
           className="w-[700px]"
           loading={LoadingPdf}

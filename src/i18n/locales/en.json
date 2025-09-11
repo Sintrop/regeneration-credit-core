@@ -513,7 +513,8 @@
     "userType": "User type",
     "regenerationScore": "Regeneration score",
     "regenerator": "Regenerator",
-    "inspector": "Inspector"
+    "inspector": "Inspector",
+    "urlCopiedToClipboard": "URL copied to clipboard"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
