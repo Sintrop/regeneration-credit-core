@@ -61,6 +61,7 @@ export function AddReportValidation({
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
         onChange={(e) => setInputJustification(e.target.value)}
+        maxLength={300}
       />
 
       <SendTransactionButton

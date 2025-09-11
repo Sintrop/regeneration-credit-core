@@ -94,6 +94,7 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
                       onChange={(e) => setJustification(e.target.value)}
                       placeholder={t('common.typeHere')}
                       className="w-full rounded-2xl bg-container-secondary px-3 text-white h-10"
+                      maxLength={300}
                     />
 
                     <SendTransactionButton
