@@ -12,6 +12,20 @@ export interface ReportProps {
   developer: string
 }
 
+export interface DeveloperContractProps {
+  id: string
+  developerWallet: string
+  name: string
+  proofPhoto: string
+  totalReports: string
+  createdAt: string
+  pool: {
+    level: string
+    currentEra: string
+  }
+  lastPublishedAt: string
+}
+
 export interface DeveloperProps {
   id: number
   developerWallet: string
