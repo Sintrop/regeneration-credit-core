@@ -43,13 +43,13 @@ export function DelationsFeed(): JSX.Element {
       </div>
 
       {isLoading ? (
-        <div className="w-[350px] my-5 flex justify-center">
+        <div className="w-[500px] my-5 flex justify-center">
           <Loading />
         </div>
       ) : (
         <>
           {delationsIds.length === 0 ? (
-            <div className="items-center my-10 w-[350px]">
+            <div className="items-center my-10 w-[500px]">
               <p className="text-white text-center">{t('feed.noDelations')}</p>
             </div>
           ) : (

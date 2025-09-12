@@ -31,11 +31,19 @@ export function HomePage(): JSX.Element {
               value="inspections"
               isSelected={selectedTab === 'inspections'}
             />
+
+            <TabItem
+              label={t('feed.delations')}
+              onChange={setSelectedTab}
+              value="delations"
+              isSelected={selectedTab === 'delations'}
+            />
           </div>
 
           <div className="flex flex-col w-[500px]">
             {selectedTab === 'inspections' && <InspectionsFeedTab />}
             {selectedTab === 'offsets' && <LatestOffsets />}
+            {selectedTab === 'delations' && <DelationsFeed />}
           </div>
         </div>
 
@@ -43,7 +51,6 @@ export function HomePage(): JSX.Element {
           <ResearchesFeedTab />
           <ReportsFeed />
           <ContributionsFeedTab />
-          <DelationsFeed />
         </div>
       </div>
     </ScreenPage>

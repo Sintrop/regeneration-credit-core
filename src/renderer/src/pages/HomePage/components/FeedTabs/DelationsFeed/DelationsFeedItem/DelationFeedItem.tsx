@@ -8,6 +8,7 @@ import {
 import { DelationFeedContent } from './DelationFeedContent'
 import { useMainnet } from '@renderer/hooks/useMainnet'
 import { Informer } from './Informer'
+import { formatUnits } from 'viem'
 
 interface Props {
   id: number
@@ -26,7 +27,10 @@ export function DelationFeedItem({ id }: Props): JSX.Element {
   if (delation) {
     return (
       <div className="flex flex-col p-3 w-full border-t border-green-900">
-        <Informer createdAt={10000} informer={delation[1]} />
+        <Informer
+          createdAt={parseInt(formatUnits(BigInt(delation[5]), 0))}
+          informer={delation[1]}
+        />
         <DelationFeedContent
           delationId={id}
           description={delation[4]}
