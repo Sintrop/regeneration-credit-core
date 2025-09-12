@@ -7,6 +7,7 @@ import { InspectionsFeedTab } from './components/FeedTabs/InspectionsFeedTab/Ins
 import { TabItem } from '@renderer/components/TabItem/TabItem'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
+import { DelationsFeed } from './components/FeedTabs/DelationsFeed/DelationsFeed'
 
 export function HomePage(): JSX.Element {
   const { t } = useTranslation()
@@ -30,11 +31,19 @@ export function HomePage(): JSX.Element {
               value="inspections"
               isSelected={selectedTab === 'inspections'}
             />
+
+            <TabItem
+              label={t('feed.delations')}
+              onChange={setSelectedTab}
+              value="delations"
+              isSelected={selectedTab === 'delations'}
+            />
           </div>
 
           <div className="flex flex-col w-[500px]">
             {selectedTab === 'inspections' && <InspectionsFeedTab />}
             {selectedTab === 'offsets' && <LatestOffsets />}
+            {selectedTab === 'delations' && <DelationsFeed />}
           </div>
         </div>
 

@@ -1,3 +1,16 @@
+export interface ContributorContractProps {
+  id: string
+  contributorWallet: string
+  name: string
+  proofPhoto: string
+  lastPublishedAt: string
+  pool: {
+    currentEra: string
+    level: string
+  }
+  createdAt: string
+}
+
 export interface ContributorProps {
   id: number
   contributorWallet: string

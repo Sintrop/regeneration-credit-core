@@ -66,6 +66,7 @@ export function AddDelation({ close }: Props): JSX.Element {
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
         onChange={(e) => setInputTitle(e.target.value)}
+        maxLength={100}
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.reportTestimony')}:</p>
@@ -74,6 +75,7 @@ export function AddDelation({ close }: Props): JSX.Element {
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
         onChange={(e) => setInputTestimony(e.target.value)}
+        maxLength={300}
       />
 
       <SendTransactionButton

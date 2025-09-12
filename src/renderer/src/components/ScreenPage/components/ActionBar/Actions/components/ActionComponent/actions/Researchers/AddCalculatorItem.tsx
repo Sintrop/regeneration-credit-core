@@ -57,6 +57,7 @@ export function AddCalculatorItem({
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
         onChange={(e) => setInputTitle(e.target.value)}
+        maxLength={35}
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('justification')}:</p>
@@ -65,6 +66,7 @@ export function AddCalculatorItem({
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
         onChange={(e) => setInputJustification(e.target.value)}
+        maxLength={350}
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('unit')}:</p>
@@ -73,6 +75,7 @@ export function AddCalculatorItem({
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
         onChange={(e) => setInputUnit(e.target.value)}
+        maxLength={20}
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('carbonImpact')}:</p>

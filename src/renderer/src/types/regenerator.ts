@@ -1,3 +1,23 @@
+export interface RegeneratorContractProps {
+  id: string
+  regeneratorWallet: string
+  name: string
+  proofPhoto: string
+  pendingInspection: boolean
+  totalInspections: string
+  lastRequestAt: string
+  totalArea: string
+  regenerationScore: {
+    score: string
+  }
+  coordinatesCount: string
+  pool: {
+    onContractPool: boolean
+    currentEra: string
+  }
+  createdAt: string
+}
+
 export interface RegeneratorProps {
   id: number
   regeneratorWallet: string

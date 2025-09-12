@@ -85,6 +85,7 @@ export function AddContribution({
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
             placeholder={t('actions.typeHere')}
             onChange={(e) => setInputDescription(e.target.value)}
+            maxLength={300}
           />
 
           <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>

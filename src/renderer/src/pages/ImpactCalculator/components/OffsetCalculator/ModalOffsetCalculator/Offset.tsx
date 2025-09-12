@@ -143,6 +143,7 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
           className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
           placeholder={t('common.typeHere')}
           onChange={(e) => setInputMessage(e.target.value)}
+          maxLength={300}
         />
       </div>
 
