@@ -16,6 +16,7 @@ import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
+import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 
 export interface AverageInspectionsProps {
   bio: number
@@ -130,6 +131,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
         <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
           <InvitationCard address={address} />
           <ValidationsCard address={address} profilePage={profilePage} />
+          <DelationsCard address={address} />
         </div>
       </div>
     </div>

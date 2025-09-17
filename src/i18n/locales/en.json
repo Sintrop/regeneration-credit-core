@@ -618,6 +618,9 @@
     "inspections": "Inspections",
     "validations": "Validations",
     "validationsReceived": "Validations received",
-    "": ""
+    "delations": "Delations",
+    "titleDelation": "Title",
+    "description": "Description",
+    "noDelations": "No delations"
   }
 }
