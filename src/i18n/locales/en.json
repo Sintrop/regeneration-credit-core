@@ -175,7 +175,8 @@
     "value": "Value",
     "insufficientBalance": "Insufficient balance",
     "send": "Send",
-    "today": "Today"
+    "today": "Today",
+    "transactionSent": "Transaction sent!"
   },
   "community": {
     "title": "Community",
