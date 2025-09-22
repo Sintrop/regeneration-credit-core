@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { RegeneratorCertificate2 } from './RegeneratorCertificate/RegeneratorCertificate2'
 import { RegeneratorCertificateShort } from './RegeneratorCertificate/RegeneratorCertificateShort'
 import { AverageInspectionsProps } from '@renderer/pages/AccountPage/components/RegeneratorData/RegeneratorData'
+import { ContributionCertificateShort } from './ContributionCertificate/ContributionCertificateShort'
 
 interface Props {
   address: string
@@ -71,6 +72,13 @@ export function CertificatesCard({
             name={name}
             address={address}
             url={urlQrCode}
+            showDownload
+          />
+
+          <ContributionCertificateShort
+            address={address}
+            url={urlQrCode}
+            certificateTokens={formatedCertificate}
             showDownload
           />
         </div>
