@@ -4,27 +4,21 @@ import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
-import { uploadToIpfs } from '@renderer/services/ipfs'
-import { PdfInput } from '@renderer/components/Input/PdfInput'
-import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
 
 export function RealizeInspection({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [inputTrees, setInputTrees] = useState('')
   const [inputBio, setInputBio] = useState('')
-  const [image, setImage] = useState<Blob>()
-  const [file, setFile] = useState<Blob>()
-
-  const [uploadingImage, setUploadingImage] = useState(false)
-  const [uploadingFile, setUploadingFile] = useState(false)
+  const [proofPhotos, setProofPhotos] = useState<string>('')
+  const [report, setReport] = useState<string>('')
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -37,27 +31,11 @@ export function RealizeInspection({
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleSendTransaction(): Promise<void> {
-    if (!image) return
-    if (!file) return
+    if (!report.trim()) return
+    if (!proofPhotos.trim()) return
     const id = parseInt(input)
     const trees = parseInt(inputTrees)
     const bio = parseInt(inputBio)
-
-    setUploadingImage(true)
-    const proofPhotoHash = await uploadToIpfs({ file: image, ipfsApiUrl })
-    if (!proofPhotoHash.success) {
-      alert('error on upload proof photo')
-      setUploadingImage(false)
-    }
-    setUploadingImage(false)
-
-    setUploadingFile(true)
-    const reportHash = await uploadToIpfs({ file, ipfsApiUrl })
-    if (!reportHash.success) {
-      alert('error on upload report')
-      setUploadingFile(false)
-    }
-    setUploadingFile(false)
 
     setDisplayLoadingTx(true)
     writeContract({
@@ -65,7 +43,7 @@ export function RealizeInspection({
       address: addressContract ? addressContract : '',
       abi: abi ? abi : [],
       functionName: 'realizeInspection',
-      args: [id, proofPhotoHash.hash, reportHash.hash, trees, bio]
+      args: [id, proofPhotos, report, trees, bio]
     })
   }
 
@@ -90,10 +68,10 @@ export function RealizeInspection({
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.images')}:</p>
-      <PdfInput onChangeFile={setImage} idInput="images" />
+      <FileInputSelector setValue={setProofPhotos} value={proofPhotos} />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
-      <PdfInput onChangeFile={setFile} idInput="report" />
+      <FileInputSelector setValue={setReport} value={report} />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.treesResult')}:</p>
       <input
@@ -116,11 +94,14 @@ export function RealizeInspection({
       <SendTransactionButton
         label={t('actions.realizeInspection')}
         handleSendTransaction={handleSendTransaction}
-        disabled={!input.trim() || !inputTrees.trim() || !inputBio.trim() || !image || !file}
+        disabled={
+          !input.trim() ||
+          !inputTrees.trim() ||
+          !inputBio.trim() ||
+          !proofPhotos.trim() ||
+          !report.trim()
+        }
       />
-
-      {uploadingFile && <p className="text-white">{t('actions.uploadingFileToIPFS')}</p>}
-      {uploadingImage && <p className="text-white">{t('actions.uploadingImagesToIPFS')}</p>}
 
       {displayLoadingTx && (
         <TransactionLoading
