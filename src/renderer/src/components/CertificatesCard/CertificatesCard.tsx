@@ -62,13 +62,18 @@ export function CertificatesCard({
 
   if (userType === 7) {
     return (
-      <div className="w-full">
-        <ContributionCertificate
-          certificateTokens={formatedCertificate}
-          name={name}
-          address={address}
-          url={urlQrCode}
-        />
+      <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
+        <p className="text-gray-300 text-sm">{t('certificate.certificates')}</p>
+
+        <div className="flex flex-col gap-10">
+          <ContributionCertificate
+            certificateTokens={formatedCertificate}
+            name={name}
+            address={address}
+            url={urlQrCode}
+            showDownload
+          />
+        </div>
       </div>
     )
   }
