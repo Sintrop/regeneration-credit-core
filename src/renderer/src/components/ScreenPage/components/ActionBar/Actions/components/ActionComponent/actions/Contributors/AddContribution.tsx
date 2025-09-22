@@ -4,13 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
-import { PdfInput } from '@renderer/components/Input/PdfInput'
-import { uploadToIpfs } from '@renderer/services/ipfs'
 import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
-import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
 
 export function AddContribution({
   abi,
@@ -18,11 +16,9 @@ export function AddContribution({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
-  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [inputDescription, setInputDescription] = useState('')
-  const [file, setFile] = useState<Blob>()
-  const [uploadingFile, setUploadingFile] = useState(false)
+  const [file, setFile] = useState<string>('')
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -42,22 +38,15 @@ export function AddContribution({
 
   async function handleSendTransaction(): Promise<void> {
     if (!file) return
-    setUploadingFile(true)
-    const response = await uploadToIpfs({ file, ipfsApiUrl })
-    setUploadingFile(false)
 
-    if (response.success) {
-      setDisplayLoadingTx(true)
-      writeContract({
-        //@ts-ignore
-        address: addressContract ? addressContract : '',
-        abi: abi ? abi : [],
-        functionName: 'addContribution',
-        args: [inputDescription, response.hash]
-      })
-    } else {
-      alert('error on upload file')
-    }
+    setDisplayLoadingTx(true)
+    writeContract({
+      //@ts-ignore
+      address: addressContract ? addressContract : '',
+      abi: abi ? abi : [],
+      functionName: 'addContribution',
+      args: [inputDescription, file]
+    })
   }
 
   function success(): void {
@@ -89,15 +78,13 @@ export function AddContribution({
           />
 
           <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
-          <PdfInput onChangeFile={setFile} />
+          <FileInputSelector value={file} setValue={setFile} />
 
           <SendTransactionButton
             label={t('actions.addContribution')}
             handleSendTransaction={handleSendTransaction}
-            disabled={!inputDescription.trim() || !file || uploadingFile}
+            disabled={!inputDescription.trim() || !file}
           />
-
-          {uploadingFile && <p className="text-white">{t('actions.uloadingFileToIPFS')}</p>}
 
           {displayLoadingTx && (
             <TransactionLoading

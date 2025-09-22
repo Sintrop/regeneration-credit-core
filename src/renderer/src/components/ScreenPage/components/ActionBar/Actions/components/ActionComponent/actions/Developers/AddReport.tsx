@@ -4,13 +4,11 @@ import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
-import { PdfInput } from '@renderer/components/Input/PdfInput'
-import { uploadToIpfs } from '@renderer/services/ipfs'
 import { useCanPublishWork } from '@renderer/hooks/useCanPublishWork'
 import { Loading } from '@renderer/components/Loading/Loading'
-import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
 
 export function AddReport({
   abi,
@@ -18,7 +16,6 @@ export function AddReport({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
-  const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [inputDescription, setInputDescription] = useState('')
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
@@ -36,27 +33,19 @@ export function AddReport({
     canPublishIn,
     isLoading: loadingCanPublish
   } = useCanPublishWork({ lastPublishedAt: lastPublishedWork })
-  const [file, setFile] = useState<Blob>()
-  const [uploadingFile, setUploadingFile] = useState(false)
+  const [file, setFile] = useState<string>()
 
   async function handleSendTransaction(): Promise<void> {
     if (!file) return
-    setUploadingFile(true)
-    const response = await uploadToIpfs({ file, ipfsApiUrl })
-    setUploadingFile(false)
 
-    if (response.success) {
-      setDisplayLoadingTx(true)
-      writeContract({
-        //@ts-ignore
-        address: addressContract ? addressContract : '',
-        abi: abi ? abi : [],
-        functionName: 'addReport',
-        args: [inputDescription, response.hash]
-      })
-    } else {
-      alert('error on upload file')
-    }
+    setDisplayLoadingTx(true)
+    writeContract({
+      //@ts-ignore
+      address: addressContract ? addressContract : '',
+      abi: abi ? abi : [],
+      functionName: 'addReport',
+      args: [inputDescription, file]
+    })
   }
 
   function success(): void {
@@ -76,7 +65,7 @@ export function AddReport({
 
   return (
     <div className="flex flex-col pt-5">
-      {canPublish ? (
+      {!canPublish ? (
         <>
           <p className="text-sm mt-3 text-gray-300">{t('actions.description')}:</p>
           <input
@@ -88,15 +77,13 @@ export function AddReport({
           />
 
           <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
-          <PdfInput onChangeFile={setFile} />
+          <FileInputSelector value={file ? file : ''} setValue={setFile} />
 
           <SendTransactionButton
             label={t('actions.addReport')}
             handleSendTransaction={handleSendTransaction}
-            disabled={!inputDescription.trim() || !file || uploadingFile}
+            disabled={!inputDescription.trim() || !file || !file.trim()}
           />
-
-          {uploadingFile && <p className="text-white">{t('actions.uloadingFileToIPFS')}</p>}
 
           {displayLoadingTx && (
             <TransactionLoading

@@ -523,7 +523,8 @@
     "regenerationScore": "Regeneration score",
     "regenerator": "Regenerator",
     "inspector": "Inspector",
-    "urlCopiedToClipboard": "URL copied to clipboard"
+    "urlCopiedToClipboard": "URL copied to clipboard",
+    "selectFile": "Select file"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
@@ -622,5 +623,10 @@
     "titleDelation": "Title",
     "description": "Description",
     "noDelations": "No delations"
+  },
+  "fileInputSelector": {
+    "fileType": "File type",
+    "file": "File",
+    "url": "Url"
   }
 }
