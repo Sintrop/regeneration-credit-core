@@ -13,7 +13,11 @@ export function ImpactCalculator(): JSX.Element {
     <ScreenPage pageTitle={t('impactCalculator.title')}>
       <div className="flex gap-10 mt-10">
         <div className="flex w-[500px]">
-          <CertificatesCard address={isConnected ? (address as string) : ''} userType={7} />
+          <CertificatesCard
+            address={isConnected ? (address as string) : ''}
+            userType={7}
+            impactCalculatorPage
+          />
         </div>
 
         <BurnTokensCalculator />
