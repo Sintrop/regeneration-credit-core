@@ -19,6 +19,7 @@ interface Props {
   totalArea?: number
   score?: number
   averageInspections?: AverageInspectionsProps
+  impactCalculatorPage?: boolean
 }
 
 export function CertificatesCard({
@@ -29,7 +30,8 @@ export function CertificatesCard({
   score,
   totalArea,
   totalInspections,
-  averageInspections
+  averageInspections,
+  impactCalculatorPage
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
@@ -59,6 +61,20 @@ export function CertificatesCard({
       userType === 1 ? 'regenerator' : 'supporter'
     }/${address}/${nameFormated}`
     setUrlQrCode(url)
+  }
+
+  if (impactCalculatorPage) {
+    return (
+      <div className="w-full">
+        <ContributionCertificate
+          certificateTokens={formatedCertificate}
+          name={name}
+          address={address}
+          url={urlQrCode}
+          showDownload
+        />
+      </div>
+    )
   }
 
   if (userType === 7) {
