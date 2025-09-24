@@ -9,6 +9,7 @@ import { DelationFeedContent } from './DelationFeedContent'
 import { useMainnet } from '@renderer/hooks/useMainnet'
 import { Informer } from './Informer'
 import { formatUnits } from 'viem'
+import { VoteDelation } from './VoteDelation'
 
 interface Props {
   id: number
@@ -16,7 +17,7 @@ interface Props {
 
 export function DelationFeedItem({ id }: Props): JSX.Element {
   const mainnet = useMainnet()
-  const { data } = useReadContract({
+  const { data, refetch } = useReadContract({
     address: mainnet ? userAddress : sequoiaUserAddress,
     abi: mainnet ? userAbi : sequoiaUserAbi,
     functionName: 'delationsById',
@@ -36,6 +37,14 @@ export function DelationFeedItem({ id }: Props): JSX.Element {
           description={delation[4]}
           title={delation[3]}
           reported={delation[2]}
+          thumbsUp={parseInt(formatUnits(BigInt(delation[6]), 0))}
+          thumbsDown={parseInt(formatUnits(BigInt(delation[7]), 0))}
+        />
+        <VoteDelation
+          delationId={id}
+          thumbsUp={parseInt(formatUnits(BigInt(delation[6]), 0))}
+          thumbsDown={parseInt(formatUnits(BigInt(delation[7]), 0))}
+          refetchData={refetch}
         />
       </div>
     )
