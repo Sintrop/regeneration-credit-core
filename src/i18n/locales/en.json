@@ -536,7 +536,7 @@
     "invite": "Allows a user to attempt to invite another wallet to the community.",
     "addDelation": "Allows registered users (excluding Supporters) to report other users or resources that may require invalidation.",
     "withdraw": "",
-    "requestInspection": "Regenerators agree to receive an inspector to assess their registered area. They can make an allowedInitialRequests number of requests without delay. After that, they must wait timeBetweenInspections blocks between requests. A hard limit of 12 total inspections is enforced.",
+    "requestInspection": "Regenerators agree to receive an inspector to assess their registered area. They can make an allowedInitialRequests number of requests without delay. After that, they must wait timeBetweenInspections blocks between requests. A hard limit of 6 total inspections is enforced.",
     "acceptInspection": "Inspectors must only accept inspections they are capable of performing, being aware of the safety risks and responsibilities. Accepting an inspection counts as a 'give-up' until realized. Inspectors can only accept one open inspection at a time and cannot inspect the same regenerator twice. They must also adhere to specific delays and security windows.",
     "addResearch": "Allows a registered researcher to publish a new 'research' report. A 'research' can be a new calculator item, a new methodology or improvement of current ones or a generic regeneration research.",
     "addResearchValidation": "Allows a voter to vote to invalidate a research.",
