@@ -47,6 +47,7 @@ const RESEARCHER_POOL_FUNDS = import.meta.env.VITE_RESEARCHER_POOL_FUNDS
 const DEVELOPER_POOL_FUNDS = import.meta.env.VITE_DEVELOPER_POOL_FUNDS
 const CONTRIBUTOR_POOL_FUNDS = import.meta.env.VITE_CONTRIBUTOR_POOL_FUNDS
 const ACTIVIST_POOL_FUNDS = import.meta.env.VITE_ACTIVIST_POOL_FUNDS
+const VALIDATION_POOL_FUNDS = import.meta.env.VITE_VALIDATION_POOL_FUNDS
 
 const pools = {
   regenerator: {
@@ -90,6 +91,13 @@ const pools = {
     path: '/pools/activist',
     icon: null,
     poolFunds: BigInt(ACTIVIST_POOL_FUNDS)
+  },
+  validation: {
+    title: 'pools.validationPool',
+    description: 'pools.descValidationPool',
+    path: '/pools/validation',
+    icon: null,
+    poolFunds: BigInt(VALIDATION_POOL_FUNDS)
   }
 }
 

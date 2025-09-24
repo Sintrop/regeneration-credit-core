@@ -52,8 +52,10 @@ export function WithdrawArea({ poolName }: Props): JSX.Element {
     }
   }
 
-  const userTypeThisPool = userTypePerPools[poolName]
-  if (userTypeThisPool !== userType) return <div />
+  // const userTypeThisPool = userTypePerPools[poolName]
+  // if (userTypeThisPool !== userType) return <div />
+  const thisUserBelongsToThisPool = userTypePerPools[poolName].find((item) => item === userType)
+  if (!thisUserBelongsToThisPool) return <div />
 
   if (!isConnected) return <div />
 
@@ -100,10 +102,11 @@ export function WithdrawArea({ poolName }: Props): JSX.Element {
 }
 
 const userTypePerPools = {
-  regenerator: 1,
-  inspector: 2,
-  researcher: 3,
-  developer: 4,
-  contributor: 5,
-  activist: 6
+  regenerator: [1],
+  inspector: [2],
+  researcher: [3],
+  developer: [4],
+  contributor: [5],
+  activist: [6],
+  validation: [3, 4, 5]
 }
