@@ -112,8 +112,8 @@ export function TokenImpact(): JSX.Element {
           <div className="flex flex-wrap gap-5">
             <StatsRcItem
               title={t('tokenImpact.totalCarbonImpact')}
-              value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact)}
-              suffix="g"
+              value={Intl.NumberFormat('pt-BR').format(totalCarbonImpact / 1000)}
+              suffix="kg"
             />
             <StatsRcItem
               title={t('tokenImpact.totalAreaImpact')}
