@@ -24,6 +24,15 @@ export function UserDetailsPage(): JSX.Element {
     args: [address]
   })
 
+  const { data: responseDenied } = useReadContract({
+    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
+    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    functionName: 'isDenied',
+    args: [address]
+  })
+
+  const isDenied = responseDenied ? responseDenied : false
+
   const userType = data as UserTypeAvailables
 
   return (
@@ -33,7 +42,14 @@ export function UserDetailsPage(): JSX.Element {
           <Loading />
         </div>
       ) : (
-        <>{userType && <UserTypeContent userType={userType} address={address} />}</>
+        <>
+          {isDenied && (
+            <div className="w-full h-16 bg-red-500 flex items-center justify-center mb-5 rounded-2xl max-w-[1024px]">
+              <p className="font-semibod text-white text-xl">{t('account.invalidatedUser')}</p>
+            </div>
+          )}
+          {userType && <UserTypeContent userType={userType} address={address} />}
+        </>
       )}
     </ScreenPage>
   )

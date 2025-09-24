@@ -34,7 +34,14 @@ import {
   activistAddress,
   sequoiaActivistAddress,
   activistAbi,
-  sequoiaActivistAbi
+  sequoiaActivistAbi,
+  sequoiaValidationPoolAddress,
+  validationPoolAddress,
+  sequoiaValidationPoolAbi,
+  validationAddress,
+  sequoiaValidationAddress,
+  validationAbi,
+  sequoiaValidationAbi
 } from '@renderer/services/contracts'
 
 const REGENERATOR_POOL_FUNDS = import.meta.env.VITE_REGENERATOR_POOL_FUNDS
@@ -43,6 +50,7 @@ const RESEARCHER_POOL_FUNDS = import.meta.env.VITE_RESEARCHER_POOL_FUNDS
 const DEVELOPER_POOL_FUNDS = import.meta.env.VITE_DEVELOPER_POOL_FUNDS
 const CONTRIBUTOR_POOL_FUNDS = import.meta.env.VITE_CONTRIBUTOR_POOL_FUNDS
 const ACTIVIST_POOL_FUNDS = import.meta.env.VITE_ACTIVIST_POOL_FUNDS
+const VALIDATION_POOL_FUNDS = import.meta.env.VITE_VALIDATION_POOL_FUNDS
 
 export const contractsPool = {
   regenerator: {
@@ -110,6 +118,17 @@ export const contractsPool = {
     userAddressTestnet: sequoiaActivistAddress,
     userAbiMainnet: activistAbi,
     userAbiTestnet: sequoiaActivistAbi
+  },
+  validation: {
+    addressTestnet: sequoiaValidationPoolAddress,
+    addressMainnet: validationPoolAddress,
+    abiTestnet: sequoiaValidationPoolAbi,
+    abiMainnet: sequoiaValidationPoolAbi,
+    poolFunds: BigInt(VALIDATION_POOL_FUNDS),
+    userAddressMainnet: validationAddress,
+    userAddressTestnet: sequoiaValidationAddress,
+    userAbiMainnet: validationAbi,
+    userAbiTestnet: sequoiaValidationAbi
   }
 }
 

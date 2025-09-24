@@ -14,6 +14,7 @@ export function PoolsPage(): JSX.Element {
         <PoolItem poolName="developer" />
         <PoolItem poolName="contributor" />
         <PoolItem poolName="activist" />
+        <PoolItem poolName="validation" />
       </div>
     </ScreenPage>
   )

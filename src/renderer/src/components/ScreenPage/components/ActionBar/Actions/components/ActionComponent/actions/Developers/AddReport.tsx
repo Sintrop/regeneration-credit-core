@@ -65,7 +65,7 @@ export function AddReport({
 
   return (
     <div className="flex flex-col pt-5">
-      {!canPublish ? (
+      {canPublish ? (
         <>
           <p className="text-sm mt-3 text-gray-300">{t('actions.description')}:</p>
           <input

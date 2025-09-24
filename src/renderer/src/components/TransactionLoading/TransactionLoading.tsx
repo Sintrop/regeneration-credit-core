@@ -3,6 +3,7 @@ import { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaRegCopy } from 'react-icons/fa'
 import { MdClose } from 'react-icons/md'
+import { toast } from 'react-toastify'
 
 interface Props {
   transactionHash?: `0x${string}`
@@ -33,11 +34,11 @@ export function TransactionLoading({
 
   function handleCopyHash(): void {
     navigator.clipboard.writeText(transactionHash as string)
-    alert(t('txLoading.copiedToClipboard'))
+    toast.success(t('txLoading.copiedToClipboard'))
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
       <div className="bg-card-2 p-6 rounded-2xl shadow-2xl min-w-96 relative overflow-hidden max-h-[600px]">
         <button className="absolute top-3 right-3 hover:cursor-pointer" onClick={close}>
           <MdClose size={25} color="white" />

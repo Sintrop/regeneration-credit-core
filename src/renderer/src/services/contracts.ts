@@ -18,6 +18,7 @@ import SequoiaInspectionContract from '../../../data/abis/sequoia/InspectionRule
 import SequoiaInvitationContract from '../../../data/abis/sequoia/InvitationRules.json'
 import SequoiaVoteContract from '../../../data/abis/sequoia/VoteRules.json'
 import SequoiaValidationContract from '../../../data/abis/sequoia/ValidationRules.json'
+import SequoiaValidationPoolContract from '../../../data/abis/sequoia/ValidationPool.json'
 import SequoiaRcIndexContract from '../../../data/abis/sequoia/RegenerationIndexRules.json'
 
 import { ContractListProps } from '@renderer/types/contract'
@@ -44,6 +45,7 @@ export const sequoiaInspectionAddress = import.meta.env.VITE_SEQUOIA_INSPECTION_
 export const sequoiaInvitationAddress = import.meta.env.VITE_SEQUOIA_INVITATION_ADDRESS
 export const sequoiaVoteAddress = import.meta.env.VITE_SEQUOIA_VOTE_ADDRESS
 export const sequoiaValidationAddress = import.meta.env.VITE_SEQUOIA_VALIDATION_ADDRESS
+export const sequoiaValidationPoolAddress = import.meta.env.VITE_SEQUOIA_VALIDATION_POOL_ADDRESS
 export const sequoiaRcIndexAddress = import.meta.env.VITE_SEQUOIA_RC_INDEX_ADDRESS
 
 export const sequoiaSupporterPoolAddress = '0x751869D00C8C281D5337Cf15623e3537C98F2Df3'
@@ -69,6 +71,7 @@ export const inspectionAddress = import.meta.env.VITE_INSPECTION_ADDRESS
 export const invitationAddress = import.meta.env.VITE_INVITATION_ADDRESS
 export const voteAddress = import.meta.env.VITE_VOTE_ADDRESS
 export const validationAddress = import.meta.env.VITE_VALIDATION_ADDRESS
+export const validationPoolAddress = import.meta.env.VITE_VALIDATION_POOL_ADDRESS
 export const rcIndexAddress = import.meta.env.VITE_RC_INDEX_ADDRESS
 
 export const supporterPoolAddress = import.meta.env.VITE_RC_ADDRESS
@@ -95,6 +98,7 @@ export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
 export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
 export const sequoiaVoteAbi = SequoiaVoteContract.abi
 export const sequoiaValidationAbi = SequoiaValidationContract.abi
+export const sequoiaValidationPoolAbi = SequoiaValidationPoolContract.abi
 export const sequoiaRcIndexAbi = SequoiaRcIndexContract.abi
 
 /////////////////// future mainnet
@@ -260,6 +264,13 @@ export const contractsSequoia: ContractListProps[] = [
     name: SequoiaValidationContract.contractName,
     label: 'contracts.validation',
     description: 'contracts.descValidation'
+  },
+  {
+    abi: sequoiaValidationPoolAbi,
+    address: sequoiaValidationPoolAddress,
+    name: SequoiaValidationPoolContract.contractName,
+    label: 'contracts.validationPool',
+    description: 'contracts.descValidationPool'
   },
   {
     abi: sequoiaRcIndexAbi,

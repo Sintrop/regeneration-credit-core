@@ -13,6 +13,7 @@ import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { toast } from 'react-toastify'
 
 interface Props {
   name: string
@@ -53,11 +54,6 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
       return
     }
 
-    if (!profilePhoto.trim()) {
-      setDisableBtnRegister(true)
-      return
-    }
-
     setDisableBtnRegister(false)
   }
 
@@ -72,11 +68,16 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
   async function handleRegister(): Promise<void> {
     if (isLoading || isPending || uploadingImage) return
 
-    const hashProofPhoto = await uploadProfilePhoto()
+    let proofPhoto = ''
 
-    if (hashProofPhoto === '') {
-      alert('error on upload profile photo')
-      return
+    if (profilePhoto !== '') {
+      const hashProofPhoto = await uploadProfilePhoto()
+      if (hashProofPhoto === '') {
+        toast.error('error on upload profile photo')
+        return
+      } else {
+        proofPhoto = hashProofPhoto
+      }
     }
 
     setDisplayLoadingTx(true)
@@ -84,7 +85,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
       address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
       abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
       functionName: 'addSupporter',
-      args: [name, description, hashProofPhoto]
+      args: [name, description, proofPhoto]
     })
   }
 
@@ -98,7 +99,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
         placeholder={t('typeHere')}
       />
 
-      <ProofPhoto proofPhoto={profilePhoto} onChange={setProfilePhoto} />
+      <ProofPhoto proofPhoto={profilePhoto} onChange={setProfilePhoto} labelProfilePhoto />
 
       <ConfirmButton
         btnDisabled={disableBtnRegister}
