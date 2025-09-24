@@ -19,7 +19,7 @@ export function InspectionsPage(): JSX.Element {
           isSelected={selectedTab === 'inspections'}
         />
 
-        <div className="absolute top-[-30] right-0">
+        <div className="absolute top-[-50] right-0">
           <Subtitles subtitles={['acceptInspection', 'seeContent', 'vote']} />
         </div>
       </div>
