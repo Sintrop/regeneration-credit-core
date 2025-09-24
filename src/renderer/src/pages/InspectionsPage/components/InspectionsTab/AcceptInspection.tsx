@@ -1,13 +1,10 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
-import { TransactionData } from '@renderer/components/TransactionData/TransactionData'
+import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useAcceptInspection } from '@renderer/domain/Inspection/useCases/useAcceptInspection'
 import {
-  inspectionAbi,
-  inspectionAddress,
   regeneratorAbi,
   regeneratorAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress,
   sequoiaRegeneratorAbi,
   sequoiaRegeneratorAddress,
   sequoiaUserAbi,
@@ -17,14 +14,15 @@ import {
 } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { formatUnits, WriteContractErrorType } from 'viem'
+import { MdClose } from 'react-icons/md'
+import { toast } from 'react-toastify'
+import { formatUnits } from 'viem'
 import {
   useAccount,
   useBlockNumber,
   useChainId,
   useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract
+  useWaitForTransactionReceipt
 } from 'wagmi'
 
 interface Props {
@@ -62,8 +60,15 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
     ? parseInt(formatUnits(BigInt(responseNextEra as string), 0))
     : 0
 
-  const { writeContract, data: hash, isPending } = useWriteContract()
-  const { isLoading, isSuccess, isError, error } = useWaitForTransactionReceipt({ hash })
+  const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
+  const { acceptInspection, isError, isPending, error, hash } = useAcceptInspection()
+  const {
+    isLoading,
+    isSuccess,
+    isError: isErrorTx,
+    error: errorTx
+  } = useWaitForTransactionReceipt({ hash })
+  const errorMessage = error ? error : isErrorTx ? errorTx.message : ''
 
   useEffect(() => {
     checkIfCanAcceptInspection()
@@ -97,24 +102,22 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   }
 
   function handleAcceptInspection(): void {
-    const address = chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress
-    const abi = chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi
+    setDisplayLoadingTx(true)
+    acceptInspection({ inspectionId })
+  }
 
-    writeContract({
-      address,
-      abi,
-      functionName: 'acceptInspection',
-      args: [inspectionId]
-    })
+  function success(): void {
+    setDisplayLoadingTx(false)
+    toast.success(t('actions.acceptedInspection'))
   }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
       <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
         <div className="flex items-center justify-between w-full">
-          <p className="text-white">{t('acceptInspection')}</p>
+          <p className="text-white">{t('actions.acceptInspection')}</p>
           <button className="hover:cursor-pointer text-white" onClick={close}>
-            X
+            <MdClose color="white" size={25} />
           </button>
         </div>
 
@@ -129,23 +132,14 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
                 {canAccept ? (
                   <>
                     <p className="text-white text-center">
-                      {t('doYouWantToAcceptThisInspection?')}
+                      {t('actions.doYouWantToAcceptThisInspection')}
                     </p>
                     <p className="text-white text-center font-bold text-2xl">ID: {inspectionId}</p>
 
                     <SendTransactionButton
-                      label={t('acceptInspection')}
+                      label={t('actions.acceptInspection')}
                       handleSendTransaction={handleAcceptInspection}
                       disabled={isLoading || isPending}
-                    />
-
-                    <TransactionData
-                      errorTx={error as WriteContractErrorType}
-                      hash={hash}
-                      isLoading={isLoading}
-                      isPending={isPending}
-                      isSuccess={isSuccess}
-                      isError={isError}
                     />
                   </>
                 ) : (
@@ -153,17 +147,17 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
                     {waitNextEraToAccept ? (
                       <>
                         <p className="text-white text-center">
-                          {t("youCan'tAcceptThisInspectionNow")}
+                          {t('actions.youCanNotAcceptThisInspectionNow')}
                         </p>
-                        <p className="text-white text-center">{t('waitToNextEra')}</p>
+                        <p className="text-white text-center">{t('actions.waitToNextEra')}</p>
                       </>
                     ) : (
                       <>
                         <p className="text-white text-center">
-                          {t("youCan'tAcceptThisInspectionNow")}
+                          {t('actions.youCanNotAcceptThisInspectionNow')}
                         </p>
                         <p className="text-white text-center">
-                          {t('wait')} {canAcceptIn} {t('blocks')}
+                          {t('common.wait')} {canAcceptIn} {t('common.blocks')}
                         </p>
                       </>
                     )}
@@ -171,11 +165,24 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
                 )}
               </>
             ) : (
-              <p className="text-white text-center">{t('youAreNotInspector')}</p>
+              <p className="text-white text-center">{t('actions.youAreNotInspector')}</p>
             )}
           </div>
         )}
       </div>
+
+      {displayLoadingTx && (
+        <TransactionLoading
+          close={() => setDisplayLoadingTx(false)}
+          ok={success}
+          isError={isError || isErrorTx}
+          isPending={isPending}
+          isSuccess={isSuccess}
+          loading={isLoading}
+          errorMessage={errorMessage}
+          transactionHash={hash}
+        />
+      )}
     </div>
   )
 }

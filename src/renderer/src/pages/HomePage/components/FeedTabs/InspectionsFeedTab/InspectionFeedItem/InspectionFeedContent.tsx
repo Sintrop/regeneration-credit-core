@@ -118,7 +118,7 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
 
       {showAccept && (
         <AcceptInspection
-          inspectionId={inspection.id}
+          inspectionId={inspection ? parseInt(formatUnits(BigInt(inspection?.id), 0)) : 0}
           createdAt={inspection ? parseInt(formatUnits(BigInt(inspection?.createdAt), 0)) : 0}
           close={handleCloseAccept}
         />
