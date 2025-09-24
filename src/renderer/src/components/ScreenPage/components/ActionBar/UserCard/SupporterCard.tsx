@@ -7,11 +7,13 @@ import {
 import { useAccount, useChainId, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { SupporterProps } from '@renderer/types/supporter'
-import { formatUnits } from 'viem'
+import { useCertificate } from '@renderer/domain/RegenerationCredit/useCases/useCertificate'
 
 export function SupporterCard(): JSX.Element {
   const { address } = useAccount()
   const chainId = useChainId()
+
+  const { tokens } = useCertificate({ address: address ? address : '' })
 
   const { data } = useReadContract({
     address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
@@ -28,7 +30,7 @@ export function SupporterCard(): JSX.Element {
       name={supporter ? supporter?.name : ''}
       photoHash={supporter ? supporter?.profilePhoto : ''}
       userTypeName="supporter"
-      indicator={supporter ? parseInt(formatUnits(BigInt(supporter.offsetsCount), 0)) : 0}
+      indicator={tokens}
     />
   )
 }
