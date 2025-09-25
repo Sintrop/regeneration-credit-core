@@ -14,6 +14,10 @@ export function Nav(): JSX.Element {
       <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
       <NavItem icon="rcIndex" label="rcIndex.title" path="/rc-index" />
       <NavItem icon="impactCalculator" label="impactCalculator.title" path="/impact-calculator" />
+      <NavItem icon="inspections" label="resources.inspections" path="/inspections" />
+      <NavItem icon="researches" label="resources.researches" path="/researches" />
+      <NavItem icon="development" label="resources.development" path="/development" />
+      <NavItem icon="contributions" label="resources.contributions" path="/contributions" />
       <DropdownMenu label="community.title" icon="community" pathMainPage="/community" haveMainPage>
         <NavItem label="regenerators" path="/users/1" />
         <NavItem label="inspectors" path="/users/2" />
@@ -22,12 +26,6 @@ export function Nav(): JSX.Element {
         <NavItem label="contributors" path="/users/5" />
         <NavItem label="activists" path="/users/6" />
         <NavItem label="supporters" path="/users/7" />
-      </DropdownMenu>
-      <DropdownMenu label="resources.title" icon="computer">
-        <NavItem icon="inspections" label="resources.inspections" path="/inspections" />
-        <NavItem icon="researches" label="resources.researches" path="/researches" />
-        <NavItem icon="development" label="resources.development" path="/development" />
-        <NavItem icon="contributions" label="resources.contributions" path="/contributions" />
       </DropdownMenu>
       <NavItem icon="ipfs" label="IPFS" path="/ipfs" />
     </nav>
