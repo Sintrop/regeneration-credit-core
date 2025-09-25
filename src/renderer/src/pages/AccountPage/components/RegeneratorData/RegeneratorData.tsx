@@ -16,6 +16,7 @@ import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
+import { useUserEvents } from '@renderer/domain/Community/events/useUserEvents'
 
 export interface AverageInspectionsProps {
   bio: number
@@ -24,6 +25,7 @@ export interface AverageInspectionsProps {
 
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
+  const {} = useUserEvents({ userAddress: '' })
   const [averageInspections, setAverageInspections] = useState<AverageInspectionsProps>({
     bio: 0,
     trees: 0

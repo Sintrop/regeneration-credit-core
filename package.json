@@ -45,7 +45,8 @@
     "react-toastify": "^11.0.5",
     "tailwindcss": "^4.0.14",
     "viem": "^2.23.13",
-    "wagmi": "^2.14.15"
+    "wagmi": "^2.14.15",
+    "web3": "^4.16.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^3.0.0",
