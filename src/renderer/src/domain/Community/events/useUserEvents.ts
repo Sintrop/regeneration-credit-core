@@ -6,7 +6,7 @@ import {
   sequoiaUserAddress
 } from '@renderer/services/contracts'
 import { useEffect } from 'react'
-import Web3 from 'web3'
+import Web3, { EventLog } from 'web3'
 
 interface Props {
   userAddress: string
@@ -26,7 +26,7 @@ export function useUserEvents({}: Props): ReturnUseUserEventsProps {
   }
 }
 
-async function getPastEvents(): Promise<void> {
+async function getPastEvents(): Promise<EventLog[]> {
   const web3 = new Web3('https://sequoiarpc.sintrop.com')
   const contract = new web3.eth.Contract(sequoiaResearcherAbi, sequoiaResearcherAddress)
 
@@ -35,5 +35,5 @@ async function getPastEvents(): Promise<void> {
     fromBlock: 0,
     toBlock: 'latest'
   })
-  console.log(events)
+  return events as EventLog[]
 }
