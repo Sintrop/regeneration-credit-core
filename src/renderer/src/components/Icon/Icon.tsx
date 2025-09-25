@@ -9,6 +9,7 @@ import { InspectionIcon } from '@renderer/assets/icon/InspectionIcon'
 import { IpfsIcon } from '@renderer/assets/icon/IpfsIcon'
 import { MyTokensIcon } from '@renderer/assets/icon/MyTokensIcon'
 import { PoolsIcon } from '@renderer/assets/icon/PoolsIcon'
+import { RcIcon } from '@renderer/assets/icon/RcIcon'
 import { RcIndexIcon } from '@renderer/assets/icon/RcIndex'
 import { RcStatsIcon } from '@renderer/assets/icon/RcStatsIcon'
 import { ResearchesIcon } from '@renderer/assets/icon/ResearchesIcon'
@@ -38,7 +39,8 @@ const icons = {
   researches: ResearchesIcon,
   pools: PoolsIcon,
   impactCalculator: ImpactCalculatorIcon,
-  rcIndex: RcIndexIcon
+  rcIndex: RcIndexIcon,
+  rc: RcIcon
 }
 
 export type IconName = keyof typeof icons

@@ -9,11 +9,11 @@ export function Nav(): JSX.Element {
     <nav className="flex flex-col">
       <NavItem icon="dashboard" label="feed.title" path="/" />
       <NavItem icon="contracts" label="contracts.title" path="/contracts" />
-      <NavItem icon="pools" label="pools.title" path="/pools" />
-      <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
-      <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
-      <NavItem icon="rcIndex" label="rcIndex.title" path="/rc-index" />
-      <NavItem icon="impactCalculator" label="impactCalculator.title" path="/impact-calculator" />
+      <DropdownMenu label="common.regenerationCredit" icon="rc">
+        <NavItem icon="pools" label="pools.title" path="/pools" />
+        <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
+        <NavItem icon="rcIndex" label="rcIndex.title" path="/rc-index" />
+      </DropdownMenu>
       <DropdownMenu label="community.title" icon="community" pathMainPage="/community" haveMainPage>
         <NavItem label="regenerators" path="/users/1" />
         <NavItem label="inspectors" path="/users/2" />
@@ -23,12 +23,12 @@ export function Nav(): JSX.Element {
         <NavItem label="activists" path="/users/6" />
         <NavItem label="supporters" path="/users/7" />
       </DropdownMenu>
-      <DropdownMenu label="resources.title" icon="computer">
-        <NavItem icon="inspections" label="resources.inspections" path="/inspections" />
-        <NavItem icon="researches" label="resources.researches" path="/researches" />
-        <NavItem icon="development" label="resources.development" path="/development" />
-        <NavItem icon="contributions" label="resources.contributions" path="/contributions" />
-      </DropdownMenu>
+      <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
+      <NavItem icon="impactCalculator" label="impactCalculator.title" path="/impact-calculator" />
+      <NavItem icon="inspections" label="resources.inspections" path="/inspections" />
+      <NavItem icon="researches" label="resources.researches" path="/researches" />
+      <NavItem icon="development" label="resources.development" path="/development" />
+      <NavItem icon="contributions" label="resources.contributions" path="/contributions" />
       <NavItem icon="ipfs" label="IPFS" path="/ipfs" />
     </nav>
   )
@@ -49,7 +49,7 @@ function NavItem({ label, path, icon }: NavItemProps): JSX.Element {
 
   return (
     <button
-      className="flex items-center gap-3 py-3 text-white font-semibold hover:cursor-pointer"
+      className="flex items-center gap-3 py-3 text-white font-semibold hover:cursor-pointer text-sm"
       onClick={handleNavigateTo}
     >
       {icon && <Icon name={icon} size={25} />}
@@ -87,7 +87,7 @@ function DropdownMenu({
   return (
     <div className={`flex flex-col`}>
       <button
-        className="flex items-center justify-between w-full gap-3 py-3 text-white font-semibold hover:cursor-pointer"
+        className="flex items-center justify-between w-full gap-3 py-3 text-white font-semibold text-sm hover:cursor-pointer"
         onClick={haveMainPage ? handleGoToMainPage : toggleOpenMenu}
       >
         <div className="flex items-center gap-3">
