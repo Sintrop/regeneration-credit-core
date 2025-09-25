@@ -74,15 +74,13 @@ export function InspectionItem({ id }: Props): JSX.Element {
             <MdTouchApp color="white" />
           </button>
         )}
+        <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
+          <FaRegEye color="white" />
+        </button>
         {inspectionStatus > 1 && (
-          <>
-            <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
-              <FaRegEye color="white" />
-            </button>
-            <button className="hover:cursor-pointer" onClick={handleShowVote}>
-              <BiSolidMegaphone color="white" />
-            </button>
-          </>
+          <button className="hover:cursor-pointer" onClick={handleShowVote}>
+            <BiSolidMegaphone color="white" />
+          </button>
         )}
       </td>
 

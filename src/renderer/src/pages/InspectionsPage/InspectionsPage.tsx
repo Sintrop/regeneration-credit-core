@@ -24,7 +24,7 @@ export function InspectionsPage(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-col mt-3">
+      <div className="flex flex-col mt-3 mb-16">
         <TabContent selectedTab={selectedTab as InspectionsTabs} />
       </div>
     </ScreenPage>

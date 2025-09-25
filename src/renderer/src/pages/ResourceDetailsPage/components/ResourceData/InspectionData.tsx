@@ -29,6 +29,7 @@ export function InspectionData({ id, setReport, setProofPhotos }: Props): JSX.El
   })
 
   const inspection = data as InspectionProps
+  const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
 
   if (inspection) {
     setReport(inspection.justificationReport)
@@ -101,11 +102,13 @@ export function InspectionData({ id, setReport, setProofPhotos }: Props): JSX.El
         </div>
 
         <div className="flex flex-col gap-5">
-          <VoteToInvalidate
-            resourceId={id}
-            resourceType="inspection"
-            publishedEra={parseInt(formatUnits(BigInt(inspection.inspectedAtEra), 0))}
-          />
+          {inspectionStatus === 2 && (
+            <VoteToInvalidate
+              resourceId={id}
+              resourceType="inspection"
+              publishedEra={parseInt(formatUnits(BigInt(inspection.inspectedAtEra), 0))}
+            />
+          )}
         </div>
       </div>
 
