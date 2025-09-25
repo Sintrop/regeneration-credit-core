@@ -109,6 +109,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   function success(): void {
     setDisplayLoadingTx(false)
     toast.success(t('actions.acceptedInspection'))
+    close()
   }
 
   return (
