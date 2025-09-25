@@ -47,10 +47,14 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
 
       {status === 1 && (
         <div className="flex flex-col">
-          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 border-2 border-green-1">
-            <p className="text-green-1">{t('feed.thisInspectionWasAccepted')}</p>
-            <p className="text-green-1">{t('feed.accepted')}</p>
+          <div className="w-full rounded-2xl flex items-center justify-between h-10 px-5 border-2 border-blue-500">
+            <p className="text-blue-500">{t('feed.thisInspectionWasAccepted')}</p>
+            <p className="text-blue-500">{t('feed.accepted')}</p>
           </div>
+
+          <p className="text-white mt-2">
+            {t('feed.inspectionId')}: {formatUnits(BigInt(inspection.id), 0)}
+          </p>
 
           <p className="text-gray-300 text-sm mt-2">{t('feed.inspector')}:</p>
           <InspectorCard address={inspection.inspector} />
@@ -63,6 +67,10 @@ export function InspectionFeedContent({ inspection }: Props): JSX.Element {
             <p className="text-green-1">{t('feed.thisInspectionWasRealized')}</p>
             <p className="text-green-1">{t('feed.realized')}</p>
           </div>
+
+          <p className="text-white mt-2">
+            {t('feed.inspectionId')}: {formatUnits(BigInt(inspection.id), 0)}
+          </p>
 
           <p className="text-gray-300 text-sm mt-2">{t('feed.inspector')}:</p>
           <InspectorCard address={inspection.inspector} />
