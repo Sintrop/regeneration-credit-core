@@ -8,8 +8,8 @@ export function Nav(): JSX.Element {
   return (
     <nav className="flex flex-col">
       <NavItem icon="dashboard" label="feed.title" path="/" />
+      <NavItem icon="contracts" label="contracts.title" path="/contracts" />
       <DropdownMenu label="common.regenerationCredit" icon="rc">
-        <NavItem icon="contracts" label="contracts.title" path="/contracts" />
         <NavItem icon="pools" label="pools.title" path="/pools" />
         <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
         <NavItem icon="rcIndex" label="rcIndex.title" path="/rc-index" />
