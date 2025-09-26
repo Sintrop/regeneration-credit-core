@@ -1,6 +1,7 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
+import { useReportValidations } from '@renderer/domain/Developer/events/useReportValidations'
 import {
   developerAbi,
   developerAddress,
@@ -8,6 +9,8 @@ import {
   sequoiaDeveloperAddress
 } from '@renderer/services/contracts'
 import { ReportProps } from '@renderer/types/developer'
+import { ResourceValidationProps } from '@renderer/types/validation'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
@@ -15,10 +18,17 @@ import { useChainId, useReadContract } from 'wagmi'
 interface Props {
   id: number
   setReport: (report: string) => void
+  setValidations: (data: ResourceValidationProps[]) => void
 }
-export function ReportData({ id, setReport }: Props): JSX.Element {
+export function ReportData({ id, setReport, setValidations }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+
+  const { validations } = useReportValidations({ reportId: id })
+
+  useEffect(() => {
+    setValidations(validations)
+  }, [validations])
 
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,

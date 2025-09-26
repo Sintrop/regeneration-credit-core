@@ -1,6 +1,12 @@
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { formatUnits } from 'viem'
+import { useChainId, useReadContract } from 'wagmi'
+
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
+import { useContributionValidations } from '@renderer/domain/Contributor/events/useContributionValidations'
 import {
   contributorAbi,
   contributorAddress,
@@ -8,17 +14,22 @@ import {
   sequoiaContributorAddress
 } from '@renderer/services/contracts'
 import { ContributionProps } from '@renderer/types/contributor'
-import { useTranslation } from 'react-i18next'
-import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { ResourceValidationProps } from '@renderer/types/validation'
 
 interface Props {
   id: number
   setReport: (report: string) => void
+  setValidations: (data: ResourceValidationProps[]) => void
 }
-export function ContributionData({ id, setReport }: Props): JSX.Element {
+export function ContributionData({ id, setReport, setValidations }: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+
+  const { validations } = useContributionValidations({ contributionId: id })
+
+  useEffect(() => {
+    setValidations(validations)
+  }, [validations])
 
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
