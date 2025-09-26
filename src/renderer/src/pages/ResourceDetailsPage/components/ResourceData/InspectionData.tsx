@@ -11,15 +11,30 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
+import { ResourceValidationProps } from '@renderer/types/validation'
+import { useInspectionValidations } from '@renderer/domain/Inspection/events/useInspectionValidations'
+import { useEffect } from 'react'
 
 interface Props {
   id: number
   setReport: (report: string) => void
   setProofPhotos?: (report: string) => void
+  setValidations: (data: ResourceValidationProps[]) => void
 }
-export function InspectionData({ id, setReport, setProofPhotos }: Props): JSX.Element {
+export function InspectionData({
+  id,
+  setReport,
+  setProofPhotos,
+  setValidations
+}: Props): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+
+  const { validations } = useInspectionValidations({ inspectionId: id })
+
+  useEffect(() => {
+    setValidations(validations)
+  }, [validations])
 
   const { data, isLoading } = useReadContract({
     address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
