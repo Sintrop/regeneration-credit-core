@@ -1,3 +1,4 @@
+import { ResourceValidationProps } from '@renderer/types/validation'
 import { ContributionData } from './ContributionData'
 import { InspectionData } from './InspectionData'
 import { ReportData } from './ReportData'
@@ -8,11 +9,25 @@ interface Props {
   id: number
   setReport: (report: string) => void
   setProofPhotos?: (report: string) => void
+  setValidations: (data: ResourceValidationProps[]) => void
 }
-export function ResourceData({ resourceType, id, setReport, setProofPhotos }: Props): JSX.Element {
+export function ResourceData({
+  resourceType,
+  id,
+  setReport,
+  setProofPhotos,
+  setValidations
+}: Props): JSX.Element {
   const Resource = resourceData[resourceType as Resources]
 
-  return <Resource id={id} setReport={setReport} setProofPhotos={setProofPhotos} />
+  return (
+    <Resource
+      id={id}
+      setReport={setReport}
+      setProofPhotos={setProofPhotos}
+      setValidations={setValidations}
+    />
+  )
 }
 
 const resourceData = {

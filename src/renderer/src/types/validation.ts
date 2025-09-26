@@ -5,3 +5,9 @@ export interface ValidationProps {
   votesToInvalidate: string
   createdAtBlockNumber: string
 }
+
+export interface ResourceValidationProps {
+  validatorAddress: string
+  justification: string
+  createdAt: number
+}
