@@ -5,7 +5,7 @@ export interface UserValidationContractProps {
 }
 
 export interface UserValidationProps {
-  jutification: string
+  justification: string
   userAddress: string
   validatorAddress: string
   createdAt: number
