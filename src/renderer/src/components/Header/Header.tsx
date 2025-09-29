@@ -3,6 +3,7 @@ import LogoRC from '../../assets/images/rc.png'
 import { useNavigate } from 'react-router-dom'
 import { ChainSwitch } from './components/ChainSwitch'
 import { FaGear } from 'react-icons/fa6'
+import { DocsLink } from './components/DocsLink'
 
 export function Header(): JSX.Element {
   const { t } = useTranslation()
@@ -25,6 +26,7 @@ export function Header(): JSX.Element {
         </button>
 
         <div className="flex items-center gap-5">
+          <DocsLink />
           <ChainSwitch />
           <button onClick={handleGoToSettings} className="hover:cursor-pointer">
             <FaGear size={25} color="white" />

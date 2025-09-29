@@ -636,5 +636,8 @@
     "fileType": "File type",
     "file": "File",
     "url": "Url"
+  },
+  "header": {
+    "docs": "Documentation"
   }
 }
