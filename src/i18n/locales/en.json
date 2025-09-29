@@ -48,7 +48,8 @@
     "supportsDelation": "Supports delation",
     "voteSent": "Vote sent",
     "votes": "Votes",
-    "": ""
+    "thisInspectionWasInvalidated": "This inspection was invalidated",
+    "invalidated": "Invalidated"
   },
   "contracts": {
     "name": "Name",
