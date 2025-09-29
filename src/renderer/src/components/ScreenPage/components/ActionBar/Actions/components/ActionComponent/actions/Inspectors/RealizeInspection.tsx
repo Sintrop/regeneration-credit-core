@@ -67,11 +67,15 @@ export function RealizeInspection({
         type="number"
       />
 
-      <p className="text-sm mt-3 text-gray-300">{t('actions.images')}:</p>
-      <FileInputSelector setValue={setProofPhotos} value={proofPhotos} />
+      <div className="flex flex-col gap-1 border border-white rounded-2xl p-3 mt-3">
+        <p className="text-sm text-gray-300">{t('actions.images')}:</p>
+        <FileInputSelector setValue={setProofPhotos} value={proofPhotos} inputId="1" />
+      </div>
 
-      <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
-      <FileInputSelector setValue={setReport} value={report} />
+      <div className="flex flex-col gap-1 border border-white rounded-2xl p-3 mt-3">
+        <p className="text-sm text-gray-300">{t('actions.reportFile')}:</p>
+        <FileInputSelector setValue={setReport} value={report} inputId="2" />
+      </div>
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.treesResult')}:</p>
       <input
