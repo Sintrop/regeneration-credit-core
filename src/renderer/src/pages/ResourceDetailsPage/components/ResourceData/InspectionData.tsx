@@ -14,6 +14,7 @@ import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToIn
 import { ResourceValidationProps } from '@renderer/types/validation'
 import { useInspectionValidations } from '@renderer/domain/Inspection/events/useInspectionValidations'
 import { useEffect } from 'react'
+import { InvalidatedResource } from './InvalidatedResource'
 
 interface Props {
   id: number
@@ -63,6 +64,8 @@ export function InspectionData({
 
   return (
     <div className="flex flex-col">
+      <InvalidatedResource valid={inspectionStatus !== 3} />
+
       <div className="flex gap-10">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
