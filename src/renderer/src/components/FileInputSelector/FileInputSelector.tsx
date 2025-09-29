@@ -6,8 +6,9 @@ import { PdfInput } from '../Input/PdfInput'
 interface Props {
   value: string
   setValue: (value: string) => void
+  inputId?: string
 }
-export function FileInputSelector({ setValue, value }: Props): JSX.Element {
+export function FileInputSelector({ setValue, value, inputId }: Props): JSX.Element {
   const { t } = useTranslation()
   const [fileType, setFileType] = useState<string>('file')
 
@@ -30,7 +31,9 @@ export function FileInputSelector({ setValue, value }: Props): JSX.Element {
       </div>
 
       <div className="flex flex-col gap-1 mt-3">
-        {fileType === 'file' && <PdfInput onChangeFile={() => {}} setHash={setValue} upload />}
+        {fileType === 'file' && (
+          <PdfInput onChangeFile={() => {}} setHash={setValue} idInput={inputId} upload />
+        )}
         {fileType === 'url' && (
           <div className="flex flex-col gap-1">
             <label className="text-gray-300 text-sm">URL</label>
