@@ -45,7 +45,7 @@ export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props
             {name ? name : address}
           </p>
 
-          {isDenied && <p className="text-red-500 text-xs">({t('account.invalidatedUser')})</p>}
+          {isDenied && <p className="text-red-500 text-xs">({t('feed.deniedUser')})</p>}
         </div>
 
         {publishedAt && (

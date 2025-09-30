@@ -49,7 +49,8 @@
     "voteSent": "Vote sent",
     "votes": "Votes",
     "thisInspectionWasInvalidated": "This inspection was invalidated",
-    "invalidated": "Invalidated"
+    "invalidated": "Invalidated",
+    "deniedUser": "Denied user"
   },
   "contracts": {
     "name": "Name",
