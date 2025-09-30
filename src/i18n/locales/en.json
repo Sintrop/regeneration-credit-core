@@ -477,7 +477,10 @@
     "doYouWantToAcceptThisInspection": "Do you want to accept this inspection?",
     "youCanNotAcceptThisInspectionNow": "You can not accept this inspection now",
     "waitToNextEra": "Wait to next era",
-    "youAreNotInspector": "You are not inspector"
+    "youAreNotInspector": "You are not inspector",
+    "inviteRegenerator": "Invite regenerator",
+    "inviteInspector": "Invite inspector",
+    "inviteActivist": "Invite activist"
   },
   "infoBar": {
     "currentEra": "Current era",
