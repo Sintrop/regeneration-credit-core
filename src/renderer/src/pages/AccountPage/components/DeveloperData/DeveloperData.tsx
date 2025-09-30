@@ -13,6 +13,7 @@ import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
+import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 
 export function DeveloperData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -91,6 +92,8 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
                 {totalPenalties}
               </p>
             </div>
+
+            <DelationsCard address={address} />
           </div>
 
           <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
