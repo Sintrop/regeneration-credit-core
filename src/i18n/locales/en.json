@@ -160,7 +160,8 @@
     "treesPerToken": "Tress per token",
     "carbonPerToken": "Carbon per token",
     "areaPerToken": "Area per token",
-    "biodiversityPerToken": "Biodiversity per token"
+    "biodiversityPerToken": "Biodiversity per token",
+    "impactPerEra": "Impact per era"
   },
   "rcIndex": {
     "title": "Regeneration index",
@@ -534,7 +535,8 @@
     "inspector": "Inspector",
     "urlCopiedToClipboard": "URL copied to clipboard",
     "selectFile": "Select file",
-    "invalidatedResource": "Invalidated resource"
+    "invalidatedResource": "Invalidated resource",
+    "totalInspections": "Total inspections"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
