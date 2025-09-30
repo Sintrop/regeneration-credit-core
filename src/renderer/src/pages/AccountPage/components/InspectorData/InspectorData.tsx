@@ -12,6 +12,7 @@ import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
+import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 
 export function InspectorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
@@ -96,6 +97,8 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
                 {totalPenalties}
               </p>
             </div>
+
+            <DelationsCard address={address} />
           </div>
 
           <div className="flex flex-col gap-5 flex-1 max-w-[450px]">

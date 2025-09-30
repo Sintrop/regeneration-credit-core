@@ -13,6 +13,7 @@ import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
+import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInviterPenalties'
 
 export function ContributorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
@@ -90,6 +91,8 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
                 {inviterPenalties}
               </p>
             </div>
+
+            <DelationsCard address={address} />
           </div>
 
           <div className="flex flex-col gap-5 flex-1 max-w-[450px]">

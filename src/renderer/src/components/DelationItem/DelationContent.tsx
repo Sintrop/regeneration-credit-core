@@ -9,14 +9,16 @@ interface Props {
   delationId: number
   thumbsUp: number
   thumbsDown: number
+  hideReported?: boolean
 }
 
-export function DelationFeedContent({
+export function DelationContent({
   description,
   title,
   reported,
   thumbsDown,
-  thumbsUp
+  thumbsUp,
+  hideReported
 }: Props): JSX.Element {
   const { t } = useTranslation()
 
@@ -26,9 +28,12 @@ export function DelationFeedContent({
         <ValidTag valid={thumbsUp >= thumbsDown} />
       </div>
 
-      <p className="text-white font-semibold text-sm">{t('feed.reportedAnUser')}</p>
-
-      <Reported reported={reported} />
+      {!hideReported && (
+        <>
+          <p className="text-white font-semibold text-sm">{t('feed.reportedAnUser')}</p>
+          <Reported reported={reported} />
+        </>
+      )}
 
       <p className="text-sm text-gray-300 mt-3">{t('feed.titleDelation')}</p>
       <p className="text-white text-sm">{title}</p>

@@ -16,6 +16,7 @@ import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { InspectionsCard } from '../Cards/InspectionsCard/InspectionsCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
+import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 
 export interface AverageInspectionsProps {
   bio: number
@@ -124,6 +125,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
             />
             <RegenerationAreaMap address={address} />
             <InspectionsCard address={address} updateAverage={setAverageInspections} />
+            <DelationsCard address={address} />
           </div>
         )}
 

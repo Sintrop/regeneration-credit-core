@@ -7,7 +7,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
-import { DelationFeedItem } from './DelationsFeedItem/DelationFeedItem'
+import { DelationItem } from '@renderer/components/DelationItem/DelationItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 //import { useNavigate } from 'react-router-dom'
 import { useMainnet } from '@renderer/hooks/useMainnet'
@@ -55,7 +55,7 @@ export function DelationsFeed(): JSX.Element {
           ) : (
             <div className="flex flex-col gap-5 w-full">
               {delationsIds.slice(0, 3).map((item) => (
-                <DelationFeedItem id={item} key={item} />
+                <DelationItem id={item} key={item} />
               ))}
             </div>
           )}
