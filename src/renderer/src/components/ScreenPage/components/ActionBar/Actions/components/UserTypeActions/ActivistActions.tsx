@@ -25,7 +25,7 @@ export function ActivistActions({ mainAction }: Props): JSX.Element {
         actionName="invite"
         addressContract={activistContractAddressToUse}
         abi={activistAbiToUse as Abi}
-        label={t('inviteRegenerator')}
+        label={t('actions.inviteRegenerator')}
         userTypeToInvite={1}
         mainAction
       />
@@ -44,7 +44,7 @@ export function ActivistActions({ mainAction }: Props): JSX.Element {
         actionName="invite"
         addressContract={activistContractAddressToUse}
         abi={activistAbiToUse as Abi}
-        label={t('inviteRegenerator')}
+        label="inviteRegenerator"
         userTypeToInvite={1}
       />
 
@@ -52,7 +52,7 @@ export function ActivistActions({ mainAction }: Props): JSX.Element {
         actionName="invite"
         addressContract={activistContractAddressToUse}
         abi={activistAbiToUse as Abi}
-        label={t('inviteInspector')}
+        label="inviteInspector"
         userTypeToInvite={2}
       />
 
@@ -60,7 +60,7 @@ export function ActivistActions({ mainAction }: Props): JSX.Element {
         actionName="invite"
         addressContract={activistContractAddressToUse}
         abi={activistAbiToUse as Abi}
-        label={t('inviteActivist')}
+        label="inviteActivist"
         userTypeToInvite={6}
       />
     </div>

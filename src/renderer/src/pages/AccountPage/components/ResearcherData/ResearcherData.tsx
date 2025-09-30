@@ -14,10 +14,13 @@ import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
+import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInviterPenalties'
 
 export function ResearcherData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+
+  const { penalties: inviterPenalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
     address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
@@ -94,6 +97,11 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
               <p className="text-red-500">
                 <span className="font-bold">{t('account.penalties')}: </span>
                 {totalPenalties}
+              </p>
+
+              <p className="text-red-500">
+                <span className="font-bold">{t('account.inviterPenalties')}: </span>
+                {inviterPenalties}
               </p>
             </div>
 

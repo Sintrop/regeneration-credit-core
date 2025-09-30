@@ -9,15 +9,17 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useChainId, useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
-import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
+import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInviterPenalties'
 
 export function ActivistData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+
+  const { penalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
     address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
@@ -66,8 +68,10 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
               <p className="text-white">
                 <span className="text-white font-bold">{t('common.userType')}: </span> 6
               </p>
-
-              <UserCanVote address={address} />
+              <p className="text-red-500">
+                <span className="font-bold">{t('account.inviterPenalties')}: </span>
+                {penalties}
+              </p>
             </div>
 
             <DelationsCard address={address} />

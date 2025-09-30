@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import { actionsList, ActionsNameType } from './actionsList'
 import { Abi } from 'viem'
 import { useTranslation } from 'react-i18next'
+import { MdClose } from 'react-icons/md'
+
+import { actionsList, ActionsNameType } from './actionsList'
 
 export interface ActionContractProps {
   addressContract?: string
@@ -81,7 +83,7 @@ export function ActionComponent({
                 {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
               </p>
               <button className="hover:cursor-pointer text-white" onClick={toggleOpenAction}>
-                X
+                <MdClose color="white" size={25} />
               </button>
             </div>
 
