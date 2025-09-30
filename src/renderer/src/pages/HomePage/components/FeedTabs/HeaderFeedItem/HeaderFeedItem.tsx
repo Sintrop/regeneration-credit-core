@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
 import { Img } from 'react-image'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { useIsDenied } from '@renderer/domain/Community/useCases/useIsDenied'
 
 interface Props {
   address?: string
@@ -16,6 +17,7 @@ interface Props {
 export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props): JSX.Element {
   const { ipfsGatewayURL } = useSettingsContext()
   const navigate = useNavigate()
+  const { isDenied } = useIsDenied({ address: address ? address : '' })
 
   function handleGoToUserDetails(): void {
     navigate(`/user-details/${address}`)
@@ -35,12 +37,16 @@ export function HeaderFeedItem({ address, publishedAt, name, proofPhoto }: Props
       </div>
 
       <div className="flex flex-col">
-        <p
-          className="text-white hover:cursor-pointer hover:underline text-xs"
-          onClick={handleGoToUserDetails}
-        >
-          {name ? name : address}
-        </p>
+        <div className="flex gap-1 items-center">
+          <p
+            className="text-white hover:cursor-pointer hover:underline text-xs"
+            onClick={handleGoToUserDetails}
+          >
+            {name ? name : address}
+          </p>
+
+          {isDenied && <p className="text-red-500 text-xs">({t('feed.deniedUser')})</p>}
+        </div>
 
         {publishedAt && (
           <p className="text-gray-300 text-xs">
