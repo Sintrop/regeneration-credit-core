@@ -13,10 +13,13 @@ import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
+import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInviterPenalties'
 
 export function ContributorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
   const chainId = useChainId()
+
+  const { penalties: inviterPenalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
     address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
@@ -80,6 +83,11 @@ export function ContributorData({ address, profilePage }: UserTypeContentProps):
               <p className="text-red-500">
                 <span className="font-bold">{t('account.penalties')}: </span>
                 {totalPenalties}
+              </p>
+
+              <p className="text-red-500">
+                <span className="font-bold">{t('account.inviterPenalties')}: </span>
+                {inviterPenalties}
               </p>
             </div>
           </div>

@@ -630,7 +630,8 @@
     "validations": "Validations",
     "validationsReceived": "Validations received",
     "invalidatedUser": "Invalidated user",
-    "noInspections": "No inspections"
+    "noInspections": "No inspections",
+    "inviterPenalties": "Inviter penalties"
   },
   "fileInputSelector": {
     "fileType": "File type",
