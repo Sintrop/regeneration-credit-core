@@ -1,12 +1,4 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
-import { InspectionProps } from '@renderer/types/inspection'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { StatusInspection } from './StatusInspection'
 import { useNavigate } from 'react-router-dom'
@@ -16,25 +8,33 @@ import { useState } from 'react'
 import { VoteInspection } from '@renderer/components/Votes/VoteInspection'
 import { AcceptInspection } from './AcceptInspection'
 import { MdTouchApp } from 'react-icons/md'
+import { useCurrentBlock } from '@renderer/domain/Chain/useCases/useBlockNumber'
+import { useTranslation } from 'react-i18next'
+import { useGetInspection } from '@renderer/domain/Inspection/useCases/useGetInspection'
 
 interface Props {
   id: number
 }
 
 export function InspectionItem({ id }: Props): JSX.Element {
+  const { t } = useTranslation()
   const navigate = useNavigate()
-  const chainId = useChainId()
+  const { inspection, refetch } = useGetInspection({ inspectionId: id })
   const [showVote, setShowVote] = useState(false)
   const [showAccept, setShowAccept] = useState(false)
-  const { data } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
-    functionName: 'getInspection',
-    args: [id]
-  })
 
-  const inspection = data as InspectionProps
-  const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
+  const { blockNumber } = useCurrentBlock()
+
+  const expireIn = parseInt(import.meta.env.VITE_BLOCKS_TO_EXPIRE_ACCEPTED_INSPECTION)
+  const inspectionStatus =
+    inspection.status === 1
+      ? inspection.acceptedAt + expireIn < blockNumber
+        ? 4
+        : 1
+      : inspection.status
+  const createdAt = inspection?.createdAt
+  const delayToAccept = parseInt(import.meta.env.VITE_ACCEPT_INSPECTION_DELAY_BLOCKS)
+  const canAccept = createdAt + delayToAccept < blockNumber
 
   function handleGoToInspectionDetails(): void {
     navigate(`/resource-details/inspection/${id}`)
@@ -50,6 +50,7 @@ export function InspectionItem({ id }: Props): JSX.Element {
 
   function handleCloseAccept(): void {
     setShowAccept(false)
+    refetch()
   }
 
   return (
@@ -62,17 +63,28 @@ export function InspectionItem({ id }: Props): JSX.Element {
         {inspection && <UserAddressLink address={inspection?.inspector} />}
       </td>
       <td className="p-2">{inspection && <StatusInspection status={inspectionStatus} />}</td>
-      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.treesResult), 0)}</td>
       <td className="p-2">
-        {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
+        {canAccept ? t('common.yes') : createdAt + delayToAccept - blockNumber}
       </td>
-      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.regenerationScore), 0)}</td>
-      <td className="p-2">{inspection && formatUnits(BigInt(inspection?.validationsCount), 0)}</td>
+      <td className="p-2">{inspection?.treesResult}</td>
+      <td className="p-2">{inspection?.biodiversityResult}</td>
+      <td className="p-2">{inspection?.regenerationScore}</td>
+      <td className="p-2">{inspection?.validationsCount}</td>
       <td className="p-2 flex items-center gap-5">
-        {inspectionStatus === 0 && (
-          <button className="hover:cursor-pointer" onClick={handleShowAccept}>
-            <MdTouchApp color="white" />
-          </button>
+        {canAccept && (
+          <>
+            {inspectionStatus === 0 && (
+              <button className="hover:cursor-pointer" onClick={handleShowAccept}>
+                <MdTouchApp color="white" />
+              </button>
+            )}
+
+            {inspectionStatus === 4 && (
+              <button className="hover:cursor-pointer" onClick={handleShowAccept}>
+                <MdTouchApp color="white" />
+              </button>
+            )}
+          </>
         )}
         <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
           <FaRegEye color="white" />
