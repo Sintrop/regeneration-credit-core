@@ -97,4 +97,4 @@ export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
   }
 }
 
-const usersVotables = [3, 4, 5, 6]
+const usersVotables = [3, 4, 5]
