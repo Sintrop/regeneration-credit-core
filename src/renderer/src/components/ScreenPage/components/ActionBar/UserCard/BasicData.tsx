@@ -4,6 +4,7 @@ import { Img } from 'react-image'
 import { useNavigate } from 'react-router-dom'
 import CircleImage from '@renderer/assets/images/circle.png'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { useIsDenied } from '@renderer/domain/Community/useCases/useIsDenied'
 
 interface Props {
   address: string
@@ -23,6 +24,8 @@ export function BasicData({
   const { ipfsGatewayURL } = useSettingsContext()
   const { t } = useTranslation()
   const navigate = useNavigate()
+
+  const { isDenied } = useIsDenied({ address })
 
   function handleGoToAccount(): void {
     navigate('/account')
@@ -52,11 +55,19 @@ export function BasicData({
       </button>
 
       <div className="flex flex-col mr-5">
-        <div className="w-[60px] h-[60px] flex items-center justify-center relative">
-          <img src={CircleImage} className="w-full h-full rounded-full object-contain" />
-          <p className="font-bold text-green-btn absolute">{indicator}</p>
-        </div>
-        <p className="text-[10px] text-white text-center">{t('actionBar.yourLevel')}</p>
+        {isDenied ? (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-red-500 text-center font-semibold">{t('common.deniedUser')}</p>
+          </div>
+        ) : (
+          <>
+            <div className="w-[60px] h-[60px] flex items-center justify-center relative">
+              <img src={CircleImage} className="w-full h-full rounded-full object-contain" />
+              <p className="font-bold text-green-btn absolute">{indicator}</p>
+            </div>
+            <p className="text-[10px] text-white text-center">{t('actionBar.yourLevel')}</p>
+          </>
+        )}
       </div>
     </div>
   )
