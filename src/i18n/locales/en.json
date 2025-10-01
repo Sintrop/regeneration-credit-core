@@ -637,7 +637,8 @@
     "validationsReceived": "Validations received",
     "invalidatedUser": "Invalidated user",
     "noInspections": "No inspections",
-    "inviterPenalties": "Inviter penalties"
+    "inviterPenalties": "Inviter penalties",
+    "addDelation": "Add delation"
   },
   "fileInputSelector": {
     "fileType": "File type",

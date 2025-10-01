@@ -2,6 +2,7 @@ import BGFlorest from '@renderer/assets/images/bg-florest.jpg'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UpdateAreaPhoto } from '../RegeneratorData/UpdateAreaPhoto'
 import { UserTypeToText } from '@renderer/components/UserTypeToText/UserTypeToText'
+import { AddDelation } from '../AddDelation/AddDelation'
 
 interface Props {
   address: string
@@ -47,6 +48,10 @@ export function HeaderUser({
 
         <div className="absolute top-8 right-3">
           {canUpdateAreaPhoto && <UpdateAreaPhoto updated={areaPhotoUpdated} />}
+        </div>
+
+        <div className="absolute right-3 bottom-3">
+          {userType !== 7 && <AddDelation address={address} />}
         </div>
       </div>
     </div>
