@@ -16,12 +16,15 @@ import { useState } from 'react'
 import { VoteInspection } from '@renderer/components/Votes/VoteInspection'
 import { AcceptInspection } from './AcceptInspection'
 import { MdTouchApp } from 'react-icons/md'
+import { useCurrentBlock } from '@renderer/domain/Chain/useCases/useBlockNumber'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   id: number
 }
 
 export function InspectionItem({ id }: Props): JSX.Element {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
@@ -33,8 +36,12 @@ export function InspectionItem({ id }: Props): JSX.Element {
     args: [id]
   })
 
+  const { blockNumber } = useCurrentBlock()
   const inspection = data as InspectionProps
   const inspectionStatus = data ? parseInt(formatUnits(BigInt(inspection?.status), 0)) : 0
+  const createdAt = data ? parseInt(formatUnits(BigInt(inspection?.createdAt), 0)) : 0
+  const delayToAccept = parseInt(import.meta.env.VITE_ACCEPT_INSPECTION_DELAY_BLOCKS)
+  const canAccept = createdAt + delayToAccept < blockNumber
 
   function handleGoToInspectionDetails(): void {
     navigate(`/resource-details/inspection/${id}`)
@@ -62,6 +69,11 @@ export function InspectionItem({ id }: Props): JSX.Element {
         {inspection && <UserAddressLink address={inspection?.inspector} />}
       </td>
       <td className="p-2">{inspection && <StatusInspection status={inspectionStatus} />}</td>
+      <td className="p-2">
+        {canAccept
+          ? t('common.yes')
+          : `${t('common.wait')} ${createdAt + delayToAccept - blockNumber} ${t('common.blocks')}`}
+      </td>
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.treesResult), 0)}</td>
       <td className="p-2">
         {inspection && formatUnits(BigInt(inspection?.biodiversityResult), 0)}
@@ -70,9 +82,13 @@ export function InspectionItem({ id }: Props): JSX.Element {
       <td className="p-2">{inspection && formatUnits(BigInt(inspection?.validationsCount), 0)}</td>
       <td className="p-2 flex items-center gap-5">
         {inspectionStatus === 0 && (
-          <button className="hover:cursor-pointer" onClick={handleShowAccept}>
-            <MdTouchApp color="white" />
-          </button>
+          <>
+            {canAccept && (
+              <button className="hover:cursor-pointer" onClick={handleShowAccept}>
+                <MdTouchApp color="white" />
+              </button>
+            )}
+          </>
         )}
         <button className="hover:cursor-pointer" onClick={handleGoToInspectionDetails}>
           <FaRegEye color="white" />

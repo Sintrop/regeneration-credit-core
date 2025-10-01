@@ -38,7 +38,7 @@ export function InspectionsTab(): JSX.Element {
         <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
           <thead>
             <tr className="border-b border-container-secondary text-white">
-              <th className="p-2 border-r border-container-secondary">ID</th>
+              <th className="p-2 border-r border-container-secondary items-start">ID</th>
               <th className="p-2 border-r border-container-secondary max-w-[180px]">
                 {t('resources.regenerator')}
               </th>
@@ -46,6 +46,9 @@ export function InspectionsTab(): JSX.Element {
                 {t('resources.inspector')}
               </th>
               <th className="p-2 border-r border-container-secondary">{t('resources.status')}</th>
+              <th className="p-2 border-r border-container-secondary">
+                {t('resources.canAccept')}
+              </th>
               <th className="p-2 border-r border-container-secondary">{t('resources.trees')}</th>
               <th className="p-2 border-r border-container-secondary">
                 {t('resources.biodiversity')}

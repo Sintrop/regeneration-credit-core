@@ -281,7 +281,8 @@
     "unit": "Unit",
     "carbonImpact": "Carbon impact (g)",
     "item": "Item",
-    "methodTitle": "Title"
+    "methodTitle": "Title",
+    "canAccept": "Can accept"
   },
   "impactCalculator": {
     "title": "Impact calculator",
