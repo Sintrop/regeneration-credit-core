@@ -540,7 +540,8 @@
     "urlCopiedToClipboard": "URL copied to clipboard",
     "selectFile": "Select file",
     "invalidatedResource": "Invalidated resource",
-    "totalInspections": "Total inspections"
+    "totalInspections": "Total inspections",
+    "deniedUser": "Denied user"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
