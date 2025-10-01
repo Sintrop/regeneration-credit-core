@@ -11,6 +11,7 @@ import {
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { Actions } from './Actions/Actions'
+import { useIsDenied } from '@renderer/domain/Community/useCases/useIsDenied'
 
 export function ActionBar(): JSX.Element {
   const { isConnected } = useAccount()
@@ -33,6 +34,7 @@ function YouAreConnected(): JSX.Element {
   const chainId = useChainId()
   const { address } = useAccount()
   const [lastPublishedWork, setLastPublishedWork] = useState(0)
+  const { isDenied } = useIsDenied({ address: address ?? '' })
 
   const { data } = useReadContract({
     address: chainId === 250225 ? userAddress : sequoiaUserAddress,
@@ -48,9 +50,7 @@ function YouAreConnected(): JSX.Element {
       <UserCard userType={userType} setLastPublishedWork={setLastPublishedWork} />
 
       {userType !== 0 && (
-        <>
-          <Actions userType={userType} lastPublishedWork={lastPublishedWork} />
-        </>
+        <>{!isDenied && <Actions userType={userType} lastPublishedWork={lastPublishedWork} />}</>
       )}
     </div>
   )
