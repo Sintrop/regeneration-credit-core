@@ -10,11 +10,11 @@ const client = new QueryClient()
 export function MetamaskProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
   const config = createConfig({
     ssr: false,
-    chains: [sequoia, sintrop],
+    chains: [sintrop, sequoia],
     connectors: [metaMask()],
     transports: {
-      [sequoia.id]: http(),
-      [sintrop.id]: http()
+      [sintrop.id]: http(),
+      [sequoia.id]: http()
     }
   })
 
