@@ -2,6 +2,8 @@ import { JSX, useState } from 'react'
 import { useAccount, useChainId, useSwitchChain } from 'wagmi'
 import { FaChevronDown } from 'react-icons/fa'
 
+import ImageCoin from '@renderer/assets/images/icon-chain.png'
+
 export function ChainSwitch(): JSX.Element {
   const { switchChain } = useSwitchChain()
   const chainId = useChainId()
@@ -27,12 +29,14 @@ export function ChainSwitch(): JSX.Element {
         <div className="flex items-center gap-2">
           {chainId === 250225 ? (
             <>
-              <div className="w-8 h-8 bg-red-500 rounded-full" />
+              <img src={ImageCoin} className="w-8 h-8 object-contain" />
               <p className="text-white font-semibold text-sm">Sintrop Mainnet</p>
             </>
           ) : (
             <>
-              <div className="w-8 h-8 bg-red-500 rounded-full" />
+              <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                <p className="text-white">ST</p>
+              </div>
               <p className="text-white font-semibold text-sm">Sequoia Testnet</p>
             </>
           )}
@@ -47,7 +51,7 @@ export function ChainSwitch(): JSX.Element {
             className="flex items-center gap-2 p-2 border-b border-card-2 w-full hover:cursor-pointer hover:bg-card-3 duration-200"
             onClick={() => handleSwitchChain(250225)}
           >
-            <div className="w-8 h-8 bg-red-500 rounded-full" />
+            <img src={ImageCoin} className="w-8 h-8 object-contain" />
             <p className="text-white font-semibold text-sm">Sintrop Mainnet</p>
           </button>
 
@@ -55,7 +59,9 @@ export function ChainSwitch(): JSX.Element {
             className="flex items-center gap-2 p-2 border-b border-card-2 w-full hover:cursor-pointer hover:bg-card-3 duration-200"
             onClick={() => handleSwitchChain(1600)}
           >
-            <div className="w-8 h-8 bg-red-500 rounded-full" />
+            <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+              <p className="text-white">ST</p>
+            </div>
             <p className="text-white font-semibold text-sm">Sequoia Testnet</p>
           </button>
         </div>
