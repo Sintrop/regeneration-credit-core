@@ -11,6 +11,7 @@ import {
 } from '@renderer/services/contracts'
 import { InspectionValidationProps } from '../types'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   inspectionId: number
@@ -24,6 +25,7 @@ export function useInspectionValidations({
 }: Props): ReturnUseInspectionValidationsProps {
   const mainnet = useMainnet()
   const [validations, setValidations] = useState<InspectionValidationProps[]>([])
+  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
 
   useEffect(() => {
     handleGetEvents()
@@ -32,7 +34,7 @@ export function useInspectionValidations({
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
       mainnet,
-      rpcUrl: 'https://sequoiarpc.sintrop.com',
+      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
       inspectionId
     })
 

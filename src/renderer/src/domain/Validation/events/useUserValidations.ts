@@ -11,6 +11,7 @@ import {
 } from '@renderer/services/contracts'
 import { UserValidationProps } from '../types'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   userAddress: string
@@ -23,6 +24,7 @@ interface ReturnUseUserValidationEventProps {
 export function useUserValidations({ userAddress, era }: Props): ReturnUseUserValidationEventProps {
   const mainnet = useMainnet()
   const [validations, setValidations] = useState<UserValidationProps[]>([])
+  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
 
   useEffect(() => {
     handleGetEvents()
@@ -31,7 +33,7 @@ export function useUserValidations({ userAddress, era }: Props): ReturnUseUserVa
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
       mainnet,
-      rpcUrl: 'https://sequoiarpc.sintrop.com',
+      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
       userAddress,
       era
     })
