@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import Web3, { EventLog } from 'web3'
 import { ResearchValidationProps } from '../types'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
+import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   researchId: number
@@ -21,6 +22,7 @@ interface ReturnUseResearchValidationsProps {
 export function useResearchValidations({ researchId }: Props): ReturnUseResearchValidationsProps {
   const mainnet = useMainnet()
   const [validations, setValidations] = useState<ResearchValidationProps[]>([])
+  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
 
   useEffect(() => {
     setValidations([])
@@ -30,7 +32,7 @@ export function useResearchValidations({ researchId }: Props): ReturnUseResearch
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
       mainnet,
-      rpcUrl: 'https://sequoiarpc.sintrop.com',
+      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
       researchId
     })
 
