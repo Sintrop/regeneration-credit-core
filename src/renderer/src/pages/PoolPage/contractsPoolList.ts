@@ -41,7 +41,20 @@ import {
   validationAddress,
   sequoiaValidationAddress,
   validationAbi,
-  sequoiaValidationAbi
+  sequoiaValidationAbi,
+  inspectorPoolAbi,
+  inspectorPoolAddress,
+  regeneratorPoolAddress,
+  regeneratorPoolAbi,
+  researcherPoolAddress,
+  researcherPoolAbi,
+  developerPoolAddress,
+  developerPoolAbi,
+  contributorPoolAddress,
+  contributorPoolAbi,
+  activistPoolAddress,
+  activistPoolAbi,
+  validationPoolAbi
 } from '@renderer/services/contracts'
 
 const REGENERATOR_POOL_FUNDS = import.meta.env.VITE_REGENERATOR_POOL_FUNDS
@@ -55,9 +68,9 @@ const VALIDATION_POOL_FUNDS = import.meta.env.VITE_VALIDATION_POOL_FUNDS
 export const contractsPool = {
   regenerator: {
     addressTestnet: sequoiaRegeneratorPoolAddress,
-    addressMainnet: sequoiaRegeneratorPoolAddress,
+    addressMainnet: regeneratorPoolAddress,
     abiTestnet: sequoiaRegeneratorPoolAbi,
-    abiMainnet: sequoiaRegeneratorPoolAbi,
+    abiMainnet: regeneratorPoolAbi,
     poolFunds: BigInt(REGENERATOR_POOL_FUNDS),
     userAddressMainnet: regeneratorAddress,
     userAddressTestnet: sequoiaRegeneratorAddress,
@@ -66,9 +79,9 @@ export const contractsPool = {
   },
   inspector: {
     addressTestnet: sequoiaInspectorPoolAddress,
-    addressMainnet: sequoiaInspectorPoolAddress,
+    addressMainnet: inspectorPoolAddress,
     abiTestnet: sequoiaInspectorPoolAbi,
-    abiMainnet: sequoiaInspectorPoolAbi,
+    abiMainnet: inspectorPoolAbi,
     poolFunds: BigInt(INSPECTOR_POOL_FUNDS),
     userAddressMainnet: inspectorAddress,
     userAddressTestnet: sequoiaInspectorAddress,
@@ -77,9 +90,9 @@ export const contractsPool = {
   },
   researcher: {
     addressTestnet: sequoiaResearcherPoolAddress,
-    addressMainnet: sequoiaResearcherPoolAddress,
+    addressMainnet: researcherPoolAddress,
     abiTestnet: sequoiaResearcherPoolAbi,
-    abiMainnet: sequoiaResearcherPoolAbi,
+    abiMainnet: researcherPoolAbi,
     poolFunds: BigInt(RESEARCHER_POOL_FUNDS),
     userAddressMainnet: researcherAddress,
     userAddressTestnet: sequoiaResearcherAddress,
@@ -88,9 +101,9 @@ export const contractsPool = {
   },
   developer: {
     addressTestnet: sequoiaDeveloperPoolAddress,
-    addressMainnet: sequoiaDeveloperPoolAddress,
+    addressMainnet: developerPoolAddress,
     abiTestnet: sequoiaDeveloperPoolAbi,
-    abiMainnet: sequoiaDeveloperPoolAbi,
+    abiMainnet: developerPoolAbi,
     poolFunds: BigInt(DEVELOPER_POOL_FUNDS),
     userAddressMainnet: developerAddress,
     userAddressTestnet: sequoiaDeveloperAddress,
@@ -99,9 +112,9 @@ export const contractsPool = {
   },
   contributor: {
     addressTestnet: sequoiaContributorPoolAddress,
-    addressMainnet: sequoiaContributorPoolAddress,
+    addressMainnet: contributorPoolAddress,
     abiTestnet: sequoiaContributorPoolAbi,
-    abiMainnet: sequoiaContributorPoolAbi,
+    abiMainnet: contributorPoolAbi,
     poolFunds: BigInt(CONTRIBUTOR_POOL_FUNDS),
     userAddressMainnet: contributorAddress,
     userAddressTestnet: sequoiaContributorAddress,
@@ -110,9 +123,9 @@ export const contractsPool = {
   },
   activist: {
     addressTestnet: sequoiaActivistPoolAddress,
-    addressMainnet: sequoiaActivistPoolAddress,
+    addressMainnet: activistPoolAddress,
     abiTestnet: sequoiaActivistPoolAbi,
-    abiMainnet: sequoiaActivistPoolAbi,
+    abiMainnet: activistPoolAbi,
     poolFunds: BigInt(ACTIVIST_POOL_FUNDS),
     userAddressMainnet: activistAddress,
     userAddressTestnet: sequoiaActivistAddress,
@@ -123,7 +136,7 @@ export const contractsPool = {
     addressTestnet: sequoiaValidationPoolAddress,
     addressMainnet: validationPoolAddress,
     abiTestnet: sequoiaValidationPoolAbi,
-    abiMainnet: sequoiaValidationPoolAbi,
+    abiMainnet: validationPoolAbi,
     poolFunds: BigInt(VALIDATION_POOL_FUNDS),
     userAddressMainnet: validationAddress,
     userAddressTestnet: sequoiaValidationAddress,

@@ -123,6 +123,7 @@ export const invitationAbi = SequoiaInvitationContract.abi
 export const voteAbi = SequoiaVoteContract.abi
 export const validationAbi = SequoiaValidationContract.abi
 export const rcIndexAbi = SequoiaRcIndexContract.abi
+export const validationPoolAbi = SequoiaValidationPoolContract.abi
 
 export const contractsSequoia: ContractListProps[] = [
   {
