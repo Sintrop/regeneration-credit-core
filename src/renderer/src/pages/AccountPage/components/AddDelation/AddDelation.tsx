@@ -1,5 +1,6 @@
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 import { useMainnet } from '@renderer/hooks/useMainnet'
 import {
   sequoiaUserAbi,
@@ -24,6 +25,7 @@ export function AddDelation({ address }: Props): JSX.Element {
   const [inputTitle, setInputTitle] = useState('')
   const [inputTestimony, setInputTestimony] = useState('')
 
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -34,8 +36,15 @@ export function AddDelation({ address }: Props): JSX.Element {
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleSendTransaction(): void {
+  async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     writeContract({
       address: mainnet ? userAddress : sequoiaUserAddress,
       abi: mainnet ? userAbi : sequoiaUserAbi,

@@ -9,6 +9,7 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddContribution({
   abi,
@@ -16,6 +17,8 @@ export function AddContribution({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+
   const { t } = useTranslation()
   const [inputDescription, setInputDescription] = useState('')
   const [file, setFile] = useState<string>('')
@@ -40,6 +43,12 @@ export function AddContribution({
     if (!file) return
 
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

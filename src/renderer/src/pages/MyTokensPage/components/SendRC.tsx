@@ -12,8 +12,10 @@ import {
 
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function SendRC(): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
   const { t } = useTranslation()
   const [to, setTo] = useState('')
   const [value, setValue] = useState('')
@@ -48,10 +50,17 @@ export function SendRC(): JSX.Element {
     }
   }, [balance, value])
 
-  function handleSendTransaction(e: FormEvent<HTMLFormElement>): void {
+  async function handleSendTransaction(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
 
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     writeContract({
       address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
       abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,

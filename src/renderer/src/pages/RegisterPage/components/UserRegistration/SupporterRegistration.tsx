@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   name: string
@@ -21,6 +22,8 @@ interface Props {
 }
 
 export function SupporterRegistration({ name, success }: Props): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState('')
@@ -81,6 +84,13 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
     }
 
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     writeContract({
       address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
       abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,

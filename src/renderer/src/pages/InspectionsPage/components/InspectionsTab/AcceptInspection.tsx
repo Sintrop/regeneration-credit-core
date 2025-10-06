@@ -2,6 +2,7 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useAcceptInspection } from '@renderer/domain/Inspection/useCases/useAcceptInspection'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 import {
   regeneratorAbi,
   regeneratorAddress,
@@ -37,6 +38,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const [canAccept, setCanAccept] = useState<boolean>(false)
   const [canAcceptIn, setCanAcceptIn] = useState<number>(0)
   const [waitNextEraToAccept, setWaitNextEraToAccept] = useState(false)
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
 
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
@@ -101,8 +103,14 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
     }
   }
 
-  function handleAcceptInspection(): void {
+  async function handleAcceptInspection(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
     acceptInspection({ inspectionId })
   }
 

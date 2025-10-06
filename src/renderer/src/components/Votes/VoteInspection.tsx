@@ -13,6 +13,7 @@ import { Loading } from '../Loading/Loading'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
 import { useMainnet } from '@renderer/hooks/useMainnet'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   inspectionId: number
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export function VoteInspection({ close, inspectionId, inspectedEra }: Props): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
   const mainnet = useMainnet()
@@ -54,6 +56,13 @@ export function VoteInspection({ close, inspectionId, inspectedEra }: Props): JS
     const abi = mainnet ? inspectionAbi : sequoiaInspectionAbi
 
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     writeContract({
       abi,
       address,

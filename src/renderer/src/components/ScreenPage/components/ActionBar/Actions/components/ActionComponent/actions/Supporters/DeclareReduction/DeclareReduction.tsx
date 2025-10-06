@@ -7,12 +7,15 @@ import { ActionContractProps } from '../../../ActionComponent'
 import { SelectCalculatorItem } from '../ModalSelectCalculatorItem/SelectCalculatorItem'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function DeclareReduction({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+
   const { t } = useTranslation()
   const [itemId, setItemId] = useState<number | null>()
 
@@ -28,6 +31,13 @@ export function DeclareReduction({
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

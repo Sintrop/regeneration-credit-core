@@ -7,6 +7,7 @@ import { useOffset } from '@renderer/domain/Supporter/useCases/useOffset'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import RCLogo from '@renderer/assets/images/rc.png'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   refecthAllowance: () => void
@@ -20,6 +21,7 @@ export function SelectItem({
   handleApproveMore,
   close
 }: Props): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
   const { t } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
   const [inputMessage, setInputMessage] = useState('')
@@ -44,9 +46,16 @@ export function SelectItem({
   const errorMessage = error ? error : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleOffset(): void {
+  async function handleOffset(): Promise<void> {
     if (!itemId || !inputAmmount.trim()) return
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     offset({
       ammount: parseFloat(inputAmmount),
       calculatorItemId: itemId,

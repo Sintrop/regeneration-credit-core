@@ -14,6 +14,7 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { useMainnet } from '@renderer/hooks/useMainnet'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   name: string
@@ -28,6 +29,8 @@ export function ContributorRegistration({
   availableVacancie,
   success
 }: Props): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+
   const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -90,6 +93,13 @@ export function ContributorRegistration({
     }
 
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     writeContract({
       address: mainnet ? contributorAddress : sequoiaContributorAddress,
       abi: mainnet ? contributorAbi : sequoiaContributorAbi,

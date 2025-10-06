@@ -8,8 +8,11 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ImageInput } from '@renderer/components/Input/ImageInput'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [image, setImage] = useState<string>()
@@ -34,6 +37,13 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
 
     if (response.success) {
       setDisplayLoadingTx(true)
+
+      await switchChain()
+      if (!isSuccessSwitch) {
+        setDisplayLoadingTx(false)
+        return
+      }
+
       writeContract({
         //@ts-ignore
         address: addressContract ? addressContract : '',
