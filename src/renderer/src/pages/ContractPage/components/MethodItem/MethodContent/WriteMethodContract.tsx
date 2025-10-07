@@ -12,7 +12,7 @@ interface Props {
 }
 
 export function WriteMethodContract({ contract, method, args }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -24,23 +24,17 @@ export function WriteMethodContract({ contract, method, args }: Props): JSX.Elem
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   useEffect(() => {
-    async function write(): Promise<void> {
-      setDisplayLoadingTx(true)
+    setDisplayLoadingTx(true)
 
-      await switchChain()
-      if (!isSuccessSwitch) {
-        setDisplayLoadingTx(false)
-        return
-      }
-      writeContract({
-        //@ts-ignore
-        address: contract.address,
-        abi: contract?.abi,
-        functionName: method.name,
-        args
-      })
-    }
-    write()
+    switchChain()
+
+    writeContract({
+      //@ts-ignore
+      address: contract.address,
+      abi: contract?.abi,
+      functionName: method.name,
+      args
+    })
   }, [])
 
   return (
