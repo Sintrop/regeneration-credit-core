@@ -38,7 +38,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const [canAccept, setCanAccept] = useState<boolean>(false)
   const [canAcceptIn, setCanAcceptIn] = useState<number>(0)
   const [waitNextEraToAccept, setWaitNextEraToAccept] = useState(false)
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
@@ -106,11 +106,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   async function handleAcceptInspection(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
     acceptInspection({ inspectionId })
   }
 
