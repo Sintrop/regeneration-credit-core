@@ -6,12 +6,15 @@ import { SendTransactionButton } from '../../../SendTransactionButton/SendTransa
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddResearchValidation({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
+  const { switchChain } = useSwitchChain()
+
   const { t } = useTranslation()
   const [inputId, setInputId] = useState('')
   const [inputJustification, setInputJustification] = useState('')
@@ -28,6 +31,9 @@ export function AddResearchValidation({
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

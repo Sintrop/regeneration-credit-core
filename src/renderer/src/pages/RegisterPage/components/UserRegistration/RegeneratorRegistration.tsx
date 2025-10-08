@@ -20,6 +20,7 @@ import { TransactionLoading } from '@renderer/components/TransactionLoading/Tran
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { useMainnet } from '@renderer/hooks/useMainnet'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
@@ -34,6 +35,8 @@ interface CoordinateProps {
 }
 
 export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
+  const { switchChain } = useSwitchChain()
+
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
@@ -216,6 +219,9 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
     }
 
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       address: mainnet ? regeneratorAddress : sequoiaRegeneratorAddress,
       abi: mainnet ? regeneratorAbi : sequoiaRegeneratorAbi,

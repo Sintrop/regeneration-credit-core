@@ -6,9 +6,12 @@ import { SendTransactionButton } from '../../SendTransactionButton/SendTransacti
 import { ActionContractProps } from '../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Withdraw({ abi, addressContract, close }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
+  const { switchChain } = useSwitchChain()
+
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -19,8 +22,11 @@ export function Withdraw({ abi, addressContract, close }: ActionContractProps): 
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleSendTransaction(): void {
+  async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

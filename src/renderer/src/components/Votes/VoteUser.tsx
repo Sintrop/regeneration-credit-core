@@ -13,6 +13,7 @@ import { Loading } from '../Loading/Loading'
 import { useMainnet } from '@renderer/hooks/useMainnet'
 import { toast } from 'react-toastify'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   userWallet: string
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export function VoteUser({ close, userWallet }: Props): JSX.Element {
+  const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
   const mainnet = useMainnet()
@@ -50,6 +52,9 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
     const address = mainnet ? validationAddress : sequoiaValidationAddress
     const abi = mainnet ? validationAbi : sequoiaValidationAbi
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       abi,
       address,

@@ -13,6 +13,7 @@ import { useCanInvite } from '@renderer/hooks/useCanInvite'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.Element {
   const chainId = useChainId()
@@ -25,6 +26,8 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
     isLoading: loadingCanInvite
   } = useCanInvite({ userTypeToInvite })
 
+  const { switchChain } = useSwitchChain()
+
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -35,13 +38,16 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleSendTransaction(): void {
+  async function handleSendTransaction(): Promise<void> {
     if (!userTypeToInvite) return
 
     const functionName =
       userTypeToInvite === 1 || userTypeToInvite === 2 ? 'inviteRegeneratorInspector' : 'invite'
 
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,
       abi: chainId === 250225 ? invitationAbi : sequoiaInvitationAbi,

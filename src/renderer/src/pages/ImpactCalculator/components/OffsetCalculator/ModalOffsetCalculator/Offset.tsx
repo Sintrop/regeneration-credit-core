@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useOffset } from '@renderer/domain/Supporter/useCases/useOffset'
 import { useWaitForTransactionReceipt } from 'wagmi'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   item: CalculatorItemProps
@@ -16,6 +17,8 @@ interface Props {
   handleApproveMore: () => void
 }
 export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props): JSX.Element {
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+
   const { t } = useTranslation()
   const { carbonPerToken } = useImpactPerToken()
   const [inputAmmount, setInputAmmount] = useState('')
@@ -65,6 +68,13 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     offset({
       ammount: parseFloat(inputAmmount),
       calculatorItemId: item.id,

@@ -5,6 +5,7 @@ import { useAccount, useBalance, useWaitForTransactionReceipt, useSendTransactio
 import { toast } from 'react-toastify'
 
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function SendSIN(): JSX.Element {
   const { t } = useTranslation()
@@ -12,7 +13,7 @@ export function SendSIN(): JSX.Element {
   const [value, setValue] = useState('')
   const [insufficientBalance, setInsufficientBalance] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-
+  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
   const { address, isDisconnected } = useAccount()
   const { data } = useBalance({ address })
 
@@ -35,10 +36,17 @@ export function SendSIN(): JSX.Element {
     }
   }, [balance, value])
 
-  function handleSendTransaction(e: FormEvent<HTMLFormElement>): void {
+  async function handleSendTransaction(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
 
     setDisplayLoadingTx(true)
+
+    await switchChain()
+    if (!isSuccessSwitch) {
+      setDisplayLoadingTx(false)
+      return
+    }
+
     sendTransaction({ to: to as `0x${string}`, value: parseEther(value) })
   }
 

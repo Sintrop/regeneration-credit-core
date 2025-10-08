@@ -12,6 +12,7 @@ import { formatUnits, parseEther } from 'viem'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   close: () => void
@@ -29,6 +30,8 @@ export function BurnTokens({ close }: Props): JSX.Element {
     args: [address]
   })
 
+  const { switchChain } = useSwitchChain()
+
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -39,10 +42,13 @@ export function BurnTokens({ close }: Props): JSX.Element {
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleSendTransaction(): void {
+  async function handleSendTransaction(): Promise<void> {
     const value = parseEther(input, 'wei')
 
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
       abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,

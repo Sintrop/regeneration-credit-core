@@ -6,12 +6,15 @@ import { SendTransactionButton } from '../../../SendTransactionButton/SendTransa
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddCalculatorItem({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
+  const { switchChain } = useSwitchChain()
+
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
   const [inputUnit, setInputUnit] = useState('')
@@ -30,6 +33,9 @@ export function AddCalculatorItem({
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

@@ -7,6 +7,7 @@ import { TransactionLoading } from '@renderer/components/TransactionLoading/Tran
 
 import RCLogo from '@renderer/assets/images/rc.png'
 import { useBalance } from '@renderer/domain/RegenerationCredit/useCases/useBalance'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   refetchAllowance: () => void
@@ -18,6 +19,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
   const { balance } = useBalance()
   const { approve, isError, isPending, error, hash } = useApprove()
+  const { switchChain } = useSwitchChain()
 
   const {
     isLoading,
@@ -40,10 +42,11 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
     }
   }
 
-  function handleApprove(): void {
+  async function handleApprove(): Promise<void> {
     if (!inputAmmount.trim()) return
 
     setDisplayLoadingTx(true)
+    switchChain()
     approve(inputAmmount)
   }
 

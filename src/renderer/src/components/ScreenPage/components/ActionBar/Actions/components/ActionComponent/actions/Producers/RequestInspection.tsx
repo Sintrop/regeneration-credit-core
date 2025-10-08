@@ -6,6 +6,7 @@ import { SendTransactionButton } from '../../../SendTransactionButton/SendTransa
 import { Abi } from 'viem'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   addressContract?: string
@@ -14,6 +15,7 @@ interface Props {
 }
 export function RequestInspection({ abi, addressContract, close }: Props): JSX.Element {
   const { t } = useTranslation()
+  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -25,8 +27,11 @@ export function RequestInspection({ abi, addressContract, close }: Props): JSX.E
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleSendTransaction(): void {
+  async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

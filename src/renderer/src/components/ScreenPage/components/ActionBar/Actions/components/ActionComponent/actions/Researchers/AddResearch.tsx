@@ -9,6 +9,7 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddResearch({
   abi,
@@ -16,6 +17,8 @@ export function AddResearch({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
+  const { switchChain } = useSwitchChain()
+
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
   const [inputThesis, setInputThesis] = useState('')
@@ -41,6 +44,9 @@ export function AddResearch({
     if (!file.trim()) return
 
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

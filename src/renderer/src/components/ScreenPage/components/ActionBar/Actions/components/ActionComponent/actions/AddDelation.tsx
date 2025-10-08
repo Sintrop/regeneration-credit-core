@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   close: () => void
@@ -21,6 +22,8 @@ export function AddDelation({ close }: Props): JSX.Element {
   const [inputTitle, setInputTitle] = useState('')
   const [inputTestimony, setInputTestimony] = useState('')
 
+  const { switchChain } = useSwitchChain()
+
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -31,8 +34,11 @@ export function AddDelation({ close }: Props): JSX.Element {
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  function handleSendTransaction(): void {
+  async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       address: chainId === 250225 ? userAddress : sequoiaUserAddress,
       abi: chainId === 250225 ? userAbi : sequoiaUserAbi,

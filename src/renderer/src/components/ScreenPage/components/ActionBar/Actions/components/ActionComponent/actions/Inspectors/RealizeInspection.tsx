@@ -7,12 +7,15 @@ import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function RealizeInspection({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
+  const { switchChain } = useSwitchChain()
+
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [inputTrees, setInputTrees] = useState('')
@@ -38,6 +41,9 @@ export function RealizeInspection({
     const bio = parseInt(inputBio)
 
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

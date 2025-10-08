@@ -14,6 +14,7 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { useMainnet } from '@renderer/hooks/useMainnet'
+import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   name: string
@@ -28,6 +29,8 @@ export function ResearcherRegistration({
   availableVacancie,
   success
 }: Props): JSX.Element {
+  const { switchChain } = useSwitchChain()
+
   const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -91,6 +94,9 @@ export function ResearcherRegistration({
     }
 
     setDisplayLoadingTx(true)
+
+    switchChain()
+
     writeContract({
       address: mainnet ? researcherAddress : sequoiaResearcherAddress,
       abi: mainnet ? researcherAbi : sequoiaResearcherAbi,
