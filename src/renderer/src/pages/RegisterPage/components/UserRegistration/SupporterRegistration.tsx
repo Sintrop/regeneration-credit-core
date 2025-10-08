@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function SupporterRegistration({ name, success }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
@@ -85,11 +85,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,

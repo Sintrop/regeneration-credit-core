@@ -30,7 +30,7 @@ export function BurnTokens({ close }: Props): JSX.Element {
     args: [address]
   })
 
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -47,11 +47,7 @@ export function BurnTokens({ close }: Props): JSX.Element {
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: chainId === 250225 ? rcAddress : sequoiaRcAddress,

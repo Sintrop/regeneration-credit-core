@@ -26,7 +26,7 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
     isLoading: loadingCanInvite
   } = useCanInvite({ userTypeToInvite })
 
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -46,11 +46,7 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,

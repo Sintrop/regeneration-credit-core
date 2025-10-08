@@ -17,7 +17,7 @@ export function AddContribution({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { t } = useTranslation()
   const [inputDescription, setInputDescription] = useState('')
@@ -44,11 +44,7 @@ export function AddContribution({
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',

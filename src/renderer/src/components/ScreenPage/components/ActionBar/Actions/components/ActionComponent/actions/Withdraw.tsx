@@ -10,7 +10,7 @@ import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Withdraw({ abi, addressContract, close }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -25,11 +25,7 @@ export function Withdraw({ abi, addressContract, close }: ActionContractProps): 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       //@ts-ignore

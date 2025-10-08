@@ -29,7 +29,7 @@ export function DeveloperRegistration({
   availableVacancie,
   success
 }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
   const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -93,11 +93,7 @@ export function DeveloperRegistration({
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: mainnet ? developerAddress : sequoiaDeveloperAddress,

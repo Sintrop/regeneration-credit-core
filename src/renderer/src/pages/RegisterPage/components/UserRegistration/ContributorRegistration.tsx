@@ -29,7 +29,7 @@ export function ContributorRegistration({
   availableVacancie,
   success
 }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
@@ -94,11 +94,7 @@ export function ContributorRegistration({
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: mainnet ? contributorAddress : sequoiaContributorAddress,

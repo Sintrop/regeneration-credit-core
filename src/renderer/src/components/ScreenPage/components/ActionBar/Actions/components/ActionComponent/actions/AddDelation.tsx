@@ -22,7 +22,7 @@ export function AddDelation({ close }: Props): JSX.Element {
   const [inputTitle, setInputTitle] = useState('')
   const [inputTestimony, setInputTestimony] = useState('')
 
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -37,11 +37,7 @@ export function AddDelation({ close }: Props): JSX.Element {
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: chainId === 250225 ? userAddress : sequoiaUserAddress,

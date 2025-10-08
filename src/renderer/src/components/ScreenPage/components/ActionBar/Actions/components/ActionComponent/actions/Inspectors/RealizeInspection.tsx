@@ -14,7 +14,7 @@ export function RealizeInspection({
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { t } = useTranslation()
   const [input, setInput] = useState('')
@@ -42,11 +42,7 @@ export function RealizeInspection({
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       //@ts-ignore

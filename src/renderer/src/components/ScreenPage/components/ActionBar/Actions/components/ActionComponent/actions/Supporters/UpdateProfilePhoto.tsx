@@ -11,7 +11,7 @@ import { TransactionLoading } from '@renderer/components/TransactionLoading/Tran
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
@@ -38,11 +38,7 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
     if (response.success) {
       setDisplayLoadingTx(true)
 
-      await switchChain()
-      if (!isSuccessSwitch) {
-        setDisplayLoadingTx(false)
-        return
-      }
+      switchChain()
 
       writeContract({
         //@ts-ignore

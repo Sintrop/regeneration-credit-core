@@ -17,7 +17,7 @@ export function AddReport({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [inputDescription, setInputDescription] = useState('')
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
@@ -42,11 +42,7 @@ export function AddReport({
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       //@ts-ignore

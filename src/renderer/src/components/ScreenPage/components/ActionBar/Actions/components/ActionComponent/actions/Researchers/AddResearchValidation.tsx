@@ -13,7 +13,7 @@ export function AddResearchValidation({
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { t } = useTranslation()
   const [inputId, setInputId] = useState('')
@@ -32,11 +32,7 @@ export function AddResearchValidation({
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       //@ts-ignore

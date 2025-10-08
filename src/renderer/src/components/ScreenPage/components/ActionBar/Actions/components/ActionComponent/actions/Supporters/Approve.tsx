@@ -19,7 +19,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
   const { balance } = useBalance()
   const { approve, isError, isPending, error, hash } = useApprove()
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const {
     isLoading,
@@ -46,13 +46,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
     if (!inputAmmount.trim()) return
 
     setDisplayLoadingTx(true)
-
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
-
+    switchChain()
     approve(inputAmmount)
   }
 

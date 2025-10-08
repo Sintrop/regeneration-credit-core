@@ -13,7 +13,7 @@ export function AddCalculatorItem({
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
@@ -34,11 +34,7 @@ export function AddCalculatorItem({
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       //@ts-ignore

@@ -35,7 +35,7 @@ interface CoordinateProps {
 }
 
 export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
@@ -220,11 +220,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: mainnet ? regeneratorAddress : sequoiaRegeneratorAddress,

@@ -29,7 +29,7 @@ export function ResearcherRegistration({
   availableVacancie,
   success
 }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
 
   const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
@@ -95,11 +95,7 @@ export function ResearcherRegistration({
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       address: mainnet ? researcherAddress : sequoiaResearcherAddress,

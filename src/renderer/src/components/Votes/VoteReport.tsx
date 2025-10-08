@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
+  const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
   const mainnet = useMainnet()
@@ -56,11 +56,7 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
+    switchChain()
 
     writeContract({
       abi,
