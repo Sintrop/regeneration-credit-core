@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useAccount, useReadContract } from 'wagmi'
-import { ConnectionWalletButton } from './ConnectionWalletButton'
 import { UserCard } from './UserCard/UserCard'
 import { userAddress, userAbi } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { Actions } from './Actions/Actions'
 import { useIsDenied } from '@renderer/domain/Community/useCases/useIsDenied'
 
-export function ActionBar(): JSX.Element {
+export function ActionBar(): JSX.Element | null {
   const { isConnected } = useAccount()
   const [open, setOpen] = useState(false)
 
@@ -16,13 +14,11 @@ export function ActionBar(): JSX.Element {
     setOpen(isConnected)
   }, [isConnected])
 
-  return (
-    <div
-      className={`flex items-center w-screen bg-[#062c01] fixed bottom-0 left-0 px-20 py-4 duration-300 ${open ? 'h-32' : 'h-16'} z-30`}
-    >
-      {isConnected ? <YouAreConnected /> : <YouArentConnected />}
+  return open ? (
+    <div className="flex items-center fixed bottom-0 left-[248px] right-0 h-28 px-6 bg-green-header border-t border-card-primary z-30">
+      <YouAreConnected />
     </div>
-  )
+  ) : null
 }
 
 function YouAreConnected(): JSX.Element {
@@ -46,18 +42,6 @@ function YouAreConnected(): JSX.Element {
       {userType !== 0 && (
         <>{!isDenied && <Actions userType={userType} lastPublishedWork={lastPublishedWork} />}</>
       )}
-    </div>
-  )
-}
-
-function YouArentConnected(): JSX.Element {
-  const { t } = useTranslation()
-
-  return (
-    <div className="w-full h-full flex items-center justify-between">
-      <p className="text-white font-semibold">{t('actionBar.youAreNotConnected')}</p>
-
-      <ConnectionWalletButton />
     </div>
   )
 }

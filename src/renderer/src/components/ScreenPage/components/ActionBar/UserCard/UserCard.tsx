@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ConnectionWalletButton } from '../ConnectionWalletButton'
+import { RegisterButton } from '../RegisterButton'
 import { DeveloperCard } from './DeveloperCard'
 import { RegeneratorCard } from './RegeneratorCard'
 import { InspectorCard } from './InspectorCard'
@@ -26,7 +26,7 @@ export function UserCard({ userType, setLastPublishedWork }: Props): JSX.Element
       <CardContainer>
         <div className="flex flex-col gap-1 items-center">
           <p className="font-semibold text-white">{t('actionBar.youAreNotRegistered')}</p>
-          <ConnectionWalletButton />
+          <RegisterButton />
         </div>
       </CardContainer>
     )

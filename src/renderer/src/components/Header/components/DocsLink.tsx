@@ -13,10 +13,10 @@ export function DocsLink(): JSX.Element {
   return (
     <button
       onClick={handleCopyUrl}
-      className="px-5 h-10 rounded-2xl bg-card-1 text-white font-semibold hover:cursor-pointer flex items-center justify-center gap-3"
+      className="w-9 h-9 rounded-xl bg-card-primary hover:cursor-pointer flex items-center justify-center"
+      title={t('header.docs')}
     >
-      <LuLibraryBig size={20} color="white" />
-      {t('header.docs')}
+      <LuLibraryBig size={18} color="white" />
     </button>
   )
 }

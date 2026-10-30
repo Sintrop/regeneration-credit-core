@@ -637,5 +637,85 @@
   },
   "header": {
     "docs": "Documentação"
+  },
+  "nav": {
+    "explore": "Explorar",
+    "community": "Comunidade",
+    "advanced": "Avançado"
+  },
+  "shell": {
+    "settings": "Configurações",
+    "era": "Fase {{era}}",
+    "nextEraIn": "próxima em ~{{days}} dias",
+    "connect": "Conectar carteira"
+  },
+  "home": {
+    "networkImpact": "Impacto verificado da rede",
+    "carbonSequestered": "de CO₂ sequestrado nas áreas em regeneração",
+    "trees": "Árvores",
+    "species": "Espécies",
+    "area": "Área",
+    "seeImpact": "Ver impacto completo",
+    "feedError": "Não foi possível carregar o feed agora.",
+    "tryAgain": "Tentar novamente",
+    "loadMore": "Carregar mais"
+  },
+  "feedNews": {
+    "filter": {
+      "all": "Tudo",
+      "inspections": "Inspeções",
+      "offsets": "Compensações",
+      "publications": "Publicações",
+      "community": "Comunidade",
+      "tokens": "Tokens"
+    },
+    "agoMinutes_one": "há {{count}} min",
+    "agoMinutes_other": "há {{count}} min",
+    "agoHours_one": "há ~{{count}} hora",
+    "agoHours_other": "há ~{{count}} horas",
+    "agoDays_one": "há ~{{count}} dia",
+    "agoDays_other": "há ~{{count}} dias",
+    "inspectionRequested": "Pedido de inspeção #{{id}}",
+    "inspectionRequestedText": "Pediu uma inspeção da sua área de regeneração.",
+    "inspectionAccepted": "Inspeção #{{id}} aceita",
+    "inspectionAcceptedText": "Aceitou a inspeção e tem um prazo para ir até a área.",
+    "inspectionRealized": "Inspeção #{{id}} realizada",
+    "seeInspection": "Ver inspeção",
+    "regenerator": "Regenerador",
+    "trees": "Árvores",
+    "species": "Espécies",
+    "score": "Índice",
+    "enteredPoolBadge": "Marco",
+    "enteredPoolText": "Completou as inspeções de certificação e passou a receber do pool dos regeneradores.",
+    "offsetBadge": "Compensação",
+    "offsetting": "compensando",
+    "offsetImpact": "Financia o sequestro de ~{{amount}} de CO₂.",
+    "treeFundingBadge": "Financiamento de árvores",
+    "treeFundingText": "Queimou RC e recebeu o certificado de contribuição.",
+    "commitmentBadge": "Compromisso de redução",
+    "commitmentText": "Declarou publicamente o compromisso de reduzir",
+    "researchBadge": "Pesquisa #{{id}}",
+    "reportBadge": "Relatório de desenvolvimento #{{id}}",
+    "contributionBadge": "Contribuição #{{id}}",
+    "read": "Ler",
+    "newUserBadge": "Novo usuário",
+    "joinedAs": "Entrou na comunidade como",
+    "invitationBadge": "Convite",
+    "invitedToBe": "Convidou para ser",
+    "invited": "Convidado",
+    "delationBadge": "Denúncia",
+    "reported": "Denunciado",
+    "withdrawalBadge": "Saque · Fase {{era}}",
+    "transferBadge": "Transferência",
+    "to": "Para",
+    "pool": {
+      "1": "Pool dos regeneradores",
+      "2": "Pool dos inspetores",
+      "3": "Pool dos pesquisadores",
+      "4": "Pool dos desenvolvedores",
+      "5": "Pool dos contribuidores",
+      "6": "Pool dos ativistas",
+      "8": "Pool de validação"
+    }
   }
 }

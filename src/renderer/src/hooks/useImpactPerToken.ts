@@ -27,7 +27,7 @@ export function useImpactPerToken(): ReturnUseImpactPerTokenProps {
       },
       {
         ...rcImpactContract,
-        functionName: 'soilPerToken'
+        functionName: 'areaPerToken'
       },
       {
         ...rcImpactContract,

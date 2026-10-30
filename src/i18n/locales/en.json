@@ -378,7 +378,6 @@
     "profilePhoto": "Profile photo (Optional)",
     "cancel": "Cancel",
     "takePicture": "Take picture",
-    "": "",
     "": ""
   },
   "actionBar": {
@@ -587,7 +586,6 @@
     "voteUser": "Vote user",
     "youAreVotingToInvalidateTheUser": "You are voting to invalidate the user",
     "youCanNotVote": "You can not vote",
-    "": "",
     "": ""
   },
   "certificate": {
@@ -600,12 +598,6 @@
     "version2": "Version 2",
     "versionShort": "Version short",
     "download": "Download",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
     "": ""
   },
   "account": {
@@ -649,5 +641,85 @@
   },
   "header": {
     "docs": "Documentation"
+  },
+  "nav": {
+    "explore": "Explore",
+    "community": "Community",
+    "advanced": "Advanced"
+  },
+  "shell": {
+    "settings": "Settings",
+    "era": "Era {{era}}",
+    "nextEraIn": "next in ~{{days}} days",
+    "connect": "Connect wallet"
+  },
+  "home": {
+    "networkImpact": "Verified network impact",
+    "carbonSequestered": "of CO₂ sequestered in the regeneration areas",
+    "trees": "Trees",
+    "species": "Species",
+    "area": "Area",
+    "seeImpact": "See full impact",
+    "feedError": "The feed couldn't be loaded right now.",
+    "tryAgain": "Try again",
+    "loadMore": "Load more"
+  },
+  "feedNews": {
+    "filter": {
+      "all": "All",
+      "inspections": "Inspections",
+      "offsets": "Offsets",
+      "publications": "Publications",
+      "community": "Community",
+      "tokens": "Tokens"
+    },
+    "agoMinutes_one": "{{count}} min ago",
+    "agoMinutes_other": "{{count}} min ago",
+    "agoHours_one": "~{{count}} hour ago",
+    "agoHours_other": "~{{count}} hours ago",
+    "agoDays_one": "~{{count}} day ago",
+    "agoDays_other": "~{{count}} days ago",
+    "inspectionRequested": "Inspection request #{{id}}",
+    "inspectionRequestedText": "Requested an inspection of their regeneration area.",
+    "inspectionAccepted": "Inspection #{{id}} accepted",
+    "inspectionAcceptedText": "Accepted the inspection and has a deadline to visit the area.",
+    "inspectionRealized": "Inspection #{{id}} completed",
+    "seeInspection": "See inspection",
+    "regenerator": "Regenerator",
+    "trees": "Trees",
+    "species": "Species",
+    "score": "Score",
+    "enteredPoolBadge": "Milestone",
+    "enteredPoolText": "Completed the certification inspections and started earning from the regenerator pool.",
+    "offsetBadge": "Offset",
+    "offsetting": "offsetting",
+    "offsetImpact": "Funds the sequestration of ~{{amount}} of CO₂.",
+    "treeFundingBadge": "Tree funding",
+    "treeFundingText": "Burned RC and received the contribution certificate.",
+    "commitmentBadge": "Reduction commitment",
+    "commitmentText": "Publicly committed to reduce",
+    "researchBadge": "Research #{{id}}",
+    "reportBadge": "Development report #{{id}}",
+    "contributionBadge": "Contribution #{{id}}",
+    "read": "Read",
+    "newUserBadge": "New user",
+    "joinedAs": "Joined the community as",
+    "invitationBadge": "Invitation",
+    "invitedToBe": "Invited to be",
+    "invited": "Invited",
+    "delationBadge": "Report",
+    "reported": "Reported",
+    "withdrawalBadge": "Withdrawal · Era {{era}}",
+    "transferBadge": "Transfer",
+    "to": "To",
+    "pool": {
+      "1": "Regenerator pool",
+      "2": "Inspector pool",
+      "3": "Researcher pool",
+      "4": "Developer pool",
+      "5": "Contributor pool",
+      "6": "Activist pool",
+      "8": "Validation pool"
+    }
   }
 }

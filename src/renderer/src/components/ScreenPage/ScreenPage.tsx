@@ -1,37 +1,34 @@
 import { ReactNode } from 'react'
 import { Header } from '../Header/Header'
 import { SideMenu } from '../SideMenu/SideMenu'
-import { PageTitle } from '../PageTitle/PageTitle'
-import { InfoBar } from './components/InfoBar/InfoBar'
-import { NavBtns } from './components/NavBtns'
 import { ActionBar } from './components/ActionBar/ActionBar'
 
 interface Props {
   pageTitle: string
   children: ReactNode
+  /** Optional column on the right, e.g. the account and network summary on Home. */
+  rightRail?: ReactNode
 }
 
-export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
+export function ScreenPage({ children, pageTitle, rightRail }: Props): JSX.Element {
   return (
-    <>
-      <Header />
+    <div className="flex w-screen h-screen bg-background">
+      <SideMenu />
 
-      <main className="bg-gradient-to-b from-[#043832] to-[#1F5D38] flex w-screen h-screen">
-        <SideMenu />
+      <div className="flex flex-col flex-1 min-w-0 ml-[248px]">
+        <Header title={pageTitle} />
 
-        <div className="flex flex-col pt-20 pl-[300px] w-full">
-          <InfoBar />
-
-          <div className="flex flex-col gap-10 pt-10 pl-5 w-full overflow-y-auto">
-            <div className="flex flex-col gap-1">
-              <NavBtns />
-              <PageTitle title={pageTitle} />
-            </div>
-            <div className="mb-32 pr-1">{children}</div>
-            <ActionBar />
+        <main className="flex-1 overflow-y-auto">
+          <div className="flex gap-6 px-6 py-6 pb-32">
+            <div className="flex-1 min-w-0">{children}</div>
+            {rightRail && (
+              <aside className="w-[320px] shrink-0 flex flex-col gap-4">{rightRail}</aside>
+            )}
           </div>
-        </div>
-      </main>
-    </>
+        </main>
+
+        <ActionBar />
+      </div>
+    </div>
   )
 }

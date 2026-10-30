@@ -1,7 +1,7 @@
 import { userAbi, userAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
-import { HeaderFeedItem } from '../../pages/HomePage/components/FeedTabs/HeaderFeedItem/HeaderFeedItem'
+import { HeaderFeedItem } from '../HeaderFeedItem/HeaderFeedItem'
 import { useRegenerator } from '@renderer/domain/Regenerator/useCases/useRegenerator'
 import { useDeveloper } from '@renderer/domain/Developer/useCases/useDeveloper'
 import { useInspector } from '@renderer/domain/Inspector/useCases/useInspector'
