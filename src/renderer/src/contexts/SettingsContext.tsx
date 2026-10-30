@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import i18n from '../../../i18n'
+import { checkRpc, RpcCheckResult } from '../services/rpcHealth'
 
 interface ChangeOrAddUrlToListProps {
   type: 'ipfsApi' | 'ipfsGateway' | 'rpc'
@@ -16,6 +17,10 @@ export interface SettingsContextProps {
   rpcList: string[]
   addUrlToList: (data: ChangeOrAddUrlToListProps) => void
   changeBaseUrl: (data: ChangeOrAddUrlToListProps) => void
+  /** Checks that the URL is a Sintrop RPC before using and saving it. */
+  changeRpc: (url: string) => Promise<RpcCheckResult>
+  resetRpc: () => void
+  defaultRpc: string
   handleChangeLanguage: (lang: string) => void
 }
 
@@ -28,7 +33,7 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
   const { changeLanguage, language } = i18n
   const defaultIpfsGateway = import.meta.env.VITE_DEFAULT_IPFS_GATEWAY_URL
   const defaultIpfsApi = import.meta.env.VITE_DEFAULT_IPFS_API_URL
-  const defaultRpc = import.meta.env.VITE_DEFAULT_RPC_URL
+  const defaultRpc: string = import.meta.env.VITE_DEFAULT_RPC_URL || 'https://rpc.sintrop.com'
 
   const [ipfsGatewayURL, setIpfsGatewayURL] = useState<string>('https://ipfs.sintrop.com')
   const [ipfsApiUrl, setIpfsApiUrl] = useState<string>('https://apiipfs.sintrop.com')
@@ -77,35 +82,46 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
     setRpcUrl(resRpcUrl ? resRpcUrl : defaultRpc)
   }
 
+  const STORAGE_KEY = {
+    ipfsApi: 'ipfsApiUrl',
+    ipfsGateway: 'ipfsGatewayUrl',
+    rpc: 'rpcUrl'
+  } as const
+  const LIST_KEY = {
+    ipfsApi: 'ipfsApiList',
+    ipfsGateway: 'ipfsGatewayList',
+    rpc: 'rpcList'
+  } as const
+
   function addUrlToList({ type, url }: ChangeOrAddUrlToListProps): void {
-    if (type === 'ipfsApi') {
-      const newApiList = ipfsApiList
-      newApiList.push(url)
-      setIpfsApiList(newApiList)
-      localStorage.setItem('ipfsApiList', JSON.stringify(newApiList))
-    }
-
-    if (type === 'ipfsGateway') {
-      const newGatewayList = ipfsGatewayList
-      newGatewayList.push(url)
-      setIpfsGatewayList(newGatewayList)
-      localStorage.setItem('ipfsGatewayList', JSON.stringify(newGatewayList))
-    }
-
-    if (type === 'rpc') {
-      const newRpcList = rpcList
-      newRpcList.push(url)
-      setRpcList(newRpcList)
-      localStorage.setItem('rpcList', JSON.stringify(newRpcList))
-    }
+    const current =
+      type === 'ipfsApi' ? ipfsApiList : type === 'ipfsGateway' ? ipfsGatewayList : rpcList
+    const next = current.includes(url) ? current : [...current, url]
+    if (type === 'ipfsApi') setIpfsApiList(next)
+    if (type === 'ipfsGateway') setIpfsGatewayList(next)
+    if (type === 'rpc') setRpcList(next)
+    localStorage.setItem(LIST_KEY[type], JSON.stringify(next))
 
     changeBaseUrl({ type, url })
   }
 
+  /** Uses the URL now and keeps it for the next start. */
   function changeBaseUrl({ type, url }: ChangeOrAddUrlToListProps): void {
     if (type === 'ipfsApi') setIpfsApiUrl(url)
     if (type === 'ipfsGateway') setIpfsGatewayURL(url)
     if (type === 'rpc') setRpcUrl(url)
+    localStorage.setItem(STORAGE_KEY[type], url)
+  }
+
+  async function changeRpc(url: string): Promise<RpcCheckResult> {
+    const trimmed = url.trim().replace(/\/+$/, '')
+    const result = await checkRpc(trimmed)
+    if (result.ok) addUrlToList({ type: 'rpc', url: trimmed })
+    return result
+  }
+
+  function resetRpc(): void {
+    changeBaseUrl({ type: 'rpc', url: defaultRpc })
   }
 
   async function getSavedLanguage(): Promise<void> {
@@ -131,6 +147,9 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
         rpcUrl,
         addUrlToList,
         changeBaseUrl,
+        changeRpc,
+        resetRpc,
+        defaultRpc,
         handleChangeLanguage
       }}
     >

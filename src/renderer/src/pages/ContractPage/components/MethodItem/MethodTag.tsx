@@ -1,16 +1,16 @@
-interface Props {
-  methodType: string
-}
+import { useTranslation } from 'react-i18next'
 
-export function MethodTag({ methodType }: Props): JSX.Element {
+export function MethodTag({ methodType }: { methodType: string }): JSX.Element {
+  const { t } = useTranslation()
+  const read = methodType === 'view' || methodType === 'pure'
   return (
-    <div
-      className={`rounded-lg px-3 py-1 ${methodType === 'view' ? 'bg-[#5EB1FF]' : 'bg-[#4ACA91]'}`}
+    <span
+      className={`shrink-0 px-2 py-0.5 rounded-md text-xs font-semibold ${
+        read ? 'bg-blue-primary/20 text-blue-primary' : 'bg-amber-400/20 text-amber-300'
+      }`}
     >
-      <p className="text-sm text-white">
-        {methodType === 'view' && 'Read'}
-        {methodType === 'nonpayable' && 'Write'}
-      </p>
-    </div>
+      {read ? t('contracts.filter.read') : t('contracts.filter.write')}
+      {methodType === 'payable' ? ' · SIN' : ''}
+    </span>
   )
 }

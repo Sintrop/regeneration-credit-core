@@ -3,7 +3,15 @@
     "title": "Índice de regeneração",
     "description": "Descrição",
     "result": "Resultado",
-    "regenerationIndexDescription": "Descrição do índice de regeneração"
+    "regenerationIndexDescription": "Descrição do índice de regeneração",
+    "level": "Nível",
+    "condition": "Condição",
+    "points": "Pontos",
+    "score": "Pontuação de regeneração",
+    "intro": "Na inspeção, o inspetor conta as árvores e as espécies da área. Cada contagem recebe um nível pelo contrato RegenerationIndexRules, e a soma dos pontos dos dois níveis é a pontuação de regeneração da inspeção.",
+    "simulatorTitle": "Simule a pontuação",
+    "simulatorDescription": "Digite uma contagem de árvores e de espécies para ver a pontuação que o contrato atribuiria.",
+    "simulatorNote": "Calculado pela função calculateScore do contrato, na rede Sintrop."
   },
   "myTokens": {
     "title": "Meus tokens",
@@ -51,7 +59,10 @@
     "urlCopiedToClipboard": "URL copiada para a área de transferência",
     "errorOnUploadFile": "Erro ao enviar o arquivo",
     "selectFile": "Selecionar arquivo",
-    "upload": "Enviar"
+    "upload": "Enviar para o IPFS",
+    "acceptedTypes": "Imagens ou PDF",
+    "uploading": "Enviando…",
+    "uploaded": "Arquivo enviado"
   },
   "feed": {
     "title": "Feed",
@@ -158,7 +169,25 @@
     "validation": "Regras de Validação",
     "descValidation": "Responsável por revisar e votar para invalidar usuários e recursos.",
     "rcIndex": "Índice de Crédito de Regeneração",
-    "descRcIndex": "Este contrato gerencia as RegenerationIndexRules, usadas nas inspeções para estimar o impacto do Regenerador e calcular o Score de Regeneração. O sistema terá apenas duas categorias: Árvores e Biodiversidade."
+    "descRcIndex": "Este contrato gerencia as RegenerationIndexRules, usadas nas inspeções para estimar o impacto do Regenerador e calcular o Score de Regeneração. O sistema terá apenas duas categorias: Árvores e Biodiversidade.",
+    "settingsTitle": "Contratos (avançado)",
+    "settingsText": "Consulte e chame diretamente as funções dos contratos do protocolo.",
+    "intro": "Os contratos do Crédito de Regeneração na rede Sintrop. Você pode ler os dados de qualquer função e enviar transações pela sua carteira.",
+    "searchPlaceholder": "Buscar por nome ou endereço",
+    "searchMethod": "Buscar função",
+    "openExplorer": "Ver no explorer",
+    "notFound": "Contrato não encontrado.",
+    "group": {
+      "token": "Token e impacto",
+      "users": "Regras dos usuários",
+      "pools": "Pools",
+      "system": "Sistema"
+    },
+    "filter": {
+      "all": "Todas",
+      "read": "Leitura",
+      "write": "Escrita"
+    }
   },
   "pools": {
     "title": "Pools",
@@ -1127,5 +1156,51 @@
   },
   "offset": {
     "howManyUnitsToOffset": "Quantos {{unit}} deseja compensar?"
+  },
+  "settingsPage": {
+    "network": "Rede (RPC)",
+    "rpcDescription": "O app lê os dados da blockchain Sintrop por um servidor RPC público. Se o padrão estiver instável, você pode usar outro endereço da rede Sintrop.",
+    "currentRpc": "RPC em uso",
+    "default": "padrão",
+    "rpcOnline": "Online · {{ms}} ms · bloco {{block}}",
+    "testAgain": "Testar novamente",
+    "customRpc": "Outro endereço de RPC",
+    "testAndSave": "Testar e usar este RPC",
+    "restoreDefault": "Voltar para o padrão ({{rpc}})",
+    "rpcSaved": "RPC atualizado",
+    "rpcRestored": "RPC padrão restaurado",
+    "chainNote": "Só são aceitos RPCs da rede Sintrop (chain ID 250225). As transações continuam sendo enviadas pela sua carteira.",
+    "rpcError": {
+      "invalidUrl": "Endereço inválido. Use um endereço começando com https://",
+      "timeout": "O RPC não respondeu a tempo.",
+      "unreachable": "Não foi possível conectar a este RPC.",
+      "wrongChain": "Este RPC não é da rede Sintrop."
+    },
+    "wallet": "Carteira",
+    "connectedWallet": "Carteira conectada",
+    "disconnect": "Desconectar carteira",
+    "disconnectTitle": "Desconectar carteira?",
+    "disconnectMessage": "O app deixa de usar esta carteira. Você pode conectar a mesma ou outra carteira depois pelo botão Conectar.",
+    "language": "Idioma",
+    "checking": "Testando…",
+    "savedRpcs": "Outros RPCs salvos",
+    "add": "Adicionar",
+    "ipfsDescription": "Servidores usados para enviar arquivos e mostrar fotos e documentos.",
+    "ipfsToolTitle": "Enviar arquivo para o IPFS",
+    "ipfsToolText": "Gere o hash de uma foto ou documento para usar nas transações."
+  },
+  "txPage": {
+    "title": "Transação",
+    "block": "Bloco",
+    "value": "Valor",
+    "fee": "Taxa da rede",
+    "rcTransfers": "Transferências de RC",
+    "notFound": "Transação não encontrada nesta rede.",
+    "hashCopied": "Hash copiado",
+    "status": {
+      "pending": "Pendente",
+      "success": "Confirmada",
+      "failed": "Falhou"
+    }
   }
 }

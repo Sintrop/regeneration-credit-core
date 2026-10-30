@@ -3,7 +3,15 @@
     "title": "Índice de regeneración",
     "description": "Descripción",
     "result": "Resultado",
-    "regenerationIndexDescription": "Descripción del índice de regeneración"
+    "regenerationIndexDescription": "Descripción del índice de regeneración",
+    "level": "Nivel",
+    "condition": "Condición",
+    "points": "Puntos",
+    "score": "Puntuación de regeneración",
+    "intro": "En la inspección, el inspector cuenta los árboles y las especies del área. Cada conteo recibe un nivel del contrato RegenerationIndexRules, y la suma de los puntos de ambos niveles es la puntuación de regeneración de la inspección.",
+    "simulatorTitle": "Simula la puntuación",
+    "simulatorDescription": "Escribe un conteo de árboles y de especies para ver la puntuación que asignaría el contrato.",
+    "simulatorNote": "Calculado por la función calculateScore del contrato, en la red Sintrop."
   },
   "myTokens": {
     "title": "Mis tokens",
@@ -51,7 +59,10 @@
     "urlCopiedToClipboard": "URL copiada al portapapeles",
     "errorOnUploadFile": "Error al subir el archivo",
     "selectFile": "Seleccionar archivo",
-    "upload": "Enviar"
+    "upload": "Subir a IPFS",
+    "acceptedTypes": "Imágenes o PDF",
+    "uploading": "Subiendo…",
+    "uploaded": "Archivo subido"
   },
   "feed": {
     "title": "Feed",
@@ -158,7 +169,25 @@
     "validation": "Reglas de Validación",
     "descValidation": "Se encarga de revisar y votar para invalidar usuarios y recursos.",
     "rcIndex": "Índice del Crédito de Regeneración",
-    "descRcIndex": "Este contrato gestiona las RegenerationIndexRules, usadas en las inspecciones para estimar el impacto del Regenerador y calcular la Puntuación de Regeneración. El sistema tendrá solo dos categorías: Árboles y Biodiversidad."
+    "descRcIndex": "Este contrato gestiona las RegenerationIndexRules, usadas en las inspecciones para estimar el impacto del Regenerador y calcular la Puntuación de Regeneración. El sistema tendrá solo dos categorías: Árboles y Biodiversidad.",
+    "settingsTitle": "Contratos (avanzado)",
+    "settingsText": "Consulta y llama directamente las funciones de los contratos del protocolo.",
+    "intro": "Los contratos del Crédito de Regeneración en la red Sintrop. Puedes leer cualquier función y enviar transacciones con tu billetera.",
+    "searchPlaceholder": "Buscar por nombre o dirección",
+    "searchMethod": "Buscar función",
+    "openExplorer": "Ver en el explorer",
+    "notFound": "Contrato no encontrado.",
+    "group": {
+      "token": "Token e impacto",
+      "users": "Reglas de los usuarios",
+      "pools": "Pools",
+      "system": "Sistema"
+    },
+    "filter": {
+      "all": "Todas",
+      "read": "Lectura",
+      "write": "Escritura"
+    }
   },
   "pools": {
     "title": "Pools",
@@ -1127,5 +1156,51 @@
   },
   "offset": {
     "howManyUnitsToOffset": "¿Cuántos {{unit}} quieres compensar?"
+  },
+  "settingsPage": {
+    "network": "Red (RPC)",
+    "rpcDescription": "La app lee los datos de la blockchain Sintrop a través de un servidor RPC público. Si el predeterminado está inestable, puedes usar otra dirección de la red Sintrop.",
+    "currentRpc": "RPC en uso",
+    "default": "predeterminado",
+    "rpcOnline": "En línea · {{ms}} ms · bloque {{block}}",
+    "testAgain": "Probar de nuevo",
+    "customRpc": "Otra dirección de RPC",
+    "testAndSave": "Probar y usar este RPC",
+    "restoreDefault": "Volver al predeterminado ({{rpc}})",
+    "rpcSaved": "RPC actualizado",
+    "rpcRestored": "RPC predeterminado restaurado",
+    "chainNote": "Solo se aceptan RPCs de la red Sintrop (chain ID 250225). Las transacciones se siguen enviando por tu billetera.",
+    "rpcError": {
+      "invalidUrl": "Dirección inválida. Usa una dirección que empiece con https://",
+      "timeout": "El RPC no respondió a tiempo.",
+      "unreachable": "No fue posible conectar a este RPC.",
+      "wrongChain": "Este RPC no es de la red Sintrop."
+    },
+    "wallet": "Billetera",
+    "connectedWallet": "Billetera conectada",
+    "disconnect": "Desconectar billetera",
+    "disconnectTitle": "¿Desconectar billetera?",
+    "disconnectMessage": "La app deja de usar esta billetera. Puedes conectar la misma u otra billetera después con el botón Conectar.",
+    "language": "Idioma",
+    "checking": "Probando…",
+    "savedRpcs": "Otros RPC guardados",
+    "add": "Agregar",
+    "ipfsDescription": "Servidores usados para subir archivos y mostrar fotos y documentos.",
+    "ipfsToolTitle": "Subir archivo a IPFS",
+    "ipfsToolText": "Obtén el hash de una foto o documento para usar en las transacciones."
+  },
+  "txPage": {
+    "title": "Transacción",
+    "block": "Bloque",
+    "value": "Valor",
+    "fee": "Tarifa de la red",
+    "rcTransfers": "Transferencias de RC",
+    "notFound": "Transacción no encontrada en esta red.",
+    "hashCopied": "Hash copiado",
+    "status": {
+      "pending": "Pendiente",
+      "success": "Confirmada",
+      "failed": "Falló"
+    }
   }
 }

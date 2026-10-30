@@ -104,7 +104,25 @@
     "validation": "Validation Rules",
     "descValidation": "Responsible for reviewing and voting to invalidate users and resources.",
     "rcIndex": "Regeneration Credit Index",
-    "descRcIndex": "This contract handles the RegenerationIndexRules, used by the inspections to estimate the Regenerator impact and calculate the RegnerationScore. The system will have only two categories: Trees & Biodiversity."
+    "descRcIndex": "This contract handles the RegenerationIndexRules, used by the inspections to estimate the Regenerator impact and calculate the RegnerationScore. The system will have only two categories: Trees & Biodiversity.",
+    "settingsTitle": "Contracts (advanced)",
+    "settingsText": "Query and call the protocol contracts' functions directly.",
+    "intro": "The Regeneration Credit contracts on the Sintrop network. You can read any function and send transactions with your wallet.",
+    "searchPlaceholder": "Search by name or address",
+    "searchMethod": "Search function",
+    "openExplorer": "View on explorer",
+    "notFound": "Contract not found.",
+    "group": {
+      "token": "Token and impact",
+      "users": "User rules",
+      "pools": "Pools",
+      "system": "System"
+    },
+    "filter": {
+      "all": "All",
+      "read": "Read",
+      "write": "Write"
+    }
   },
   "pools": {
     "title": "Pools",
@@ -249,7 +267,15 @@
     "title": "Regeneration index",
     "description": "Description",
     "result": "Result",
-    "regenerationIndexDescription": "Regeneration index description"
+    "regenerationIndexDescription": "Regeneration index description",
+    "level": "Level",
+    "condition": "Condition",
+    "points": "Points",
+    "score": "Regeneration score",
+    "intro": "In an inspection, the inspector counts the area's trees and species. Each count gets a level from the RegenerationIndexRules contract, and the sum of both levels' points is the inspection's regeneration score.",
+    "simulatorTitle": "Simulate the score",
+    "simulatorDescription": "Type a count of trees and species to see the score the contract would assign.",
+    "simulatorNote": "Calculated by the contract's calculateScore function on the Sintrop network."
   },
   "myTokens": {
     "title": "My tokens",
@@ -463,7 +489,10 @@
     "urlCopiedToClipboard": "URL copied to clipboard",
     "errorOnUploadFile": "Error on upload file",
     "selectFile": "Select file",
-    "upload": "Upload"
+    "upload": "Upload to IPFS",
+    "acceptedTypes": "Images or PDF",
+    "uploading": "Uploading…",
+    "uploaded": "File uploaded"
   },
   "txLoading": {
     "confirmInYourWallet": "Confirm in your wallet",
@@ -1131,5 +1160,51 @@
   },
   "offset": {
     "howManyUnitsToOffset": "How many {{unit}} do you want to offset?"
+  },
+  "settingsPage": {
+    "network": "Network (RPC)",
+    "rpcDescription": "The app reads Sintrop blockchain data through a public RPC server. If the default is unstable, you can use another Sintrop network endpoint.",
+    "currentRpc": "RPC in use",
+    "default": "default",
+    "rpcOnline": "Online · {{ms}} ms · block {{block}}",
+    "testAgain": "Test again",
+    "customRpc": "Another RPC endpoint",
+    "testAndSave": "Test and use this RPC",
+    "restoreDefault": "Back to default ({{rpc}})",
+    "rpcSaved": "RPC updated",
+    "rpcRestored": "Default RPC restored",
+    "chainNote": "Only Sintrop network RPCs are accepted (chain ID 250225). Transactions are still sent through your wallet.",
+    "rpcError": {
+      "invalidUrl": "Invalid address. Use an address starting with https://",
+      "timeout": "The RPC did not answer in time.",
+      "unreachable": "Could not connect to this RPC.",
+      "wrongChain": "This RPC is not on the Sintrop network."
+    },
+    "wallet": "Wallet",
+    "connectedWallet": "Connected wallet",
+    "disconnect": "Disconnect wallet",
+    "disconnectTitle": "Disconnect wallet?",
+    "disconnectMessage": "The app stops using this wallet. You can connect the same or another wallet later with the Connect button.",
+    "language": "Language",
+    "checking": "Testing…",
+    "savedRpcs": "Other saved RPCs",
+    "add": "Add",
+    "ipfsDescription": "Servers used to upload files and show photos and documents.",
+    "ipfsToolTitle": "Upload a file to IPFS",
+    "ipfsToolText": "Get the hash of a photo or document to use in transactions."
+  },
+  "txPage": {
+    "title": "Transaction",
+    "block": "Block",
+    "value": "Value",
+    "fee": "Network fee",
+    "rcTransfers": "RC transfers",
+    "notFound": "Transaction not found on this network.",
+    "hashCopied": "Hash copied",
+    "status": {
+      "pending": "Pending",
+      "success": "Confirmed",
+      "failed": "Failed"
+    }
   }
 }
