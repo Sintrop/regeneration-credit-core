@@ -1,5 +1,5 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
-import { useWriteContract } from 'wagmi'
 
 interface AcceptInspectionProps {
   inspectionId: number

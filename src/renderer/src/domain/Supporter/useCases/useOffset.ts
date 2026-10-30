@@ -1,10 +1,11 @@
-import { parseEther } from 'viem'
-import { useWriteContract } from 'wagmi'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 
 import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 
+const INVITER_PERCENTAGE = 5
+
 interface OffsetProps {
-  ammount: number
+  amountWei: bigint
   calculatorItemId: number
   message?: string
 }
@@ -21,10 +22,9 @@ export function useOffset(): ReturnUseOffsetProps {
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
   async function handleOffset(data: OffsetProps): Promise<void> {
-    const commissionPercentage = parseInt(import.meta.env.VITE_COMMISSION_PERCENTAGE)
-    const value = parseEther(data.ammount.toString())
-    const minAmmountToBurn = data.ammount * (1 - commissionPercentage / 100)
-    const minAmmountToBurnParsed = parseEther(minAmmountToBurn.toString())
+    const value = data.amountWei
+    // SupporterRules.INVITER_PERCENTAGE: at most 5% goes to the inviter, the rest must be burned.
+    const minAmmountToBurnParsed = (value * BigInt(100 - INVITER_PERCENTAGE)) / 100n
 
     writeContract({
       address: supporterAddress,

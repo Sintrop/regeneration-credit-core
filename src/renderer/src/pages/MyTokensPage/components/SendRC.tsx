@@ -1,16 +1,16 @@
+import { amountToWei, parseAmountInput } from '@renderer/utils/tokenAmount'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { FormEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { formatUnits, parseEther } from 'viem'
+import { formatUnits } from 'viem'
 import { toast } from 'react-toastify'
-import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useAccount, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
 
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { rcAbi, rcAddress } from '@renderer/services/contracts'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function SendRC(): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [to, setTo] = useState('')
   const [value, setValue] = useState('')
   const [insufficientBalance, setInsufficientBalance] = useState(false)
@@ -36,7 +36,7 @@ export function SendRC(): JSX.Element {
   const balance = data ? parseFloat(formatUnits(BigInt(data as string), 18)) : 0
 
   useEffect(() => {
-    if (parseFloat(value) > balance) {
+    if (parseAmountInput(value, i18n.language) > balance) {
       setInsufficientBalance(true)
     } else {
       setInsufficientBalance(false)
@@ -45,20 +45,16 @@ export function SendRC(): JSX.Element {
 
   async function handleSendTransaction(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
+    const amountWei = amountToWei(value, i18n.language)
+    if (amountWei === null) return
 
     setDisplayLoadingTx(true)
-
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
 
     writeContract({
       address: rcAddress,
       abi: rcAbi,
       functionName: 'transfer',
-      args: [to, parseEther(value)]
+      args: [to, amountWei]
     })
   }
 
@@ -87,7 +83,8 @@ export function SendRC(): JSX.Element {
           placeholder={t('myTokens.typeHere')}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          type="number"
+          type="text"
+          inputMode="decimal"
           required
         />
 

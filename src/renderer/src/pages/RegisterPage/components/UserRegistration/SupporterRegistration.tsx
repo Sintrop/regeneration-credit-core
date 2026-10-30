@@ -1,6 +1,9 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
@@ -9,7 +12,6 @@ import { useTranslation } from 'react-i18next'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   name: string
@@ -17,8 +19,6 @@ interface Props {
 }
 
 export function SupporterRegistration({ name, success }: Props): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState('')
@@ -79,8 +79,6 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
 
     setDisplayLoadingTx(true)
 
-    switchChain()
-
     writeContract({
       address: supporterAddress,
       abi: supporterAbi,
@@ -94,10 +92,11 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
       <p className="text-gray-300 text-sm mt-5">{t('description')}</p>
       <input
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => setDescription(clampToBytes(e.target.value, 200))}
         className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
         placeholder={t('typeHere')}
       />
+      <ByteCounter text={description} max={200} />
 
       <ProofPhoto proofPhoto={profilePhoto} onChange={setProfilePhoto} labelProfilePhoto />
 

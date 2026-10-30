@@ -1,20 +1,20 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddCalculatorItem({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
   const [inputUnit, setInputUnit] = useState('')
@@ -33,8 +33,6 @@ export function AddCalculatorItem({
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore
@@ -62,35 +60,36 @@ export function AddCalculatorItem({
         value={inputTitle}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
-        onChange={(e) => setInputTitle(e.target.value)}
-        maxLength={35}
+        onChange={(e) => setInputTitle(clampToBytes(e.target.value, 35))}
       />
+      <ByteCounter text={inputTitle} max={35} />
 
       <p className="text-sm mt-3 text-gray-300">{t('justification')}:</p>
       <input
         value={inputJustification}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
-        onChange={(e) => setInputJustification(e.target.value)}
-        maxLength={350}
+        onChange={(e) => setInputJustification(clampToBytes(e.target.value, 300))}
       />
+      <ByteCounter text={inputJustification} max={300} />
 
       <p className="text-sm mt-3 text-gray-300">{t('unit')}:</p>
       <input
         value={inputUnit}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
-        onChange={(e) => setInputUnit(e.target.value)}
-        maxLength={20}
+        onChange={(e) => setInputUnit(clampToBytes(e.target.value, 20))}
       />
+      <ByteCounter text={inputUnit} max={20} />
 
       <p className="text-sm mt-3 text-gray-300">{t('carbonImpact')}:</p>
       <input
         value={inputCarbonImpact}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('typeHere')}
-        onChange={(e) => setInputCarbonImpact(e.target.value)}
-        type="number"
+        onChange={(e) => setInputCarbonImpact(e.target.value.replace(/\D/g, ''))}
+        type="text"
+        inputMode="numeric"
       />
 
       <SendTransactionButton

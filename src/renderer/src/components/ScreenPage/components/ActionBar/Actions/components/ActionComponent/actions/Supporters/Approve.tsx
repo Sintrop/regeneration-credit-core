@@ -1,3 +1,4 @@
+import { amountToWei, parseAmountInput } from '@renderer/utils/tokenAmount'
 import { useEffect, useState } from 'react'
 import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
@@ -7,19 +8,17 @@ import { TransactionLoading } from '@renderer/components/TransactionLoading/Tran
 
 import RCLogo from '@renderer/assets/images/rc.png'
 import { useBalance } from '@renderer/domain/RegenerationCredit/useCases/useBalance'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   refetchAllowance: () => void
 }
 export function Approve({ refetchAllowance }: Props): JSX.Element {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
   const [insufficientBalance, setInsufficientBalance] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
   const { balance } = useBalance()
   const { approve, isError, isPending, error, hash } = useApprove()
-  const { switchChain } = useSwitchChain()
 
   const {
     isLoading,
@@ -35,7 +34,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
 
   function checkInsufficientBalance(): void {
     if (!inputAmmount.trim()) setInsufficientBalance(false)
-    if (parseFloat(inputAmmount) > balance) {
+    if (parseAmountInput(inputAmmount, i18n.language) > balance) {
       setInsufficientBalance(true)
     } else {
       setInsufficientBalance(false)
@@ -46,8 +45,9 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
     if (!inputAmmount.trim()) return
 
     setDisplayLoadingTx(true)
-    switchChain()
-    approve(inputAmmount)
+    const amountWei = amountToWei(inputAmmount, i18n.language)
+    if (amountWei === null) return
+    approve(amountWei)
   }
 
   function success(): void {
@@ -77,7 +77,8 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
           className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
           placeholder={t('common.typeHere')}
           onChange={(e) => setInputAmmount(e.target.value)}
-          type="number"
+          type="text"
+          inputMode="decimal"
         />
         {insufficientBalance && (
           <p className="text-red-500 mt-2">{t('actions.insufficientBalance')}</p>

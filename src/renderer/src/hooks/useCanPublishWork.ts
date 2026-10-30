@@ -1,3 +1,4 @@
+import { useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import { useEffect, useState } from 'react'
 import { formatUnits } from 'viem'
 import { useBlockNumber } from 'wagmi'
@@ -11,6 +12,7 @@ interface Props {
   lastPublishedAt?: number
 }
 export function useCanPublishWork({ lastPublishedAt }: Props): ReturnUseCanPublishWork {
+  const { rules } = useProtocolRules()
   const { data: responseBlock } = useBlockNumber()
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
@@ -26,15 +28,15 @@ export function useCanPublishWork({ lastPublishedAt }: Props): ReturnUseCanPubli
     } else {
       setIsLoading(false)
     }
-  }, [blockNumber, lastPublishedAt])
+  }, [blockNumber, lastPublishedAt, rules])
 
   function checkCanPublish(): void {
     if (lastPublishedAt === 0) {
       setCanPublish(true)
       return
     }
-    if (!lastPublishedAt) return
-    const timeBetweenWorks = parseInt(import.meta.env.VITE_TIME_BETWEEN_WORKS)
+    if (!lastPublishedAt || !rules) return
+    const timeBetweenWorks = rules.timeBetweenWorks
     const canPublishBlock = lastPublishedAt + timeBetweenWorks
 
     if (canPublishBlock < blockNumber) {

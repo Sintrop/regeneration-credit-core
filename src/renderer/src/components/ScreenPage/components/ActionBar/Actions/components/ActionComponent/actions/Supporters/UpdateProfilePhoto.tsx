@@ -1,6 +1,7 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
@@ -8,11 +9,8 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ImageInput } from '@renderer/components/Input/ImageInput'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [image, setImage] = useState<string>()
@@ -37,8 +35,6 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
 
     if (response.success) {
       setDisplayLoadingTx(true)
-
-      switchChain()
 
       writeContract({
         //@ts-ignore

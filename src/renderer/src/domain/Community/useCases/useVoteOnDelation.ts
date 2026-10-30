@@ -1,5 +1,5 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { userAbi, userAddress } from '@renderer/services/contracts'
-import { useWriteContract } from 'wagmi'
 
 interface VoteOnDelationProps {
   delationId: number

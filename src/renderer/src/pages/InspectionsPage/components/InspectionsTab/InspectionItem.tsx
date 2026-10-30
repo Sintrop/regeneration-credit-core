@@ -1,3 +1,4 @@
+import { useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import { formatUnits } from 'viem'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { StatusInspection } from './StatusInspection'
@@ -24,8 +25,9 @@ export function InspectionItem({ id }: Props): JSX.Element {
   const [showAccept, setShowAccept] = useState(false)
 
   const { blockNumber } = useCurrentBlock()
+  const { rules } = useProtocolRules()
 
-  const expireIn = parseInt(import.meta.env.VITE_BLOCKS_TO_EXPIRE_ACCEPTED_INSPECTION)
+  const expireIn = rules?.blocksToExpireAcceptedInspection ?? Infinity
   const inspectionStatus =
     inspection.status === 1
       ? inspection.acceptedAt + expireIn < blockNumber
@@ -33,8 +35,8 @@ export function InspectionItem({ id }: Props): JSX.Element {
         : 1
       : inspection.status
   const createdAt = inspection?.createdAt
-  const delayToAccept = parseInt(import.meta.env.VITE_ACCEPT_INSPECTION_DELAY_BLOCKS)
-  const canAccept = createdAt + delayToAccept < blockNumber
+  const delayToAccept = rules?.acceptInspectionDelayBlocks ?? 0
+  const canAccept = !!rules && createdAt + delayToAccept < blockNumber
 
   function handleGoToInspectionDetails(): void {
     navigate(`/resource-details/inspection/${id}`)

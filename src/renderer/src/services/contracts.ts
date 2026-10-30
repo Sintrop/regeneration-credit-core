@@ -24,31 +24,29 @@ import RcIndexContract from '../../../data/abis/mainnet/RegenerationIndexRules.j
 
 import { ContractListProps } from '@renderer/types/contract'
 
-//Address contracts
-export const rcAddress = import.meta.env.VITE_RC_ADDRESS
-export const rcImpactAddress = import.meta.env.VITE_RC_IMPACT_ADDRESS
-export const userAddress = import.meta.env.VITE_COMMUNITY_ADDRESS
-export const regeneratorAddress = import.meta.env.VITE_REGENERATOR_ADDRESS
-export const regeneratorPoolAddress = import.meta.env.VITE_REGENERATOR_POOL_ADDRESS
-export const inspectorAddress = import.meta.env.VITE_INSPECTOR_ADDRESS
-export const inspectorPoolAddress = import.meta.env.VITE_INSPECTOR_POOL_ADDRESS
-export const researcherAddress = import.meta.env.VITE_RESEARCHER_ADDRESS
-export const researcherPoolAddress = import.meta.env.VITE_RESEARCHER_POOL_ADDRESS
-export const developerAddress = import.meta.env.VITE_DEVELOPER_ADDRESS
-export const developerPoolAddress = import.meta.env.VITE_DEVELOPER_POOL_ADDRESS
-export const contributorAddress = import.meta.env.VITE_CONTRIBUTOR_ADDRESS
-export const contributorPoolAddress = import.meta.env.VITE_CONTRIBUTOR_POOL_ADDRESS
-export const activistAddress = import.meta.env.VITE_ACTIVIST_ADDRESS
-export const activistPoolAddress = import.meta.env.VITE_ACTIVIST_POOL_ADDRESS
-export const supporterAddress = import.meta.env.VITE_SUPPORTER_ADDRESS
-export const inspectionAddress = import.meta.env.VITE_INSPECTION_ADDRESS
-export const invitationAddress = import.meta.env.VITE_INVITATION_ADDRESS
-export const voteAddress = import.meta.env.VITE_VOTE_ADDRESS
-export const validationAddress = import.meta.env.VITE_VALIDATION_ADDRESS
-export const validationPoolAddress = import.meta.env.VITE_VALIDATION_POOL_ADDRESS
-export const rcIndexAddress = import.meta.env.VITE_RC_INDEX_ADDRESS
-
-export const supporterPoolAddress = import.meta.env.VITE_RC_ADDRESS
+// Mainnet addresses, core-contracts/deployed_contracts/mainnet
+export const rcAddress = '0x24fD0C0eA35F00625094795aa105fcE15cb6f1Ed'
+export const rcImpactAddress = '0x323b2162a7E8cB4b718c03eFd8BacE1C294C55F5'
+export const userAddress = '0xec19012cA2C396EF3390E726095e25a794f34150'
+export const regeneratorAddress = '0x984Add883400C6E11241B9109Db59484917dF566'
+export const regeneratorPoolAddress = '0xFC222077860d34dEfA62Dd8A848703025B7b75f7'
+export const inspectorAddress = '0x753B8cAea6D0BCF23DD29aF0dF2e2E9d0d494E2f'
+export const inspectorPoolAddress = '0x3d7C162cf5c18432c3bb8535a96046A5e4E95ABB'
+export const researcherAddress = '0x74A6eff5c2E696F683d878710F840ce4c652b4f6'
+export const researcherPoolAddress = '0x659962e70B2cD88886461e8165D56fA4C5CB4278'
+export const developerAddress = '0x8C2b66D1aB42ebf226fe88a815385D3ce4E752CB'
+export const developerPoolAddress = '0xCd74352812802a476161815daD31A0197BC65BC5'
+export const contributorAddress = '0x1eA2264b2B881CB8A12f799dbf9A6926c6c8Fba1'
+export const contributorPoolAddress = '0xfc2A8ee64FF2a5E26cb150Ffc39e0C1B77b296B4'
+export const activistAddress = '0xe6D42dFd5c38f7aC2D81bdfC73cd7e770f235841'
+export const activistPoolAddress = '0x138EaB1427437F5B22E834863294a13b5CB9d175'
+export const supporterAddress = '0x69a5c30Df857E7AB58fe6f5d6c7F29E0FbEc27C1'
+export const inspectionAddress = '0x13A40b1Cacb10A065AdC19e98270a9CC0f583281'
+export const invitationAddress = '0xD9B4Fa68b7c42cbA616A809c3F791F5f846906a3'
+export const voteAddress = '0xA1235c6f57C330CF564A94E3fdE4e5Bb6F588029'
+export const validationAddress = '0xB6b72b88227E81a5b634697a09fffD082Ef22Da2'
+export const validationPoolAddress = '0xA9E14EefACeb8b9E83592F6BC692BfdAA6F7f1F1'
+export const rcIndexAddress = '0xcd42a990B7A2DA6e529a1B89CCc2439b398cbF4A'
 
 //Abis contracts
 export const rcAbi = RcTokenContract.abi

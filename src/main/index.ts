@@ -8,11 +8,13 @@ import icon from '../../resources/icon.png'
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1280,
+    height: 820,
+    minWidth: 1100,
+    minHeight: 700,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : { }),
+    ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false

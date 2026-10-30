@@ -1,3 +1,4 @@
+import { useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import {
   userAbi,
   userAddress,
@@ -27,6 +28,7 @@ export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
   const [differentEra, setDifferentEra] = useState<boolean>(false)
   const [canVoteIn, setCanVoteIn] = useState<number>(0)
 
+  const { rules } = useProtocolRules()
   const { data: responseBlock } = useBlockNumber()
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
@@ -42,11 +44,10 @@ export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
     : 0
 
   useEffect(() => {
-    const invitationDelay = parseInt(import.meta.env.VITE_INVITATION_DELAY_BLOCKS)
-    const nextInviteBlock = lastVote + invitationDelay
-
-    setCanVoteIn(nextInviteBlock - blockNumber)
-  }, [blockNumber, lastVote])
+    if (!rules) return
+    // ValidationRules.waitedTimeBetweenVotes: lastVote + timeBetweenVotes
+    setCanVoteIn(lastVote + rules.timeBetweenVotes - blockNumber)
+  }, [blockNumber, lastVote, rules])
 
   const { data: responseGetUser, isLoading: loadingUser } = useReadContract({
     address: userAddress,

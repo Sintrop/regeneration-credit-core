@@ -1,5 +1,6 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { invitationAddress, invitationAbi } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
@@ -8,7 +9,6 @@ import { useCanInvite } from '@renderer/hooks/useCanInvite'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
@@ -19,8 +19,6 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
     canInviteThisUserType,
     isLoading: loadingCanInvite
   } = useCanInvite({ userTypeToInvite })
-
-  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -39,8 +37,6 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
       userTypeToInvite === 1 || userTypeToInvite === 2 ? 'inviteRegeneratorInspector' : 'invite'
 
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       address: invitationAddress,

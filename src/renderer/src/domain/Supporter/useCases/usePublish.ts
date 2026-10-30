@@ -1,14 +1,15 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { useState } from 'react'
-import { parseEther } from 'viem'
-import { useWriteContract } from 'wagmi'
 
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 
+const INVITER_PERCENTAGE = 5
+
 interface PublishProps {
   description: string
-  ammount: number
+  amountWei: bigint
   image?: string
 }
 
@@ -31,11 +32,9 @@ export function usePublish(): ReturnUsePublishProps {
 
   async function handlePublish(data: PublishProps): Promise<void> {
     setUploadedError(false)
-    const commissionPercentage = parseInt(import.meta.env.VITE_COMMISSION_PERCENTAGE)
-    const value = parseEther(data.ammount.toString())
-
-    const minAmmountToBurn = data.ammount * (1 - commissionPercentage / 100)
-    const minAmmountToBurnParsed = parseEther(minAmmountToBurn.toString())
+    const value = data.amountWei
+    // SupporterRules.INVITER_PERCENTAGE: at most 5% goes to the inviter, the rest must be burned.
+    const minAmmountToBurnParsed = (value * BigInt(100 - INVITER_PERCENTAGE)) / 100n
 
     let content = ''
 

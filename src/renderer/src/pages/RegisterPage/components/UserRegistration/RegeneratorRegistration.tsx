@@ -1,9 +1,12 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useRef } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -14,7 +17,6 @@ import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
@@ -29,8 +31,6 @@ interface CoordinateProps {
 }
 
 export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
@@ -213,8 +213,6 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
     setDisplayLoadingTx(true)
 
-    switchChain()
-
     writeContract({
       address: regeneratorAddress,
       abi: regeneratorAbi,
@@ -241,10 +239,11 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
       <p className="text-gray-300 text-sm">{t('register.projectDescription')}</p>
       <input
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => setDescription(clampToBytes(e.target.value, 200))}
         className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
         placeholder={t('register.typeHere')}
       />
+      <ByteCounter text={description} max={200} />
 
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 

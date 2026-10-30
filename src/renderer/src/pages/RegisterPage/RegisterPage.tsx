@@ -1,3 +1,5 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
@@ -98,10 +100,11 @@ export function RegisterPage(): JSX.Element {
             <p className="text-gray-300 text-sm mt-5">{t('register.yourName')}</p>
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(clampToBytes(e.target.value, 50))}
               className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
               placeholder={t('register.typeHere')}
             />
+            <ByteCounter text={name} max={50} />
 
             <UserRegistration
               userType={userType}

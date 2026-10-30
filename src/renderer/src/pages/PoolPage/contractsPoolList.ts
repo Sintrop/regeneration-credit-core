@@ -1,3 +1,4 @@
+import { POOL_FUNDS } from '@renderer/services/poolFunds'
 import {
   regeneratorAddress,
   regeneratorAbi,
@@ -29,61 +30,53 @@ import {
   validationPoolAbi
 } from '@renderer/services/contracts'
 
-const REGENERATOR_POOL_FUNDS = import.meta.env.VITE_REGENERATOR_POOL_FUNDS
-const INSPECTOR_POOL_FUNDS = import.meta.env.VITE_INSPECTOR_POOL_FUNDS
-const RESEARCHER_POOL_FUNDS = import.meta.env.VITE_RESEARCHER_POOL_FUNDS
-const DEVELOPER_POOL_FUNDS = import.meta.env.VITE_DEVELOPER_POOL_FUNDS
-const CONTRIBUTOR_POOL_FUNDS = import.meta.env.VITE_CONTRIBUTOR_POOL_FUNDS
-const ACTIVIST_POOL_FUNDS = import.meta.env.VITE_ACTIVIST_POOL_FUNDS
-const VALIDATION_POOL_FUNDS = import.meta.env.VITE_VALIDATION_POOL_FUNDS
-
 export const contractsPool = {
   regenerator: {
     addressMainnet: regeneratorPoolAddress,
     abiMainnet: regeneratorPoolAbi,
-    poolFunds: BigInt(REGENERATOR_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.REGENERATOR,
     userAddressMainnet: regeneratorAddress,
     userAbiMainnet: regeneratorAbi
   },
   inspector: {
     addressMainnet: inspectorPoolAddress,
     abiMainnet: inspectorPoolAbi,
-    poolFunds: BigInt(INSPECTOR_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.INSPECTOR,
     userAddressMainnet: inspectorAddress,
     userAbiMainnet: inspectorAbi
   },
   researcher: {
     addressMainnet: researcherPoolAddress,
     abiMainnet: researcherPoolAbi,
-    poolFunds: BigInt(RESEARCHER_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.RESEARCHER,
     userAddressMainnet: researcherAddress,
     userAbiMainnet: researcherAbi
   },
   developer: {
     addressMainnet: developerPoolAddress,
     abiMainnet: developerPoolAbi,
-    poolFunds: BigInt(DEVELOPER_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.DEVELOPER,
     userAddressMainnet: developerAddress,
     userAbiMainnet: developerAbi
   },
   contributor: {
     addressMainnet: contributorPoolAddress,
     abiMainnet: contributorPoolAbi,
-    poolFunds: BigInt(CONTRIBUTOR_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.CONTRIBUTOR,
     userAddressMainnet: contributorAddress,
     userAbiMainnet: contributorAbi
   },
   activist: {
     addressMainnet: activistPoolAddress,
     abiMainnet: activistPoolAbi,
-    poolFunds: BigInt(ACTIVIST_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.ACTIVIST,
     userAddressMainnet: activistAddress,
     userAbiMainnet: activistAbi
   },
   validation: {
     addressMainnet: validationPoolAddress,
     abiMainnet: validationPoolAbi,
-    poolFunds: BigInt(VALIDATION_POOL_FUNDS),
+    poolFunds: POOL_FUNDS.VALIDATION,
     userAddressMainnet: validationAddress,
     userAbiMainnet: validationAbi
   }

@@ -18,7 +18,8 @@
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
     "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "build:linux": "electron-vite build && electron-builder --linux",
+    "test": "vitest run"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
@@ -68,6 +69,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.7.3",
-    "vite": "^6.1.0"
+    "vite": "^6.1.0",
+    "vitest": "^3.2.4"
   }
 }

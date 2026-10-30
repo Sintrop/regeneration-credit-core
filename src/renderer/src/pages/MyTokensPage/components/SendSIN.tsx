@@ -1,19 +1,19 @@
+import { amountToWei, parseAmountInput } from '@renderer/utils/tokenAmount'
+import { useSendTransaction } from '@renderer/hooks/useSintropTransaction'
 import { FormEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { formatUnits, parseEther } from 'viem'
-import { useAccount, useBalance, useWaitForTransactionReceipt, useSendTransaction } from 'wagmi'
+import { formatUnits } from 'viem'
+import { useAccount, useBalance, useWaitForTransactionReceipt } from 'wagmi'
 import { toast } from 'react-toastify'
 
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function SendSIN(): JSX.Element {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [to, setTo] = useState('')
   const [value, setValue] = useState('')
   const [insufficientBalance, setInsufficientBalance] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
   const { address, isDisconnected } = useAccount()
   const { data } = useBalance({ address })
 
@@ -29,7 +29,7 @@ export function SendSIN(): JSX.Element {
   const balance = data ? parseFloat(formatUnits(data.value, 18)) : 0
 
   useEffect(() => {
-    if (parseFloat(value) > balance) {
+    if (parseAmountInput(value, i18n.language) > balance) {
       setInsufficientBalance(true)
     } else {
       setInsufficientBalance(false)
@@ -38,16 +38,12 @@ export function SendSIN(): JSX.Element {
 
   async function handleSendTransaction(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
+    const amountWei = amountToWei(value, i18n.language)
+    if (amountWei === null) return
 
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
-
-    sendTransaction({ to: to as `0x${string}`, value: parseEther(value) })
+    sendTransaction({ to: to as `0x${string}`, value: amountWei })
   }
 
   function transactionSuccess(): void {
@@ -75,7 +71,8 @@ export function SendSIN(): JSX.Element {
           placeholder={t('myTokens.typeHere')}
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          type="number"
+          type="text"
+          inputMode="decimal"
           required
         />
 

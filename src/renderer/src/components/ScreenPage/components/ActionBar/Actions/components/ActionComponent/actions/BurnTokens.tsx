@@ -1,19 +1,20 @@
+import { amountToWei } from '@renderer/utils/tokenAmount'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { useState } from 'react'
-import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useAccount, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
 import { rcAbi, rcAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { formatUnits, parseEther } from 'viem'
+import { formatUnits } from 'viem'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   close: () => void
 }
 export function BurnTokens({ close }: Props): JSX.Element {
   const { address } = useAccount()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [input, setInput] = useState('')
 
   const { data } = useReadContract({
@@ -22,8 +23,6 @@ export function BurnTokens({ close }: Props): JSX.Element {
     functionName: 'balanceOf',
     args: [address]
   })
-
-  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -36,11 +35,10 @@ export function BurnTokens({ close }: Props): JSX.Element {
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
   async function handleSendTransaction(): Promise<void> {
-    const value = parseEther(input, 'wei')
+    const value = amountToWei(input, i18n.language)
+    if (value === null || value === 0n) return
 
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       address: rcAddress,
@@ -71,7 +69,8 @@ export function BurnTokens({ close }: Props): JSX.Element {
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
         onChange={(e) => setInput(e.target.value)}
-        type="number"
+        type="text"
+        inputMode="decimal"
       />
 
       <SendTransactionButton

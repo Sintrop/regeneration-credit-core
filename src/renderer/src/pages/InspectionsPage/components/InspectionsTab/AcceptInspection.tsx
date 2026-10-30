@@ -1,8 +1,8 @@
+import { useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useAcceptInspection } from '@renderer/domain/Inspection/useCases/useAcceptInspection'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 import {
   regeneratorAbi,
   regeneratorAddress,
@@ -27,7 +27,6 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const [canAccept, setCanAccept] = useState<boolean>(false)
   const [canAcceptIn, setCanAcceptIn] = useState<number>(0)
   const [waitNextEraToAccept, setWaitNextEraToAccept] = useState(false)
-  const { switchChain } = useSwitchChain()
 
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
@@ -61,13 +60,16 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   } = useWaitForTransactionReceipt({ hash })
   const errorMessage = error ? error : isErrorTx ? errorTx.message : ''
 
+  const { rules } = useProtocolRules()
+
   useEffect(() => {
     checkIfCanAcceptInspection()
-  }, [blockNumber, createdAt, nextEraIn])
+  }, [blockNumber, createdAt, nextEraIn, rules])
 
   function checkIfCanAcceptInspection(): void {
-    const blocksToExpire = parseInt(import.meta.env.VITE_BLOCKS_TO_EXPIRE_ACCEPTED_INSPECTION)
-    const securityBlocks = parseInt(import.meta.env.VITE_SECURITY_BLOCKS_TO_VALIDATOR_ANALYSIS)
+    if (!rules) return
+    const blocksToExpire = rules.blocksToExpireAcceptedInspection
+    const securityBlocks = rules.securityBlocksToValidation
 
     if (nextEraIn < blocksToExpire) {
       setWaitNextEraToAccept(true)
@@ -81,7 +83,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
       return
     }
 
-    const delayToAccept = parseInt(import.meta.env.VITE_ACCEPT_INSPECTION_DELAY_BLOCKS)
+    const delayToAccept = rules.acceptInspectionDelayBlocks
     const blockCanAccept = createdAt + delayToAccept
 
     if (blockNumber > blockCanAccept) {
@@ -95,7 +97,6 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   async function handleAcceptInspection(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    switchChain()
     acceptInspection({ inspectionId })
   }
 

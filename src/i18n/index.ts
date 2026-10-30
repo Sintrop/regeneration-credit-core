@@ -12,9 +12,21 @@ const resources = {
   }
 }
 
+/** Most users are in Brazil, so a fresh install starts in Portuguese; the choice in Settings is saved and wins after that. */
+const DEFAULT_LANGUAGE = 'pt'
+
+function savedLanguage(): string {
+  try {
+    return localStorage.getItem('language') || DEFAULT_LANGUAGE
+  } catch {
+    return DEFAULT_LANGUAGE
+  }
+}
+
 const config = {
   resources: resources,
-  lng: 'en',
+  lng: savedLanguage(),
+  fallbackLng: 'en',
   interpolation: {
     escapeValue: false
   }

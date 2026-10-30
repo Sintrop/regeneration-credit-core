@@ -1,11 +1,13 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { userAddress, userAbi } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   close: () => void
@@ -15,8 +17,6 @@ export function AddDelation({ close }: Props): JSX.Element {
   const [inputAddress, setInputAddress] = useState('')
   const [inputTitle, setInputTitle] = useState('')
   const [inputTestimony, setInputTestimony] = useState('')
-
-  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -30,8 +30,6 @@ export function AddDelation({ close }: Props): JSX.Element {
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       address: userAddress,
@@ -65,18 +63,18 @@ export function AddDelation({ close }: Props): JSX.Element {
         value={inputTitle}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
-        onChange={(e) => setInputTitle(e.target.value)}
-        maxLength={100}
+        onChange={(e) => setInputTitle(clampToBytes(e.target.value, 100))}
       />
+      <ByteCounter text={inputTitle} max={100} />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.reportTestimony')}:</p>
       <input
         value={inputTestimony}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
-        onChange={(e) => setInputTestimony(e.target.value)}
-        maxLength={300}
+        onChange={(e) => setInputTestimony(clampToBytes(e.target.value, 300))}
       />
+      <ByteCounter text={inputTestimony} max={300} />
 
       <SendTransactionButton
         label={t('actions.report')}

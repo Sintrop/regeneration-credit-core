@@ -1,9 +1,9 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 import { ContractListProps, MethodAbiProps } from '@renderer/types/contract'
 import { useEffect, useState } from 'react'
-import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 
 interface Props {
   method: MethodAbiProps
@@ -12,7 +12,6 @@ interface Props {
 }
 
 export function WriteMethodContract({ contract, method, args }: Props): JSX.Element {
-  const { switchChain } = useSwitchChain()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -25,8 +24,6 @@ export function WriteMethodContract({ contract, method, args }: Props): JSX.Elem
 
   useEffect(() => {
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore

@@ -1,3 +1,4 @@
+import { ACTIVIST_INVITE_DELAY_BLOCKS, useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import {
   invitationAbi,
   invitationAddress,
@@ -38,6 +39,16 @@ export function useCanInvite({ userTypeToInvite }: Props): ReturnUseCanInvite {
     ? parseInt(formatUnits(BigInt(responseLastInvite as string), 0))
     : 0
 
+  // Activists inviting regenerators or inspectors use InvitationRules.lastInviteActivist and ACTIVIST_DELAY_BLOCKS.
+  const activistInvite = userType === 6 && (userTypeToInvite === 1 || userTypeToInvite === 2)
+  const { data: responseLastActivistInvite } = useReadContract({
+    address: invitationAddress,
+    abi: invitationAbi,
+    functionName: 'lastInviteActivist',
+    args: [address]
+  })
+  const { rules } = useProtocolRules(userType)
+
   const { data: responseBlock } = useBlockNumber()
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
@@ -54,11 +65,13 @@ export function useCanInvite({ userTypeToInvite }: Props): ReturnUseCanInvite {
     } else {
       setIsLoading(false)
     }
-  }, [userType, blockNumber, lastInviteBlock, userTypeToInvite])
+  }, [userType, blockNumber, lastInviteBlock, responseLastActivistInvite, userTypeToInvite, rules])
 
   function checkCanInvite(): void {
-    const timeBetweenInvite = parseInt(import.meta.env.VITE_INVITATION_DELAY_BLOCKS)
-    const canInviteBlock = lastInviteBlock + timeBetweenInvite
+    if (!rules) return
+    const lastBlock = activistInvite ? Number(responseLastActivistInvite ?? 0) : lastInviteBlock
+    const delay = activistInvite ? ACTIVIST_INVITE_DELAY_BLOCKS : rules.invitationDelayBlocks
+    const canInviteBlock = lastBlock + delay
 
     const userTypesAvailableToInvite = userTypeICanInvite[userType as UserTypeICanInviteType]
     const userTypeToInviteFinded = userTypesAvailableToInvite.find(

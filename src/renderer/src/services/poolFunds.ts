@@ -1,0 +1,12 @@
+const RC = 10n ** 18n
+
+/** TOTAL_POOL_TOKENS of each *Pool contract, in wei. */
+export const POOL_FUNDS = {
+  REGENERATOR: 750_000_000n * RC,
+  INSPECTOR: 230_000_000n * RC,
+  RESEARCHER: 40_000_000n * RC,
+  DEVELOPER: 40_000_000n * RC,
+  CONTRIBUTOR: 40_000_000n * RC,
+  ACTIVIST: 40_000_000n * RC,
+  VALIDATION: 10_000_000n * RC
+}

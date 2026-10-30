@@ -1,13 +1,15 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useAccount, useWaitForTransactionReceipt } from 'wagmi'
 import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
 import { toast } from 'react-toastify'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   contributionId: number
@@ -16,8 +18,6 @@ interface Props {
 }
 
 export function VoteContribution({ close, contributionId, publishedEra }: Props): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
   const { address } = useAccount()
@@ -50,8 +50,6 @@ export function VoteContribution({ close, contributionId, publishedEra }: Props)
     const abi = contributorAbi
 
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       abi,
@@ -100,11 +98,11 @@ export function VoteContribution({ close, contributionId, publishedEra }: Props)
                         <p className="text-gray-300 text-sm mt-5">{t('common.justification')}</p>
                         <input
                           value={justification}
-                          onChange={(e) => setJustification(e.target.value)}
+                          onChange={(e) => setJustification(clampToBytes(e.target.value, 300))}
                           placeholder={t('common.typeHere')}
                           className="w-full rounded-2xl bg-container-secondary px-3 text-white h-10"
-                          maxLength={300}
                         />
+                        <ByteCounter text={justification} max={300} />
 
                         <SendTransactionButton
                           label={t('vote.vote')}

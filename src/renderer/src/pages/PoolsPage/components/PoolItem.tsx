@@ -1,3 +1,4 @@
+import { POOL_FUNDS } from '@renderer/services/poolFunds'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
@@ -41,63 +42,55 @@ export function PoolItem({ poolName }: Props): JSX.Element {
   )
 }
 
-const REGENERATOR_POOL_FUNDS = import.meta.env.VITE_REGENERATOR_POOL_FUNDS
-const INSPECTOR_POOL_FUNDS = import.meta.env.VITE_INSPECTOR_POOL_FUNDS
-const RESEARCHER_POOL_FUNDS = import.meta.env.VITE_RESEARCHER_POOL_FUNDS
-const DEVELOPER_POOL_FUNDS = import.meta.env.VITE_DEVELOPER_POOL_FUNDS
-const CONTRIBUTOR_POOL_FUNDS = import.meta.env.VITE_CONTRIBUTOR_POOL_FUNDS
-const ACTIVIST_POOL_FUNDS = import.meta.env.VITE_ACTIVIST_POOL_FUNDS
-const VALIDATION_POOL_FUNDS = import.meta.env.VITE_VALIDATION_POOL_FUNDS
-
 const pools = {
   regenerator: {
     title: 'pools.regeneratorsPool',
     description: 'pools.descRegeneratorPool',
     path: '/pools/regenerator',
     icon: null,
-    poolFunds: BigInt(REGENERATOR_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.REGENERATOR
   },
   inspector: {
     title: 'pools.inspectorsPool',
     description: 'pools.descInspectorsPool',
     path: '/pools/inspector',
     icon: null,
-    poolFunds: BigInt(INSPECTOR_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.INSPECTOR
   },
   researcher: {
     title: 'pools.researchersPool',
     description: 'pools.descResearchersPool',
     path: '/pools/researcher',
     icon: null,
-    poolFunds: BigInt(RESEARCHER_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.RESEARCHER
   },
   developer: {
     title: 'pools.developersPool',
     description: 'pools.descDevelopersPool',
     path: '/pools/developer',
     icon: null,
-    poolFunds: BigInt(DEVELOPER_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.DEVELOPER
   },
   contributor: {
     title: 'pools.contributorsPool',
     description: 'pools.descContributorsPool',
     path: '/pools/contributor',
     icon: null,
-    poolFunds: BigInt(CONTRIBUTOR_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.CONTRIBUTOR
   },
   activist: {
     title: 'pools.activistsPool',
     description: 'pools.descActivistsPool',
     path: '/pools/activist',
     icon: null,
-    poolFunds: BigInt(ACTIVIST_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.ACTIVIST
   },
   validation: {
     title: 'pools.validationPool',
     description: 'pools.descValidationPool',
     path: '/pools/validation',
     icon: null,
-    poolFunds: BigInt(VALIDATION_POOL_FUNDS)
+    poolFunds: POOL_FUNDS.VALIDATION
   }
 }
 

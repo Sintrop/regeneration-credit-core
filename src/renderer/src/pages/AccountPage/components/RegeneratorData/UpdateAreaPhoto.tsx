@@ -1,9 +1,10 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdClose } from 'react-icons/md'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 
 interface Props {
   updated: () => void

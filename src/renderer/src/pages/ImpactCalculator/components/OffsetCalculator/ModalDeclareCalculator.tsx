@@ -1,8 +1,9 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CalculatorItemProps } from '@renderer/types/researcher'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'

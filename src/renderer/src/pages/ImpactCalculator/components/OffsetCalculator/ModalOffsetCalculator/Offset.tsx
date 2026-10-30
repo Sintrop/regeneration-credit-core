@@ -1,3 +1,6 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { amountToWei, parseAmountInput } from '@renderer/utils/tokenAmount'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 import RcTokenImg from '@renderer/assets/images/rc.png'
 import { useEffect, useState } from 'react'
@@ -8,7 +11,6 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useOffset } from '@renderer/domain/Supporter/useCases/useOffset'
 import { useWaitForTransactionReceipt } from 'wagmi'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   item: CalculatorItemProps
@@ -17,9 +19,7 @@ interface Props {
   handleApproveMore: () => void
 }
 export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
-
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { carbonPerToken } = useImpactPerToken()
   const [inputAmmount, setInputAmmount] = useState('')
   const [inputMessage, setInputMessage] = useState('')
@@ -47,7 +47,7 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
 
   function checkInsufficientAllowed(): void {
     if (!inputAmmount.trim()) setInsufficientAllowed(false)
-    if (parseFloat(inputAmmount) > tokensAllowed) {
+    if (parseAmountInput(inputAmmount, i18n.language) > tokensAllowed) {
       setInsufficientAllowed(true)
     } else {
       setInsufficientAllowed(false)
@@ -61,7 +61,7 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
     }
 
     const itemImpact = parseInt(formatUnits(BigInt(item.carbonImpact), 0))
-    const totalImpact = parseFloat(quantity) * itemImpact
+    const totalImpact = parseAmountInput(quantity, i18n.language) * itemImpact
     const result = totalImpact / carbonPerToken
     setMustCompensate(result === Infinity ? 0 : result)
   }
@@ -69,14 +69,10 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
-
+    const amountWei = amountToWei(inputAmmount, i18n.language)
+    if (amountWei === null) return
     offset({
-      ammount: parseFloat(inputAmmount),
+      amountWei,
       calculatorItemId: item.id,
       message: inputMessage
     })
@@ -97,7 +93,8 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
         {item.item} ({item.unit})
       </p>
       <input
-        type="number"
+        type="text"
+        inputMode="decimal"
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
         className="w-full h-10 rounded-2xl px-3 text-white bg-container-secondary"
@@ -139,7 +136,8 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
           className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
           placeholder={t('common.typeHere')}
           onChange={(e) => setInputAmmount(e.target.value)}
-          type="number"
+          type="text"
+          inputMode="decimal"
         />
         {insuffiecientAllowed && (
           <p className="text-red-500 mt-2">{t('impactCalculator.insufficientTokensApproved')}</p>
@@ -152,9 +150,9 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
           value={inputMessage}
           className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
           placeholder={t('common.typeHere')}
-          onChange={(e) => setInputMessage(e.target.value)}
-          maxLength={300}
+          onChange={(e) => setInputMessage(clampToBytes(e.target.value, 300))}
         />
+        <ByteCounter text={inputMessage} max={300} />
       </div>
 
       <button
