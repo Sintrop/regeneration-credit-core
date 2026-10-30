@@ -1,5 +1,4 @@
 import { DataRow } from '@renderer/components/DataRow/DataRow'
-import { useState } from 'react'
 import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { useTranslation } from 'react-i18next'
@@ -14,17 +13,8 @@ import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { CertificatesCard } from '../../../../components/CertificatesCard/CertificatesCard'
 import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 
-export interface AverageInspectionsProps {
-  bio: number
-  trees: number
-}
-
 export function RegeneratorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const [averageInspections, setAverageInspections] = useState<AverageInspectionsProps>({
-    bio: 0,
-    trees: 0
-  })
 
   const { data: responseRegenerator } = useReadContract({
     address: regeneratorAddress,
@@ -99,17 +89,9 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
               />
             </div>
 
-            <CertificatesCard
-              name={regenerator.name}
-              address={address}
-              userType={1}
-              totalArea={parseInt(formatUnits(BigInt(regenerator?.totalArea), 0))}
-              totalInspections={parseInt(formatUnits(BigInt(regenerator?.totalInspections), 0))}
-              score={parseInt(formatUnits(BigInt(regenerator?.regenerationScore.score), 0))}
-              averageInspections={averageInspections}
-            />
+            <CertificatesCard address={address} userType={1} />
             <RegenerationAreaMap address={address} />
-            <InspectionsCard address={address} updateAverage={setAverageInspections} />
+            <InspectionsCard address={address} />
             <DelationsCard address={address} />
           </div>
         )}

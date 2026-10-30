@@ -1,10 +1,11 @@
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useWaitForTransactionReceipt } from 'wagmi'
 import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
-import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
@@ -12,17 +13,13 @@ import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
 interface Props {
   name: string
-  invitation: InvitationProps
-  availableVacancie: boolean
+  /** Every contract requirement to register (invitation, vacancies, inviter standing). */
+  requirementsMet: boolean
   success: () => void
 }
 
-export function ContributorRegistration({
-  name,
-  invitation,
-  availableVacancie,
-  success
-}: Props): JSX.Element {
+export function ContributorRegistration({ name, requirementsMet, success }: Props): JSX.Element {
+  const { t } = useTranslation()
   const { ipfsApiUrl } = useSettingsContext()
   const [proofPhoto, setProofPhoto] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
@@ -39,7 +36,7 @@ export function ContributorRegistration({
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto, invitation, availableVacancie])
+  }, [name, proofPhoto, requirementsMet])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -52,12 +49,7 @@ export function ContributorRegistration({
       return
     }
 
-    if (invitation?.userType !== 5) {
-      setDisableBtnRegister(true)
-      return
-    }
-
-    if (!availableVacancie) {
+    if (!requirementsMet) {
       setDisableBtnRegister(true)
       return
     }
@@ -79,7 +71,7 @@ export function ContributorRegistration({
     const hashProofPhoto = await uploadProofPhoto()
 
     if (hashProofPhoto === '') {
-      alert('error on upload proof photo')
+      toast.error(t('registerPage.photoUploadError'))
       return
     }
 

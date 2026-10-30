@@ -15,10 +15,12 @@ import { toast } from 'react-toastify'
 
 interface Props {
   name: string
+  /** Every contract requirement to register (invitation, vacancies, inviter standing). */
+  requirementsMet: boolean
   success: () => void
 }
 
-export function SupporterRegistration({ name, success }: Props): JSX.Element {
+export function SupporterRegistration({ name, requirementsMet, success }: Props): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState('')
@@ -38,7 +40,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, profilePhoto, description])
+  }, [name, profilePhoto, description, requirementsMet])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -47,6 +49,11 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
     }
 
     if (!description.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!requirementsMet) {
       setDisableBtnRegister(true)
       return
     }
@@ -93,7 +100,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
       <input
         value={description}
         onChange={(e) => setDescription(clampToBytes(e.target.value, 200))}
-        className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        className="w-full h-11 rounded-xl bg-card-secondary px-3 text-white outline-none focus:ring-1 focus:ring-green-primary"
         placeholder={t('typeHere')}
       />
       <ByteCounter text={description} max={200} />

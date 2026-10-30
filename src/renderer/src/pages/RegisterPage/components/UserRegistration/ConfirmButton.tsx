@@ -6,8 +6,6 @@ interface Props {
   btnDisabled: boolean
   isPending?: boolean
   isLoading?: boolean
-  isSuccess?: boolean
-  hash?: string
   error?: WriteContractErrorType
   uploadingImage?: boolean
 }
@@ -17,9 +15,7 @@ export function ConfirmButton({
   btnDisabled,
   isLoading,
   isPending,
-  hash,
   error,
-  isSuccess,
   uploadingImage
 }: Props): JSX.Element {
   const { t } = useTranslation()
@@ -27,7 +23,7 @@ export function ConfirmButton({
   return (
     <div className="flex flex-col">
       <button
-        className={`bg-green-btn rounded-2xl px-10 h-10 text-white mt-10 w-fit hover:cursor-pointer disabled:opacity-50 disabled:cursor-default`}
+        className="h-12 mt-6 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
         onClick={handleRegister}
         disabled={btnDisabled || isPending || isLoading || uploadingImage}
       >
@@ -38,20 +34,7 @@ export function ConfirmButton({
             : t('register.register')}
       </button>
 
-      {hash && (
-        <div className="flex flex-col">
-          <p className="text-white">Transaction hash: {hash}</p>
-          {isLoading && (
-            <>
-              <p className="text-white">Waiting for confirmation...</p>
-              <div className="w-10 h-10 bg-green-btn animate-spin" />
-            </>
-          )}
-          {isSuccess && <p className="text-green-600">{t('transactionSuccess')}</p>}
-        </div>
-      )}
-
-      {error && <p className="text-red-500">{error.message}</p>}
+      {error && <p className="text-red-300 text-sm">{error.message}</p>}
     </div>
   )
 }

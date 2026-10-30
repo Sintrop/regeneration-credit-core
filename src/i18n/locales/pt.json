@@ -768,13 +768,21 @@
   "certificate": {
     "contributedWith": "Contribuiu com",
     "certificates": "Certificados",
-    "totalArea": "Área total",
-    "totalInspections": "Total de inspeções",
+    "totalArea": "Área em regeneração",
+    "totalInspections": "Inspeções",
     "regenerationScore": "Pontuação de regeneração",
     "version1": "Versão 1",
     "version2": "Versão 2",
     "versionShort": "Versão curta",
-    "download": "Baixar"
+    "download": "Baixar",
+    "regeneratorTitle": "Certificado de regeneração",
+    "supporterTitle": "Certificado de contribuição",
+    "treesAverage": "Árvores (média das inspeções)",
+    "bioAverage": "Espécies (média das inspeções)",
+    "scanToVerify": "Aponte a câmera para ver o perfil público",
+    "verifiedAt": "Dados da rede Sintrop · bloco {{block}}",
+    "downloadError": "Não foi possível gerar a imagem do certificado.",
+    "hint": "Certificado público e verificável. Salve a imagem para compartilhar; o QR code abre o perfil público."
   },
   "account": {
     "title": "Conta",
@@ -809,7 +817,11 @@
     "noInspections": "Nenhuma inspeção",
     "inviterPenalties": "Penalidades do convidador",
     "addDelation": "Adicionar denúncia",
-    "delations": "Denúncias"
+    "delations": "Denúncias",
+    "mapUnavailable": "Contorno da área a partir das coordenadas registradas. O mapa de satélite aparece quando o token do Mapbox está configurado.",
+    "coordinatesCount_one": "{{count}} coordenada registrada",
+    "coordinatesCount_other": "{{count}} coordenadas registradas",
+    "openMap": "Abrir no mapa"
   },
   "fileInputSelector": {
     "fileType": "Tipo de arquivo",
@@ -1201,6 +1213,33 @@
       "pending": "Pendente",
       "success": "Confirmada",
       "failed": "Falhou"
+    }
+  },
+  "registerPage": {
+    "requirements": "Requisitos do contrato",
+    "invitationNeeded": "Convite para este tipo",
+    "noInvitationNeeded": "Este tipo não precisa de convite",
+    "invitedBy": "Convidado por",
+    "askInvitation": "Peça um convite a alguém da comunidade. O convite é para um tipo específico de usuário.",
+    "inviterStanding": "Situação de quem convidou",
+    "inviterDenied": "Quem convidou foi invalidado. O contrato não aceita este convite.",
+    "inviterPenalties": "Quem convidou tem {{count}} penalidades. O contrato aceita até 4.",
+    "vacancies": "Vagas",
+    "noVacancyLimit": "Sem limite de vagas para este tipo.",
+    "vacanciesCount_one": "{{count}} vaga disponível",
+    "vacanciesCount_other": "{{count}} vagas disponíveis",
+    "connectFirst": "Conecte a carteira com que você quer se cadastrar.",
+    "chooseType": "Como você quer participar?",
+    "chooseTypeHint": "Cada carteira pode se cadastrar uma vez, em um tipo de usuário.",
+    "photoUploadError": "Não foi possível enviar a foto para o IPFS. Tente de novo.",
+    "typeDescription": {
+      "1": "Regenera uma área e recebe inspeções.",
+      "2": "Visita as áreas e conta árvores e espécies.",
+      "3": "Publica pesquisas e itens da calculadora.",
+      "4": "Desenvolve o software e publica relatórios.",
+      "5": "Contribui com tradução, design, comunidade.",
+      "6": "Convida regeneradores e inspetores.",
+      "7": "Compensa a degradação financiando a regeneração."
     }
   }
 }

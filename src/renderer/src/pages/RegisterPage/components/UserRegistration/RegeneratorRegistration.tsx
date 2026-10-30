@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
 import { clampToBytes } from '@renderer/utils/byteLength'
 import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
@@ -11,7 +12,6 @@ import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { calculateArea } from '@renderer/services/calculateArea'
-import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
@@ -21,7 +21,8 @@ import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
   name: string
-  invitation: InvitationProps
+  /** Every contract requirement to register (invitation, vacancies, inviter standing). */
+  requirementsMet: boolean
   success: () => void
 }
 
@@ -30,7 +31,7 @@ interface CoordinateProps {
   latitude: string
 }
 
-export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
+export function RegeneratorRegistration({ name, requirementsMet, success }: Props): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
@@ -157,7 +158,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto, invitation, coordinates, totalArea, description])
+  }, [name, proofPhoto, requirementsMet, coordinates, totalArea, description])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -185,7 +186,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
       return
     }
 
-    if (invitation?.userType !== 1) {
+    if (!requirementsMet) {
       setDisableBtnRegister(true)
       return
     }
@@ -207,7 +208,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
     const hashProofPhoto = await uploadProofPhoto()
 
     if (hashProofPhoto === '') {
-      alert('error on upload proof photo')
+      toast.error(t('registerPage.photoUploadError'))
       return
     }
 
@@ -240,7 +241,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
       <input
         value={description}
         onChange={(e) => setDescription(clampToBytes(e.target.value, 200))}
-        className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        className="w-full h-11 rounded-xl bg-card-secondary px-3 text-white outline-none focus:ring-1 focus:ring-green-primary"
         placeholder={t('register.typeHere')}
       />
       <ByteCounter text={description} max={200} />
@@ -253,7 +254,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
         <div
           //@ts-ignore
           ref={mapContainerRef}
-          className="w-full h-[300px] rounded-2xl border-2 border-white mt-1"
+          className="w-full h-[300px] rounded-xl overflow-hidden mt-1"
         />
 
         <p className="text-white mt-1">
@@ -274,13 +275,13 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
             <div className="flex items-center justify-center gap-5">
               <button
                 onClick={handleClearSelection}
-                className="text-white underline font-semibold hover:cursor-pointer"
+                className="text-green-primary text-sm font-semibold hover:underline hover:cursor-pointer"
               >
                 {t('register.clearSelection')}
               </button>
               <button
                 onClick={handleDeleteLastPoint}
-                className="text-white underline font-semibold hover:cursor-pointer"
+                className="text-green-primary text-sm font-semibold hover:underline hover:cursor-pointer"
               >
                 {t('register.removeLastPoint')}
               </button>
@@ -326,7 +327,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
     const validLng = validateLng(longitude)
 
     if (!validLat || !validLng) {
-      alert(t('invalidCoors'))
+      toast.error(t('invalidCoors'))
       return
     }
 
@@ -343,7 +344,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
         <div className="flex flex-col">
           <p className="text-gray-300 text-sm">Latitude:</p>
           <input
-            className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
+            className="w-[180px] h-11 px-3 rounded-xl text-white bg-card-secondary outline-none focus:ring-1 focus:ring-green-primary"
             placeholder={t('register.typeHere')}
             value={latitude}
             onChange={(e) => setLatitude(e.target.value)}
@@ -353,7 +354,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
         <div className="flex flex-col">
           <p className="text-gray-300 text-sm">Longitude:</p>
           <input
-            className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
+            className="w-[180px] h-11 px-3 rounded-xl text-white bg-card-secondary outline-none focus:ring-1 focus:ring-green-primary"
             placeholder={t('register.typeHere')}
             value={longitude}
             onChange={(e) => setLongitude(e.target.value)}
@@ -361,7 +362,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
         </div>
 
         <button
-          className="w-full h-10 text-white bg-green-1 rounded-2xl hover:cursor-pointer disabled:opacity-40 disabled:cursor-default"
+          className="w-full h-11 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-default"
           disabled={!latitude.trim() || !longitude.trim()}
           onClick={handleAddCoords}
         >

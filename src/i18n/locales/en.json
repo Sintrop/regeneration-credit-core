@@ -771,14 +771,22 @@
   "certificate": {
     "contributedWith": "Contributed with",
     "certificates": "Certificates",
-    "totalArea": "Total area",
-    "totalInspections": "Total inspections",
+    "totalArea": "Area in regeneration",
+    "totalInspections": "Inspections",
     "regenerationScore": "Regeneration score",
     "version1": "Version 1",
     "version2": "Version 2",
     "versionShort": "Version short",
     "download": "Download",
-    "": ""
+    "": "",
+    "regeneratorTitle": "Regeneration certificate",
+    "supporterTitle": "Contribution certificate",
+    "treesAverage": "Trees (inspection average)",
+    "bioAverage": "Species (inspection average)",
+    "scanToVerify": "Point the camera to open the public profile",
+    "verifiedAt": "Sintrop network data · block {{block}}",
+    "downloadError": "The certificate image could not be created.",
+    "hint": "Public, verifiable certificate. Save the image to share it; the QR code opens the public profile."
   },
   "account": {
     "title": "Account",
@@ -813,7 +821,11 @@
     "noInspections": "No inspections",
     "inviterPenalties": "Inviter penalties",
     "addDelation": "Add delation",
-    "delations": "Reports"
+    "delations": "Reports",
+    "mapUnavailable": "Outline of the area from the registered coordinates. The satellite map shows when the Mapbox token is configured.",
+    "coordinatesCount_one": "{{count}} registered coordinate",
+    "coordinatesCount_other": "{{count}} registered coordinates",
+    "openMap": "Open on map"
   },
   "fileInputSelector": {
     "fileType": "File type",
@@ -1205,6 +1217,33 @@
       "pending": "Pending",
       "success": "Confirmed",
       "failed": "Failed"
+    }
+  },
+  "registerPage": {
+    "requirements": "Contract requirements",
+    "invitationNeeded": "Invitation for this type",
+    "noInvitationNeeded": "This type needs no invitation",
+    "invitedBy": "Invited by",
+    "askInvitation": "Ask someone in the community for an invitation. Invitations are for a specific user type.",
+    "inviterStanding": "Inviter standing",
+    "inviterDenied": "The inviter was invalidated. The contract does not accept this invitation.",
+    "inviterPenalties": "The inviter has {{count}} penalties. The contract accepts up to 4.",
+    "vacancies": "Vacancies",
+    "noVacancyLimit": "No vacancy limit for this type.",
+    "vacanciesCount_one": "{{count}} vacancy available",
+    "vacanciesCount_other": "{{count}} vacancies available",
+    "connectFirst": "Connect the wallet you want to register with.",
+    "chooseType": "How do you want to take part?",
+    "chooseTypeHint": "Each wallet can register once, as one user type.",
+    "photoUploadError": "The photo could not be uploaded to IPFS. Try again.",
+    "typeDescription": {
+      "1": "Regenerates an area and receives inspections.",
+      "2": "Visits the areas and counts trees and species.",
+      "3": "Publishes research and calculator items.",
+      "4": "Builds the software and publishes reports.",
+      "5": "Contributes with translation, design, community.",
+      "6": "Invites regenerators and inspectors.",
+      "7": "Offsets degradation by funding regeneration."
     }
   }
 }
