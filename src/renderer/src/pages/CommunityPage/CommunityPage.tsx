@@ -1,173 +1,90 @@
-import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
-import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { Abi } from 'viem'
 import { useReadContracts } from 'wagmi'
-import { UserCountCard } from './components/UserCountCard'
-import { formatUnits } from 'viem'
-import { Loading } from '@renderer/components/Loading/Loading'
+
+import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
+import { checkVacancies } from '@renderer/services/checkVacancies'
+import { userAbi, userAddress } from '@renderer/services/contracts'
+
+const TYPES = [1, 2, 3, 4, 5, 6, 7]
+const TYPE_LABEL: Record<number, string> = {
+  1: 'community.regenerators',
+  2: 'community.inspectors',
+  3: 'community.researchers',
+  4: 'community.developers',
+  5: 'community.contributors',
+  6: 'community.activists',
+  7: 'community.supporters'
+}
+/** Regenerators and supporters have no vacancy limit; the others grow with the regenerators. */
+const UNLIMITED = [1, 7]
 
 export function CommunityPage(): JSX.Element {
-  const { t } = useTranslation()
-
-  const communityContract = {
-    address: userAddress,
-    abi: userAbi
-  } as const
-
+  const { t, i18n } = useTranslation()
+  const navigate = useNavigate()
+  const contract = { address: userAddress as `0x${string}`, abi: userAbi as Abi }
   const { data, isLoading } = useReadContracts({
     contracts: [
-      {
-        ...communityContract,
-        functionName: 'usersCount'
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [1]
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [2]
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [3]
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [4]
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [5]
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [6]
-      },
-      {
-        ...communityContract,
-        functionName: 'userTypesCount',
-        args: [7]
-      }
+      { ...contract, functionName: 'usersCount' },
+      { ...contract, functionName: 'votersCount' },
+      ...TYPES.map((type) => ({ ...contract, functionName: 'userTypesCount', args: [type] }))
     ]
   })
-
-  if (isLoading) {
-    return (
-      <ScreenPage pageTitle={t('community.title')}>
-        <div className="mx-auto overflow-hidden">
-          <Loading />
-        </div>
-      </ScreenPage>
-    )
-  }
-
-  if (!data) {
-    return (
-      <ScreenPage pageTitle={t('community.title')}>
-        <div className="mx-auto overflow-hidden">
-          <p className="text-white">error</p>
-        </div>
-      </ScreenPage>
-    )
-  }
+  const read = (index: number): number | undefined =>
+    data?.[index]?.status === 'success' ? Number(data[index].result) : undefined
+  const format = (value: number | undefined): string =>
+    value === undefined ? '—' : Intl.NumberFormat(i18n.language).format(value)
+  const producersCount = read(2) ?? 0
 
   return (
     <ScreenPage pageTitle={t('community.title')}>
-      <div className="flex gap-10 flex-wrap max-w-[1024px]">
-        <UserCountCard
-          user="all-users"
-          userType={0}
-          usersCount={
-            data[0].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[0].result as string), 0))
-              : 0
-          }
-        />
+      <div className="max-w-[1000px] mx-auto flex flex-col gap-5">
+        <section className="p-6 rounded-2xl bg-card-primary border border-green-primary/20 flex gap-6 items-center">
+          <div className="shrink-0">
+            <p className="text-green-primary text-4xl font-bold">
+              {isLoading ? '—' : format(read(0))}
+            </p>
+            <p className="text-gray-400 text-xs">{t('community.allUsers')}</p>
+            <p className="mt-2 text-white font-semibold">{isLoading ? '—' : format(read(1))}</p>
+            <p className="text-gray-400 text-xs">{t('community.voters')}</p>
+          </div>
+          <p className="text-gray-300 text-sm leading-relaxed">{t('community.description')}</p>
+        </section>
 
-        <div className="bg-container-primary p-4 rounded-2xl h-32 flex-1 flex items-center justify-between">
-          <p className="text-white text-sm">{t('community.description')}</p>
+        <div className="grid grid-cols-3 gap-4">
+          {TYPES.map((type, index) => {
+            const count = read(index + 2)
+            const vacancies =
+              !UNLIMITED.includes(type) && count !== undefined
+                ? checkVacancies({ producersCount, userType: type, userTypeCount: count }).ammount
+                : undefined
+            return (
+              <button
+                key={type}
+                className="p-5 rounded-2xl bg-card-primary flex flex-col gap-4 text-left hover:bg-card-primary/80 hover:cursor-pointer"
+                onClick={() => navigate(`/users/${type}`)}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-white text-lg font-bold">{t(TYPE_LABEL[type])}</span>
+                  <span className="text-green-primary text-lg">›</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <span className="p-3 rounded-xl bg-card-secondary">
+                    <span className="block text-white text-xl font-bold">{format(count)}</span>
+                    <span className="text-gray-400 text-xs">{t('community.registered')}</span>
+                  </span>
+                  <span className="p-3 rounded-xl bg-card-secondary">
+                    <span className="block text-white text-xl font-bold">
+                      {UNLIMITED.includes(type) ? '∞' : format(vacancies)}
+                    </span>
+                    <span className="text-gray-400 text-xs">{t('community.vacancies')}</span>
+                  </span>
+                </div>
+              </button>
+            )
+          })}
         </div>
-      </div>
-
-      <div className="flex gap-10 flex-wrap max-w-[1024px] mt-5">
-        <UserCountCard
-          user="regenerator"
-          userType={1}
-          usersCount={
-            data[1].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[1].result as string), 0))
-              : 0
-          }
-        />
-
-        <UserCountCard
-          user="supporter"
-          userType={7}
-          usersCount={
-            data[7].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[7].result as string), 0))
-              : 0
-          }
-        />
-      </div>
-
-      <div className="flex gap-10 flex-wrap max-w-[1024px] pb-20 mt-5">
-        <UserCountCard
-          user="other-users"
-          userType={2}
-          usersCount={
-            data[2].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[2].result as string), 0))
-              : 0
-          }
-        />
-
-        <UserCountCard
-          user="other-users"
-          userType={3}
-          usersCount={
-            data[3].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[3].result as string), 0))
-              : 0
-          }
-        />
-
-        <UserCountCard
-          user="other-users"
-          userType={4}
-          usersCount={
-            data[4].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[4].result as string), 0))
-              : 0
-          }
-        />
-
-        <UserCountCard
-          user="other-users"
-          userType={5}
-          usersCount={
-            data[5].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[5].result as string), 0))
-              : 0
-          }
-        />
-
-        <UserCountCard
-          user="other-users"
-          userType={6}
-          usersCount={
-            data[6].status === 'success'
-              ? parseInt(formatUnits(BigInt(data[6].result as string), 0))
-              : 0
-          }
-        />
       </div>
     </ScreenPage>
   )

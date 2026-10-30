@@ -53,6 +53,16 @@ const VOTE_ROUTE: Record<number, string> = {
   5: '/resources?type=contribution'
 }
 
+/** Pool page with the user's position and the withdraw button. */
+const POOL_ROUTE: Record<number, string> = {
+  1: '/pools/regenerator',
+  2: '/pools/inspector',
+  3: '/pools/researcher',
+  4: '/pools/developer',
+  5: '/pools/contributor',
+  6: '/pools/activist'
+}
+
 const PUBLISH_ACTION: Partial<Record<TimerKey, ActionName>> = {
   publishResearch: 'addResearch',
   publishCalculatorItem: 'addCalculatorItem',
@@ -122,7 +132,9 @@ export function timerRows(timers: UserTimer[], userType: number): TimerRow[] {
         }
         break
       case 'withdraw':
-        if (own) row('timers.actions.withdraw', modal('withdraw', own))
+        if (POOL_ROUTE[userType]) {
+          row('timers.actions.withdraw', { type: 'route', path: POOL_ROUTE[userType] })
+        }
         break
       case 'offset':
         row('timers.actions.offset', modal('offsetting', { address: C.rcAddress, abi: C.rcAbi }))

@@ -66,12 +66,9 @@ describe('timerRows', () => {
     })
   })
 
-  it('withdraws from the user type contract', () => {
+  it('opens the pool of the user type to withdraw', () => {
     const [row] = timerRows([available('withdraw')], 2)
-    expect(row.target).toMatchObject({
-      actionName: 'withdraw',
-      addressContract: C.inspectorAddress
-    })
+    expect(row.target).toEqual({ type: 'route', path: '/pools/inspector' })
   })
 })
 
