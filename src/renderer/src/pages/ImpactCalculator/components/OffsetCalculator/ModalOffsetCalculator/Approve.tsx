@@ -75,7 +75,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
         <p className="text-gray-300">{t('impactCalculator.labelInputAmmount')}</p>
         <input
           value={inputAmmount}
-          className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
+          className="w-full rounded-xl px-3 bg-card-secondary text-white h-11 outline-none focus:ring-1 focus:ring-green-primary"
           placeholder={t('common.typeHere')}
           onChange={(e) => setInputAmmount(e.target.value)}
           type="text"
@@ -87,7 +87,7 @@ export function Approve({ refetchAllowance }: Props): JSX.Element {
       </div>
 
       <button
-        className="w-full h-10 rounded-2xl bg-blue-primary text-white font-semibold hover:cursor-pointer disabled:opacity-50 disabled:cursor-default"
+        className="w-full h-11 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-50 disabled:cursor-default"
         onClick={handleApprove}
         disabled={!inputAmmount.trim() || insufficientBalance}
       >

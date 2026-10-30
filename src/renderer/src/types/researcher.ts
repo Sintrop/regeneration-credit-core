@@ -41,11 +41,13 @@ export interface ResearchProps {
   createdAtBlock: number
 }
 
+/** ResearcherTypes.CalculatorItem */
 export interface CalculatorItemProps {
   id: number
   createdBy: string
   item: string
+  thesis: string
   unit: string
-  justification: string
   carbonImpact: number
+  createdAtBlock: number
 }

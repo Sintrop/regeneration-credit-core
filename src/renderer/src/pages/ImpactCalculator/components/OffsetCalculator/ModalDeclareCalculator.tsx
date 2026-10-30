@@ -55,16 +55,18 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
   return (
     <div>
       <button
-        className="w-[160px] h-10 rounded-2xl bg-green-500 text-white hover:cursor-pointer"
+        className="w-full h-11 rounded-xl border border-green-primary text-green-primary font-semibold hover:bg-green-primary/10 hover:cursor-pointer"
         onClick={handleShowModal}
       >
         {t('impactCalculator.declareReduction')}
       </button>
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-[500px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-card-primary border border-green-primary/20 p-6 rounded-2xl shadow-2xl w-[500px]">
             <div className="flex items-center justify-between w-full">
-              <p className="text-white">{t('impactCalculator.declareReduction')}</p>
+              <p className="text-white text-lg font-bold">
+                {t('impactCalculator.declareReduction')}
+              </p>
               <button className="hover:cursor-pointer text-white" onClick={handleCloseModal}>
                 <MdClose size={25} color="white" />
               </button>
@@ -73,10 +75,10 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
             <div className="mt-5 flex flex-col gap-2">
               <p className="text-gray-200">{t('impactCalculator.descDeclareReduction')}</p>
 
-              <p className="text-white">Item: {item.item}</p>
+              <p className="text-white font-semibold">{item.item}</p>
 
               <button
-                className="w-full h-10 rounded-2xl mt-5 text-white bg-green-1 hover:cursor-pointer"
+                className="w-full h-11 rounded-xl mt-5 bg-green-primary text-green-secondary font-bold hover:cursor-pointer"
                 onClick={handleSendTransaction}
               >
                 {t('impactCalculator.declare')}

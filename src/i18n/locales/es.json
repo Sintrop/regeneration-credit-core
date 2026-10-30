@@ -246,22 +246,58 @@
   },
   "tokenImpact": {
     "title": "Impacto del token",
-    "tokenData": "Datos del token",
-    "totalSupply": "Oferta total",
+    "tokenData": "Oferta del token",
+    "totalSupply": "Oferta actual",
     "totalLocked": "Total bloqueado",
-    "totalCertified": "Total certificado",
-    "circulatingSupply": "Oferta circulante",
+    "totalCertified": "Certificados (quemados)",
+    "circulatingSupply": "En circulación",
     "tokenTotalImpact": "Impacto total del token",
     "totalCarbonImpact": "Impacto total de carbono",
     "totalAreaImpact": "Impacto total de área",
     "totalBiodiversityImpact": "Impacto total de biodiversidad",
     "totalTreesImpact": "Impacto total de árboles",
-    "impactPerToken": "Impacto por token",
+    "impactPerToken": "Impacto por Crédito de Regeneración",
     "treesPerToken": "Árboles por token",
     "carbonPerToken": "Carbono por token",
     "areaPerToken": "Área por token",
     "biodiversityPerToken": "Biodiversidad por token",
-    "impactPerEra": "Impacto por fase"
+    "impactPerEra": "Impacto por fase",
+    "systemImpact": "Impacto verificado del sistema",
+    "carbonSequestered": "de CO₂ secuestrado en las áreas en regeneración",
+    "species": "Especies",
+    "areaInRegeneration": "Área en regeneración",
+    "systemImpactNote": "Calculado por el contrato RegenerationCreditImpact a partir de las inspecciones ya contabilizadas.",
+    "impactPerTokenDescription": "Lo que cada RC representa hoy: el impacto total dividido por la oferta efectiva de tokens.",
+    "howTitle": "Cómo se calcula el impacto",
+    "howDescription": "Todos los números vienen de los contratos, con los valores actuales.",
+    "howAverage_one": "Promedio de árboles por inspección ({{count}} inspección contabilizada)",
+    "howAverage_other": "Promedio de árboles por inspección ({{count}} inspecciones contabilizadas)",
+    "howRegenerators": "Regeneradores certificados",
+    "howTrees": "Árboles estimados en el sistema",
+    "howCarbon": "{{kg}} kg de CO₂ por árbol",
+    "howPerToken": "Dividido por la oferta efectiva",
+    "howNote": "El promedio por inspección se multiplica por los regeneradores que completaron sus inspecciones de certificación. Cada árbol equivale a 100 kg de carbono secuestrado.",
+    "tokenDataDescription": "Los RC nacen en los pools y llegan a la circulación como recompensa. Los certificados se quemaron en compensaciones.",
+    "inPools": "Todavía en los pools",
+    "effectiveSupply": "Oferta efectiva (circulación + certificados)",
+    "totalImpactPerEra": "Impacto por fase",
+    "perEraDescription": "Árboles y especies registrados en las inspecciones de cada fase.",
+    "era": "Fase {{era}}",
+    "current": "actual",
+    "treesCounted": "Árboles contados",
+    "speciesCounted": "Especies registradas",
+    "treesPerInspection": "Árboles por inspección",
+    "status": {
+      "settled": "Contabilizada en el impacto",
+      "pending": "Terminada, esperando contabilización",
+      "current": "En curso"
+    },
+    "statusNote": {
+      "settled": "Los números de esta fase ya forman parte del impacto del sistema.",
+      "pending": "La fase terminó. Sus números entran en el impacto del sistema en la próxima actualización del contrato, que ocurre con la próxima inspección realizada.",
+      "current": "Los números entran en el impacto del sistema después de que la fase termine y pase por la validación."
+    },
+    "source": "Datos leídos de los contratos en la red Sintrop"
   },
   "community": {
     "title": "Comunidad",
@@ -378,12 +414,17 @@
     "carbonImpact": "Impacto de carbono (g)",
     "item": "Ítem",
     "methodTitle": "Título",
-    "canAccept": "Puede aceptar en"
+    "canAccept": "Puede aceptar en",
+    "evaluationMethod": "Método",
+    "openProject": "Abrir proyecto",
+    "evaluationMethodsHint": "Metodologías registradas por los investigadores para evaluar la regeneración en las inspecciones.",
+    "calculatorItemsHint": "Cada ítem indica cuánto carbono emite una unidad de uso. Los apoyadores usan estos ítems para calcular y compensar su degradación.",
+    "carbonImpactPerUnit": "Carbono por unidad"
   },
   "impactCalculator": {
     "title": "Calculadora de impacto",
-    "burnTokens": "Quemar tokens",
-    "descBurnTokens": "Compensa tu degradación ambiental quemando tokens de Crédito de Regeneración. Quemar tokens los retira de circulación para siempre y aumenta tu certificado de compensación.",
+    "burnTokens": "Financia la plantación de árboles",
+    "descBurnTokens": "Financia la plantación de árboles reales a través del sistema de compensación del Crédito de Regeneración, contribuye a la regeneración de los ecosistemas terrestres y aumenta tu certificado para demostrar tu compromiso con el Planeta.",
     "publish": "Publicar",
     "descPublish": "Permite que un apoyador queme tokens para publicar contenido.",
     "offset": "Compensar",
@@ -410,7 +451,18 @@
     "insufficientTokensApproved": "Tokens aprobados insuficientes",
     "inputMessage": "Mensaje (opcional)",
     "realizedOffset": "Compensación registrada con éxito",
-    "approveMore": "Aprobar más"
+    "approveMore": "Aprobar más",
+    "treeEqualsTokens": "1 Árbol = {{tokens}} RCs",
+    "tokensPerTreeDescription": "Actualmente {{tokens}} Créditos de Regeneración equivalen a 1 árbol",
+    "impactPerToken": "Impacto por Crédito de Regeneración",
+    "perOneUnit": "por 1 {{unit}}",
+    "quickResult": "{{carbon}} kg de CO₂e: compensa con ~{{tokens}} RC",
+    "supporterOnly": "La compensación y el compromiso de reducción están disponibles para apoyadores registrados.",
+    "searchItem": "Buscar ítem (ej.: gasolina)",
+    "noItems": "No se encontraron ítems.",
+    "calculatorItems": "Compensación de ítems específicos",
+    "howManyTreesToFund": "¿Cuántos árboles quieres financiar?",
+    "connectToSeeCertificate": "Conecta tu billetera para ver tus certificados de compensación."
   },
   "txLoading": {
     "confirmInYourWallet": "Confirma en tu billetera",
@@ -573,7 +625,8 @@
     "acceptedInspection": "Inspección aceptada",
     "inviteSent": "Invitación enviada",
     "typeIDHere": "Escribe el ID aquí",
-    "youCan'tInviteNow": "Aún no puedes invitar. Espera el intervalo entre invitaciones."
+    "youCan'tInviteNow": "Aún no puedes invitar. Espera el intervalo entre invitaciones.",
+    "compensate": "Compensar"
   },
   "infoBar": {
     "currentEra": "Fase actual",
@@ -636,7 +689,8 @@
     "noValidations": "Ninguna validación",
     "insufficientBalance": "Saldo insuficiente",
     "addressCopied": "Dirección copiada",
-    "copyAddress": "Copiar dirección"
+    "copyAddress": "Copiar dirección",
+    "compensateTokens": "Compensa {{tokens}} Créditos de Regeneración"
   },
   "descActions": {
     "burnTokens": "Compensa tu degradación ambiental quemando tokens de Crédito de Regeneración. Quemar tokens los retira de circulación para siempre y aumenta tu certificado de compensación.",
@@ -1028,7 +1082,8 @@
   "profile": {
     "transferTo": "Transferir",
     "publishedResources": "Recursos publicados",
-    "noPublishedResources": "Aún no hay recursos publicados."
+    "noPublishedResources": "Aún no hay recursos publicados.",
+    "certificates": "Certificados"
   },
   "supporterProfile": {
     "totalCompensated": "Total compensado",
@@ -1069,5 +1124,8 @@
     "descActivistsPool": "Este contrato gestiona la distribución de tokens de Crédito de Regeneración como recompensa a los activistas por su participación, principalmente invitando a nuevos usuarios.",
     "descValidationPool": "Este contrato gestiona la distribución de tokens de Crédito de Regeneración como recompensa a los validadores.",
     "yourEraOnPool": "Tu era en el pool"
+  },
+  "offset": {
+    "howManyUnitsToOffset": "¿Cuántos {{unit}} quieres compensar?"
   }
 }

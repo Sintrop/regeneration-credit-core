@@ -1,69 +1,94 @@
-import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { formatUnits } from 'viem'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import { Abi } from 'viem'
 import { useReadContract } from 'wagmi'
-import { EvaluationMethodItem } from './EvaluationMethodItem'
-import { Loading } from '@renderer/components/Loading/Loading'
 
-export function EvaluationMethodsTab(): JSX.Element {
-  const { t } = useTranslation()
+import { UserBadge } from '@renderer/components/UserBadge/UserBadge'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 
+const contract = { address: researcherAddress as `0x${string}`, abi: researcherAbi as Abi }
+
+interface EvaluationMethod {
+  title: string
+  research: string
+  projectURL: string
+  createdBy: string
+  createdAtBlock: bigint
+}
+
+function MethodCard({ id }: { id: number }): JSX.Element {
+  const { t, i18n } = useTranslation()
   const { data, isLoading } = useReadContract({
-    address: researcherAddress,
-    abi: researcherAbi,
-    functionName: 'evaluationMethodsCount',
-    args: []
+    ...contract,
+    functionName: 'evaluationMethods',
+    args: [BigInt(id)]
   })
 
-  let methodItemsIds: number[] = []
+  if (isLoading || !data) return <div className="h-48 rounded-2xl bg-card-primary animate-pulse" />
 
-  if (data) {
-    const count = parseInt(formatUnits(BigInt(data as string), 0))
-
-    const ids = Array.from({ length: count }, (_, i) => i + 1)
-    methodItemsIds = ids.reverse()
-  }
-
-  if (isLoading) {
-    return (
-      <div className="mx-auto overflow-hidden">
-        <Loading />
-      </div>
-    )
-  }
+  const [, createdBy, title, research, projectURL, createdAtBlock] = data as unknown as [
+    bigint,
+    string,
+    string,
+    string,
+    string,
+    bigint
+  ]
+  const method: EvaluationMethod = { title, research, projectURL, createdBy, createdAtBlock }
 
   return (
-    <div className="flex flex-col">
-      {methodItemsIds.length === 0 ? (
-        <div className="items-center mt-10">
-          <p className="text-white text-center">{t('resources.noMethodsRegistered')}</p>
-        </div>
+    <article className="p-6 rounded-2xl bg-card-primary flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-green-primary/20 text-green-primary">
+          {t('resources.evaluationMethod')} #{id}
+        </span>
+        <span className="text-gray-400 text-xs">
+          {t('myTokens.block', {
+            block: Intl.NumberFormat(i18n.language).format(Number(method.createdAtBlock))
+          })}
+        </span>
+      </div>
+      <h3 className="text-white text-xl font-bold">{method.title}</h3>
+      <p className="text-gray-200 leading-relaxed whitespace-pre-line">{method.research}</p>
+      <div className="flex items-center justify-between gap-3 pt-4 border-t border-card-secondary">
+        <UserBadge address={method.createdBy} label={t('resourcesList.publishedBy')} />
+        {method.projectURL && (
+          <a
+            href={method.projectURL}
+            target="_blank"
+            rel="noreferrer"
+            className="h-10 px-4 rounded-xl border border-green-primary/50 text-green-primary text-sm font-semibold flex items-center gap-2 hover:bg-green-primary/10"
+          >
+            {t('resources.openProject')}
+            <FaExternalLinkAlt size={11} />
+          </a>
+        )}
+      </div>
+    </article>
+  )
+}
+
+/** Evaluation methods registered in ResearcherRules, newest first. */
+export function EvaluationMethodsTab(): JSX.Element {
+  const { t } = useTranslation()
+  const { data, isLoading } = useReadContract({
+    ...contract,
+    functionName: 'evaluationMethodsCount'
+  })
+  const count = Number(data ?? 0)
+  const ids = Array.from({ length: count }, (_, index) => count - index)
+
+  if (isLoading) return <div className="h-48 rounded-2xl bg-card-primary animate-pulse" />
+
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-gray-300 text-sm">{t('resources.evaluationMethodsHint')}</p>
+      {ids.length === 0 ? (
+        <p className="p-8 rounded-2xl bg-card-primary text-center text-gray-300">
+          {t('resources.noMethodsRegistered')}
+        </p>
       ) : (
-        <table className="min-w-full border-collapse bg-container-primary rounded-xl overflow-hidden">
-          <thead>
-            <tr className="border-b border-container-secondary text-white">
-              <th className="p-2 border-r border-container-secondary text-start">ID</th>
-              <th className="p-2 border-r border-container-secondary text-start max-w-[100px]">
-                {t('resources.researcher')}
-              </th>
-              <th className="p-2 border-r border-container-secondary text-start">
-                {t('resources.methodTitle')}
-              </th>
-              <th className="p-2 border-r border-container-secondary text-start">
-                {t('resources.description')}
-              </th>
-              <th className="p-2 border-r border-container-secondary text-start">
-                {t('resources.link')}
-              </th>
-              <th className="p-2">{t('resources.actions')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {methodItemsIds.map((id, index) => (
-              <EvaluationMethodItem key={index} id={id} />
-            ))}
-          </tbody>
-        </table>
+        ids.map((id) => <MethodCard key={id} id={id} />)
       )}
     </div>
   )

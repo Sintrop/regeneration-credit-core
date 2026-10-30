@@ -97,7 +97,7 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
         inputMode="decimal"
         value={quantity}
         onChange={(e) => setQuantity(e.target.value)}
-        className="w-full h-10 rounded-2xl px-3 text-white bg-container-secondary"
+        className="w-full h-11 rounded-xl px-3 text-white bg-card-secondary outline-none focus:ring-1 focus:ring-green-primary"
         placeholder={t('impactCalculator.typeHere')}
       />
 
@@ -133,7 +133,7 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
         <p className="text-gray-300">{t('impactCalculator.howMuchDoYouWantToCompensate')}</p>
         <input
           value={inputAmmount}
-          className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
+          className="w-full rounded-xl px-3 bg-card-secondary text-white h-11 outline-none focus:ring-1 focus:ring-green-primary"
           placeholder={t('common.typeHere')}
           onChange={(e) => setInputAmmount(e.target.value)}
           type="text"
@@ -148,7 +148,7 @@ export function Offset({ item, close, tokensAllowed, handleApproveMore }: Props)
         <p className="text-gray-300">{t('impactCalculator.inputMessage')}</p>
         <input
           value={inputMessage}
-          className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
+          className="w-full rounded-xl px-3 bg-card-secondary text-white h-11 outline-none focus:ring-1 focus:ring-green-primary"
           placeholder={t('common.typeHere')}
           onChange={(e) => setInputMessage(clampToBytes(e.target.value, 300))}
         />

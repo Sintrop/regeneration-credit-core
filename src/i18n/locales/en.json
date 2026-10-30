@@ -192,22 +192,58 @@
   },
   "tokenImpact": {
     "title": "Token impact",
-    "tokenData": "Token data",
-    "totalSupply": "Total supply",
+    "tokenData": "Token supply",
+    "totalSupply": "Current supply",
     "totalLocked": "Total locked",
-    "totalCertified": "Total certified",
-    "circulatingSupply": "Circulating supply",
+    "totalCertified": "Certified (burned)",
+    "circulatingSupply": "Circulating",
     "tokenTotalImpact": "Token total impact",
     "totalCarbonImpact": "Total carbon impact",
     "totalAreaImpact": "Total area impact",
     "totalBiodiversityImpact": "Total biodiversity impact",
     "totalTreesImpact": "Total trees impact",
-    "impactPerToken": "Impact per token",
+    "impactPerToken": "Impact per Regeneration Credit",
     "treesPerToken": "Tress per token",
     "carbonPerToken": "Carbon per token",
     "areaPerToken": "Area per token",
     "biodiversityPerToken": "Biodiversity per token",
-    "impactPerEra": "Impact per era"
+    "impactPerEra": "Impact per era",
+    "systemImpact": "Verified system impact",
+    "carbonSequestered": "of CO₂ sequestered in the regeneration areas",
+    "species": "Species",
+    "areaInRegeneration": "Area in regeneration",
+    "systemImpactNote": "Calculated by the RegenerationCreditImpact contract from the inspections already counted.",
+    "impactPerTokenDescription": "What each RC represents today: total impact divided by the effective token supply.",
+    "howTitle": "How the impact is calculated",
+    "howDescription": "Every number comes from the contracts, with current values.",
+    "howAverage_one": "Average trees per inspection ({{count}} inspection counted)",
+    "howAverage_other": "Average trees per inspection ({{count}} inspections counted)",
+    "howRegenerators": "Certified regenerators",
+    "howTrees": "Estimated trees in the system",
+    "howCarbon": "{{kg}} kg of CO₂ per tree",
+    "howPerToken": "Divided by the effective supply",
+    "howNote": "The average per inspection is multiplied by the regenerators who completed their certification inspections. Each tree counts as 100 kg of sequestered carbon.",
+    "tokenDataDescription": "RC is created in the pools and reaches circulation as rewards. Certified tokens were burned in offsets.",
+    "inPools": "Still in the pools",
+    "effectiveSupply": "Effective supply (circulating + certified)",
+    "totalImpactPerEra": "Impact per era",
+    "perEraDescription": "Trees and species recorded in each era's inspections.",
+    "era": "Era {{era}}",
+    "current": "current",
+    "treesCounted": "Trees counted",
+    "speciesCounted": "Species recorded",
+    "treesPerInspection": "Trees per inspection",
+    "status": {
+      "settled": "Counted in the impact",
+      "pending": "Ended, waiting to be counted",
+      "current": "In progress"
+    },
+    "statusNote": {
+      "settled": "This era's numbers are already part of the system impact.",
+      "pending": "The era has ended. Its numbers join the system impact at the contract's next update, which happens with the next completed inspection.",
+      "current": "The numbers join the system impact after the era ends and goes through validation."
+    },
+    "source": "Data read from the contracts on the Sintrop network"
   },
   "rcIndex": {
     "title": "Regeneration index",
@@ -370,12 +406,17 @@
     "carbonImpact": "Carbon impact (g)",
     "item": "Item",
     "methodTitle": "Title",
-    "canAccept": "Can accept in"
+    "canAccept": "Can accept in",
+    "evaluationMethod": "Method",
+    "openProject": "Open project",
+    "evaluationMethodsHint": "Methodologies registered by researchers to assess regeneration in inspections.",
+    "calculatorItemsHint": "Each item states how much carbon one unit of use emits. Supporters use these items to calculate and offset their degradation.",
+    "carbonImpactPerUnit": "Carbon per unit"
   },
   "impactCalculator": {
     "title": "Impact calculator",
-    "burnTokens": "Burn tokens",
-    "descBurnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
+    "burnTokens": "Fund tree planting",
+    "descBurnTokens": "Fund the planting of real trees through the Regeneration Credit compensation system, contribute to the regeneration of terrestrial ecosystems and increase your certificate to prove your commitment to the Planet.",
     "publish": "Publish",
     "descPublish": "Allows a supporter to burn tokens to post content.",
     "offset": "Offset",
@@ -402,7 +443,18 @@
     "insufficientTokensApproved": "Insufficient tokens approved",
     "inputMessage": "Message (Optional)",
     "realizedOffset": "Offset completed successfully",
-    "approveMore": "Approve more"
+    "approveMore": "Approve more",
+    "treeEqualsTokens": "1 Tree = {{tokens}} RCs",
+    "tokensPerTreeDescription": "Currently {{tokens}} Regeneration Credits are equivalent to 1 tree",
+    "impactPerToken": "Impact per Regeneration Credit",
+    "perOneUnit": "per 1 {{unit}}",
+    "quickResult": "{{carbon}} kg of CO₂e: offset with ~{{tokens}} RC",
+    "supporterOnly": "Offsets and reduction commitments are available to registered supporters.",
+    "searchItem": "Search item (e.g. gasoline)",
+    "noItems": "No items found.",
+    "calculatorItems": "Specific item compensation",
+    "howManyTreesToFund": "How many trees do you want to fund?",
+    "connectToSeeCertificate": "Connect your wallet to see your offset certificates."
   },
   "ipfs": {
     "uploadFileToIPFS": "Upload file to IPFS",
@@ -575,7 +627,8 @@
     "acceptedInspection": "Inspection accepted",
     "inviteSent": "Invitation sent",
     "typeIDHere": "Type the ID here",
-    "youCan'tInviteNow": "You can't invite yet. Wait for the interval between invitations."
+    "youCan'tInviteNow": "You can't invite yet. Wait for the interval between invitations.",
+    "compensate": "Compensate"
   },
   "infoBar": {
     "currentEra": "Current era",
@@ -638,7 +691,8 @@
     "noValidations": "No validations",
     "insufficientBalance": "Insufficient balance",
     "addressCopied": "Address copied",
-    "copyAddress": "Copy address"
+    "copyAddress": "Copy address",
+    "compensateTokens": "Compensate {{tokens}} Regeneration Credits"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
@@ -1032,7 +1086,8 @@
   "profile": {
     "transferTo": "Transfer",
     "publishedResources": "Published resources",
-    "noPublishedResources": "No resources published yet."
+    "noPublishedResources": "No resources published yet.",
+    "certificates": "Certificates"
   },
   "supporterProfile": {
     "totalCompensated": "Total offset",
@@ -1073,5 +1128,8 @@
     "descActivistsPool": "This contract manages the distribution of Regeneration Credit tokens as a reward to activists for their participation, mainly inviting new users.",
     "descValidationPool": "This contract manages the distribution of Regeneration Credit tokens as a reward to validators.",
     "yourEraOnPool": "Your era in the pool"
+  },
+  "offset": {
+    "howManyUnitsToOffset": "How many {{unit}} do you want to offset?"
   }
 }

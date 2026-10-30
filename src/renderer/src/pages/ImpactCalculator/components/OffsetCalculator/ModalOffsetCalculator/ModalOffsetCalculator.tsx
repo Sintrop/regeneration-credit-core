@@ -42,17 +42,17 @@ export function ModalOffsetCalculator({ item }: Props): JSX.Element {
   return (
     <div>
       <button
-        className="w-[100px] h-10 rounded-2xl bg-blue-primary text-white hover:cursor-pointer"
+        className="w-full h-11 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer"
         onClick={handleShowModal}
       >
         {t('impactCalculator.offset')}
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-[500px]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-card-primary border border-green-primary/20 p-6 rounded-2xl shadow-2xl w-[500px]">
             <div className="flex items-center justify-between w-full">
-              <p className="text-white">{t('impactCalculator.offset')}</p>
+              <p className="text-white text-lg font-bold">{t('impactCalculator.offset')}</p>
               <button className="hover:cursor-pointer text-white" onClick={handleCloseModal}>
                 <MdClose size={25} color="white" />
               </button>
