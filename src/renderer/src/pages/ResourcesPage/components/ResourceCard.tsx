@@ -19,7 +19,14 @@ const TYPE_STYLE: Record<PublishedResourceType, { label: string; badge: string }
   report: { label: 'resourcesList.report', badge: 'bg-amber-400/20 text-amber-300' }
 }
 
-export function ResourceCard({ resource }: { resource: PublishedResource }): JSX.Element {
+export function ResourceCard({
+  resource,
+  hideAuthor
+}: {
+  resource: PublishedResource
+  /** Hide the author row, e.g. on the author's own profile. */
+  hideAuthor?: boolean
+}): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const voting = useVotingContext()
@@ -56,7 +63,11 @@ export function ResourceCard({ resource }: { resource: PublishedResource }): JSX
       {!!summary && <p className="text-gray-300 text-sm line-clamp-3">{summary}</p>}
 
       <div className="flex items-center justify-between gap-3 pt-3 border-t border-card-secondary">
-        <UserBadge address={resource.author} label={t('resourcesList.publishedBy')} />
+        {hideAuthor ? (
+          <span />
+        ) : (
+          <UserBadge address={resource.author} label={t('resourcesList.publishedBy')} />
+        )}
         <span className="text-green-primary text-sm font-semibold shrink-0">
           {t('resourcesList.open')} ›
         </span>

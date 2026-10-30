@@ -13,7 +13,7 @@ export function ValidationUserItem({ validation }: Props): JSX.Element {
     <div className="flex flex-col p-3 rounded-2xl bg-green-card">
       <div className="flex items-center gap-2">
         <p className="text-white">{t('validator')}:</p>
-        <UserAddressLink address={validation.validator}/>
+        <UserAddressLink address={validation.validator} />
       </div>
 
       <div className="flex items-center gap-2">

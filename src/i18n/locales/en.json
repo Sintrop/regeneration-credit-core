@@ -183,7 +183,33 @@
     "insufficientBalance": "Insufficient balance",
     "send": "Send",
     "today": "Today",
-    "transactionSent": "Transaction sent!"
+    "transactionSent": "Transaction sent!",
+    "transfer": "Transfer",
+    "transferDone": "Transfer completed",
+    "recipient": "Recipient",
+    "recipientAddress": "Recipient address",
+    "invalidAddress": "Invalid address",
+    "amount": "Amount",
+    "max": "Max",
+    "transferInfo": "The transaction will be processed on the Sintrop blockchain",
+    "invalidAmount": "Invalid amount",
+    "showBalance": "Show balance",
+    "hideBalance": "Hide balance",
+    "txs": "Transactions",
+    "commissions": "Commissions",
+    "noTxs": "No transactions",
+    "noReceivedCommissions": "No received commissions",
+    "from": "From",
+    "onlyRcTxsWillBeShowHere": "Only (RC) transactions will be show here",
+    "receive": "Receive",
+    "receiveHint": "Send RC or SINTROP to this address on the Sintrop network.",
+    "connectToSee": "Connect your wallet to see your balance and transactions.",
+    "kind": {
+      "burn": "Offset / burn",
+      "poolWithdraw": "Withdrawal · {{pool}}"
+    },
+    "ago": "{{duration}} ago",
+    "block": "block {{block}}"
   },
   "community": {
     "title": "Community",
@@ -548,7 +574,10 @@
     "invalidatedResource": "Invalidated resource",
     "totalInspections": "Total inspections",
     "deniedUser": "Denied user",
-    "noValidations": "No validations"
+    "noValidations": "No validations",
+    "insufficientBalance": "Insufficient balance",
+    "addressCopied": "Address copied",
+    "copyAddress": "Copy address"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
@@ -938,5 +967,33 @@
     "noResultYet": "Results appear once the inspector carries out the inspection.",
     "voteHint": "Vote to invalidate only if the inspection does not reflect the area: wrong count, photos that do not match or a report without justification.",
     "votingClosed": "Voting to invalidate closes at the end of the era the inspection was carried out in."
+  },
+  "profile": {
+    "transferTo": "Transfer",
+    "publishedResources": "Published resources",
+    "noPublishedResources": "No resources published yet."
+  },
+  "supporterProfile": {
+    "totalCompensated": "Total offset",
+    "compensationsCount_one": "in {{count}} offset",
+    "compensationsCount_other": "in {{count}} offsets",
+    "fundingImpact": "Funding the impact of",
+    "carbon": "CO₂ sequestered",
+    "impactNote": "Equivalence based on the impact per credit recorded on the blockchain.",
+    "certificateHint": "Public, verifiable certificate. It can be saved and shared, and the QR code opens the supporter profile.",
+    "compensations": "Offsets",
+    "offset": "Offset",
+    "treeFunding": "Funded tree planting",
+    "noCompensations": "No offsets yet.",
+    "ago": "{{duration}} ago",
+    "commitmentImpact": "{{impact}} t CO₂ offset",
+    "commitmentsHint": "Items the supporter publicly committed to reduce."
+  },
+  "invitedUsers": {
+    "title": "Invited users",
+    "as": "as",
+    "registered": "Registered",
+    "pending": "Waiting for registration",
+    "empty": "No invitations sent yet."
   }
 }

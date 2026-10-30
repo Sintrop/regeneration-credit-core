@@ -42,3 +42,15 @@ export function amountToWei(input: string, language: string): bigint | null {
   if (fraction.length > TOKEN_DECIMALS) return null
   return BigInt(whole + fraction.padEnd(TOKEN_DECIMALS, '0'))
 }
+
+/**
+ * Writes a wei amount as the user would type it in the app language, exactly, without
+ * thousands separators, so it reads back through amountToWei to the same value.
+ */
+export function weiToInput(wei: bigint, language: string): string {
+  if (wei <= 0n) return ''
+  const digits = wei.toString().padStart(TOKEN_DECIMALS + 1, '0')
+  const whole = digits.slice(0, -TOKEN_DECIMALS)
+  const fraction = digits.slice(-TOKEN_DECIMALS).replace(/0+$/, '')
+  return fraction ? `${whole}${decimalSeparator(language)}${fraction}` : whole
+}

@@ -1,3 +1,4 @@
+import { DataRow } from '@renderer/components/DataRow/DataRow'
 import { inspectorAbi, inspectorAddress } from '@renderer/services/contracts'
 import { InspectorProps } from '@renderer/types/inspector'
 import { useTranslation } from 'react-i18next'
@@ -41,61 +42,50 @@ export function InspectorData({ address, profilePage }: UserTypeContentProps): J
       />
 
       {inspector && (
-        <div className="flex gap-5 mt-5 max-w-[1024px]">
+        <div className="flex gap-5 mt-5 items-start">
           <div className="flex flex-col flex-1 gap-5">
-            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('common.data')}</p>
-              <p className="text-white">
-                <span className="text-white font-bold">ID: </span>
-                {formatUnits(BigInt(inspector?.id), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
-                {inspector?.proofPhoto}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.totalInspections')}: </span>
-                {formatUnits(BigInt(inspector?.totalInspections), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.lastAcceptedAt')}: </span>
-                {formatUnits(BigInt(inspector?.lastAcceptedAt), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.lastInspection')}: </span>
-                {formatUnits(BigInt(inspector?.lastInspection), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.level')}: </span>
-                {formatUnits(BigInt(inspector?.pool?.level), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.eraPool')}: </span>
-                {formatUnits(BigInt(inspector?.pool?.currentEra), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
-                {formatUnits(BigInt(inspector?.createdAt), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.userType')}: </span> 2
-              </p>
+            <div className="flex flex-col rounded-2xl bg-card-primary p-5">
+              <p className="text-white font-bold mb-2">{t('common.data')}</p>
+              <DataRow label="ID" value={formatUnits(BigInt(inspector?.id), 0)} />
+              <DataRow label={t('common.proofPhoto')} value={inspector?.proofPhoto} />
+              <DataRow
+                label={t('account.totalInspections')}
+                value={formatUnits(BigInt(inspector?.totalInspections), 0)}
+              />
+              <DataRow
+                label={t('account.lastAcceptedAt')}
+                value={formatUnits(BigInt(inspector?.lastAcceptedAt), 0)}
+              />
+              <DataRow
+                label={t('account.lastInspection')}
+                value={formatUnits(BigInt(inspector?.lastInspection), 0)}
+              />
+              <DataRow
+                label={t('common.level')}
+                value={formatUnits(BigInt(inspector?.pool?.level), 0)}
+              />
+              <DataRow
+                label={t('account.eraPool')}
+                value={formatUnits(BigInt(inspector?.pool?.currentEra), 0)}
+              />
+              <DataRow
+                label={t('account.registeredAt')}
+                value={formatUnits(BigInt(inspector?.createdAt), 0)}
+              />
 
-              <p className="text-red-500">
-                <span className="font-bold">{t('account.giveUps')}: </span>
-                {formatUnits(BigInt(inspector?.giveUps), 0)}
-              </p>
+              <DataRow
+                label={t('account.giveUps')}
+                value={formatUnits(BigInt(inspector?.giveUps), 0)}
+                danger
+              />
 
-              <p className="text-red-500">
-                <span className="font-bold">{t('account.penalties')}: </span>
-                {totalPenalties}
-              </p>
+              <DataRow label={t('account.penalties')} value={totalPenalties} danger />
             </div>
 
             <DelationsCard address={address} />
           </div>
 
-          <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
+          <div className="flex flex-col gap-5 flex-1 max-w-[420px]">
             <InvitationCard address={address} />
             <ValidationsCard address={address} profilePage={profilePage} />
           </div>

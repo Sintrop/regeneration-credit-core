@@ -35,20 +35,21 @@ export function ReductionCommitmentsCard({ address }: Props): JSX.Element {
 
   if (calculatorItemIds.length === 0) {
     return (
-      <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1 w-full">
-        <p className="text-gray-300 text-sm">{t('reductionCommitments')}</p>
-        <p className="mt-5 text-white">{t('noDeclaredReductionCommitments')}</p>
-      </div>
+      <section className="flex flex-col gap-2 p-5 rounded-2xl bg-card-primary">
+        <p className="text-white font-bold">{t('reductionCommitments')}</p>
+        <p className="text-gray-400 text-sm">{t('noDeclaredReductionCommitments')}</p>
+      </section>
     )
   }
 
   return (
-    <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1 w-full">
-      <p className="text-gray-300 text-sm">{t('reductionCommitments')}</p>
-      {calculatorItemIds.reverse().map((item) => (
+    <section className="flex flex-col gap-3 p-5 rounded-2xl bg-card-primary">
+      <p className="text-white font-bold">{t('reductionCommitments')}</p>
+      <p className="-mt-2 text-gray-400 text-xs">{t('supporterProfile.commitmentsHint')}</p>
+      {[...calculatorItemIds].reverse().map((item) => (
         <ReductionItem key={item} id={item} address={address} />
       ))}
-    </div>
+    </section>
   )
 }
 
@@ -57,7 +58,7 @@ interface ReductionItemProps {
   address: string
 }
 function ReductionItem({ id, address }: ReductionItemProps): JSX.Element {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const { data } = useReadContract({
     address: researcherAddress,
@@ -82,15 +83,16 @@ function ReductionItem({ id, address }: ReductionItemProps): JSX.Element {
     : 0
 
   return (
-    <div className="flex flex-col items-start border-b pb-3 w-full hover:cursor-pointer">
-      <p className="text-white">ID: {formatUnits(BigInt(item?.id), 0)}</p>
-      <p className="text-white">{item?.item}</p>
-      <p className="text-white">
-        {t('carbonImpact')}: {formatUnits(BigInt(item?.carbonImpact), 0)} g
-      </p>
-      <p className="text-white">
-        {t('contributedWith')}:{' '}
-        {Intl.NumberFormat('pt-BR', { maximumFractionDigits: 5 }).format(contributedWith)} RC
+    <div className="p-4 rounded-xl bg-card-secondary flex flex-col gap-1">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-white font-semibold">{item?.item}</p>
+        <p className="text-green-primary font-bold shrink-0">
+          {Intl.NumberFormat(i18n.language, { maximumFractionDigits: 2 }).format(contributedWith)}{' '}
+          RC
+        </p>
+      </div>
+      <p className="text-gray-400 text-xs">
+        {formatUnits(BigInt(item?.carbonImpact), 0)} g CO₂/{item?.unit} · {t('contributedWith')}
       </p>
     </div>
   )

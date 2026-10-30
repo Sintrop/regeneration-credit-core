@@ -16,7 +16,33 @@
     "value": "Valor",
     "insufficientBalance": "Saldo insuficiente",
     "send": "Enviar",
-    "today": "Hoje"
+    "today": "Hoje",
+    "transfer": "Transferir",
+    "transferDone": "Transferência realizada",
+    "recipient": "Destinatário",
+    "recipientAddress": "Endereço do destinatário",
+    "invalidAddress": "Endereço inválido",
+    "amount": "Quantidade",
+    "max": "Máx",
+    "transferInfo": "A transação será processada na blockchain da Sintrop",
+    "invalidAmount": "Quantidade inválida",
+    "showBalance": "Mostrar saldo",
+    "hideBalance": "Ocultar saldo",
+    "txs": "Transações",
+    "commissions": "Comissões",
+    "noTxs": "Nenhuma transação",
+    "noReceivedCommissions": "Nenhuma comissão recebida",
+    "from": "De",
+    "onlyRcTxsWillBeShowHere": "Apenas as transações do (RC) serão mostradas aqui",
+    "receive": "Receber",
+    "receiveHint": "Envie RC ou SINTROP para este endereço na rede Sintrop.",
+    "connectToSee": "Conecte sua carteira para ver seu saldo e suas transações.",
+    "kind": {
+      "burn": "Compensação / queima",
+      "poolWithdraw": "Saque · {{pool}}"
+    },
+    "ago": "há {{duration}}",
+    "block": "bloco {{block}}"
   },
   "ipfs": {
     "uploadFileToIPFS": "Enviar arquivo para o IPFS",
@@ -546,7 +572,10 @@
     "invalidatedResource": "Recurso invalidado",
     "totalInspections": "Total de inspeções",
     "deniedUser": "Usuário negado",
-    "noValidations": "Nenhuma validação"
+    "noValidations": "Nenhuma validação",
+    "insufficientBalance": "Saldo insuficiente",
+    "addressCopied": "Endereço copiado",
+    "copyAddress": "Copiar endereço"
   },
   "descActions": {
     "burnTokens": "Compense sua degradação ambiental queimando tokens de Crédito de Regeneração. Queimar tokens os remove permanentemente da circulação e aumenta seu certificado de compensação.",
@@ -934,5 +963,33 @@
     "noResultYet": "Os resultados aparecem quando o inspetor realizar a inspeção.",
     "voteHint": "Vote para invalidar só se a inspeção não refletir a área: contagem errada, fotos que não correspondem ou relatório sem justificativa.",
     "votingClosed": "A votação para invalidar fecha no fim da fase em que a inspeção foi realizada."
+  },
+  "profile": {
+    "transferTo": "Transferir",
+    "publishedResources": "Recursos publicados",
+    "noPublishedResources": "Nenhum recurso publicado ainda."
+  },
+  "supporterProfile": {
+    "totalCompensated": "Total compensado",
+    "compensationsCount_one": "em {{count}} compensação",
+    "compensationsCount_other": "em {{count}} compensações",
+    "fundingImpact": "Financiando o impacto de",
+    "carbon": "CO₂ sequestrado",
+    "impactNote": "Equivalência calculada com o impacto por crédito registrado na blockchain.",
+    "certificateHint": "Certificado público e verificável. Pode ser salvo e compartilhado, e o QR code abre o perfil do apoiador.",
+    "compensations": "Compensações",
+    "offset": "Compensação",
+    "treeFunding": "Financiou o plantio de árvores",
+    "noCompensations": "Nenhuma compensação ainda.",
+    "ago": "há {{duration}}",
+    "commitmentImpact": "{{impact}} t CO₂ compensadas",
+    "commitmentsHint": "Itens que o apoiador se comprometeu publicamente a reduzir."
+  },
+  "invitedUsers": {
+    "title": "Usuários convidados",
+    "as": "como",
+    "registered": "Cadastrado",
+    "pending": "Aguardando cadastro",
+    "empty": "Nenhum convite enviado ainda."
   }
 }

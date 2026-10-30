@@ -1,8 +1,15 @@
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { FaRegCopy } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+
 import BGFlorest from '@renderer/assets/images/bg-florest.jpg'
+import { TransferModal } from '@renderer/components/TransferModal/TransferModal'
+import { UserTypeToText } from '@renderer/components/UserTypeToText/UserTypeToText'
+import { useUserContext } from '@renderer/hooks/useUserContext'
+import { AddDelation } from '../AddDelation/AddDelation'
 import { ProofPhoto } from '../ProofPhoto/ProofPhoto'
 import { UpdateAreaPhoto } from '../RegeneratorData/UpdateAreaPhoto'
-import { UserTypeToText } from '@renderer/components/UserTypeToText/UserTypeToText'
-import { AddDelation } from '../AddDelation/AddDelation'
 
 interface Props {
   address: string
@@ -15,6 +22,7 @@ interface Props {
   areaPhoto?: string
 }
 
+/** Banner, photo, name and type of a user, with transfer and report actions for visitors. */
 export function HeaderUser({
   address,
   areaPhotoUpdated,
@@ -25,35 +33,63 @@ export function HeaderUser({
   proofPhoto,
   canUpdateAreaPhoto
 }: Props): JSX.Element {
+  const { t } = useTranslation()
+  const { address: connected } = useUserContext()
+  const [transferring, setTransferring] = useState(false)
+  const isOwn = !!connected && connected.toLowerCase() === address.toLowerCase()
+  const canTransfer = !!connected && !isOwn
+
+  function copyAddress(): void {
+    navigator.clipboard.writeText(address)
+    toast.success(t('common.addressCopied'))
+  }
+
   return (
-    <div className="flex flex-col w-full max-w-[1024px] rounded-2xl bg-green-card">
-      <div className="flex w-full h-[150px] relative">
-        <img src={BGFlorest} className="w-full h-full object-cover rounded-t-2xl z-0" />
-        {areaPhoto && (
-          <img
-            src={areaPhoto}
-            className="w-full h-full object-cover rounded-t-2xl absolute top-0 left-0"
-          />
+    <section className="w-full rounded-2xl bg-card-primary overflow-hidden">
+      <div className="relative h-40">
+        <img src={areaPhoto || BGFlorest} className="w-full h-full object-cover" />
+        {canUpdateAreaPhoto && (
+          <div className="absolute top-3 right-3">
+            <UpdateAreaPhoto updated={areaPhotoUpdated} />
+          </div>
         )}
       </div>
-      <div className="p-3 flex flex-col mt-[-80px] relative">
-        <ProofPhoto address={address} hash={proofPhoto} />
-        <p className="text-white mt-2">{address}</p>
-        <div className="flex gap-2">
-          <p className="text-white font-bold">{name}</p>
-          <p className="text-gray-300">-</p>
-          <UserTypeToText userType={userType} className="text-gray-300" />
-        </div>
-        {description && <p className="text-gray-300 mt-2">{description}</p>}
 
-        <div className="absolute top-8 right-3">
-          {canUpdateAreaPhoto && <UpdateAreaPhoto updated={areaPhotoUpdated} />}
+      <div className="px-6 pb-6 -mt-14 flex items-end justify-between gap-6">
+        <div className="flex flex-col gap-1 min-w-0">
+          <ProofPhoto address={address} hash={proofPhoto} />
+          <h2 className="mt-2 text-white text-2xl font-bold truncate">{name}</h2>
+          <UserTypeToText
+            userType={userType}
+            className="text-green-primary text-sm font-semibold"
+          />
+          <button
+            className="flex items-center gap-2 text-gray-300 text-sm hover:text-white hover:cursor-pointer"
+            onClick={copyAddress}
+            title={t('common.copyAddress')}
+          >
+            <span className="truncate">{address}</span>
+            <FaRegCopy size={13} />
+          </button>
+          {description && <p className="mt-2 max-w-[640px] text-gray-300">{description}</p>}
         </div>
 
-        <div className="absolute right-3 bottom-3">
-          {userType !== 7 && <AddDelation address={address} />}
+        <div className="flex items-center gap-3 shrink-0">
+          {canTransfer && (
+            <button
+              className="h-10 px-5 rounded-xl bg-green-primary text-green-secondary text-sm font-bold hover:cursor-pointer"
+              onClick={() => setTransferring(true)}
+            >
+              {t('profile.transferTo')}
+            </button>
+          )}
+          {!isOwn && userType !== 7 && <AddDelation address={address} />}
         </div>
       </div>
-    </div>
+
+      {transferring && (
+        <TransferModal recipient={{ address, name }} onClose={() => setTransferring(false)} />
+      )}
+    </section>
   )
 }

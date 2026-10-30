@@ -1,3 +1,4 @@
+import { DataRow } from '@renderer/components/DataRow/DataRow'
 import { voteAbi, voteAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useReadContract } from 'wagmi'
@@ -17,10 +18,5 @@ export function UserCanVote({ address }: Props): JSX.Element {
 
   const canVote = data ? (data.toString() === 'true' ? true : false) : false
 
-  return (
-    <p className="text-white font-bold">
-      {t('account.canVote')}:{' '}
-      <span className="text-white font-normal">{canVote ? t('common.yes') : t('common.no')}</span>
-    </p>
-  )
+  return <DataRow label={t('account.canVote')} value={canVote ? t('common.yes') : t('common.no')} />
 }

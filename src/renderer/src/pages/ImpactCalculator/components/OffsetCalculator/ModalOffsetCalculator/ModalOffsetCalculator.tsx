@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CalculatorItemProps } from '@renderer/types/researcher'

@@ -57,7 +57,7 @@ export function AddDelation({ address }: Props): JSX.Element {
     <div className="flex flex-col">
       <button
         onClick={toggleShowModal}
-        className="px-10 h-10 rounded-2xl w-fit border-2 border-yellow-600 text-yellow-600 font-semibold hover:cursor-pointer hover:border-yellow-700 hover:text-yellow-700 duration-200"
+        className="h-10 px-4 rounded-xl border border-amber-400/60 text-amber-300 text-sm font-semibold hover:cursor-pointer hover:bg-amber-400/10"
       >
         {t('account.addDelation')}
       </button>

@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { amountToWei, normalizeAmountInput, parseAmountInput } from '@renderer/utils/tokenAmount'
+import {
+  amountToWei,
+  normalizeAmountInput,
+  parseAmountInput,
+  weiToInput
+} from '@renderer/utils/tokenAmount'
 
 describe('normalizeAmountInput', () => {
   it('reads pt and es amounts with dot thousands and comma decimals (issue #107)', () => {
@@ -34,5 +39,17 @@ describe('amountToWei', () => {
   it('parses values for balance checks', () => {
     expect(parseAmountInput('2,5', 'pt')).toBe(2.5)
     expect(Number.isNaN(parseAmountInput('x', 'pt'))).toBe(true)
+  })
+})
+
+describe('weiToInput', () => {
+  it('writes the exact amount with the language separator and reads back to the same wei', () => {
+    const wei = 1_234_567_890_000_000_000_123n
+    expect(weiToInput(wei, 'pt')).toBe('1234,567890000000000123')
+    expect(weiToInput(wei, 'en')).toBe('1234.567890000000000123')
+    expect(amountToWei(weiToInput(wei, 'pt'), 'pt')).toBe(wei)
+    expect(amountToWei(weiToInput(wei, 'en'), 'en')).toBe(wei)
+    expect(weiToInput(5n * 10n ** 18n, 'pt')).toBe('5')
+    expect(weiToInput(0n, 'pt')).toBe('')
   })
 })
