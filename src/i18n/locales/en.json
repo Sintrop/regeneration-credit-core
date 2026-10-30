@@ -721,5 +721,45 @@
       "6": "Activist pool",
       "8": "Validation pool"
     }
+  },
+  "timers": {
+    "title": "Your actions",
+    "availableNow": "Available now",
+    "availableIn": "Available in {{duration}}",
+    "opensNextEra": "Blocked at the end of the era. Opens in {{duration}}",
+    "pendingInspection": "Request open, waiting for an inspector",
+    "inspectionInProgress": "Inspection in progress. Expires in {{duration}}",
+    "missionComplete": "Done: all 6 inspections completed",
+    "blocked": {
+      "giveUps": "Blocked: limit of 3 give-ups reached",
+      "levelRequired": "Requires a pool level above your type average",
+      "minimumInspections": "Requires 3 completed inspections"
+    },
+    "actions": {
+      "requestInspection": "Request inspection",
+      "acceptInspection": "Accept inspection",
+      "publishResearch": "Publish research",
+      "publishCalculatorItem": "Publish calculator item",
+      "publishReport": "Publish report",
+      "publishContribution": "Publish contribution",
+      "vote": "Vote to invalidate",
+      "invite": "Invite",
+      "inviteRegeneratorInspector": "Invite regenerator or inspector",
+      "withdraw": "Withdraw tokens",
+      "offset": "New offset",
+      "inviteSupporter": "Invite supporter · 5% commission"
+    },
+    "tickerAvailable_one": "You have {{count}} action available",
+    "tickerAvailable_other": "You have {{count}} actions available",
+    "allActions": "All actions"
+  },
+  "duration": {
+    "days_one": "~{{count}} day",
+    "days_other": "~{{count}} days",
+    "hours_one": "~{{count}} hour",
+    "hours_other": "~{{count}} hours",
+    "minutes_one": "~{{count}} minute",
+    "minutes_other": "~{{count}} minutes",
+    "withBlocks": "{{duration}} ({{blocks}} blocks)"
   }
 }

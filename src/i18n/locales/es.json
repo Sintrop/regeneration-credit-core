@@ -1,0 +1,42 @@
+{
+  "timers": {
+    "title": "Tus acciones",
+    "availableNow": "Disponible ahora",
+    "availableIn": "Disponible en {{duration}}",
+    "opensNextEra": "Bloqueado al final de la fase. Abre en {{duration}}",
+    "pendingInspection": "Solicitud abierta, esperando un inspector",
+    "inspectionInProgress": "Inspección en curso. Expira en {{duration}}",
+    "missionComplete": "Completado: se hicieron las 6 inspecciones",
+    "blocked": {
+      "giveUps": "Bloqueado: límite de 3 desistencias alcanzado",
+      "levelRequired": "Requiere nivel en el pool por encima del promedio de tu tipo",
+      "minimumInspections": "Requiere 3 inspecciones realizadas"
+    },
+    "actions": {
+      "requestInspection": "Solicitar inspección",
+      "acceptInspection": "Aceptar inspección",
+      "publishResearch": "Publicar investigación",
+      "publishCalculatorItem": "Publicar ítem de la calculadora",
+      "publishReport": "Publicar informe",
+      "publishContribution": "Publicar contribución",
+      "vote": "Votar para invalidar",
+      "invite": "Invitar",
+      "inviteRegeneratorInspector": "Invitar regenerador o inspector",
+      "withdraw": "Retirar tokens",
+      "offset": "Nueva compensación",
+      "inviteSupporter": "Invitar apoyador · 5% de comisión"
+    },
+    "tickerAvailable_one": "Tienes {{count}} acción disponible",
+    "tickerAvailable_other": "Tienes {{count}} acciones disponibles",
+    "allActions": "Todas las acciones"
+  },
+  "duration": {
+    "days_one": "~{{count}} día",
+    "days_other": "~{{count}} días",
+    "hours_one": "~{{count}} hora",
+    "hours_other": "~{{count}} horas",
+    "minutes_one": "~{{count}} minuto",
+    "minutes_other": "~{{count}} minutos",
+    "withBlocks": "{{duration}} ({{blocks}} bloques)"
+  }
+}

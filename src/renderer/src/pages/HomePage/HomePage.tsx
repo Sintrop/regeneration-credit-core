@@ -6,6 +6,7 @@ import { useReadContracts } from 'wagmi'
 
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { FeedCard } from '@renderer/components/Feed/FeedCard'
+import { UserTimersCard } from '@renderer/components/UserTimersCard/UserTimersCard'
 import { useFeed } from '@renderer/hooks/useFeed'
 import { useCurrentBlock } from '@renderer/domain/Chain/useCases/useBlockNumber'
 import { rcImpactAbi, rcImpactAddress } from '@renderer/services/contracts'
@@ -138,7 +139,15 @@ export function HomePage(): JSX.Element {
   }
 
   return (
-    <ScreenPage pageTitle={t('feed.title')} rightRail={<NetworkImpact />}>
+    <ScreenPage
+      pageTitle={t('feed.title')}
+      rightRail={
+        <div className="flex flex-col gap-4">
+          <UserTimersCard />
+          <NetworkImpact />
+        </div>
+      }
+    >
       <div className="flex flex-col gap-5 max-w-[720px] mx-auto">
         <FilterChips value={filter} counts={counts} onChange={changeFilter} />
 

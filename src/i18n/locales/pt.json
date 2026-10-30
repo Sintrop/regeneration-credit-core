@@ -717,5 +717,45 @@
       "6": "Pool dos ativistas",
       "8": "Pool de validação"
     }
+  },
+  "timers": {
+    "title": "Suas ações",
+    "availableNow": "Disponível agora",
+    "availableIn": "Disponível em {{duration}}",
+    "opensNextEra": "Bloqueado no fim da fase. Abre em {{duration}}",
+    "pendingInspection": "Pedido em aberto, aguardando um inspetor",
+    "inspectionInProgress": "Inspeção em andamento. Expira em {{duration}}",
+    "missionComplete": "Concluído: as 6 inspeções foram feitas",
+    "blocked": {
+      "giveUps": "Bloqueado: limite de 3 desistências atingido",
+      "levelRequired": "Requer nível no pool acima da média do seu tipo",
+      "minimumInspections": "Requer 3 inspeções realizadas"
+    },
+    "actions": {
+      "requestInspection": "Pedir inspeção",
+      "acceptInspection": "Aceitar inspeção",
+      "publishResearch": "Publicar pesquisa",
+      "publishCalculatorItem": "Publicar item da calculadora",
+      "publishReport": "Publicar relatório",
+      "publishContribution": "Publicar contribuição",
+      "vote": "Votar para invalidar",
+      "invite": "Convidar",
+      "inviteRegeneratorInspector": "Convidar regenerador ou inspetor",
+      "withdraw": "Sacar tokens",
+      "offset": "Nova compensação",
+      "inviteSupporter": "Convidar apoiador · 5% de comissão"
+    },
+    "tickerAvailable_one": "Você tem {{count}} ação disponível",
+    "tickerAvailable_other": "Você tem {{count}} ações disponíveis",
+    "allActions": "Todas as ações"
+  },
+  "duration": {
+    "days_one": "~{{count}} dia",
+    "days_other": "~{{count}} dias",
+    "hours_one": "~{{count}} hora",
+    "hours_other": "~{{count}} horas",
+    "minutes_one": "~{{count}} minuto",
+    "minutes_other": "~{{count}} minutos",
+    "withBlocks": "{{duration}} ({{blocks}} blocos)"
   }
 }

@@ -31,7 +31,8 @@ function shortAddress(address: string): string {
 
 function useFormat(): (value: number, digits?: number) => string {
   const { i18n } = useTranslation()
-  return (value, digits = 2) => Intl.NumberFormat(i18n.language, { maximumFractionDigits: digits }).format(value)
+  return (value, digits = 2) =>
+    Intl.NumberFormat(i18n.language, { maximumFractionDigits: digits }).format(value)
 }
 
 /** "~3 days ago" from the block distance, at the Sintrop block time. */
@@ -40,19 +41,34 @@ function useAgo(): (blockNumber: number, currentBlock: number) => string {
   return (blockNumber, currentBlock) => {
     if (!currentBlock || currentBlock <= blockNumber) return ''
     const seconds = (currentBlock - blockNumber) * SECONDS_PER_BLOCK
-    if (seconds < 3600) return t('feedNews.agoMinutes', { count: Math.max(1, Math.round(seconds / 60)) })
+    if (seconds < 3600)
+      return t('feedNews.agoMinutes', { count: Math.max(1, Math.round(seconds / 60)) })
     if (seconds < 86400) return t('feedNews.agoHours', { count: Math.round(seconds / 3600) })
     return t('feedNews.agoDays', { count: Math.round(seconds / 86400) })
   }
 }
 
-function Avatar({ address, photo, size = 40 }: { address: string; photo?: string; size?: number }): JSX.Element {
+function Avatar({
+  address,
+  photo,
+  size = 40
+}: {
+  address: string
+  photo?: string
+  size?: number
+}): JSX.Element {
   const { ipfsGatewayURL } = useSettingsContext()
   return (
-    <div className="relative rounded-full overflow-hidden shrink-0" style={{ width: size, height: size }}>
+    <div
+      className="relative rounded-full overflow-hidden shrink-0"
+      style={{ width: size, height: size }}
+    >
       <Jazzicon className="w-full h-full" address={address} />
       {photo && (
-        <Img src={`${ipfsGatewayURL}/ipfs/${photo}`} className="absolute inset-0 w-full h-full object-cover" />
+        <Img
+          src={`${ipfsGatewayURL}/ipfs/${photo}`}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       )}
     </div>
   )
@@ -71,7 +87,9 @@ function Header({ event, currentBlock }: { event: FeedEvent; currentBlock: numbe
     >
       <Avatar address={event.actor} photo={user.photo} />
       <div className="min-w-0">
-        <p className="text-white font-semibold truncate">{user.name || shortAddress(event.actor)}</p>
+        <p className="text-white font-semibold truncate">
+          {user.name || shortAddress(event.actor)}
+        </p>
         <p className="text-gray-400 text-xs">
           {shortAddress(event.actor)}
           {when && ` · ${when}`} · {`#${event.blockNumber}`}
@@ -83,7 +101,9 @@ function Header({ event, currentBlock }: { event: FeedEvent; currentBlock: numbe
 
 function Badge({ label, tone }: { label: string; tone: Tone }): JSX.Element {
   return (
-    <span className={`self-start inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${TONES[tone]}`}>
+    <span
+      className={`self-start inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${TONES[tone]}`}
+    >
       <span className="w-1.5 h-1.5 rounded-full bg-current" />
       {label}
     </span>
@@ -104,7 +124,10 @@ function Amount({ value, unit = 'RC' }: { value: number; unit?: string }): JSX.E
 
 function Link({ label, onClick }: { label: string; onClick: () => void }): JSX.Element {
   return (
-    <button className="self-start text-green-primary text-sm font-semibold hover:underline hover:cursor-pointer" onClick={onClick}>
+    <button
+      className="self-start text-green-primary text-sm font-semibold hover:underline hover:cursor-pointer"
+      onClick={onClick}
+    >
       {label} ›
     </button>
   )
@@ -122,7 +145,9 @@ function UserRow({ label, address }: { label: string; address: string }): JSX.El
       <div className="min-w-0">
         <p className="text-gray-400 text-xs">{label}</p>
         <p className="text-white font-semibold truncate">{user.name || shortAddress(address)}</p>
-        {user.userType > 0 && <UserTypeToText userType={user.userType} className="text-green-primary text-xs" />}
+        {user.userType > 0 && (
+          <UserTypeToText userType={user.userType} className="text-green-primary text-xs" />
+        )}
       </div>
     </button>
   )
@@ -177,9 +202,15 @@ function Body({ event }: { event: FeedEvent }): JSX.Element {
     case 'inspectionRequested':
       return (
         <>
-          <Badge label={t('feedNews.inspectionRequested', { id: n('inspectionId') })} tone="amber" />
+          <Badge
+            label={t('feedNews.inspectionRequested', { id: n('inspectionId') })}
+            tone="amber"
+          />
           <p className="text-gray-200">{t('feedNews.inspectionRequestedText')}</p>
-          <Link label={t('feedNews.seeInspection')} onClick={() => resource('inspection', n('inspectionId'))} />
+          <Link
+            label={t('feedNews.seeInspection')}
+            onClick={() => resource('inspection', n('inspectionId'))}
+          />
         </>
       )
     case 'inspectionAccepted':
@@ -187,7 +218,10 @@ function Body({ event }: { event: FeedEvent }): JSX.Element {
         <>
           <Badge label={t('feedNews.inspectionAccepted', { id: n('inspectionId') })} tone="blue" />
           <p className="text-gray-200">{t('feedNews.inspectionAcceptedText')}</p>
-          <Link label={t('feedNews.seeInspection')} onClick={() => resource('inspection', n('inspectionId'))} />
+          <Link
+            label={t('feedNews.seeInspection')}
+            onClick={() => resource('inspection', n('inspectionId'))}
+          />
         </>
       )
     case 'inspectionRealized':
@@ -200,7 +234,10 @@ function Body({ event }: { event: FeedEvent }): JSX.Element {
             <Stat value={format(n('biodiversityResult'), 0)} label={t('feedNews.species')} />
             <Stat value={format(n('regenerationScore'), 0)} label={t('feedNews.score')} />
           </div>
-          <Link label={t('feedNews.seeInspection')} onClick={() => resource('inspection', n('inspectionId'))} />
+          <Link
+            label={t('feedNews.seeInspection')}
+            onClick={() => resource('inspection', n('inspectionId'))}
+          />
         </>
       )
     case 'regeneratorEnteredPool':
@@ -218,10 +255,16 @@ function Body({ event }: { event: FeedEvent }): JSX.Element {
           <p className="text-gray-300">
             {t('feedNews.offsetting')} <CalculatorItemName id={n('calculatorItemId')} />
           </p>
-          {!!s('message') && <p className="text-gray-100 italic border-l-2 border-teal-300/50 pl-3">“{s('message')}”</p>}
+          {!!s('message') && (
+            <p className="text-gray-100 italic border-l-2 border-teal-300/50 pl-3">
+              “{s('message')}”
+            </p>
+          )}
           {carbonPerToken > 0 && (
             <p className="text-gray-400 text-sm">
-              {t('feedNews.offsetImpact', { amount: formatCarbon(n('amount') * carbonPerToken, format) })}
+              {t('feedNews.offsetImpact', {
+                amount: formatCarbon(n('amount') * carbonPerToken, format)
+              })}
             </p>
           )}
         </>
@@ -239,7 +282,10 @@ function Body({ event }: { event: FeedEvent }): JSX.Element {
         <>
           <Badge label={t('feedNews.commitmentBadge')} tone="teal" />
           <p className="text-gray-200">
-            {t('feedNews.commitmentText')} <span className="font-semibold text-white"><CalculatorItemName id={n('calculatorItemId')} /></span>
+            {t('feedNews.commitmentText')}{' '}
+            <span className="font-semibold text-white">
+              <CalculatorItemName id={n('calculatorItemId')} />
+            </span>
           </p>
         </>
       )
@@ -271,18 +317,26 @@ function Body({ event }: { event: FeedEvent }): JSX.Element {
       return (
         <>
           <Badge label={t('feedNews.newUserBadge')} tone="green" />
-          <p className="text-gray-200">
-            {t('feedNews.joinedAs')} <UserTypeToText userType={n('userType')} className="inline text-green-primary font-semibold" />
-          </p>
+          <div className="text-gray-200">
+            {t('feedNews.joinedAs')}{' '}
+            <UserTypeToText
+              userType={n('userType')}
+              className="inline text-green-primary font-semibold"
+            />
+          </div>
         </>
       )
     case 'invitation':
       return (
         <>
           <Badge label={t('feedNews.invitationBadge')} tone="blue" />
-          <p className="text-gray-200">
-            {t('feedNews.invitedToBe')} <UserTypeToText userType={n('invitedType')} className="inline text-green-primary font-semibold" />
-          </p>
+          <div className="text-gray-200">
+            {t('feedNews.invitedToBe')}{' '}
+            <UserTypeToText
+              userType={n('invitedType')}
+              className="inline text-green-primary font-semibold"
+            />
+          </div>
           <UserRow label={t('feedNews.invited')} address={s('invited')} />
         </>
       )
@@ -318,7 +372,13 @@ function formatCarbon(grams: number, format: (value: number, digits?: number) =>
   return `${format(Math.max(0, grams))} g`
 }
 
-export function FeedCard({ event, currentBlock }: { event: FeedEvent; currentBlock: number }): JSX.Element {
+export function FeedCard({
+  event,
+  currentBlock
+}: {
+  event: FeedEvent
+  currentBlock: number
+}): JSX.Element {
   return (
     <article className="flex flex-col gap-3 p-5 rounded-2xl bg-card-primary">
       <Header event={event} currentBlock={currentBlock} />

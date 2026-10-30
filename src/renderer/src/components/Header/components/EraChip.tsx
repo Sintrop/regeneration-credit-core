@@ -17,7 +17,7 @@ export function EraChip(): JSX.Element | null {
     >
       <span className="w-2 h-2 rounded-full bg-green-primary" />
       <span className="text-white font-semibold">{t('shell.era', { era: currentEra })}</span>
-      <span className="text-gray-400">
+      <span className="hidden xl:inline text-gray-400">
         {t('shell.nextEraIn', { days: blocksToDays(nextEraIn) })}
       </span>
     </div>
