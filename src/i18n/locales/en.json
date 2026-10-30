@@ -886,5 +886,57 @@
   },
   "invalidation": {
     "openChip": "Voting open: {{votes}}/{{needed}}"
+  },
+  "resourceDetails": {
+    "file": "File",
+    "publishedAtBlock": "Published at block",
+    "status": "Status",
+    "votingOpen": "Voting to invalidate is open in this era. Vote only if the content breaks the protocol rules.",
+    "votingClosed": "Voting to invalidate closes at the end of the era the resource was published in.",
+    "openFile": "Open file",
+    "copyUrl": "Copy URL",
+    "loadingFile": "Loading file...",
+    "fileError": "The file could not be loaded. Use Open file to view it in the browser."
+  },
+  "inspections": {
+    "title": "Inspections",
+    "inspection": "Inspection",
+    "score": "Score",
+    "seeInspection": "See",
+    "acceptInspection": "Accept inspection",
+    "thisInspectionCanAcceptIn": "This inspection can be accepted in {{duration}}",
+    "expireIn": "Expires in {{duration}}",
+    "expiredAgo": "Expired {{duration}} ago",
+    "view": {
+      "cards": "Cards",
+      "table": "Table"
+    },
+    "loadingAll": "Loading all inspections...",
+    "realizedCount": "Completed",
+    "treesCounted": "Trees counted",
+    "avgScore": "Average score",
+    "columns": {
+      "id": "ID",
+      "status": "Status",
+      "regenerator": "Regenerator",
+      "inspector": "Inspector",
+      "trees": "Trees",
+      "biodiversity": "Biodiv.",
+      "score": "Score",
+      "era": "Era",
+      "inspectedAt": "Block"
+    },
+    "status": {
+      "open": "Open",
+      "accepted": "Accepted",
+      "realized": "Realized",
+      "invalidated": "Invalidated",
+      "expired": "Expired"
+    }
+  },
+  "inspectionDetails": {
+    "noResultYet": "Results appear once the inspector carries out the inspection.",
+    "voteHint": "Vote to invalidate only if the inspection does not reflect the area: wrong count, photos that do not match or a report without justification.",
+    "votingClosed": "Voting to invalidate closes at the end of the era the inspection was carried out in."
   }
 }

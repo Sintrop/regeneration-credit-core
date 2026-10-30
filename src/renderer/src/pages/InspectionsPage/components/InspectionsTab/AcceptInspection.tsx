@@ -107,10 +107,10 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
-      <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
+      <div className="bg-card-primary border border-green-primary/20 p-6 rounded-2xl shadow-2xl w-96">
         <div className="flex items-center justify-between w-full">
-          <p className="text-white">{t('actions.acceptInspection')}</p>
+          <p className="text-white text-lg font-bold">{t('actions.acceptInspection')}</p>
           <button className="hover:cursor-pointer text-white" onClick={close}>
             <MdClose color="white" size={25} />
           </button>

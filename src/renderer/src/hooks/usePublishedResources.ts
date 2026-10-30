@@ -5,7 +5,7 @@ import {
   getPublishedResources,
   getVotingContext,
   PublishedResource,
-  PublishedResourceType
+  VotingContext
 } from '@renderer/services/resources/resourcesService'
 
 export function usePublishedResources(): {
@@ -23,9 +23,7 @@ export function usePublishedResources(): {
   return { resources: data ?? [], isLoading, isError, refetch }
 }
 
-export function useVotingContext():
-  | { votesNeeded: number; currentEra: Record<PublishedResourceType, number> }
-  | undefined {
+export function useVotingContext(): VotingContext | undefined {
   const { rpcUrl } = useSettingsContext()
   const { data } = useQuery({
     queryKey: ['votingContext', rpcUrl],

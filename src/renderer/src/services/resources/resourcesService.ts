@@ -24,7 +24,7 @@ export const DETAILS_SEGMENT: Record<PublishedResourceType, string> = {
   report: 'report'
 }
 
-const SOURCES: Record<
+export const RESOURCE_SOURCES: Record<
   PublishedResourceType,
   { abi: unknown; address: string; count: string; getter: string }
 > = {
@@ -66,7 +66,7 @@ export function toPublishedResource(type: PublishedResourceType, raw: any): Publ
 }
 
 async function getType(web3: Web3, type: PublishedResourceType): Promise<PublishedResource[]> {
-  const source = SOURCES[type]
+  const source = RESOURCE_SOURCES[type]
   const contract = new web3.eth.Contract(source.abi as any, source.address) as any
   const count = num(await contract.methods[source.count]().call())
   const ids = Array.from({ length: count }, (_, index) => index + 1)
@@ -78,25 +78,36 @@ async function getType(web3: Web3, type: PublishedResourceType): Promise<Publish
 export async function getPublishedResources(rpc: string): Promise<PublishedResource[]> {
   const web3 = new Web3(new Web3.providers.HttpProvider(rpc))
   const groups = await Promise.all(
-    (Object.keys(SOURCES) as PublishedResourceType[]).map((type) => getType(web3, type))
+    (Object.keys(RESOURCE_SOURCES) as PublishedResourceType[]).map((type) => getType(web3, type))
   )
   return groups.flat().sort((a, b) => b.createdAtBlock - a.createdAtBlock)
 }
 
+export interface VotingContext {
+  votesNeeded: number
+  /** Era of each contract; a resource can only be invalidated during the era it belongs to. */
+  currentEra: Record<PublishedResourceType | 'inspection', number>
+}
+
 /** Votes needed to invalidate and the era each resource contract is in. */
-export async function getVotingContext(
-  rpc: string
-): Promise<{ votesNeeded: number; currentEra: Record<PublishedResourceType, number> }> {
+export async function getVotingContext(rpc: string): Promise<VotingContext> {
   const web3 = new Web3(new Web3.providers.HttpProvider(rpc))
   const at = (abi: unknown, address: string): any => new web3.eth.Contract(abi as any, address)
-  const [votesNeeded, research, contribution, report] = await Promise.all([
+  const [votesNeeded, research, contribution, report, inspection] = await Promise.all([
     at(C.validationAbi, C.validationAddress).methods.votesToInvalidate().call(),
     at(C.researcherAbi, C.researcherAddress).methods.poolCurrentEra().call(),
     at(C.contributorAbi, C.contributorAddress).methods.poolCurrentEra().call(),
-    at(C.developerAbi, C.developerAddress).methods.poolCurrentEra().call()
+    at(C.developerAbi, C.developerAddress).methods.poolCurrentEra().call(),
+    // InspectionRules.addInspectionValidation compares inspectedAtEra with RegeneratorRules.poolCurrentEra.
+    at(C.regeneratorAbi, C.regeneratorAddress).methods.poolCurrentEra().call()
   ])
   return {
     votesNeeded: num(votesNeeded),
-    currentEra: { research: num(research), contribution: num(contribution), report: num(report) }
+    currentEra: {
+      research: num(research),
+      contribution: num(contribution),
+      report: num(report),
+      inspection: num(inspection)
+    }
   }
 }

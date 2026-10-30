@@ -882,5 +882,57 @@
   },
   "invalidation": {
     "openChip": "Votación abierta: {{votes}}/{{needed}}"
+  },
+  "resourceDetails": {
+    "file": "Archivo",
+    "publishedAtBlock": "Publicado en el bloque",
+    "status": "Estado",
+    "votingOpen": "La votación para invalidar está abierta en esta fase. Vota solo si el contenido no cumple las reglas del protocolo.",
+    "votingClosed": "La votación para invalidar cierra al final de la fase en que se publicó el recurso.",
+    "openFile": "Abrir archivo",
+    "copyUrl": "Copiar URL",
+    "loadingFile": "Cargando archivo...",
+    "fileError": "No se pudo cargar el archivo. Usa Abrir archivo para verlo en el navegador."
+  },
+  "inspections": {
+    "title": "Inspecciones",
+    "inspection": "Inspección",
+    "score": "Puntuación",
+    "seeInspection": "Ver",
+    "acceptInspection": "Aceptar inspección",
+    "thisInspectionCanAcceptIn": "Esta inspección se puede aceptar en {{duration}}",
+    "expireIn": "Expira en {{duration}}",
+    "expiredAgo": "Expiró hace {{duration}}",
+    "view": {
+      "cards": "Tarjetas",
+      "table": "Tabla"
+    },
+    "loadingAll": "Cargando todas las inspecciones...",
+    "realizedCount": "Realizadas",
+    "treesCounted": "Árboles contados",
+    "avgScore": "Puntuación media",
+    "columns": {
+      "id": "ID",
+      "status": "Estado",
+      "regenerator": "Regenerador",
+      "inspector": "Inspector",
+      "trees": "Árboles",
+      "biodiversity": "Biodiv.",
+      "score": "Punt.",
+      "era": "Fase",
+      "inspectedAt": "Bloque"
+    },
+    "status": {
+      "open": "Abierta",
+      "accepted": "Aceptada",
+      "realized": "Realizada",
+      "invalidated": "Invalidada",
+      "expired": "Expirada"
+    }
+  },
+  "inspectionDetails": {
+    "noResultYet": "Los resultados aparecen cuando el inspector realice la inspección.",
+    "voteHint": "Vota para invalidar solo si la inspección no refleja el área: conteo erróneo, fotos que no corresponden o informe sin justificación.",
+    "votingClosed": "La votación para invalidar cierra al final de la fase en que se realizó la inspección."
   }
 }

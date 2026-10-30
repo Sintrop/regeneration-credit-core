@@ -882,5 +882,57 @@
   },
   "invalidation": {
     "openChip": "Votação aberta: {{votes}}/{{needed}}"
+  },
+  "resourceDetails": {
+    "file": "Arquivo",
+    "publishedAtBlock": "Publicado no bloco",
+    "status": "Situação",
+    "votingOpen": "A votação para invalidar está aberta nesta fase. Vote só se o conteúdo não cumprir as regras do protocolo.",
+    "votingClosed": "A votação para invalidar fecha no fim da fase em que o recurso foi publicado.",
+    "openFile": "Abrir arquivo",
+    "copyUrl": "Copiar URL",
+    "loadingFile": "Carregando arquivo...",
+    "fileError": "Não foi possível carregar o arquivo. Use Abrir arquivo para vê-lo no navegador."
+  },
+  "inspections": {
+    "title": "Inspeções",
+    "inspection": "Inspeção",
+    "score": "Pontuação",
+    "seeInspection": "Ver",
+    "acceptInspection": "Aceitar inspeção",
+    "thisInspectionCanAcceptIn": "Essa inspeção pode ser aceita em {{duration}}",
+    "expireIn": "Expira em {{duration}}",
+    "expiredAgo": "Expirou há {{duration}}",
+    "view": {
+      "cards": "Cards",
+      "table": "Tabela"
+    },
+    "loadingAll": "Carregando todas as inspeções...",
+    "realizedCount": "Realizadas",
+    "treesCounted": "Árvores contadas",
+    "avgScore": "Pontuação média",
+    "columns": {
+      "id": "ID",
+      "status": "Status",
+      "regenerator": "Regenerador",
+      "inspector": "Inspetor",
+      "trees": "Árvores",
+      "biodiversity": "Biodiv.",
+      "score": "Pont.",
+      "era": "Fase",
+      "inspectedAt": "Bloco"
+    },
+    "status": {
+      "open": "Aberta",
+      "accepted": "Aceita",
+      "realized": "Realizada",
+      "invalidated": "Invalidada",
+      "expired": "Expirada"
+    }
+  },
+  "inspectionDetails": {
+    "noResultYet": "Os resultados aparecem quando o inspetor realizar a inspeção.",
+    "voteHint": "Vote para invalidar só se a inspeção não refletir a área: contagem errada, fotos que não correspondem ou relatório sem justificativa.",
+    "votingClosed": "A votação para invalidar fecha no fim da fase em que a inspeção foi realizada."
   }
 }
