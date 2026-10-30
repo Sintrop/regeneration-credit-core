@@ -41,9 +41,7 @@ const SECTIONS: NavSection[] = [
     items: [
       { icon: 'community', label: 'community.title', path: '/community' },
       { icon: 'inspections', label: 'resources.inspections', path: '/inspections' },
-      { icon: 'researches', label: 'resources.researches', path: '/researches' },
-      { icon: 'development', label: 'resources.development', path: '/development' },
-      { icon: 'contributions', label: 'resources.contributions', path: '/contributions' }
+      { icon: 'researches', label: 'resourcesList.title', path: '/resources' }
     ]
   },
   {

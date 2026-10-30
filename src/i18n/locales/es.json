@@ -862,5 +862,25 @@
   "validationsCount": "Validaciones",
   "validator": "Validador",
   "votesToInvalidate": "Votos para invalidar",
-  "youAreNotRegistered": "No estás registrado"
+  "youAreNotRegistered": "No estás registrado",
+  "resourcesList": {
+    "title": "Recursos",
+    "filterAll": "Todos",
+    "researches": "Investigaciones",
+    "contributions": "Contribuciones",
+    "reports": "Informes",
+    "research": "Investigación",
+    "contribution": "Contribución",
+    "report": "Informe de desarrollo",
+    "era": "Fase {{era}}",
+    "open": "Ver",
+    "loading": "Cargando recursos...",
+    "empty": "Aún no hay recursos publicados",
+    "error": "No fue posible cargar los recursos",
+    "publishedBy": "Publicado por",
+    "publications": "Publicaciones"
+  },
+  "invalidation": {
+    "openChip": "Votación abierta: {{votes}}/{{needed}}"
+  }
 }

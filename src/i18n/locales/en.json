@@ -866,5 +866,25 @@
   "validationsCount": "Validations",
   "validator": "Validator",
   "votesToInvalidate": "Votes to invalidate",
-  "youAreNotRegistered": "You are not registered"
+  "youAreNotRegistered": "You are not registered",
+  "resourcesList": {
+    "title": "Resources",
+    "filterAll": "All",
+    "researches": "Researches",
+    "contributions": "Contributions",
+    "reports": "Reports",
+    "research": "Research",
+    "contribution": "Contribution",
+    "report": "Development report",
+    "era": "Era {{era}}",
+    "open": "Open",
+    "loading": "Loading resources...",
+    "empty": "No resources published yet",
+    "error": "Could not load the resources",
+    "publishedBy": "Published by",
+    "publications": "Publications"
+  },
+  "invalidation": {
+    "openChip": "Voting open: {{votes}}/{{needed}}"
+  }
 }

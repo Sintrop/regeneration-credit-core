@@ -58,11 +58,11 @@ describe('timerRows', () => {
     })
     expect(timerRows([available('vote')], 4)[0].target).toEqual({
       type: 'route',
-      path: '/development'
+      path: '/resources?type=report'
     })
     expect(timerRows([available('vote')], 5)[0].target).toEqual({
       type: 'route',
-      path: '/contributions'
+      path: '/resources?type=contribution'
     })
   })
 

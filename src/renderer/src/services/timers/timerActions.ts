@@ -48,9 +48,9 @@ const USER_CONTRACT: Record<number, { address: string; abi: unknown }> = {
 }
 
 const VOTE_ROUTE: Record<number, string> = {
-  3: '/researches',
-  4: '/development',
-  5: '/contributions'
+  3: '/resources?type=research',
+  4: '/resources?type=report',
+  5: '/resources?type=contribution'
 }
 
 const PUBLISH_ACTION: Partial<Record<TimerKey, ActionName>> = {

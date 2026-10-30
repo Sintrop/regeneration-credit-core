@@ -10,7 +10,7 @@ const SHORTCUTS: { path: string; icon: IconName; label: string }[] = [
   { path: '/rcstats', icon: 'rcStats', label: 'home.shortcuts.impact' },
   { path: '/community', icon: 'community', label: 'home.shortcuts.community' },
   { path: '/inspections', icon: 'inspections', label: 'home.shortcuts.inspections' },
-  { path: '/researches', icon: 'researches', label: 'home.shortcuts.resources' }
+  { path: '/resources', icon: 'researches', label: 'home.shortcuts.resources' }
 ]
 
 export function HomeShortcuts(): JSX.Element {
