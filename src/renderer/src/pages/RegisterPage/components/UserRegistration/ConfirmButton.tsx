@@ -34,7 +34,7 @@ export function ConfirmButton({
         {uploadingImage
           ? t('register.uploadingProofPhoto')
           : isPending
-            ? t('register.confirmInYourWallet...')
+            ? t('register.confirmInYourWallet')
             : t('register.register')}
       </button>
 

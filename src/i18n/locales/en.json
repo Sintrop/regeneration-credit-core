@@ -50,7 +50,8 @@
     "votes": "Votes",
     "thisInspectionWasInvalidated": "This inspection was invalidated",
     "invalidated": "Invalidated",
-    "deniedUser": "Denied user"
+    "deniedUser": "Denied user",
+    "noDelations": "No reports"
   },
   "contracts": {
     "name": "Name",
@@ -482,7 +483,12 @@
     "youAreNotInspector": "You are not inspector",
     "inviteRegenerator": "Invite regenerator",
     "inviteInspector": "Invite inspector",
-    "inviteActivist": "Invite activist"
+    "inviteActivist": "Invite activist",
+    "inviteContributor": "Invite contributor",
+    "acceptedInspection": "Inspection accepted",
+    "inviteSent": "Invitation sent",
+    "typeIDHere": "Type the ID here",
+    "youCan'tInviteNow": "You can't invite yet. Wait for the interval between invitations."
   },
   "infoBar": {
     "currentEra": "Current era",
@@ -541,7 +547,8 @@
     "selectFile": "Select file",
     "invalidatedResource": "Invalidated resource",
     "totalInspections": "Total inspections",
-    "deniedUser": "Denied user"
+    "deniedUser": "Denied user",
+    "noValidations": "No validations"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
@@ -632,7 +639,8 @@
     "invalidatedUser": "Invalidated user",
     "noInspections": "No inspections",
     "inviterPenalties": "Inviter penalties",
-    "addDelation": "Add delation"
+    "addDelation": "Add delation",
+    "delations": "Reports"
   },
   "fileInputSelector": {
     "fileType": "File type",
@@ -645,13 +653,21 @@
   "nav": {
     "explore": "Explore",
     "community": "Community",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "myAccount": "My account",
+    "network": "Network",
+    "impact": "Impact"
   },
   "shell": {
     "settings": "Settings",
     "era": "Era {{era}}",
     "nextEraIn": "next in ~{{days}} days",
-    "connect": "Connect wallet"
+    "connect": "Connect wallet",
+    "myProfile": "My profile",
+    "disconnect": "Disconnect wallet",
+    "level": "level {{value}}",
+    "score": "score {{value}}",
+    "registerHint": "Register to publish, inspect, invite and earn tokens."
   },
   "home": {
     "networkImpact": "Verified network impact",
@@ -662,7 +678,17 @@
     "seeImpact": "See full impact",
     "feedError": "The feed couldn't be loaded right now.",
     "tryAgain": "Try again",
-    "loadMore": "Load more"
+    "loadMore": "Load more",
+    "shortcuts": {
+      "myTokens": "My tokens",
+      "withdrawTokens": "Withdraw tokens",
+      "market": "Market",
+      "calculator": "Calculator",
+      "impact": "Impact",
+      "community": "Community",
+      "inspections": "Inspections",
+      "resources": "Resources"
+    }
   },
   "feedNews": {
     "filter": {
@@ -761,5 +787,84 @@
     "minutes_one": "~{{count}} minute",
     "minutes_other": "~{{count}} minutes",
     "withBlocks": "{{duration}} ({{blocks}} blocks)"
-  }
+  },
+  "rpcStatus": {
+    "title": "Network connection unstable",
+    "description": "The RPC server the app uses to read the blockchain is not responding, so some data may not load. You can switch to another Sintrop network RPC or come back later.",
+    "changeRpc": "Change RPC",
+    "retry": "Try again"
+  },
+  "acceptedAt": "Accepted at",
+  "activist": "Activist",
+  "addCalculatorItem": "Add calculator item",
+  "addParameters": "Add parameters",
+  "biodiversity": "Biodiversity",
+  "calculatorItemAdded": "Calculator item added",
+  "carbon": "Carbon",
+  "carbonImpact": "Carbon impact",
+  "confirmInYourWallet": "Confirm in your wallet",
+  "continue": "Continue",
+  "contributedWith": "Contributed with",
+  "contributor": "Contributor",
+  "createdAt": "Created at",
+  "declare": "Declare",
+  "declaredReduction": "Reduction declared",
+  "descApiIpfs": "IPFS API used to upload files.",
+  "descGatewayIpfs": "IPFS gateway used to display files and images.",
+  "descRpcMainnet": "RPC used to read the Sintrop blockchain.",
+  "description": "Description",
+  "developer": "Developer",
+  "era": "Era",
+  "image": "Image",
+  "impact": "Impact",
+  "impactPerToken": "Impact per token",
+  "inspectedAt": "Inspected at",
+  "inspectedAtEra": "Inspected in era",
+  "inspector": "Inspector",
+  "invalid": "Invalid",
+  "invalidCoors": "Invalid coordinates",
+  "invalidated": "Invalidated",
+  "justification": "Justification",
+  "noContributionsPublished": "No contributions published",
+  "noDeclaredReductionCommitments": "No reduction commitments declared",
+  "noRegistered": "Not registered",
+  "noReportsPublished": "No reports published",
+  "noResearchesPublished": "No research published",
+  "noValidationsInThisEra": "No validations in this era",
+  "profilePhotoUpdated": "Profile photo updated",
+  "proofPhoto": "Proof photo",
+  "proofPhotos": "Proof photos",
+  "publishedAt": "Published at",
+  "reductionCommitments": "Reduction commitments",
+  "regenerationCredit": "Regeneration Credit",
+  "regenerationScore": "Regeneration score",
+  "regenerator": "Regenerator",
+  "report": "Report",
+  "researcher": "Researcher",
+  "see": "See",
+  "selectImage": "Select image",
+  "settings": "Settings",
+  "soil": "Soil",
+  "successTransaction": "Transaction completed",
+  "supporter": "Supporter",
+  "thesis": "Thesis",
+  "thisUserWasInvalidated": "This user was invalidated",
+  "title": "Title",
+  "transactionHash": "Transaction hash",
+  "transactionSuccess": "Transaction completed",
+  "trees": "Trees",
+  "typeHere": "Type here",
+  "typeHereAndClickAddButtonToAddParameters": "Type here and click add to include parameters",
+  "typeUrlOfAreaPhoto": "Type the URL of the area photo",
+  "unit": "Unit",
+  "update": "Update",
+  "updateAreaPhoto": "Update area photo",
+  "updateProfilePhoto": "Update profile photo",
+  "uploadingImageToIPFS": "Uploading image to IPFS...",
+  "valid": "Valid",
+  "validations": "Validations",
+  "validationsCount": "Validations",
+  "validator": "Validator",
+  "votesToInvalidate": "Votes to invalidate",
+  "youAreNotRegistered": "You are not registered"
 }

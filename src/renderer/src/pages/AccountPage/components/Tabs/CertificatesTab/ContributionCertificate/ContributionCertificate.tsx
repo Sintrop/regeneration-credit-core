@@ -78,7 +78,7 @@ export function ContributionCertificate({
             suffix="m²"
           />
           <ImpactItem
-            label={t('bio.')}
+            label={t('common.bio')}
             value={Intl.NumberFormat('pt-BR', { maximumFractionDigits: 2 }).format(
               totalBiodiversityImpact
             )}

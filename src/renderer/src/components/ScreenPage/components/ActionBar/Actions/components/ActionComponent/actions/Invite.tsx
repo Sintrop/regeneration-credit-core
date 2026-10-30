@@ -102,7 +102,7 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-[200px]">
-          <p className="text-white text-center">{t("youCan'tInviteNow")}</p>
+          <p className="text-white text-center">{t("actions.youCan'tInviteNow")}</p>
           <p className="text-white text-center">
             {t('actions.wait')} {canInviteIn} {t('actions.blocks')}
           </p>

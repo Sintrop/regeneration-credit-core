@@ -1,29 +1,10 @@
 import { activistAbi, activistAddress } from '@renderer/services/contracts'
-import { useTranslation } from 'react-i18next'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-interface Props {
-  mainAction?: boolean
-}
-export function ActivistActions({ mainAction }: Props): JSX.Element {
-  const { t } = useTranslation()
-
+export function ActivistActions(): JSX.Element {
   const activistContractAddressToUse = activistAddress
   const activistAbiToUse = activistAbi
-
-  if (mainAction) {
-    return (
-      <ActionComponent
-        actionName="invite"
-        addressContract={activistContractAddressToUse}
-        abi={activistAbiToUse as Abi}
-        label={t('actions.inviteRegenerator')}
-        userTypeToInvite={1}
-        mainAction
-      />
-    )
-  }
 
   return (
     <div className="flex flex-col">

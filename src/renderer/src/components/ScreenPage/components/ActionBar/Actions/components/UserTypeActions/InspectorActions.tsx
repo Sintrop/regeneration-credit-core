@@ -7,26 +7,12 @@ import {
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-interface Props {
-  mainAction?: boolean
-}
-export function InspectorActions({ mainAction }: Props): JSX.Element {
+export function InspectorActions(): JSX.Element {
   const inspectorContractAddressToUse = inspectorAddress
   const inspectorAbiToUse = inspectorAbi
 
   const inspectionContractAddressToUse = inspectionAddress
   const inspectionAbiToUse = inspectionAbi
-
-  if (mainAction) {
-    return (
-      <ActionComponent
-        actionName="acceptInspection"
-        addressContract={inspectionContractAddressToUse}
-        abi={inspectionAbiToUse as Abi}
-        mainAction
-      />
-    )
-  }
 
   return (
     <div className="flex flex-col">

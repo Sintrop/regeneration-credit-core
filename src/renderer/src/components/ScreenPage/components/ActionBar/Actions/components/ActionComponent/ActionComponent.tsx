@@ -80,7 +80,7 @@ export function ActionComponent({
             </div>
           ) : (
             <button
-              className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
+              className="w-full h-10 px-3 rounded-xl text-left text-sm text-white hover:cursor-pointer hover:bg-card-secondary duration-150"
               onClick={toggleOpenAction}
             >
               {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}

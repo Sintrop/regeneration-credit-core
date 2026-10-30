@@ -1,29 +1,14 @@
 import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
-import { useTranslation } from 'react-i18next'
 
 interface Props {
   lastPublishedWork: number
-  mainAction?: boolean
 }
-export function DeveloperActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
-  const { t } = useTranslation()
-
+export function DeveloperActions({ lastPublishedWork }: Props): JSX.Element {
   const developerContractAddressToUse = developerAddress
   const developerAbiToUse = developerAbi
 
-  if (mainAction) {
-    return (
-      <ActionComponent
-        actionName="addReport"
-        addressContract={developerContractAddressToUse}
-        abi={developerAbiToUse as Abi}
-        lastPublishedWork={lastPublishedWork}
-        mainAction
-      />
-    )
-  }
   return (
     <div className="flex flex-col">
       <ActionComponent
@@ -49,7 +34,7 @@ export function DeveloperActions({ lastPublishedWork, mainAction }: Props): JSX.
         actionName="invite"
         addressContract={developerContractAddressToUse}
         abi={developerAbiToUse as Abi}
-        label={t('inviteDeveloper')}
+        label="inviteDeveloper"
         userTypeToInvite={4}
       />
     </div>

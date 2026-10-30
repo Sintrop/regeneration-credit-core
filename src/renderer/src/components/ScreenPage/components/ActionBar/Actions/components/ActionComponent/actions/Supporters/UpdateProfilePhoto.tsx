@@ -64,7 +64,7 @@ export function UpdateProfilePhoto({ abi, addressContract }: ActionContractProps
         disabled={!image || isPending || uploadingFile}
       />
 
-      {uploadingFile && <p className="text-white">{t('uloadingImageToIPFS')}</p>}
+      {uploadingFile && <p className="text-white">{t('uploadingImageToIPFS')}</p>}
 
       {displayLoadingTx && (
         <TransactionLoading

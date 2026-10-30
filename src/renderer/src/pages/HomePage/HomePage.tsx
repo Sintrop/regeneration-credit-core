@@ -7,6 +7,7 @@ import { useReadContracts } from 'wagmi'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { FeedCard } from '@renderer/components/Feed/FeedCard'
 import { UserTimersCard } from '@renderer/components/UserTimersCard/UserTimersCard'
+import { HomeShortcuts } from './components/HomeShortcuts'
 import { useFeed } from '@renderer/hooks/useFeed'
 import { useCurrentBlock } from '@renderer/domain/Chain/useCases/useBlockNumber'
 import { rcImpactAbi, rcImpactAddress } from '@renderer/services/contracts'
@@ -81,28 +82,34 @@ function NetworkImpact(): JSX.Element {
       { ...contract, functionName: 'totalAreaImpact' }
     ]
   })
-  const value = (index: number): number => Number(data?.[index]?.result ?? 0)
-  const format = (n: number, digits = 0): string =>
-    Intl.NumberFormat(i18n.language, { maximumFractionDigits: digits }).format(n)
+  const raw = (index: number): unknown => data?.[index]?.result
+  // A failed read shows a dash, never a zero that looks like real data.
+  const format = (index: number, divisor = 1, digits = 0): string => {
+    const value = raw(index)
+    if (value === undefined || value === null) return '—'
+    return Intl.NumberFormat(i18n.language, { maximumFractionDigits: digits }).format(
+      Number(value) / divisor
+    )
+  }
 
   return (
     <section className="p-5 rounded-2xl bg-card-primary border border-green-primary/30 flex flex-col gap-4">
       <div>
         <p className="text-gray-300 text-sm">{t('home.networkImpact')}</p>
-        <p className="text-green-primary text-3xl font-bold">{format(value(0) / 1e6, 1)} t</p>
+        <p className="text-green-primary text-3xl font-bold">{format(0, 1e6, 1)} t</p>
         <p className="text-gray-400 text-xs">{t('home.carbonSequestered')}</p>
       </div>
       <div className="grid grid-cols-3 gap-2">
         <div className="p-3 rounded-xl bg-card-secondary">
-          <p className="text-white font-bold">{format(value(1))}</p>
+          <p className="text-white font-bold">{format(1)}</p>
           <p className="text-gray-400 text-xs">{t('home.trees')}</p>
         </div>
         <div className="p-3 rounded-xl bg-card-secondary">
-          <p className="text-white font-bold">{format(value(2))}</p>
+          <p className="text-white font-bold">{format(2)}</p>
           <p className="text-gray-400 text-xs">{t('home.species')}</p>
         </div>
         <div className="p-3 rounded-xl bg-card-secondary">
-          <p className="text-white font-bold">{format(value(3) / 10000, 1)} ha</p>
+          <p className="text-white font-bold">{format(3, 10000, 1)} ha</p>
           <p className="text-gray-400 text-xs">{t('home.area')}</p>
         </div>
       </div>
@@ -149,6 +156,7 @@ export function HomePage(): JSX.Element {
       }
     >
       <div className="flex flex-col gap-5 max-w-[720px] mx-auto">
+        <HomeShortcuts />
         <FilterChips value={filter} counts={counts} onChange={changeFilter} />
 
         {isLoading ? (

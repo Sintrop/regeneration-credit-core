@@ -1,29 +1,13 @@
 import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
-import { useTranslation } from 'react-i18next'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
 interface Props {
   lastPublishedWork: number
-  mainAction?: boolean
 }
-export function ResearcherActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
-  const { t } = useTranslation()
-
+export function ResearcherActions({ lastPublishedWork }: Props): JSX.Element {
   const researcherContractAddressToUse = researcherAddress
   const researcherAbiToUse = researcherAbi
-
-  if (mainAction) {
-    return (
-      <ActionComponent
-        actionName="addResearch"
-        addressContract={researcherContractAddressToUse}
-        abi={researcherAbiToUse as Abi}
-        lastPublishedWork={lastPublishedWork}
-        mainAction
-      />
-    )
-  }
 
   return (
     <div className="flex flex-col">
@@ -56,7 +40,7 @@ export function ResearcherActions({ lastPublishedWork, mainAction }: Props): JSX
         actionName="invite"
         addressContract={researcherContractAddressToUse}
         abi={researcherAbiToUse as Abi}
-        label={t('inviteResearcher')}
+        label="inviteResearcher"
         userTypeToInvite={3}
       />
     </div>

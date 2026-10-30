@@ -78,7 +78,8 @@
     "votes": "Votos",
     "thisInspectionWasInvalidated": "Esta inspeção foi invalidada",
     "invalidated": "Invalidada",
-    "deniedUser": "Usuário negado"
+    "deniedUser": "Usuário negado",
+    "noDelations": "Nenhuma denúncia"
   },
   "contracts": {
     "name": "Nome",
@@ -480,7 +481,12 @@
     "youAreNotInspector": "Você não é inspetor",
     "inviteRegenerator": "Convidar regenerador",
     "inviteInspector": "Convidar inspetor",
-    "inviteActivist": "Convidar ativista"
+    "inviteActivist": "Convidar ativista",
+    "inviteContributor": "Convidar contribuidor",
+    "acceptedInspection": "Inspeção aceita",
+    "inviteSent": "Convite enviado",
+    "typeIDHere": "Digite o ID aqui",
+    "youCan'tInviteNow": "Você ainda não pode convidar. Aguarde o intervalo entre convites."
   },
   "infoBar": {
     "currentEra": "Era atual",
@@ -539,7 +545,8 @@
     "selectFile": "Selecionar arquivo",
     "invalidatedResource": "Recurso invalidado",
     "totalInspections": "Total de inspeções",
-    "deniedUser": "Usuário negado"
+    "deniedUser": "Usuário negado",
+    "noValidations": "Nenhuma validação"
   },
   "descActions": {
     "burnTokens": "Compense sua degradação ambiental queimando tokens de Crédito de Regeneração. Queimar tokens os remove permanentemente da circulação e aumenta seu certificado de compensação.",
@@ -628,7 +635,8 @@
     "invalidatedUser": "Usuário invalidado",
     "noInspections": "Nenhuma inspeção",
     "inviterPenalties": "Penalidades do convidador",
-    "addDelation": "Adicionar denúncia"
+    "addDelation": "Adicionar denúncia",
+    "delations": "Denúncias"
   },
   "fileInputSelector": {
     "fileType": "Tipo de arquivo",
@@ -641,13 +649,21 @@
   "nav": {
     "explore": "Explorar",
     "community": "Comunidade",
-    "advanced": "Avançado"
+    "advanced": "Avançado",
+    "myAccount": "Minha conta",
+    "network": "Rede",
+    "impact": "Impacto"
   },
   "shell": {
     "settings": "Configurações",
     "era": "Fase {{era}}",
     "nextEraIn": "próxima em ~{{days}} dias",
-    "connect": "Conectar carteira"
+    "connect": "Conectar carteira",
+    "myProfile": "Meu perfil",
+    "disconnect": "Desconectar carteira",
+    "level": "nível {{value}}",
+    "score": "pontuação {{value}}",
+    "registerHint": "Cadastre-se para publicar, inspecionar, convidar e receber tokens."
   },
   "home": {
     "networkImpact": "Impacto verificado da rede",
@@ -658,7 +674,17 @@
     "seeImpact": "Ver impacto completo",
     "feedError": "Não foi possível carregar o feed agora.",
     "tryAgain": "Tentar novamente",
-    "loadMore": "Carregar mais"
+    "loadMore": "Carregar mais",
+    "shortcuts": {
+      "myTokens": "Meus tokens",
+      "withdrawTokens": "Sacar tokens",
+      "market": "Mercado",
+      "calculator": "Calculadora",
+      "impact": "Impacto",
+      "community": "Comunidade",
+      "inspections": "Inspeções",
+      "resources": "Recursos"
+    }
   },
   "feedNews": {
     "filter": {
@@ -757,5 +783,84 @@
     "minutes_one": "~{{count}} minuto",
     "minutes_other": "~{{count}} minutos",
     "withBlocks": "{{duration}} ({{blocks}} blocos)"
-  }
+  },
+  "rpcStatus": {
+    "title": "Instabilidade na conexão com a rede",
+    "description": "O servidor RPC que o app usa para ler a blockchain não está respondendo, por isso alguns dados podem não carregar. Você pode trocar para outro RPC da rede Sintrop ou voltar mais tarde.",
+    "changeRpc": "Trocar RPC",
+    "retry": "Tentar novamente"
+  },
+  "acceptedAt": "Aceita em",
+  "activist": "Ativista",
+  "addCalculatorItem": "Adicionar item da calculadora",
+  "addParameters": "Adicionar parâmetros",
+  "biodiversity": "Biodiversidade",
+  "calculatorItemAdded": "Item da calculadora adicionado",
+  "carbon": "Carbono",
+  "carbonImpact": "Impacto de carbono",
+  "confirmInYourWallet": "Confirme na sua carteira",
+  "continue": "Continuar",
+  "contributedWith": "Contribuiu com",
+  "contributor": "Contribuidor",
+  "createdAt": "Criado em",
+  "declare": "Declarar",
+  "declaredReduction": "Redução declarada",
+  "descApiIpfs": "API do IPFS usada para enviar arquivos.",
+  "descGatewayIpfs": "Gateway do IPFS usado para exibir arquivos e imagens.",
+  "descRpcMainnet": "RPC usado para ler a blockchain Sintrop.",
+  "description": "Descrição",
+  "developer": "Desenvolvedor",
+  "era": "Fase",
+  "image": "Imagem",
+  "impact": "Impacto",
+  "impactPerToken": "Impacto por token",
+  "inspectedAt": "Inspecionada em",
+  "inspectedAtEra": "Inspecionada na fase",
+  "inspector": "Inspetor",
+  "invalid": "Inválido",
+  "invalidCoors": "Coordenadas inválidas",
+  "invalidated": "Invalidado",
+  "justification": "Justificativa",
+  "noContributionsPublished": "Nenhuma contribuição publicada",
+  "noDeclaredReductionCommitments": "Nenhum compromisso de redução declarado",
+  "noRegistered": "Não cadastrado",
+  "noReportsPublished": "Nenhum relatório publicado",
+  "noResearchesPublished": "Nenhuma pesquisa publicada",
+  "noValidationsInThisEra": "Nenhuma validação nesta fase",
+  "profilePhotoUpdated": "Foto de perfil atualizada",
+  "proofPhoto": "Foto de prova",
+  "proofPhotos": "Fotos de prova",
+  "publishedAt": "Publicado em",
+  "reductionCommitments": "Compromissos de redução",
+  "regenerationCredit": "Crédito de Regeneração",
+  "regenerationScore": "Pontuação de regeneração",
+  "regenerator": "Regenerador",
+  "report": "Relatório",
+  "researcher": "Pesquisador",
+  "see": "Ver",
+  "selectImage": "Selecionar imagem",
+  "settings": "Configurações",
+  "soil": "Solo",
+  "successTransaction": "Transação concluída",
+  "supporter": "Apoiador",
+  "thesis": "Tese",
+  "thisUserWasInvalidated": "Este usuário foi invalidado",
+  "title": "Título",
+  "transactionHash": "Hash da transação",
+  "transactionSuccess": "Transação concluída",
+  "trees": "Árvores",
+  "typeHere": "Digite aqui",
+  "typeHereAndClickAddButtonToAddParameters": "Digite aqui e clique em adicionar para incluir parâmetros",
+  "typeUrlOfAreaPhoto": "Digite a URL da foto da área",
+  "unit": "Unidade",
+  "update": "Atualizar",
+  "updateAreaPhoto": "Atualizar foto da área",
+  "updateProfilePhoto": "Atualizar foto de perfil",
+  "uploadingImageToIPFS": "Enviando imagem para o IPFS...",
+  "valid": "Válido",
+  "validations": "Validações",
+  "validationsCount": "Validações",
+  "validator": "Validador",
+  "votesToInvalidate": "Votos para invalidar",
+  "youAreNotRegistered": "Você não está cadastrado"
 }

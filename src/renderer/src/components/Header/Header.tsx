@@ -1,3 +1,4 @@
+import { ActionsMenu } from './components/ActionsMenu'
 import { ChainSwitch } from './components/ChainSwitch'
 import { DocsLink } from './components/DocsLink'
 import { EraChip } from './components/EraChip'
@@ -18,6 +19,7 @@ export function Header({ title }: Props): JSX.Element {
       </div>
 
       <div className="flex items-center gap-3 shrink-0">
+        <ActionsMenu />
         <EraChip />
         <LanguageSwitch />
         <DocsLink />

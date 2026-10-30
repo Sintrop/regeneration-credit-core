@@ -1,7 +1,11 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { MdExpandLess, MdExpandMore } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 
 import { ActionComponent } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/ActionComponent/ActionComponent'
+import { GeneralActions } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/GeneralActions/GeneralActions'
+import { UserTypeActions } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/UserTypeActions/UserTypeActions'
 import { useIsDenied } from '@renderer/domain/Community/useCases/useIsDenied'
 import { useBlocksDuration } from '@renderer/hooks/useBlocksDuration'
 import { useUserContext } from '@renderer/hooks/useUserContext'
@@ -78,8 +82,9 @@ function RowContent({
 }
 
 /** Every time-gated action of the connected user, read from the contracts; each row opens its action. */
-export function UserTimersCard(): JSX.Element | null {
+export function UserTimersCard({ flat }: { flat?: boolean }): JSX.Element | null {
   const { t } = useTranslation()
+  const [showAll, setShowAll] = useState(false)
   const navigate = useNavigate()
   const { address, userType } = useUserContext()
   const { isDenied } = useIsDenied({ address: address ?? '' })
@@ -87,13 +92,12 @@ export function UserTimersCard(): JSX.Element | null {
   const describe = useTimerDescription()
 
   if (!address || userType === 0 || userType === 8 || isDenied) return null
-  if (!isLoading && timers.length === 0) return null
 
   const rows = timerRows(timers, userType)
   const available = timers.filter((timer) => timer.status === 'available').length
 
   return (
-    <section className="p-4 rounded-2xl bg-card-primary flex flex-col gap-2">
+    <section className={`flex flex-col gap-2 ${flat ? '' : 'p-4 rounded-2xl bg-card-primary'}`}>
       <div className="flex items-center justify-between px-1">
         <p className="text-white font-bold">{t('timers.title')}</p>
         {available > 0 && (
@@ -143,6 +147,22 @@ export function UserTimersCard(): JSX.Element | null {
           return <RowContent key={row.id} row={row} description={description} />
         })
       )}
+
+      <div className="border-t border-white/10 pt-2">
+        <button
+          className="w-full flex items-center justify-between px-3 h-9 rounded-xl text-green-primary text-sm font-semibold hover:bg-card-secondary hover:cursor-pointer"
+          onClick={() => setShowAll((value) => !value)}
+        >
+          {t('timers.allActions')}
+          {showAll ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
+        </button>
+        {showAll && (
+          <div className="flex flex-col">
+            <UserTypeActions userType={userType} lastPublishedWork={lastPublishedAt} />
+            <GeneralActions />
+          </div>
+        )}
+      </div>
     </section>
   )
 }

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Header } from '../Header/Header'
+import { RpcStatusBanner } from '../RpcStatusBanner/RpcStatusBanner'
 import { SideMenu } from '../SideMenu/SideMenu'
-import { ActionBar } from './components/ActionBar/ActionBar'
 
 interface Props {
   pageTitle: string
@@ -19,15 +19,16 @@ export function ScreenPage({ children, pageTitle, rightRail }: Props): JSX.Eleme
         <Header title={pageTitle} />
 
         <main className="flex-1 overflow-y-auto">
-          <div className="flex gap-6 px-6 py-6 pb-32">
+          <div className="px-6 pt-6 empty:hidden">
+            <RpcStatusBanner />
+          </div>
+          <div className="flex gap-6 px-6 py-6 pb-12">
             <div className="flex-1 min-w-0">{children}</div>
             {rightRail && (
               <aside className="w-[320px] shrink-0 flex flex-col gap-4">{rightRail}</aside>
             )}
           </div>
         </main>
-
-        <ActionBar />
       </div>
     </div>
   )
