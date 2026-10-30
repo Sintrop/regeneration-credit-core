@@ -23,6 +23,7 @@ import { ResourcesPage } from './pages/ResourcesPage/ResourcesPage'
 import { MarketPage } from './pages/MarketPage/MarketPage'
 import { HelpPage } from './pages/HelpPage/HelpPage'
 import { MiningPage } from './pages/MiningPage/MiningPage'
+import { InvalidationsPage } from './pages/InvalidationsPage/InvalidationsPage'
 import { ErasPage } from './pages/ErasPage/ErasPage'
 import { RcIndexPage } from './pages/RcIndexPage/RcIndexPage'
 import { ImpactCalculator } from './pages/ImpactCalculator/ImpactCalculator'
@@ -55,6 +56,7 @@ export function AppRoutes(): React.JSX.Element {
         />
         <Route path="/researches" element={<Navigate to="/resources?type=research" replace />} />
         <Route path="/community" element={<CommunityPage />} />
+        <Route path="/community/invalidations" element={<InvalidationsPage />} />
         <Route path="/users/:userType" element={<UsersPage />} />
         <Route path="/pdfview/:hash" element={<PdfPage />} />
         <Route path="/user-details/:address" element={<UserDetailsPage />} />

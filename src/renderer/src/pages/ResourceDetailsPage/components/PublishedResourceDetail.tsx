@@ -161,12 +161,7 @@ function ResourceDetailView({ type, id, validations }: ViewProps): JSX.Element {
         {votingOpen && (
           <section className="p-4 rounded-2xl bg-card-primary flex flex-col gap-3">
             <p className="text-gray-300 text-sm">{t('resourceDetails.votingOpen')}</p>
-            <VoteToInvalidate
-              resourceId={id}
-              resourceType={type}
-              publishedEra={resource.era}
-              wFull
-            />
+            <VoteToInvalidate resourceId={id} resourceType={type} wFull />
           </section>
         )}
         {valid && !votingOpen && voting && (

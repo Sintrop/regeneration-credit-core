@@ -166,12 +166,7 @@ export function InspectionDetail({ id }: { id: number }): JSX.Element {
         {votingOpen && (
           <section className="p-4 rounded-2xl bg-card-primary flex flex-col gap-3">
             <p className="text-gray-300 text-sm">{t('inspectionDetails.voteHint')}</p>
-            <VoteToInvalidate
-              resourceId={id}
-              resourceType="inspection"
-              publishedEra={inspection.inspectedAtEra}
-              wFull
-            />
+            <VoteToInvalidate resourceId={id} resourceType="inspection" wFull />
           </section>
         )}
         {status === 'realized' && !votingOpen && voting && (

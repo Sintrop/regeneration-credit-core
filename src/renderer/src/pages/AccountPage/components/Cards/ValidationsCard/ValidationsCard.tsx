@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Loading } from '@renderer/components/Loading/Loading'
-import { useEra } from '@renderer/hooks/useEra'
-import { validationAbi, validationAddress } from '@renderer/services/contracts'
+import { POOLS } from '@renderer/services/pools/poolService'
+import {
+  userAbi,
+  userAddress,
+  validationAbi,
+  validationAddress
+} from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useReadContract } from 'wagmi'
 import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
-import { formatUnits } from 'viem'
+import { Abi, formatUnits } from 'viem'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { useUserValidations } from '@renderer/domain/Validation/events/useUserValidations'
 import { UserValidationProps } from '@renderer/domain/Validation/types'
@@ -18,7 +23,21 @@ interface Props {
 
 export function ValidationsCard({ address, profilePage }: Props): JSX.Element {
   const { t } = useTranslation()
-  const { currentEra } = useEra()
+  // ValidationRules counts votes per era of the user's own pool (_userCurrentEra).
+  const { data: userType } = useReadContract({
+    address: userAddress,
+    abi: userAbi,
+    functionName: 'getUser',
+    args: [address]
+  })
+  const rules = POOLS[Number(userType ?? 0)]?.rules
+  const { data: poolEra } = useReadContract({
+    address: rules?.address as `0x${string}`,
+    abi: rules?.abi as Abi,
+    functionName: 'poolCurrentEra',
+    query: { enabled: !!rules }
+  })
+  const currentEra = Number(poolEra ?? 0)
   const [era, setEra] = useState(0)
   const { validations } = useUserValidations({ userAddress: address, era })
 

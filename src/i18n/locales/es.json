@@ -747,28 +747,38 @@
   "vote": {
     "voteToInvalidate": "Votar para invalidar",
     "voteInspection": "Votar inspección",
-    "voteInspectionDifferentEra": "No se puede votar una inspección realizada en una fase distinta de la actual",
     "youAreVotingToInvalidateTheInspection": "Estás votando para invalidar la inspección",
     "vote": "Votar",
-    "youCanNotVoteThisResource": "No puedes votar este recurso",
     "votedInspection": "Voto sobre la inspección registrado con éxito",
     "voteReport": "Votar informe",
-    "voteReportDifferentEra": "No se puede votar un informe publicado en una fase distinta de la actual",
     "youAreVotingToInvalidateTheReport": "Estás votando para invalidar el informe",
-    "youCanNotVoteNow": "No puedes votar ahora",
     "votedReport": "Voto sobre el informe registrado con éxito",
     "voteContribution": "Votar contribución",
-    "voteContributionDifferentEra": "No se puede votar una contribución publicada en una fase distinta de la actual",
     "youAreVotingToInvalidateTheContribution": "Estás votando para invalidar la contribución",
     "votedContribution": "Voto sobre la contribución registrado con éxito",
     "voteResearch": "Votar investigación",
-    "voteResearchDifferentEra": "No se puede votar una investigación publicada en una fase distinta de la actual",
     "youAreVotingToInvalidateTheResearch": "Estás votando para invalidar la investigación",
     "votedResearch": "Voto sobre la investigación registrado con éxito",
     "votedUser": "Voto sobre el usuario registrado con éxito",
     "voteUser": "Votar usuario",
     "youAreVotingToInvalidateTheUser": "Estás votando para invalidar al usuario",
-    "youCanNotVote": "No puedes votar"
+    "connectToVote": "Conecta tu billetera para votar.",
+    "permanentHint": "El voto queda registrado en la red con su justificación. Cuando se alcanza el número de votos necesario, la invalidación se aplica automáticamente.",
+    "block": {
+      "notVoter": "Tu usuario no puede votar ahora. Votan investigadores, desarrolladores y contribuidores; cuando el tipo tiene más de 5 usuarios, hay que tener un nivel superior al promedio de tu tipo.",
+      "voterDenied": "Los usuarios invalidados no pueden votar.",
+      "wait": "Votaste hace poco. Espera {{blocks}} bloques para votar de nuevo.",
+      "alreadyVoted": "Ya registraste tu voto aquí.",
+      "alreadyInvalidated": "Este recurso ya fue invalidado.",
+      "votingClosed": "La votación está cerrada: solo se puede votar durante la fase en que se publicó el recurso.",
+      "notInspected": "Solo las inspecciones realizadas pueden recibir votos.",
+      "notFound": "Usuario o recurso no encontrado en la red.",
+      "supporter": "Los apoyadores no pueden ser invalidados.",
+      "userDenied": "Este usuario ya fue invalidado.",
+      "immune": "Este regenerador ya completó 6 inspecciones y tiene inmunidad a la invalidación.",
+      "tooFewVoters": "La red aún no tiene suficientes votantes para invalidaciones.",
+      "unknown": "El contrato rechazó este voto."
+    }
   },
   "certificate": {
     "contributedWith": "Contribuyó con",
@@ -1071,7 +1081,49 @@
     "publications": "Publicaciones"
   },
   "invalidation": {
-    "openChip": "Votación abierta: {{votes}}/{{needed}}"
+    "openChip": "Votación abierta: {{votes}}/{{needed}}",
+    "title": "Invalidaciones",
+    "cardText": "Todos los votos de invalidación de usuarios y recursos, con justificaciones y resultados.",
+    "description": "Cualquier usuario o recurso puede ser cuestionado por los votantes de la red. Esta página reúne, directo de los eventos de los contratos, todos los votos de invalidación, sus justificaciones y el resultado de cada uno.",
+    "stats": {
+      "votesNeeded": "Votos necesarios hoy",
+      "votes": "Votos registrados",
+      "users": "Usuarios invalidados",
+      "resources": "Recursos invalidados"
+    },
+    "filter": {
+      "all": "Todos",
+      "user": "Usuarios",
+      "resource": "Recursos"
+    },
+    "empty": "Ningún voto de invalidación registrado hasta ahora",
+    "emptyHint": "Cuando un votante cuestione un usuario o recurso, el voto y la justificación aparecen aquí en cuanto entran en la red.",
+    "error": "No se pudieron cargar las invalidaciones",
+    "kind": {
+      "user": "Usuario",
+      "inspection": "Inspección"
+    },
+    "status": {
+      "invalidated": "Invalidado",
+      "open": "En votación",
+      "closed": "Votación cerrada"
+    },
+    "deniedByPenalties": "Invalidado por acumular penalizaciones en los recursos que publicó.",
+    "votesOf": "{{votes}} de {{needed}} votos",
+    "lastBlock": "Último voto en el bloque {{block}}",
+    "block": "Bloque {{block}}",
+    "voter": "Votante",
+    "rules": {
+      "title": "Cómo funciona",
+      "voters": "Votan investigadores, desarrolladores y contribuidores. Cuando un tipo supera los 5 usuarios, solo vota quien tiene un nivel superior al promedio de su tipo.",
+      "threshold": "Hoy se necesitan {{votes}} votos, con {{voters}} votantes en la red. El número crece con la comunidad: 2 votos con menos de 12 votantes, 5 con menos de 167 y, después, el 3% de los votantes más uno, hasta 360.",
+      "interval": "Cada votante espera {{duration}} entre un voto y otro.",
+      "resources": "Investigaciones, contribuciones, informes e inspecciones solo reciben votos en la fase en que se publicaron o realizaron. Una vez invalidado, el recurso pierde su validez y el autor recibe una penalización; con {{penalties}} penalizaciones, el autor es invalidado.",
+      "users": "Los apoyadores no pueden ser invalidados, y los regeneradores quedan inmunes después de 6 inspecciones. Un usuario invalidado pierde sus niveles en el pool, y quien lo invitó recibe una penalización.",
+      "source": "Reglas y números leídos de los contratos ValidationRules, VoteRules y de las reglas de cada recurso."
+    },
+    "votesCount_one": "1 voto",
+    "votesCount_other": "{{count}} votos"
   },
   "resourceDetails": {
     "file": "Archivo",

@@ -31,13 +31,14 @@ function PoolCard({
     >
       <div className="flex items-center justify-between">
         <span className="text-white text-lg font-bold">{t(POOL_NAME_KEY[poolType])}</span>
-        {isUserPool ? (
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-green-primary text-green-secondary">
-            {t('pools.yourPool')}
-          </span>
-        ) : (
+        <span className="flex items-center gap-3">
+          {isUserPool && (
+            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-green-primary text-green-secondary">
+              {t('pools.yourPool')}
+            </span>
+          )}
           <span className="text-green-primary text-lg">›</span>
-        )}
+        </span>
       </div>
       {isLoading || !overview ? (
         <div className="h-16 rounded-xl bg-card-secondary animate-pulse" />

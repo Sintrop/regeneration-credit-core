@@ -4,6 +4,8 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 //@ts-ignore
 import icon from '../../resources/icon.png'
+//@ts-ignore -- electron-vite resolves ?asset to the file path
+import macIcon from '../../resources/icon-mac.png?asset'
 
 function createWindow(): void {
   // Create the browser window.
@@ -44,7 +46,10 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('com.regenerationcredit.core')
+
+  // Packaged builds take the Dock icon from build/icon.icns; in dev macOS would show Electron's.
+  if (process.platform === 'darwin' && is.dev) app.dock?.setIcon(macIcon)
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

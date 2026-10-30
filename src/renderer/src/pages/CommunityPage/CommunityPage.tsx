@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { MdGavel } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import { Abi } from 'viem'
 import { useReadContracts } from 'wagmi'
@@ -85,6 +86,20 @@ export function CommunityPage(): JSX.Element {
             )
           })}
         </div>
+
+        <button
+          className="p-5 rounded-2xl bg-card-primary flex items-center gap-4 text-left hover:bg-card-primary/80 hover:cursor-pointer"
+          onClick={() => navigate('/community/invalidations')}
+        >
+          <span className="w-11 h-11 shrink-0 rounded-xl bg-card-secondary flex items-center justify-center text-green-primary">
+            <MdGavel size={22} />
+          </span>
+          <span className="flex-1 min-w-0">
+            <span className="block text-white text-lg font-bold">{t('invalidation.title')}</span>
+            <span className="block text-gray-400 text-sm">{t('invalidation.cardText')}</span>
+          </span>
+          <span className="text-green-primary text-lg">›</span>
+        </button>
       </div>
     </ScreenPage>
   )

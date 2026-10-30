@@ -749,29 +749,39 @@
   "vote": {
     "voteToInvalidate": "Vote to invalidate",
     "voteInspection": "Vote inspection",
-    "voteInspectionDifferentEra": "You can not vote on a inspection that was inspected in an era other than the current one",
     "youAreVotingToInvalidateTheInspection": "You are voting to invalidate the inspection",
     "vote": "vote",
-    "youCanNotVoteThisResource": "You can not vote this resource",
     "votedInspection": "Voted for inspection successfully",
     "voteReport": "Vote report",
-    "voteReportDifferentEra": "You can not vote on a report that was published in an era other than the current one",
     "youAreVotingToInvalidateTheReport": "You are voting to invalidate the report",
-    "youCanNotVoteNow": "You can not vote now",
     "votedReport": "Voted for report successfully",
     "voteContribution": "Vote contribution",
-    "voteContributionDifferentEra": "You can not vote on a contribution that was published in an era other than the current one",
     "youAreVotingToInvalidateTheContribution": "You are voting to invalidate the contribution",
     "votedContribution": "Voted for contribution successfully",
     "voteResearch": "Vote research",
-    "voteResearchDifferentEra": "You can not vote on a research that was published in an era other than the current one",
     "youAreVotingToInvalidateTheResearch": "You are voting to invalidate the research",
     "votedResearch": "Voted for research successfully",
     "votedUser": "Voter for user successfully",
     "voteUser": "Vote user",
     "youAreVotingToInvalidateTheUser": "You are voting to invalidate the user",
-    "youCanNotVote": "You can not vote",
-    "": ""
+    "": "",
+    "connectToVote": "Connect your wallet to vote.",
+    "permanentHint": "Your vote is recorded on the network with its justification. Once the required number of votes is reached, the invalidation is applied automatically.",
+    "block": {
+      "notVoter": "Your user can't vote right now. Researchers, developers and contributors vote; when a type has more than 5 users, your level must be above your type's average.",
+      "voterDenied": "Invalidated users can't vote.",
+      "wait": "You voted recently. Wait {{blocks}} blocks to vote again.",
+      "alreadyVoted": "You have already voted here.",
+      "alreadyInvalidated": "This resource has already been invalidated.",
+      "votingClosed": "Voting is closed: you can only vote during the era in which the resource was published.",
+      "notInspected": "Only completed inspections can receive votes.",
+      "notFound": "User or resource not found on the network.",
+      "supporter": "Supporters can't be invalidated.",
+      "userDenied": "This user has already been invalidated.",
+      "immune": "This regenerator has completed 6 inspections and is immune to invalidation.",
+      "tooFewVoters": "The network doesn't have enough voters for invalidations yet.",
+      "unknown": "The contract rejected this vote."
+    }
   },
   "certificate": {
     "contributedWith": "Contributed with",
@@ -1075,7 +1085,49 @@
     "publications": "Publications"
   },
   "invalidation": {
-    "openChip": "Voting open: {{votes}}/{{needed}}"
+    "openChip": "Voting open: {{votes}}/{{needed}}",
+    "title": "Invalidations",
+    "cardText": "Every invalidation vote on users and resources, with justifications and outcomes.",
+    "description": "Any user or resource can be challenged by the network's voters. This page gathers, straight from the contract events, every invalidation vote, its justification and the outcome of each case.",
+    "stats": {
+      "votesNeeded": "Votes needed today",
+      "votes": "Votes recorded",
+      "users": "Users invalidated",
+      "resources": "Resources invalidated"
+    },
+    "filter": {
+      "all": "All",
+      "user": "Users",
+      "resource": "Resources"
+    },
+    "empty": "No invalidation votes recorded so far",
+    "emptyHint": "When a voter challenges a user or resource, the vote and its justification show up here as soon as they reach the network.",
+    "error": "Could not load the invalidations",
+    "kind": {
+      "user": "User",
+      "inspection": "Inspection"
+    },
+    "status": {
+      "invalidated": "Invalidated",
+      "open": "Voting open",
+      "closed": "Voting closed"
+    },
+    "deniedByPenalties": "Invalidated for accumulating penalties on published resources.",
+    "votesOf": "{{votes}} of {{needed}} votes",
+    "lastBlock": "Last vote at block {{block}}",
+    "block": "Block {{block}}",
+    "voter": "Voter",
+    "rules": {
+      "title": "How it works",
+      "voters": "Researchers, developers and contributors vote. Once a type has more than 5 users, only those with a level above their type's average can vote.",
+      "threshold": "Today {{votes}} votes are needed, with {{voters}} voters on the network. The number grows with the community: 2 votes below 12 voters, 5 below 167, then 3% of voters plus one, up to 360.",
+      "interval": "Each voter waits {{duration}} between votes.",
+      "resources": "Researches, contributions, reports and inspections can only be voted on during the era they were published or carried out. Once invalidated, the resource loses its validity and its author gets a penalty; with {{penalties}} penalties, the author is invalidated.",
+      "users": "Supporters can't be invalidated, and regenerators become immune after 6 inspections. An invalidated user loses their pool levels, and whoever invited them gets a penalty.",
+      "source": "Rules and numbers read from the ValidationRules and VoteRules contracts and from each resource's rules."
+    },
+    "votesCount_one": "1 vote",
+    "votesCount_other": "{{count}} votes"
   },
   "resourceDetails": {
     "file": "File",

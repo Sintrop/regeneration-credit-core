@@ -16,11 +16,11 @@ export function EraChip(): JSX.Element | null {
     <button
       onClick={() => navigate('/eras')}
       className="flex items-center gap-2 h-9 px-3 rounded-xl bg-card-primary hover:bg-card-primary/70 text-sm hover:cursor-pointer"
-      title={`${Intl.NumberFormat(i18n.language).format(nextEraIn)} blocks`}
+      title={`${t('shell.nextEraIn', { days: blocksToDays(nextEraIn) })} (${Intl.NumberFormat(i18n.language).format(nextEraIn)} blocks)`}
     >
       <span className="w-2 h-2 rounded-full bg-green-primary" />
       <span className="text-white font-semibold">{t('shell.era', { era: currentEra })}</span>
-      <span className="hidden xl:inline text-gray-400">
+      <span className="hidden 2xl:inline text-gray-400">
         {t('shell.nextEraIn', { days: blocksToDays(nextEraIn) })}
       </span>
     </button>

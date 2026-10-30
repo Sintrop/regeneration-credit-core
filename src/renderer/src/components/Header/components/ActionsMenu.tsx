@@ -42,9 +42,10 @@ export function ActionsMenu(): JSX.Element | null {
           open ? 'bg-green-primary text-green-secondary' : 'bg-card-primary text-white'
         }`}
         onClick={() => setOpen((value) => !value)}
+        title={t('timers.title')}
       >
         <MdBolt size={18} />
-        {t('timers.title')}
+        <span className="hidden 2xl:inline">{t('timers.title')}</span>
         {available > 0 && (
           <span
             className={`min-w-5 h-5 px-1 rounded-full text-xs font-bold flex items-center justify-center ${
