@@ -1,14 +1,9 @@
 import {
   inspectionAbi,
   inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress,
   inspectorAbi,
-  inspectorAddress,
-  sequoiaInspectorAbi,
-  sequoiaInspectorAddress
+  inspectorAddress
 } from '@renderer/services/contracts'
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
@@ -16,15 +11,11 @@ interface Props {
   mainAction?: boolean
 }
 export function InspectorActions({ mainAction }: Props): JSX.Element {
-  const chainId = useChainId()
+  const inspectorContractAddressToUse = inspectorAddress
+  const inspectorAbiToUse = inspectorAbi
 
-  const inspectorContractAddressToUse =
-    chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress
-  const inspectorAbiToUse = chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi
-
-  const inspectionContractAddressToUse =
-    chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress
-  const inspectionAbiToUse = chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi
+  const inspectionContractAddressToUse = inspectionAddress
+  const inspectionAbiToUse = inspectionAbi
 
   if (mainAction) {
     return (

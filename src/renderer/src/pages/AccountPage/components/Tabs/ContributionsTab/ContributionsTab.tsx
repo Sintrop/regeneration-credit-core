@@ -1,17 +1,12 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { ValidTag } from '@renderer/components/ValidTag/ValidTag'
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { ContributionProps } from '@renderer/types/contributor'
 import { useTranslation } from 'react-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -19,10 +14,9 @@ interface Props {
 
 export function ContributionsTab({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContributionsIds',
     args: [address]
   })
@@ -56,10 +50,9 @@ interface ContributionItemProps {
 function ContributionItem({ id }: ContributionItemProps): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContribution',
     args: [id]
   })

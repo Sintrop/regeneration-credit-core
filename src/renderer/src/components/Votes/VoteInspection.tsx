@@ -1,9 +1,4 @@
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
@@ -11,7 +6,6 @@ import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Action
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { toast } from 'react-toastify'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
@@ -25,7 +19,6 @@ export function VoteInspection({ close, inspectionId, inspectedEra }: Props): JS
   const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     isLoading: checkingAvailableVote,
@@ -52,8 +45,8 @@ export function VoteInspection({ close, inspectionId, inspectedEra }: Props): JS
   async function handleVoteInspection(): Promise<void> {
     if (!justification.trim()) return
 
-    const address = mainnet ? inspectionAddress : sequoiaInspectionAddress
-    const abi = mainnet ? inspectionAbi : sequoiaInspectionAbi
+    const address = inspectionAddress
+    const abi = inspectionAbi
 
     setDisplayLoadingTx(true)
 

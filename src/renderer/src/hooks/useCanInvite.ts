@@ -1,16 +1,12 @@
 import {
   invitationAbi,
   invitationAddress,
-  sequoiaInvitationAbi,
-  sequoiaInvitationAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress,
   userAbi,
   userAddress
 } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
 import { formatUnits } from 'viem'
-import { useAccount, useBlockNumber, useChainId, useReadContract } from 'wagmi'
+import { useAccount, useBlockNumber, useReadContract } from 'wagmi'
 
 interface ReturnUseCanInvite {
   canInvite: boolean
@@ -23,19 +19,18 @@ interface Props {
 }
 
 export function useCanInvite({ userTypeToInvite }: Props): ReturnUseCanInvite {
-  const chainId = useChainId()
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [address]
   })
   const userType = responseUser ? parseInt(formatUnits(BigInt(responseUser as string), 0)) : 0
 
   const { data: responseLastInvite } = useReadContract({
-    address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,
-    abi: chainId === 250225 ? invitationAbi : sequoiaInvitationAbi,
+    address: invitationAddress,
+    abi: invitationAbi,
     functionName: 'lastInviteBlocks',
     args: [address]
   })

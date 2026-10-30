@@ -1,16 +1,10 @@
-import {
-  sequoiaValidationAbi,
-  sequoiaValidationAddress,
-  validationAbi,
-  validationAddress
-} from '@renderer/services/contracts'
+import { validationAbi, validationAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { toast } from 'react-toastify'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
@@ -24,7 +18,6 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
   const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     isLoading: checkingAvailableVote,
@@ -49,8 +42,8 @@ export function VoteUser({ close, userWallet }: Props): JSX.Element {
   async function handleVoteUser(): Promise<void> {
     if (!justification.trim()) return
 
-    const address = mainnet ? validationAddress : sequoiaValidationAddress
-    const abi = mainnet ? validationAbi : sequoiaValidationAbi
+    const address = validationAddress
+    const abi = validationAbi
     setDisplayLoadingTx(true)
 
     switchChain()

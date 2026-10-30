@@ -1,23 +1,17 @@
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContracts } from 'wagmi'
+import { useReadContracts } from 'wagmi'
 import { UserCountCard } from './components/UserCountCard'
 import { formatUnits } from 'viem'
 import { Loading } from '@renderer/components/Loading/Loading'
 
 export function CommunityPage(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const communityContract = {
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi
+    address: userAddress,
+    abi: userAbi
   } as const
 
   const { data, isLoading } = useReadContracts({

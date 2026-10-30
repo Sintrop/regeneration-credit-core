@@ -1,22 +1,16 @@
-import {
-  userAbi,
-  userAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ContributorItem } from './ContributorItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 
 export function ContributorsTab(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'userTypesTotalCount',
     args: [5]
   })

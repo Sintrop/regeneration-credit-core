@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { RegeneratorContractProps, RegeneratorProps } from '@renderer/types/regenerator'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useRegenerator({ address }: Props): ReturnUserRegenerator {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: mainnet ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getRegenerator',
     args: [address]
   })

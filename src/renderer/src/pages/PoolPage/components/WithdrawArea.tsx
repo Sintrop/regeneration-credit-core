@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useEffect, useState } from 'react'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { contractsPool, ContractsPoolName } from '../contractsPoolList'
 import { useUserContext } from '@renderer/hooks/useUserContext'
 import { formatUnits } from 'viem'
@@ -14,23 +14,22 @@ interface Props {
 
 export function WithdrawArea({ poolName }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { address, isConnected, userType, eraPool: eraPoolUser } = useUserContext()
   const contractPool = contractsPool[poolName]
   const [hasAvailableWithdraw, setHasAvailableWithdraw] = useState(false)
 
   const { data: eraContract } = useReadContract({
     //@ts-ignore
-    address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'currentContractEra'
   })
   const eraPool = eraContract ? parseInt(formatUnits(BigInt(eraContract as string), 0)) : 1
 
   const { data: responseHaveTokensToWithdraw } = useReadContract({
     //@ts-ignore
-    address: chainId === 250225 ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: chainId === 250225 ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'haveTokensToWithdraw',
     args: [address, eraPoolUser]
   })
@@ -88,11 +87,9 @@ export function WithdrawArea({ poolName }: Props): JSX.Element {
       {eraPoolUser < eraPool && (
         <ActionComponent
           actionName="withdraw"
-          addressContract={
-            chainId === 250225 ? contractPool.userAddressMainnet : contractPool.userAddressTestnet
-          }
+          addressContract={contractPool.userAddressMainnet}
           //@ts-ignore
-          abi={chainId === 250225 ? contractPool.userAbiMainnet : contractPool.userAbiTestnet}
+          abi={contractPool.userAbiMainnet}
           label={haveTokensToWithdraw ? t('pools.withdraw') : t('pools.advanceToNextEra')}
           withdrawPools
         />

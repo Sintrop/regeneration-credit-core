@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ReportFeedContent } from './ReportFeedContent'
 import { DeveloperProps, ReportProps } from '@renderer/types/developer'
@@ -15,18 +10,17 @@ interface Props {
 }
 
 export function ReportFeedItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getReport',
     args: [id]
   })
   const report = data as ReportProps
 
   const { data: resDeveloper } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getDeveloper',
     args: [report ? report.developer : '']
   })

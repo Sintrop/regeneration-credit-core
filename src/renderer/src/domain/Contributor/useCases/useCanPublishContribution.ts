@@ -1,12 +1,5 @@
 import { useAccount, useBlockNumber, useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  developerAbi,
-  sequoiaContributorAddress,
-  sequoiaContributorAbi,
-  contributorAddress,
-  contributorAbi
-} from '@renderer/services/contracts'
+import { developerAbi, contributorAddress, contributorAbi } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ContributorProps } from '@renderer/types/contributor'
 
@@ -18,15 +11,14 @@ interface ReturnUseCanPublishContribution {
   waitBlocks: number
 }
 export function useCanPublishContribution(): ReturnUseCanPublishContribution {
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     data: responseContributor,
     refetch: refetchContributor,
     isLoading: isLoadingContributor
   } = useReadContract({
-    address: mainnet ? contributorAddress : sequoiaContributorAddress,
-    abi: mainnet ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContributor',
     args: [address]
   })
@@ -41,8 +33,8 @@ export function useCanPublishContribution(): ReturnUseCanPublishContribution {
     refetch: refetchTime,
     isLoading: isLoadingTime
   } = useReadContract({
-    address: mainnet ? contributorAddress : sequoiaContributorAddress,
-    abi: mainnet ? developerAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: developerAbi,
     functionName: 'timeBetweenWorks',
     args: []
   })

@@ -2,18 +2,13 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { useResearchValidations } from '@renderer/domain/Researcher/events/useResearchValidations'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { ResearchProps } from '@renderer/types/researcher'
 import { ResourceValidationProps } from '@renderer/types/validation'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { InvalidatedResource } from './InvalidatedResource'
 
 interface Props {
@@ -23,7 +18,6 @@ interface Props {
 }
 export function ResearcheData({ id, setReport, setValidations }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { validations } = useResearchValidations({ researchId: id })
 
@@ -33,8 +27,8 @@ export function ResearcheData({ id, setReport, setValidations }: Props): JSX.Ele
   }, [validations])
 
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     args: [id],
     functionName: 'getResearch'
   })

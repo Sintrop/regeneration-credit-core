@@ -1,13 +1,8 @@
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress
-} from '@renderer/services/contracts'
+import { activistAbi, activistAddress } from '@renderer/services/contracts'
 import { ActivistProps } from '@renderer/types/activist'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
@@ -17,13 +12,12 @@ import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInvi
 
 export function ActivistData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { penalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'getActivist',
     args: [address]
   })

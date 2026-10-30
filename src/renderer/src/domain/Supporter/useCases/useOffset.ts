@@ -1,13 +1,7 @@
 import { parseEther } from 'viem'
 import { useWriteContract } from 'wagmi'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 
 interface OffsetProps {
   ammount: number
@@ -24,7 +18,6 @@ interface ReturnUseOffsetProps {
 }
 
 export function useOffset(): ReturnUseOffsetProps {
-  const mainnet = useMainnet()
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
   async function handleOffset(data: OffsetProps): Promise<void> {
@@ -34,8 +27,8 @@ export function useOffset(): ReturnUseOffsetProps {
     const minAmmountToBurnParsed = parseEther(minAmmountToBurn.toString())
 
     writeContract({
-      address: mainnet ? supporterAddress : sequoiaSupporterAddress,
-      abi: mainnet ? supporterAbi : sequoiaSupporterAbi,
+      address: supporterAddress,
+      abi: supporterAbi,
       functionName: 'offset',
       args: [
         value,

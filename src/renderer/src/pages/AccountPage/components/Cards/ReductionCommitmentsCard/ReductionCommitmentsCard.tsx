@@ -2,17 +2,13 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import {
   researcherAbi,
   researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress,
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
   supporterAbi,
   supporterAddress
 } from '@renderer/services/contracts'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -20,10 +16,9 @@ interface Props {
 
 export function ReductionCommitmentsCard({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'getReductionCommitments',
     args: [address]
   })
@@ -63,18 +58,17 @@ interface ReductionItemProps {
 }
 function ReductionItem({ id, address }: ReductionItemProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getCalculatorItem',
     args: [id]
   })
 
   const { data: responseContributedWith } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'calculatorItemCertificates',
     args: [address, id]
   })

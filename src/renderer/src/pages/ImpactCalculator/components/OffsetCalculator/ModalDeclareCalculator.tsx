@@ -2,13 +2,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CalculatorItemProps } from '@renderer/types/researcher'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { MdClose } from 'react-icons/md'
@@ -20,7 +15,6 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
   const { t } = useTranslation()
   const [showModal, setShowModal] = useState(false)
 
-  const chainId = useChainId()
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -35,8 +29,8 @@ export function ModalDeclareCalculator({ item }: Props): JSX.Element {
     setDisplayLoadingTx(true)
     writeContract({
       //@ts-ignore
-      address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-      abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+      address: supporterAddress,
+      abi: supporterAbi,
       functionName: 'declareReductionCommitment',
       args: [item.id]
     })

@@ -1,14 +1,8 @@
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { useRegenerator } from '@renderer/domain/Regenerator/useCases/useRegenerator'
 import { useDeveloper } from '@renderer/domain/Developer/useCases/useDeveloper'
 import { useInspector } from '@renderer/domain/Inspector/useCases/useInspector'
@@ -22,10 +16,9 @@ interface Props {
   createdAt?: number
 }
 export function User({ address, createdAt }: Props): JSX.Element {
-  const mainnet = useMainnet()
   const { data } = useReadContract({
-    address: mainnet ? userAddress : sequoiaUserAddress,
-    abi: mainnet ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [address]
   })

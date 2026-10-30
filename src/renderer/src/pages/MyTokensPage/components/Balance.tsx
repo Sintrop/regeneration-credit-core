@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useAccount, useBalance, useChainId, useReadContract } from 'wagmi'
+import { useAccount, useBalance, useReadContract } from 'wagmi'
 import { FaEyeSlash, FaRegEye } from 'react-icons/fa'
 import { format } from 'date-fns'
 import { formatUnits } from 'viem'
 
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 
 import ImageRC from '@renderer/assets/images/rc.png'
 import ImageSIN from '@renderer/assets/images/icon-chain.png'
@@ -13,11 +13,10 @@ import ImageSIN from '@renderer/assets/images/icon-chain.png'
 export function Balance(): JSX.Element {
   const { t } = useTranslation()
   const { isDisconnected, address } = useAccount()
-  const chainId = useChainId()
   const [viewBalance, setViewBalance] = useState(false)
   const { data } = useReadContract({
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'balanceOf',
     args: [address]
   })

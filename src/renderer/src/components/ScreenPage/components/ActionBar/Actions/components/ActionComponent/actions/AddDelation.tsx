@@ -1,11 +1,6 @@
 import { useState } from 'react'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  userAddress,
-  userAbi,
-  sequoiaUserAbi,
-  sequoiaUserAddress
-} from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { userAddress, userAbi } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
@@ -16,7 +11,6 @@ interface Props {
   close: () => void
 }
 export function AddDelation({ close }: Props): JSX.Element {
-  const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
   const [inputTitle, setInputTitle] = useState('')
@@ -40,8 +34,8 @@ export function AddDelation({ close }: Props): JSX.Element {
     switchChain()
 
     writeContract({
-      address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-      abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+      address: userAddress,
+      abi: userAbi,
       functionName: 'addDelation',
       args: [inputAddress, inputTitle, inputTestimony]
     })

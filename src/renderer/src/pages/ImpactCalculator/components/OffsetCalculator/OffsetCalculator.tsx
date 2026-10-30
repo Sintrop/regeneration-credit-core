@@ -1,21 +1,15 @@
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { OffsetCalculatorItem } from './OffsetCalculatorItem'
 
 export function OffsetCalculator(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'calculatorItemsCount',
     args: []
   })

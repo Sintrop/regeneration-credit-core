@@ -4,13 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 import { Loading } from '@renderer/components/Loading/Loading'
 
@@ -26,10 +21,9 @@ export function RegenerationAreaMap({ address }: Props): JSX.Element {
   const markersRef = useRef<mapboxgl.Marker[]>([])
   const [invalidCoords, setInvalidCoords] = useState(true)
 
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getCoordinates',
     args: [address]
   })

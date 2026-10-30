@@ -1,11 +1,5 @@
 import { useAccount, useBlockNumber, useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { DeveloperProps } from '@renderer/types/developer'
 
@@ -17,15 +11,14 @@ interface ReturnUseCanPublishReport {
   waitBlocks: number
 }
 export function useCanPublishReport(): ReturnUseCanPublishReport {
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     data: responseDeveloper,
     refetch: refetchDeveloper,
     isLoading: isLoadingDeveloper
   } = useReadContract({
-    address: mainnet ? developerAddress : sequoiaDeveloperAddress,
-    abi: mainnet ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getDeveloper',
     args: [address]
   })
@@ -40,8 +33,8 @@ export function useCanPublishReport(): ReturnUseCanPublishReport {
     refetch: refetchTime,
     isLoading: isLoadingTime
   } = useReadContract({
-    address: mainnet ? developerAddress : sequoiaDeveloperAddress,
-    abi: mainnet ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'timeBetweenWorks',
     args: []
   })

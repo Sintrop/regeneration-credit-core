@@ -1,11 +1,5 @@
 import { useAccount, useBlockNumber, useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ResearcherProps } from '@renderer/types/researcher'
 
@@ -17,15 +11,14 @@ interface ReturnUseCanPublishReport {
   waitBlocks: number
 }
 export function useCanPublishResearcher(): ReturnUseCanPublishReport {
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     data: responseResearcher,
     refetch: refetchResearcher,
     isLoading: isLoadingResearcher
   } = useReadContract({
-    address: mainnet ? researcherAddress : sequoiaResearcherAddress,
-    abi: mainnet ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearcher',
     args: [address]
   })
@@ -40,8 +33,8 @@ export function useCanPublishResearcher(): ReturnUseCanPublishReport {
     refetch: refetchTime,
     isLoading: isLoadingTime
   } = useReadContract({
-    address: mainnet ? researcherAddress : sequoiaResearcherAddress,
-    abi: mainnet ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'timeBetweenWorks',
     args: []
   })

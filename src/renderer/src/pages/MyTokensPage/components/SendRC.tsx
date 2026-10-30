@@ -2,16 +2,10 @@ import { FormEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits, parseEther } from 'viem'
 import { toast } from 'react-toastify'
-import {
-  useAccount,
-  useChainId,
-  useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract
-} from 'wagmi'
+import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function SendRC(): JSX.Element {
@@ -22,11 +16,10 @@ export function SendRC(): JSX.Element {
   const [insufficientBalance, setInsufficientBalance] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
   const { address, isDisconnected } = useAccount()
   const { data } = useReadContract({
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'balanceOf',
     args: [address]
   })
@@ -62,8 +55,8 @@ export function SendRC(): JSX.Element {
     }
 
     writeContract({
-      address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-      abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+      address: rcAddress,
+      abi: rcAbi,
       functionName: 'transfer',
       args: [to, parseEther(value)]
     })

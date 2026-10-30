@@ -1,14 +1,9 @@
 import { checkVacancies } from '@renderer/services/checkVacancies'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   user: 'regenerator' | 'supporter' | 'other-users' | 'all-users'
@@ -19,10 +14,9 @@ interface Props {
 export function UserCountCard({ user, userType, usersCount }: Props): JSX.Element {
   const { t } = useTranslation()
   const cardData = dataByUserType[userType]
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'userTypesCount',
     args: [1]
   })

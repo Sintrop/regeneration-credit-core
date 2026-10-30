@@ -1,11 +1,6 @@
-import {
-  sequoiaVoteAbi,
-  sequoiaVoteAddress,
-  voteAbi,
-  voteAddress
-} from '@renderer/services/contracts'
+import { voteAbi, voteAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -13,10 +8,9 @@ interface Props {
 
 export function UserCanVote({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? voteAddress : sequoiaVoteAddress,
-    abi: chainId === 250225 ? voteAbi : sequoiaVoteAbi,
+    address: voteAddress,
+    abi: voteAbi,
     functionName: 'canVote',
     args: [address]
   })

@@ -1,12 +1,6 @@
 import { Loading } from '@renderer/components/Loading/Loading'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { checkVacancies } from '@renderer/services/checkVacancies'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { useReadContracts } from 'wagmi'
 
@@ -17,18 +11,17 @@ interface Props {
 
 export function Vacancies({ userType, onChange }: Props): JSX.Element {
   const { t } = useTranslation()
-  const mainnet = useMainnet()
   const { data, isLoading } = useReadContracts({
     contracts: [
       {
-        address: mainnet ? userAddress : sequoiaUserAddress,
-        abi: mainnet ? userAbi : sequoiaUserAbi,
+        address: userAddress,
+        abi: userAbi,
         functionName: 'userTypesCount',
         args: [1]
       },
       {
-        address: mainnet ? userAddress : sequoiaUserAddress,
-        abi: mainnet ? userAbi : sequoiaUserAbi,
+        address: userAddress,
+        abi: userAbi,
         functionName: 'userTypesCount',
         args: [userType]
       }

@@ -1,21 +1,15 @@
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { InspectionItem } from './InspectionItem'
 
 export function InspectionsTab(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'inspectionsTotalCount'
   })
 

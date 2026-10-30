@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  inspectorAbi,
-  inspectorAddress,
-  sequoiaInspectorAbi,
-  sequoiaInspectorAddress
-} from '@renderer/services/contracts'
+import { inspectorAbi, inspectorAddress } from '@renderer/services/contracts'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { InspectorContractProps, InspectorProps } from '@renderer/types/inspector'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useInspector({ address }: Props): ReturnUseInspector {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? inspectorAddress : sequoiaInspectorAddress,
-    abi: mainnet ? inspectorAbi : sequoiaInspectorAbi,
+    address: inspectorAddress,
+    abi: inspectorAbi,
     functionName: 'getInspector',
     args: [address]
   })

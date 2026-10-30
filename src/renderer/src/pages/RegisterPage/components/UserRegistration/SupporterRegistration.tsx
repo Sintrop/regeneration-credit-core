@@ -1,12 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ProofPhoto } from './ProofPhoto'
@@ -32,7 +27,6 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
   const [description, setDescription] = useState('')
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -88,8 +82,8 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
     switchChain()
 
     writeContract({
-      address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-      abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+      address: supporterAddress,
+      abi: supporterAbi,
       functionName: 'addSupporter',
       args: [name, description, proofPhoto]
     })

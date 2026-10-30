@@ -2,7 +2,6 @@ import { useImpactPerToken } from '@renderer/hooks/useImpactPerToken'
 import { useTranslation } from 'react-i18next'
 import { QRCode } from 'react-qrcode-logo'
 import RCLogo from '@renderer/assets/images/rc.png'
-import { useChainId } from 'wagmi'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -20,7 +19,6 @@ export function ContributionCertificate({
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const { carbonPerToken, biodiversityPerToken, soilPerToken, treesPerToken } = useImpactPerToken()
-  const chainId = useChainId()
   const [urlQrCode, setUrlQrCode] = useState('')
 
   let totalCarbonImpact = 0
@@ -38,10 +36,7 @@ export function ContributionCertificate({
   }, [])
 
   function createUrlUserPage(): void {
-    const baseUrlUsersPage =
-      chainId === 250225
-        ? import.meta.env.VITE_USERS_PAGE_URL
-        : import.meta.env.VITE_SEQUOIA_USERS_PAGE_URL
+    const baseUrlUsersPage = import.meta.env.VITE_USERS_PAGE_URL
     const nameFormated = name?.toLowerCase().replace(' ', '-')
     const url = `${baseUrlUsersPage}/${
       userType === 1 ? 'regenerator' : 'supporter'

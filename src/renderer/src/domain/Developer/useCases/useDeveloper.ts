@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { DeveloperContractProps, DeveloperProps } from '@renderer/types/developer'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useDeveloper({ address }: Props): ReturnUseDeveloper {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? developerAddress : sequoiaDeveloperAddress,
-    abi: mainnet ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getDeveloper',
     args: [address]
   })

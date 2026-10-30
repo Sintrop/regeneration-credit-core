@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
 import Web3, { EventLog } from 'web3'
 import { ContributionValidationProps } from '../types'
@@ -22,9 +16,8 @@ interface ReturnUseResearchValidationsProps {
 export function useContributionValidations({
   contributionId
 }: Props): ReturnUseResearchValidationsProps {
-  const mainnet = useMainnet()
   const [validations, setValidations] = useState<ContributionValidationProps[]>([])
-  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
+  const { rpcUrl } = useSettingsContext()
 
   useEffect(() => {
     handleGetEvents()
@@ -32,8 +25,7 @@ export function useContributionValidations({
 
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
-      mainnet,
-      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
+      rpcUrl: rpcUrl,
       contributionId
     })
 
@@ -59,18 +51,13 @@ export function useContributionValidations({
 }
 
 interface GetPastEventsProps {
-  mainnet: boolean
   rpcUrl: string
   contributionId: number
 }
-async function getPastEvents({
-  mainnet,
-  rpcUrl,
-  contributionId
-}: GetPastEventsProps): Promise<EventLog[]> {
+async function getPastEvents({ rpcUrl, contributionId }: GetPastEventsProps): Promise<EventLog[]> {
   const web3 = new Web3(rpcUrl)
-  const contractAbi = mainnet ? contributorAbi : sequoiaContributorAbi
-  const contractAddress = mainnet ? contributorAddress : sequoiaContributorAddress
+  const contractAbi = contributorAbi
+  const contractAddress = contributorAddress
 
   const contract = new web3.eth.Contract(contractAbi, contractAddress)
 

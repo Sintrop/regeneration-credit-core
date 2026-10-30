@@ -1,9 +1,4 @@
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import {
-  sequoiaValidationAbi,
-  sequoiaValidationAddress,
-  sequoiaVoteAbi,
-  sequoiaVoteAddress,
   validationAbi,
   validationAddress,
   voteAbi,
@@ -18,11 +13,10 @@ interface ReturnCanVoteProps {
   canVoteBlocks: number
 }
 export function useCanVote(): ReturnCanVoteProps {
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const { data: responseCanVote } = useReadContract({
-    address: mainnet ? voteAddress : sequoiaVoteAddress,
-    abi: mainnet ? voteAbi : sequoiaVoteAbi,
+    address: voteAddress,
+    abi: voteAbi,
     functionName: 'canVote',
     args: [address]
   })
@@ -30,8 +24,8 @@ export function useCanVote(): ReturnCanVoteProps {
   const isVoter = responseCanVote ? (responseCanVote as boolean) : false
 
   const { data: responseTime } = useReadContract({
-    address: mainnet ? validationAddress : sequoiaValidationAddress,
-    abi: mainnet ? validationAbi : sequoiaValidationAbi,
+    address: validationAddress,
+    abi: validationAbi,
     functionName: 'timeBetweenVotes'
   })
   const timeBetweenVotes = responseTime
@@ -39,8 +33,8 @@ export function useCanVote(): ReturnCanVoteProps {
     : 0
 
   const { data: responseLastVote } = useReadContract({
-    address: mainnet ? validationAddress : sequoiaValidationAddress,
-    abi: mainnet ? validationAbi : sequoiaValidationAbi,
+    address: validationAddress,
+    abi: validationAbi,
     functionName: 'validatorLastVoteAt'
   })
   const lastVote = responseLastVote

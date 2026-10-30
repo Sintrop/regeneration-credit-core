@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
@@ -14,10 +9,9 @@ interface Props {
 }
 
 export function CalculatorItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getCalculatorItem',
     args: [id]
   })

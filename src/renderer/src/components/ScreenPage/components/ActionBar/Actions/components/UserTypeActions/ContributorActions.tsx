@@ -1,11 +1,5 @@
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
@@ -15,11 +9,9 @@ interface Props {
 }
 export function ContributorActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
-  const contributorContractAddressToUse =
-    chainId === 250225 ? contributorAddress : sequoiaContributorAddress
-  const contributorAbiToUse = chainId === 250225 ? contributorAbi : sequoiaContributorAbi
+  const contributorContractAddressToUse = contributorAddress
+  const contributorAbiToUse = contributorAbi
 
   if (mainAction) {
     return (

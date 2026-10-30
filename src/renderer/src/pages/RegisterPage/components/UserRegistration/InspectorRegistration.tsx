@@ -2,18 +2,12 @@
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  inspectorAbi,
-  inspectorAddress,
-  sequoiaInspectorAbi,
-  sequoiaInspectorAddress
-} from '@renderer/services/contracts'
+import { inspectorAbi, inspectorAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
@@ -37,7 +31,6 @@ export function InspectorRegistration({
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, error, isError } = useWriteContract()
   const {
     isLoading,
@@ -98,8 +91,8 @@ export function InspectorRegistration({
     switchChain()
 
     writeContract({
-      address: mainnet ? inspectorAddress : sequoiaInspectorAddress,
-      abi: mainnet ? inspectorAbi : sequoiaInspectorAbi,
+      address: inspectorAddress,
+      abi: inspectorAbi,
       functionName: 'addInspector',
       args: [name, hashProofPhoto]
     })

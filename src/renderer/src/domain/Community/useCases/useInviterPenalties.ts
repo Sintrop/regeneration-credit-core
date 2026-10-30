@@ -1,13 +1,7 @@
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 
 interface Props {
   address: string
@@ -21,10 +15,9 @@ interface ReturnUseInviterPenalties {
 }
 
 export function useInviterPenalties({ address }: Props): ReturnUseInviterPenalties {
-  const mainnet = useMainnet()
   const { data, isLoading, isError, refetch } = useReadContract({
-    address: mainnet ? userAddress : sequoiaUserAddress,
-    abi: mainnet ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'inviterPenalties',
     args: [address]
   })

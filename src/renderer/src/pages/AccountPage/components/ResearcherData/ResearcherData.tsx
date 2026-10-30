@@ -1,13 +1,8 @@
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { ResearcherProps } from '@renderer/types/researcher'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
@@ -18,13 +13,12 @@ import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInvi
 
 export function ResearcherData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { penalties: inviterPenalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearcher',
     args: [address]
   })
@@ -32,8 +26,8 @@ export function ResearcherData({ address, profilePage }: UserTypeContentProps): 
   const researcher = data as ResearcherProps
 
   const { data: responsePenalties } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'totalPenalties',
     args: [address]
   })

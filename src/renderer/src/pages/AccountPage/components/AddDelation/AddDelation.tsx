@@ -1,13 +1,7 @@
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdClose } from 'react-icons/md'
@@ -19,7 +13,6 @@ interface Props {
 }
 export function AddDelation({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const mainnet = useMainnet()
   const [showModal, setShowModal] = useState(false)
 
   const [inputTitle, setInputTitle] = useState('')
@@ -42,8 +35,8 @@ export function AddDelation({ address }: Props): JSX.Element {
     switchChain()
 
     writeContract({
-      address: mainnet ? userAddress : sequoiaUserAddress,
-      abi: mainnet ? userAbi : sequoiaUserAbi,
+      address: userAddress,
+      abi: userAbi,
       functionName: 'addDelation',
       args: [address, inputTitle, inputTestimony]
     })

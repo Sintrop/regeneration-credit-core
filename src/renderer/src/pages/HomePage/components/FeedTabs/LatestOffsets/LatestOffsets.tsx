@@ -1,21 +1,15 @@
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { OffsetItem } from './OffsetItem/OffsetItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useTranslation } from 'react-i18next'
 
 export function LatestOffsets(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'offsetsCount'
   })
 

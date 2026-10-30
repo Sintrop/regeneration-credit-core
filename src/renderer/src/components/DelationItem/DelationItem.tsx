@@ -1,12 +1,6 @@
 import { useReadContract } from 'wagmi'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { DelationContent } from './DelationContent'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { Informer } from './Informer'
 import { formatUnits } from 'viem'
 import { VoteDelation } from './VoteDelation'
@@ -17,10 +11,9 @@ interface Props {
 }
 
 export function DelationItem({ id, hideReported }: Props): JSX.Element {
-  const mainnet = useMainnet()
   const { data, refetch } = useReadContract({
-    address: mainnet ? userAddress : sequoiaUserAddress,
-    abi: mainnet ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'delationsById',
     args: [id]
   })

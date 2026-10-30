@@ -1,10 +1,5 @@
-import {
-  regeneratorAddress,
-  regeneratorAbi,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { regeneratorAddress, regeneratorAbi } from '@renderer/services/contracts'
+import { useAccount, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { formatUnits } from 'viem'
@@ -13,11 +8,10 @@ import { useUserContext } from '@renderer/hooks/useUserContext'
 export function RegeneratorCard(): JSX.Element {
   const { setEraPool } = useUserContext()
   const { address } = useAccount()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getRegenerator',
     args: [address]
   })

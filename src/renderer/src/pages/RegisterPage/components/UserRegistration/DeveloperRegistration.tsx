@@ -2,18 +2,12 @@
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
@@ -35,7 +29,6 @@ export function DeveloperRegistration({
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -96,8 +89,8 @@ export function DeveloperRegistration({
     switchChain()
 
     writeContract({
-      address: mainnet ? developerAddress : sequoiaDeveloperAddress,
-      abi: mainnet ? developerAbi : sequoiaDeveloperAbi,
+      address: developerAddress,
+      abi: developerAbi,
       functionName: 'addDeveloper',
       args: [name, hashProofPhoto]
     })

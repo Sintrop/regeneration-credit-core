@@ -1,13 +1,8 @@
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { SupporterProps } from '@renderer/types/supporter'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
@@ -16,11 +11,10 @@ import { ReductionCommitmentsCard } from '../Cards/ReductionCommitmentsCard/Redu
 
 export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'getSupporter',
     args: [address]
   })

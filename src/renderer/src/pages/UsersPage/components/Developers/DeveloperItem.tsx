@@ -1,11 +1,6 @@
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { DeveloperProps } from '@renderer/types/developer'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { BiSolidMegaphone } from 'react-icons/bi'
@@ -17,11 +12,10 @@ interface Props {
 }
 
 export function DeveloperItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'developersAddress',
     args: [id]
   })
@@ -29,8 +23,8 @@ export function DeveloperItem({ id }: Props): JSX.Element {
   const userDeveloperAddress = data as string
 
   const { data: developerResponse } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getDeveloper',
     args: [userDeveloperAddress]
   })

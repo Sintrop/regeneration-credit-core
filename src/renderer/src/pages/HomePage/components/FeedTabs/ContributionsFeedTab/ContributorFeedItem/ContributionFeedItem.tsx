@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ContributionProps, ContributorProps } from '@renderer/types/contributor'
 import { ContributionFeedContent } from './ContributionFeedContent'
@@ -15,19 +10,17 @@ interface Props {
 }
 
 export function ContributionFeedItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
-
   const { data } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContribution',
     args: [id]
   })
   const contribution = data as ContributionProps
 
   const { data: resContributor } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContributor',
     args: [data ? contribution.user : '']
   })

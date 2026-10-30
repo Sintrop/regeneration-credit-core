@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { ContributorContractProps, ContributorProps } from '@renderer/types/contributor'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useContributor({ address }: Props): ReturnUseContributor {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? contributorAddress : sequoiaContributorAddress,
-    abi: mainnet ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContributor',
     args: [address]
   })

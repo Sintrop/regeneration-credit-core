@@ -1,9 +1,4 @@
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
@@ -11,7 +6,6 @@ import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Action
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
 import { toast } from 'react-toastify'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
@@ -26,7 +20,6 @@ export function VoteContribution({ close, contributionId, publishedEra }: Props)
 
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     isLoading: checkingAvailableVote,
@@ -53,8 +46,8 @@ export function VoteContribution({ close, contributionId, publishedEra }: Props)
   async function handleVoteContribution(): Promise<void> {
     if (!justification.trim()) return
 
-    const address = mainnet ? contributorAddress : sequoiaContributorAddress
-    const abi = mainnet ? contributorAbi : sequoiaContributorAbi
+    const address = contributorAddress
+    const abi = contributorAbi
 
     setDisplayLoadingTx(true)
 

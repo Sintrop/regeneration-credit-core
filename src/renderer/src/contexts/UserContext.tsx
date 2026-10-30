@@ -1,12 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { createContext, ReactNode, useEffect, useState } from 'react'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useAccount, useReadContract } from 'wagmi'
 
 interface UserContextProviderProps {
   children: ReactNode
@@ -23,14 +18,13 @@ export interface UserContextProps {
 export const UserContext = createContext({} as UserContextProps)
 
 export function UserContextProvider({ children }: UserContextProviderProps): JSX.Element {
-  const chainId = useChainId()
   const { address, isConnected } = useAccount()
   const [userType, setUserType] = useState<number>(0)
   const [eraPool, setEraPool] = useState<number>(1)
 
   const { data: responseUserType, refetch: refetchUserType } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [address]
   })

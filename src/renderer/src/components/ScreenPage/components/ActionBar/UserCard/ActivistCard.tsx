@@ -1,10 +1,5 @@
-import {
-  activistAddress,
-  activistAbi,
-  sequoiaActivistAddress,
-  sequoiaActivistAbi
-} from '@renderer/services/contracts'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { activistAddress, activistAbi } from '@renderer/services/contracts'
+import { useAccount, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ActivistProps } from '@renderer/types/activist'
 import { formatUnits } from 'viem'
@@ -13,11 +8,10 @@ import { useUserContext } from '@renderer/hooks/useUserContext'
 export function ActivistCard(): JSX.Element {
   const { setEraPool } = useUserContext()
   const { address } = useAccount()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'getActivist',
     args: [address]
   })

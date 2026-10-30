@@ -1,13 +1,8 @@
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { ContributorProps } from '@renderer/types/contributor'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
@@ -18,21 +13,20 @@ import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInvi
 
 export function ContributorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { penalties: inviterPenalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContributor',
     args: [address]
   })
   const contributor = data as ContributorProps
 
   const { data: responsePenalties } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'totalPenalties',
     args: [address]
   })

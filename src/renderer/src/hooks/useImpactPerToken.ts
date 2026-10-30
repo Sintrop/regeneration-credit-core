@@ -1,11 +1,6 @@
 import { formatUnits } from 'viem'
-import { useChainId, useReadContracts } from 'wagmi'
-import {
-  rcImpactAbi,
-  rcImpactAddress,
-  sequoiaRcImpactAbi,
-  sequoiaRcImpactAddress
-} from '@renderer/services/contracts'
+import { useReadContracts } from 'wagmi'
+import { rcImpactAbi, rcImpactAddress } from '@renderer/services/contracts'
 
 interface ReturnUseImpactPerTokenProps {
   isLoading: boolean
@@ -15,11 +10,9 @@ interface ReturnUseImpactPerTokenProps {
   biodiversityPerToken: number
 }
 export function useImpactPerToken(): ReturnUseImpactPerTokenProps {
-  const chainId = useChainId()
-
   const rcImpactContract = {
-    address: chainId === 250225 ? rcImpactAddress : sequoiaRcImpactAddress,
-    abi: chainId === 250225 ? rcImpactAbi : sequoiaRcImpactAbi
+    address: rcImpactAddress,
+    abi: rcImpactAbi
   } as const
 
   const { data, isLoading } = useReadContracts({

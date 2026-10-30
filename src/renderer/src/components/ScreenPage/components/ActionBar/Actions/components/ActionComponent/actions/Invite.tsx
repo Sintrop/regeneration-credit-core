@@ -1,11 +1,6 @@
 import { useState } from 'react'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  sequoiaInvitationAddress,
-  invitationAddress,
-  invitationAbi,
-  sequoiaInvitationAbi
-} from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { invitationAddress, invitationAbi } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../ActionComponent'
@@ -16,7 +11,6 @@ import { toast } from 'react-toastify'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.Element {
-  const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
   const {
@@ -49,8 +43,8 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
     switchChain()
 
     writeContract({
-      address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,
-      abi: chainId === 250225 ? invitationAbi : sequoiaInvitationAbi,
+      address: invitationAddress,
+      abi: invitationAbi,
       functionName,
       args: [inputAddress, userTypeToInvite]
     })

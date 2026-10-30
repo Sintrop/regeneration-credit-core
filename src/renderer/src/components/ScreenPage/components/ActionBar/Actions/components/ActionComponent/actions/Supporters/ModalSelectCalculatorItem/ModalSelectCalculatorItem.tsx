@@ -1,11 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 
 interface OnChangeProps {
@@ -61,10 +56,9 @@ interface SelectCalculatorItemProps {
 }
 function CalculatorItem({ id, onChange }: SelectCalculatorItemProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getCalculatorItem',
     args: [id]
   })

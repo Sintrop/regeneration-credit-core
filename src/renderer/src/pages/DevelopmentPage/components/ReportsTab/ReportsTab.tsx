@@ -1,21 +1,15 @@
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ReportItem } from './ReportItem'
 
 export function ReportsTab(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'reportsTotalCount',
     args: []
   })

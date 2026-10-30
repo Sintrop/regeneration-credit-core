@@ -1,17 +1,12 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { InspectionProps } from '@renderer/types/inspection'
 import { useTranslation } from 'react-i18next'
 import { BiChevronRight } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UpdateTotalProps } from './InspectionsCard'
 import { useEffect } from 'react'
 
@@ -23,10 +18,9 @@ interface Props {
 export function InspectionCardItem({ inspectionId, updateTotal }: Props): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'getInspection',
     args: [inspectionId]
   })

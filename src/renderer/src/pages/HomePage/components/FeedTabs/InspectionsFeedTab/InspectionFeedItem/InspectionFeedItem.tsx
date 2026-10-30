@@ -1,13 +1,9 @@
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import {
   inspectionAbi,
   inspectionAddress,
   regeneratorAbi,
-  regeneratorAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
+  regeneratorAddress
 } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { HeaderFeedItem } from '../../HeaderFeedItem/HeaderFeedItem'
@@ -20,10 +16,9 @@ interface Props {
 }
 
 export function InspectionFeedItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'getInspection',
     args: [id]
   })
@@ -31,8 +26,8 @@ export function InspectionFeedItem({ id }: Props): JSX.Element {
   const inspection = data as InspectionProps
 
   const { data: data2 } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getRegenerator',
     args: [inspection?.regenerator]
   })

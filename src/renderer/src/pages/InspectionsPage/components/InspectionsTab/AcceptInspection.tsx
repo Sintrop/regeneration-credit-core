@@ -6,10 +6,6 @@ import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 import {
   regeneratorAbi,
   regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress,
   userAbi,
   userAddress
 } from '@renderer/services/contracts'
@@ -18,13 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { MdClose } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { formatUnits } from 'viem'
-import {
-  useAccount,
-  useBlockNumber,
-  useChainId,
-  useReadContract,
-  useWaitForTransactionReceipt
-} from 'wagmi'
+import { useAccount, useBlockNumber, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
 
 interface Props {
   inspectionId: number
@@ -34,7 +24,6 @@ interface Props {
 
 export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const [canAccept, setCanAccept] = useState<boolean>(false)
   const [canAcceptIn, setCanAcceptIn] = useState<number>(0)
   const [waitNextEraToAccept, setWaitNextEraToAccept] = useState(false)
@@ -42,8 +31,8 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
 
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [address]
   })
@@ -54,8 +43,8 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
   const { data: responseNextEra } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'nextEraIn'
   })
   const nextEraIn = responseNextEra

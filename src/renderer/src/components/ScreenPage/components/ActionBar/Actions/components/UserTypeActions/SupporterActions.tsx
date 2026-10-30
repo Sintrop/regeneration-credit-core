@@ -1,19 +1,12 @@
 import {
   supporterAbi,
   supporterAddress,
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
   rcAddress,
-  sequoiaRcAddress,
   rcAbi,
-  sequoiaRcAbi,
   invitationAddress,
-  sequoiaInvitationAddress,
-  sequoiaInvitationAbi,
   invitationAbi
 } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
@@ -22,18 +15,15 @@ interface Props {
 }
 export function SupporterActions({ mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
-  const supporterContractAddressToUse =
-    chainId === 250225 ? supporterAddress : sequoiaSupporterAddress
-  const supporterAbiToUse = chainId === 250225 ? supporterAbi : sequoiaSupporterAbi
+  const supporterContractAddressToUse = supporterAddress
+  const supporterAbiToUse = supporterAbi
 
-  const rcContractAddressToUse = chainId === 250225 ? rcAddress : sequoiaRcAddress
-  const rcAbiToUse = chainId === 250225 ? rcAbi : sequoiaRcAbi
+  const rcContractAddressToUse = rcAddress
+  const rcAbiToUse = rcAbi
 
-  const invitationContractAddressToUse =
-    chainId === 250225 ? invitationAddress : sequoiaInvitationAddress
-  const invitationAbiToUse = chainId === 250225 ? invitationAbi : sequoiaInvitationAbi
+  const invitationContractAddressToUse = invitationAddress
+  const invitationAbiToUse = invitationAbi
 
   if (mainAction) {
     return (

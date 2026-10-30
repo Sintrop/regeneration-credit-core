@@ -3,7 +3,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 import i18n from '../../../i18n'
 
 interface ChangeOrAddUrlToListProps {
-  type: 'ipfsApi' | 'ipfsGateway' | 'rpc' | 'sequoiaRpc'
+  type: 'ipfsApi' | 'ipfsGateway' | 'rpc'
   url: string
 }
 
@@ -13,9 +13,7 @@ export interface SettingsContextProps {
   ipfsGatewayList: string[]
   ipfsApiList: string[]
   rpcUrl: string
-  sequoiaRpcUrl: string
   rpcList: string[]
-  sequoiaRpcList: string[]
   addUrlToList: (data: ChangeOrAddUrlToListProps) => void
   changeBaseUrl: (data: ChangeOrAddUrlToListProps) => void
   handleChangeLanguage: (lang: string) => void
@@ -31,7 +29,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
   const defaultIpfsGateway = import.meta.env.VITE_DEFAULT_IPFS_GATEWAY_URL
   const defaultIpfsApi = import.meta.env.VITE_DEFAULT_IPFS_API_URL
   const defaultRpc = import.meta.env.VITE_DEFAULT_RPC_URL
-  const defaultSequoiaRpc = import.meta.env.VITE_DEFAULT_SEQUOIA_RPC_URL
 
   const [ipfsGatewayURL, setIpfsGatewayURL] = useState<string>('https://ipfs.sintrop.com')
   const [ipfsApiUrl, setIpfsApiUrl] = useState<string>('https://apiipfs.sintrop.com')
@@ -39,8 +36,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
   const [ipfsApiList, setIpfsApiList] = useState<string[]>([])
   const [rpcUrl, setRpcUrl] = useState<string>('https://rpc.sintrop.com')
   const [rpcList, setRpcList] = useState<string[]>([])
-  const [sequoiaRpcUrl, setSequoiaRpcUrl] = useState<string>('https://sequoiarpc.sintrop.com')
-  const [sequoiaRpcList, setSequoiaRpcList] = useState<string[]>([])
 
   useEffect(() => {
     getListUrls()
@@ -69,13 +64,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
     } else {
       setRpcList([defaultRpc])
     }
-
-    const resSequoiaRpcList = await localStorage.getItem('sequoiaRpcList')
-    if (resSequoiaRpcList) {
-      setSequoiaRpcList(JSON.parse(resSequoiaRpcList))
-    } else {
-      setSequoiaRpcList([defaultSequoiaRpc])
-    }
   }
 
   async function getSetUrls(): Promise<void> {
@@ -87,9 +75,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
 
     const resRpcUrl = await localStorage.getItem('rpcUrl')
     setRpcUrl(resRpcUrl ? resRpcUrl : defaultRpc)
-
-    const resSequoiaRpcUrl = await localStorage.getItem('sequoiaRpcUrl')
-    setSequoiaRpcUrl(resSequoiaRpcUrl ? resSequoiaRpcUrl : defaultSequoiaRpc)
   }
 
   function addUrlToList({ type, url }: ChangeOrAddUrlToListProps): void {
@@ -114,13 +99,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
       localStorage.setItem('rpcList', JSON.stringify(newRpcList))
     }
 
-    if (type === 'sequoiaRpc') {
-      const newSequoiaRpcList = sequoiaRpcList
-      newSequoiaRpcList.push(url)
-      setSequoiaRpcList(newSequoiaRpcList)
-      localStorage.setItem('sequoiaRpcList', JSON.stringify(newSequoiaRpcList))
-    }
-
     changeBaseUrl({ type, url })
   }
 
@@ -128,7 +106,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
     if (type === 'ipfsApi') setIpfsApiUrl(url)
     if (type === 'ipfsGateway') setIpfsGatewayURL(url)
     if (type === 'rpc') setRpcUrl(url)
-    if (type === 'sequoiaRpc') setSequoiaRpcUrl(url)
   }
 
   async function getSavedLanguage(): Promise<void> {
@@ -152,8 +129,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
         ipfsGatewayList,
         rpcList,
         rpcUrl,
-        sequoiaRpcList,
-        sequoiaRpcUrl,
         addUrlToList,
         changeBaseUrl,
         handleChangeLanguage

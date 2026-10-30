@@ -1,12 +1,6 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserTypeToText } from '@renderer/components/UserTypeToText/UserTypeToText'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useReadContract } from 'wagmi'
@@ -17,11 +11,10 @@ interface Props {
 }
 export function Invitation({ onChangeInvitation, userType }: Props): JSX.Element {
   const { t } = useTranslation()
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const { data, isLoading } = useReadContract({
-    address: mainnet ? userAddress : sequoiaUserAddress,
-    abi: mainnet ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getInvitation',
     args: [address]
   })

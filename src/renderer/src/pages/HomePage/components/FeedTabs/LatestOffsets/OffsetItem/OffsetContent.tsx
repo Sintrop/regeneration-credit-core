@@ -1,13 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import RcImage from '@renderer/assets/images/rc.png'
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 
@@ -19,10 +14,9 @@ interface Props {
 
 export function OffsetContent({ burnedTokens, calculatorItemId, message }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getCalculatorItem',
     args: [calculatorItemId]
   })

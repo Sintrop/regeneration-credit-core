@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { activistAbi, activistAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ActivistProps } from '@renderer/types/activist'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
@@ -17,11 +12,10 @@ interface Props {
 }
 
 export function ActivistItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'activistsAddress',
     args: [id]
   })
@@ -29,8 +23,8 @@ export function ActivistItem({ id }: Props): JSX.Element {
   const userActivistAddress = data as string
 
   const { data: activistResponse } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'getActivist',
     args: [userActivistAddress]
   })

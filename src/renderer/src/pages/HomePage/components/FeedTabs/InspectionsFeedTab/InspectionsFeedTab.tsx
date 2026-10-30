@@ -1,22 +1,16 @@
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { InspectionFeedItem } from './InspectionFeedItem/InspectionFeedItem'
 
 export function InspectionsFeedTab(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'inspectionsTotalCount'
   })
 

@@ -1,10 +1,4 @@
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
-import { useChainId } from 'wagmi'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 import { useTranslation } from 'react-i18next'
@@ -15,11 +9,9 @@ interface Props {
 }
 export function DeveloperActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
-  const developerContractAddressToUse =
-    chainId === 250225 ? developerAddress : sequoiaDeveloperAddress
-  const developerAbiToUse = chainId === 250225 ? developerAbi : sequoiaDeveloperAbi
+  const developerContractAddressToUse = developerAddress
+  const developerAbiToUse = developerAbi
 
   if (mainAction) {
     return (

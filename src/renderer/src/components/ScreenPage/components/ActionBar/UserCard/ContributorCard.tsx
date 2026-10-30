@@ -1,10 +1,5 @@
-import {
-  contributorAddress,
-  contributorAbi,
-  sequoiaContributorAddress,
-  sequoiaContributorAbi
-} from '@renderer/services/contracts'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { contributorAddress, contributorAbi } from '@renderer/services/contracts'
+import { useAccount, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ContributorProps } from '@renderer/types/contributor'
 import { ContentCardProps } from './UserCard'
@@ -14,11 +9,10 @@ import { useUserContext } from '@renderer/hooks/useUserContext'
 export function ContributorCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
   const { setEraPool } = useUserContext()
   const { address } = useAccount()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'getContributor',
     args: [address]
   })

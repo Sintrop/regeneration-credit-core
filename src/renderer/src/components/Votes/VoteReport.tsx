@@ -1,16 +1,10 @@
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
@@ -25,7 +19,6 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
   const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     isLoading: checkingAvailableVote,
@@ -51,8 +44,8 @@ export function VoteReport({ close, reportId, publishedEra }: Props): JSX.Elemen
   async function handleVoteReport(): Promise<void> {
     if (!justification.trim()) return
 
-    const address = mainnet ? developerAddress : sequoiaDeveloperAddress
-    const abi = mainnet ? developerAbi : sequoiaDeveloperAbi
+    const address = developerAddress
+    const abi = developerAbi
 
     setDisplayLoadingTx(true)
 

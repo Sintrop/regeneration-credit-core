@@ -1,11 +1,6 @@
-import {
-  developerAddress,
-  sequoiaDeveloperAddress,
-  developerAbi,
-  sequoiaDeveloperAbi
-} from '@renderer/services/contracts'
+import { developerAddress, developerAbi } from '@renderer/services/contracts'
 import { DeveloperProps } from '@renderer/types/developer'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useAccount, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ContentCardProps } from './UserCard'
 import { formatUnits } from 'viem'
@@ -14,11 +9,10 @@ import { useUserContext } from '@renderer/hooks/useUserContext'
 export function DeveloperCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
   const { setEraPool } = useUserContext()
   const { address } = useAccount()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getDeveloper',
     args: [address]
   })

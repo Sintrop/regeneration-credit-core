@@ -2,18 +2,12 @@
 import { useEffect, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress
-} from '@renderer/services/contracts'
+import { activistAbi, activistAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
@@ -35,7 +29,6 @@ export function ActivistRegistration({
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -96,8 +89,8 @@ export function ActivistRegistration({
     switchChain()
 
     writeContract({
-      address: mainnet ? activistAddress : sequoiaActivistAddress,
-      abi: mainnet ? activistAbi : sequoiaActivistAbi,
+      address: activistAddress,
+      abi: activistAbi,
       functionName: 'addActivist',
       args: [name, hashProofPhoto]
     })

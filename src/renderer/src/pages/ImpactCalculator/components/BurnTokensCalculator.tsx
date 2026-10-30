@@ -1,19 +1,12 @@
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/ActionComponent/ActionComponent'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { Abi } from 'viem'
 
 export function BurnTokensCalculator(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
-  const abiToUse = chainId === 250225 ? supporterAbi : sequoiaSupporterAbi
-  const addressToUse = chainId === 250225 ? supporterAddress : sequoiaSupporterAddress
+  const abiToUse = supporterAbi
+  const addressToUse = supporterAddress
 
   return (
     <div className="p-3 rounded-2xl flex flex-col gap-7 justify-between bg-container-primary w-[400px]">

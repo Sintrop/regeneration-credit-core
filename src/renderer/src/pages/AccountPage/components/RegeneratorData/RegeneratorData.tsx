@@ -1,14 +1,9 @@
 import { useState } from 'react'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { RegenerationAreaMap } from './RegenerationAreaMap'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
@@ -30,25 +25,23 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
     trees: 0
   })
 
-  const chainId = useChainId()
-
   const { data: responseRegenerator } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getRegenerator',
     args: [address]
   })
 
   const { data: responseProjectDescription } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'projectDescriptions',
     args: [address]
   })
 
   const { data: responseAreaPhoto, refetch } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'areaPhoto',
     args: [address]
   })

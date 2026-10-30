@@ -1,15 +1,10 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { InspectionProps } from '@renderer/types/inspection'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { VoteToInvalidate } from '@renderer/components/VoteToInvalidate/VoteToInvalidate'
 import { ResourceValidationProps } from '@renderer/types/validation'
 import { useInspectionValidations } from '@renderer/domain/Inspection/events/useInspectionValidations'
@@ -29,7 +24,6 @@ export function InspectionData({
   setValidations
 }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { validations } = useInspectionValidations({ inspectionId: id })
 
@@ -38,8 +32,8 @@ export function InspectionData({
   }, [validations])
 
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     args: [id],
     functionName: 'getInspection'
   })

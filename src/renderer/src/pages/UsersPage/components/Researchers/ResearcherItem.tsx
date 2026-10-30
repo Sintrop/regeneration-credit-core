@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { ResearcherProps } from '@renderer/types/researcher'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
@@ -17,11 +12,10 @@ interface Props {
 }
 
 export function ResearcherItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'researchersAddress',
     args: [id]
   })
@@ -29,8 +23,8 @@ export function ResearcherItem({ id }: Props): JSX.Element {
   const userResearcherAddress = data as string
 
   const { data: researcherResponse } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearcher',
     args: [userResearcherAddress]
   })

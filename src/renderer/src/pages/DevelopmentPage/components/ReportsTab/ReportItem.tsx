@@ -1,11 +1,6 @@
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ReportProps } from '@renderer/types/developer'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
 import { FaRegEye } from 'react-icons/fa'
@@ -21,11 +16,10 @@ interface Props {
 
 export function ReportItem({ id }: Props): JSX.Element {
   const navigate = useNavigate()
-  const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getReport',
     args: [id]
   })

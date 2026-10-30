@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useEra } from '@renderer/hooks/useEra'
-import {
-  sequoiaValidationAbi,
-  sequoiaValidationAddress,
-  validationAbi,
-  validationAddress
-} from '@renderer/services/contracts'
+import { validationAbi, validationAddress } from '@renderer/services/contracts'
 import { ValidationProps } from '@renderer/types/validation'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ValidationUserItem } from './ValidationUserItem'
 import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
 
@@ -27,10 +22,9 @@ export function ValidationsTab({ address }: Props): JSX.Element {
     setEra(currentEra)
   }, [currentEra])
 
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? validationAddress : sequoiaValidationAddress,
-    abi: chainId === 250225 ? validationAbi : sequoiaValidationAbi,
+    address: validationAddress,
+    abi: validationAbi,
     functionName: 'getUserValidations',
     args: [address, era]
   })

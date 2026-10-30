@@ -5,13 +5,10 @@ import { ModalAddUrl } from './ModalAddUrl'
 
 export function RpcSettings(): JSX.Element {
   const { t } = useTranslation()
-  const { rpcList, sequoiaRpcList, rpcUrl, sequoiaRpcUrl, addUrlToList, changeBaseUrl } =
-    useSettingsContext()
-  const [changeType, setChangeType] = useState<'rpc' | 'sequoiaRpc'>('rpc')
+  const { rpcList, rpcUrl, addUrlToList, changeBaseUrl } = useSettingsContext()
   const [showAddUrl, setShowAddUrl] = useState<boolean>(false)
 
-  function handleAddUrl(type: 'rpc' | 'sequoiaRpc'): void {
-    setChangeType(type)
+  function handleAddUrl(): void {
     setShowAddUrl(true)
   }
 
@@ -19,7 +16,7 @@ export function RpcSettings(): JSX.Element {
     setShowAddUrl(false)
 
     addUrlToList({
-      type: changeType === 'rpc' ? 'rpc' : 'sequoiaRpc',
+      type: 'rpc',
       url
     })
   }
@@ -46,32 +43,7 @@ export function RpcSettings(): JSX.Element {
         <div className="flex w-full justify-end mt-3">
           <button
             className="w-fit px-10 h-10 rounded-2xl bg-blue-primary font-semibold text-white hover:cursor-pointer"
-            onClick={() => handleAddUrl('rpc')}
-          >
-            Add URL
-          </button>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-1 mt-5">
-        <label className="text-white text-sm">Sequoia Testnet</label>
-        <p className="text-sm text-gray-300">{t('descSequoiaTestnetRpc')}</p>
-        <select
-          value={sequoiaRpcUrl}
-          className="w-full h-10 px-3 rounded-2xl bg-container-secondary text-white"
-          onChange={(e) => changeBaseUrl({ type: 'sequoiaRpc', url: e.target.value })}
-        >
-          {sequoiaRpcList.map((url, index) => (
-            <option key={index} value={url}>
-              {url}
-            </option>
-          ))}
-        </select>
-
-        <div className="flex w-full justify-end mt-3">
-          <button
-            className="w-fit px-10 h-10 rounded-2xl bg-blue-primary font-semibold text-white hover:cursor-pointer"
-            onClick={() => handleAddUrl('sequoiaRpc')}
+            onClick={handleAddUrl}
           >
             Add URL
           </button>

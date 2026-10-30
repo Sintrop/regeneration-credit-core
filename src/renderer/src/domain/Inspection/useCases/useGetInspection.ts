@@ -1,10 +1,4 @@
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { InspectionContractProps, InspectionProps } from '@renderer/types/inspection'
 import { useReadContract } from 'wagmi'
 import { inspectionAdapter } from '../inspectionAdapter'
@@ -21,10 +15,9 @@ interface ReturnUseGetInspection {
 }
 
 export function useGetInspection({ inspectionId }: Props): ReturnUseGetInspection {
-  const mainnet = useMainnet()
   const { data, isLoading, isError, refetch } = useReadContract({
-    address: mainnet ? inspectionAddress : sequoiaInspectionAddress,
-    abi: mainnet ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'getInspection',
     args: [inspectionId]
   })

@@ -1,10 +1,5 @@
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
-import { useChainId, useReadContract } from 'wagmi'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
 import { OffsetHeader } from './OffsetHeader'
 import { OffsetContent } from './OffsetContent'
 import { ContributionImpact } from '../../ContributionImpact/ContributionImpact'
@@ -15,10 +10,9 @@ interface Props {
 }
 
 export function OffsetItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'offsets',
     args: [id]
   })

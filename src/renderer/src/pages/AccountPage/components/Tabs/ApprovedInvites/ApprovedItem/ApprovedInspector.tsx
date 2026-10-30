@@ -1,11 +1,6 @@
 import { Loading } from '@renderer/components/Loading/Loading'
-import {
-  inspectorAbi,
-  inspectorAddress,
-  sequoiaInspectorAbi,
-  sequoiaInspectorAddress
-} from '@renderer/services/contracts'
-import { useChainId, useReadContract } from 'wagmi'
+import { inspectorAbi, inspectorAddress } from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
 import { BasicDataApprovedUser } from './BasicDataApprovedUser'
 import { InspectorProps } from '@renderer/types/inspector'
 
@@ -14,10 +9,9 @@ interface Props {
 }
 
 export function ApprovedInspector({ address }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress,
-    abi: chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi,
+    address: inspectorAddress,
+    abi: inspectorAbi,
     functionName: 'getInspector',
     args: [address]
   })

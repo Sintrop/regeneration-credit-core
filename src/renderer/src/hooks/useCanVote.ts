@@ -1,15 +1,11 @@
 import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  sequoiaValidationAbi,
-  sequoiaValidationAddress,
   userAbi,
   userAddress,
   validationAbi,
   validationAddress
 } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
-import { useBlockNumber, useChainId, useReadContract } from 'wagmi'
+import { useBlockNumber, useReadContract } from 'wagmi'
 import { useEra } from '@renderer/hooks/useEra'
 import { formatUnits } from 'viem'
 
@@ -27,7 +23,6 @@ interface Props {
 }
 export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
   const { currentEra } = useEra()
-  const chainId = useChainId()
   const [canVoteThisResource, setCanVoteThisResource] = useState<boolean>(false)
   const [differentEra, setDifferentEra] = useState<boolean>(false)
   const [canVoteIn, setCanVoteIn] = useState<number>(0)
@@ -36,8 +31,8 @@ export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
   const { data: responseLastVote } = useReadContract({
-    address: chainId === 250225 ? validationAddress : sequoiaValidationAddress,
-    abi: chainId === 250225 ? validationAbi : sequoiaValidationAbi,
+    address: validationAddress,
+    abi: validationAbi,
     functionName: 'validatorLastVoteAt',
     args: [address]
   })
@@ -54,8 +49,8 @@ export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
   }, [blockNumber, lastVote])
 
   const { data: responseGetUser, isLoading: loadingUser } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [address]
   })
@@ -63,8 +58,8 @@ export function useCanVote({ address, publishedEra }: Props): ReturnUseCanVote {
   const userType = responseGetUser as number
 
   const { data: responseCanVote, isLoading: loadingCanVote } = useReadContract({
-    address: chainId === 250225 ? validationAddress : sequoiaValidationAddress,
-    abi: chainId === 250225 ? validationAbi : sequoiaValidationAbi,
+    address: validationAddress,
+    abi: validationAbi,
     functionName: 'waitedTimeBetweenVotes',
     args: [address]
   })

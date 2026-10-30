@@ -2,42 +2,41 @@
 import { useReadContract } from 'wagmi'
 import { contractsPool, ContractsPoolName } from '../contractsPoolList'
 import { formatUnits } from 'viem'
-import { sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
+
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useTranslation } from 'react-i18next'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   poolName: ContractsPoolName
 }
 export function ContractPoolData({ poolName }: Props): JSX.Element {
   const { t } = useTranslation()
-  const mainnet = useMainnet()
 
   const contractPool = contractsPool[poolName]
 
   const { data: eraContract, isLoading: loading1 } = useReadContract({
     //@ts-ignore
-    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'currentContractEra',
     args: []
   })
 
   const { data: epochContract, isLoading: loading2 } = useReadContract({
     //@ts-ignore
-    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'currentEpoch',
     args: []
   })
 
   const { data: balanceContract, isLoading: loading3 } = useReadContract({
     //@ts-ignore
-    address: mainnet ? sequoiaRcAddress : sequoiaRcAddress,
-    abi: mainnet ? sequoiaRcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'balanceOf',
-    args: [`${mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet}`]
+    args: [`${contractPool?.addressMainnet}`]
   })
 
   const epoch = epochContract as string

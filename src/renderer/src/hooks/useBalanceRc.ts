@@ -1,6 +1,6 @@
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { useAccount, useReadContract } from 'wagmi'
 import { formatUnits } from 'viem'
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 
 interface ReturnUseBalanceRc {
   isLoading: boolean
@@ -8,11 +8,10 @@ interface ReturnUseBalanceRc {
   refetch: () => void
 }
 export function useBalanceRc(): ReturnUseBalanceRc {
-  const chainId = useChainId()
   const { isDisconnected, address } = useAccount()
   const { data, isLoading, isRefetching, refetch } = useReadContract({
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'balanceOf',
     args: [address]
   })

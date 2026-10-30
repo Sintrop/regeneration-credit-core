@@ -5,7 +5,6 @@ import { PageTitle } from '../PageTitle/PageTitle'
 import { InfoBar } from './components/InfoBar/InfoBar'
 import { NavBtns } from './components/NavBtns'
 import { ActionBar } from './components/ActionBar/ActionBar'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   pageTitle: string
@@ -13,8 +12,6 @@ interface Props {
 }
 
 export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
-  const mainnet = useMainnet()
-
   return (
     <>
       <Header />
@@ -29,11 +26,6 @@ export function ScreenPage({ children, pageTitle }: Props): JSX.Element {
             <div className="flex flex-col gap-1">
               <NavBtns />
               <PageTitle title={pageTitle} />
-              {!mainnet && (
-                <div className="px-10 h-10 rounded-2xl border border-red-500 flex items-center w-fit mt-3">
-                  <p className="text-red-500">Sequoia Testnet</p>
-                </div>
-              )}
             </div>
             <div className="mb-32 pr-1">{children}</div>
             <ActionBar />

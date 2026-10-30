@@ -1,17 +1,12 @@
 import { Loading } from '@renderer/components/Loading/Loading'
 import { ValidTag } from '@renderer/components/ValidTag/ValidTag'
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { ReportProps } from '@renderer/types/developer'
 import { useTranslation } from 'react-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -19,10 +14,9 @@ interface Props {
 
 export function ReportsTab({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getReportsIds',
     args: [address]
   })
@@ -56,11 +50,10 @@ interface ReportItemProps {
 function ReportItem({ id }: ReportItemProps): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getReport',
     args: [id]
   })

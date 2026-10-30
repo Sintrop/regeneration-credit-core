@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  supporterAbi,
-  supporterAddress,
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { SupporterProps } from '@renderer/types/supporter'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
@@ -14,10 +9,9 @@ interface Props {
 }
 
 export function SupporterItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'supportersAddress',
     args: [id]
   })
@@ -25,8 +19,8 @@ export function SupporterItem({ id }: Props): JSX.Element {
   const userSUpporterAddress = data as string
 
   const { data: supporterResponse } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'getSupporter',
     args: [userSUpporterAddress]
   })

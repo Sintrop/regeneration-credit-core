@@ -1,14 +1,5 @@
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
-import { useChainId, useReadContract } from 'wagmi'
+import { activistAbi, activistAddress, userAbi, userAddress } from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
 import { ApprovedInspector } from './ApprovedInspector'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { ApprovedRegenerator } from './ApprovedRegenerator'
@@ -20,18 +11,16 @@ interface Props {
 }
 
 export function ApprovedItem({ address, position }: Props): JSX.Element {
-  const chainId = useChainId()
-
   const { data: userApproved, isLoading: loadingUserApproved } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'activistApprovedUsers',
     args: [address, position]
   })
 
   const { data: responseUserType, isLoading: loadingUserType } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [userApproved]
   })
@@ -62,5 +51,5 @@ export function ApprovedItem({ address, position }: Props): JSX.Element {
     )
   }
 
-  return <div/>
+  return <div />
 }

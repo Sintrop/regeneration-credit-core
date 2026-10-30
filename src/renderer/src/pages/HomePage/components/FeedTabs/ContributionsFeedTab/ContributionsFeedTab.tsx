@@ -1,24 +1,18 @@
-import {
-  contributorAbi,
-  contributorAddress,
-  sequoiaContributorAbi,
-  sequoiaContributorAddress
-} from '@renderer/services/contracts'
+import { contributorAbi, contributorAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ContributionFeedItem } from './ContributorFeedItem/ContributionFeedItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useNavigate } from 'react-router-dom'
 
 export function ContributionsFeedTab(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const navigate = useNavigate()
 
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? contributorAddress : sequoiaContributorAddress,
-    abi: chainId === 250225 ? contributorAbi : sequoiaContributorAbi,
+    address: contributorAddress,
+    abi: contributorAbi,
     functionName: 'contributionsTotalCount',
     args: []
   })

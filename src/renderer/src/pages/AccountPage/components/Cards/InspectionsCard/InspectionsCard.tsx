@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { Loading } from '@renderer/components/Loading/Loading'
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { InspectionCardItem } from './InspectionCardItem'
 import { AverageInspectionsProps } from '../../RegeneratorData/RegeneratorData'
 
@@ -26,10 +21,9 @@ export function InspectionsCard({ address, updateAverage }: Props): JSX.Element 
   const { t } = useTranslation()
   const [inspectionsList] = useState<UpdateTotalProps[]>([])
 
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress,
-    abi: chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'getInspectionsHistory',
     args: [address]
   })

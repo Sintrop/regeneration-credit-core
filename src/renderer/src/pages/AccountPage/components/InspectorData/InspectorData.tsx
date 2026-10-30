@@ -1,13 +1,8 @@
-import {
-  inspectorAbi,
-  inspectorAddress,
-  sequoiaInspectorAbi,
-  sequoiaInspectorAddress
-} from '@renderer/services/contracts'
+import { inspectorAbi, inspectorAddress } from '@renderer/services/contracts'
 import { InspectorProps } from '@renderer/types/inspector'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
@@ -16,19 +11,18 @@ import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 
 export function InspectorData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress,
-    abi: chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi,
+    address: inspectorAddress,
+    abi: inspectorAbi,
     functionName: 'getInspector',
     args: [address]
   })
   const inspector = data as InspectorProps
 
   const { data: responsePenalties } = useReadContract({
-    address: chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress,
-    abi: chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi,
+    address: inspectorAddress,
+    abi: inspectorAbi,
     functionName: 'totalPenalties',
     args: [address]
   })

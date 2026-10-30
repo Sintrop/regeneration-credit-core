@@ -1,10 +1,4 @@
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useWriteContract } from 'wagmi'
 
 interface VoteOnDelationProps {
@@ -21,13 +15,12 @@ interface ReturnUseVoteOnDelationProps {
 }
 
 export function useVoteOnDelation(): ReturnUseVoteOnDelationProps {
-  const mainnet = useMainnet()
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
   function handleVote({ delationId, supportsDelation }: VoteOnDelationProps): void {
     writeContract({
-      address: mainnet ? userAddress : sequoiaUserAddress,
-      abi: mainnet ? userAbi : sequoiaUserAbi,
+      address: userAddress,
+      abi: userAbi,
       functionName: 'voteOnDelation',
       args: [delationId, supportsDelation]
     })

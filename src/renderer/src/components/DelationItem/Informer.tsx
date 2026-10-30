@@ -1,10 +1,4 @@
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 import { HeaderFeedItem } from '../../pages/HomePage/components/FeedTabs/HeaderFeedItem/HeaderFeedItem'
@@ -20,10 +14,9 @@ interface Props {
   createdAt: number
 }
 export function Informer({ informer, createdAt }: Props): JSX.Element {
-  const mainnet = useMainnet()
   const { data } = useReadContract({
-    address: mainnet ? userAddress : sequoiaUserAddress,
-    abi: mainnet ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [informer]
   })

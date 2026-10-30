@@ -1,16 +1,10 @@
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 import { SendTransactionButton } from '../ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { useCanVote } from '@renderer/hooks/useCanVote'
 import { Loading } from '../Loading/Loading'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { toast } from 'react-toastify'
 import { TransactionLoading } from '../TransactionLoading/TransactionLoading'
 import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
@@ -25,7 +19,6 @@ export function VoteResearch({ close, researchId, publishedEra }: Props): JSX.El
   const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [justification, setJustification] = useState('')
-  const mainnet = useMainnet()
   const { address } = useAccount()
   const {
     isLoading: checkingAvailableVote,
@@ -51,8 +44,8 @@ export function VoteResearch({ close, researchId, publishedEra }: Props): JSX.El
   async function handleVoteResearch(): Promise<void> {
     if (!justification.trim()) return
 
-    const address = mainnet ? researcherAddress : sequoiaResearcherAddress
-    const abi = mainnet ? researcherAbi : sequoiaResearcherAbi
+    const address = researcherAddress
+    const abi = researcherAbi
     setDisplayLoadingTx(true)
 
     switchChain()

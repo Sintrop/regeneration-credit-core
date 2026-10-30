@@ -1,14 +1,9 @@
 import {
   regeneratorAbi,
   regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress,
   inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
+  inspectionAddress
 } from '@renderer/services/contracts'
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
@@ -16,15 +11,11 @@ interface Props {
   mainAction?: boolean
 }
 export function RegeneratorActions({ mainAction }: Props): JSX.Element {
-  const chainId = useChainId()
+  const regeneratorContractAddressToUse = regeneratorAddress
+  const regeneratorAbiToUse = regeneratorAbi
 
-  const regeneratorContractAddressToUse =
-    chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress
-  const regeneratorAbiToUse = chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi
-
-  const inspectionContractAddressToUse =
-    chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress
-  const inspectionAbiToUse = chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi
+  const inspectionContractAddressToUse = inspectionAddress
+  const inspectionAbiToUse = inspectionAbi
 
   if (mainAction) {
     return (

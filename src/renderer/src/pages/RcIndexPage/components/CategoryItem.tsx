@@ -1,30 +1,24 @@
 import { Loading } from '@renderer/components/Loading/Loading'
-import {
-  rcIndexAbi,
-  rcIndexAddress,
-  sequoiaRcIndexAbi,
-  sequoiaRcIndexAddress
-} from '@renderer/services/contracts'
+import { rcIndexAbi, rcIndexAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   categoryId: number
 }
 export function CategoryItem({ categoryId }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data: responseCategoryData, isLoading: isLoadingCategoryData } = useReadContract({
-    address: chainId === 250225 ? rcIndexAddress : sequoiaRcIndexAddress,
-    abi: chainId === 250225 ? rcIndexAbi : sequoiaRcIndexAbi,
+    address: rcIndexAddress,
+    abi: rcIndexAbi,
     functionName: 'categories',
     args: [categoryId]
   })
   const categoryData = responseCategoryData as string[]
 
   const { data: responseIndexDescriptions, isLoading: isLoadingDescriptions } = useReadContract({
-    address: chainId === 250225 ? rcIndexAddress : sequoiaRcIndexAddress,
-    abi: chainId === 250225 ? rcIndexAbi : sequoiaRcIndexAbi,
+    address: rcIndexAddress,
+    abi: rcIndexAbi,
     functionName: 'getCategoryRegenerationIndexDescription',
     args: [categoryId]
   })

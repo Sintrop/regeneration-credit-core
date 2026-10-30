@@ -1,6 +1,6 @@
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ContributionCertificate } from './ContributionCertificate/ContributionCertificate'
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { useTranslation } from 'react-i18next'
 import { RegeneratorCertificate1 } from './RegeneratorCertificate/RegeneratorCertificate1'
@@ -34,10 +34,9 @@ export function CertificatesCard({
   impactCalculatorPage
 }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'certificate',
     args: [address]
   })
@@ -52,10 +51,7 @@ export function CertificatesCard({
   }, [])
 
   function createUrlUserPage(): void {
-    const baseUrlUsersPage =
-      chainId === 250225
-        ? import.meta.env.VITE_USERS_PAGE_URL
-        : import.meta.env.VITE_SEQUOIA_USERS_PAGE_URL
+    const baseUrlUsersPage = import.meta.env.VITE_USERS_PAGE_URL
     const nameFormated = name?.toLowerCase().replace(' ', '-')
     const url = `${baseUrlUsersPage}/${
       userType === 1 ? 'regenerator' : 'supporter'

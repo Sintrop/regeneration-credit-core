@@ -1,12 +1,7 @@
 import { Loading } from '@renderer/components/Loading/Loading'
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress
-} from '@renderer/services/contracts'
+import { activistAbi, activistAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ApprovedItem } from './ApprovedItem/ApprovedItem'
 
 interface Props {
@@ -14,10 +9,9 @@ interface Props {
 }
 
 export function ApprovedInvites({ address }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'activistApprovedInvites',
     args: [address]
   })

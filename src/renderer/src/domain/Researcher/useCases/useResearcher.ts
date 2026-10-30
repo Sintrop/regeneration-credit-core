@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { ResearcherContractProps, ResearcherProps } from '@renderer/types/researcher'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useResearcher({ address }: Props): ReturnUseResearcher {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? researcherAddress : sequoiaResearcherAddress,
-    abi: mainnet ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearcher',
     args: [address]
   })

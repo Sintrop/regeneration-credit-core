@@ -1,25 +1,18 @@
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 import { DelationItem } from '@renderer/components/DelationItem/DelationItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 //import { useNavigate } from 'react-router-dom'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 
 export function DelationsFeed(): JSX.Element {
   const { t } = useTranslation()
-  const mainnet = useMainnet()
   //const navigate = useNavigate()
 
   const { data, isLoading } = useReadContract({
-    address: mainnet ? userAddress : sequoiaUserAddress,
-    abi: mainnet ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'delationsCount'
   })
 

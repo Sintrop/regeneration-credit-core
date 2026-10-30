@@ -1,11 +1,5 @@
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
@@ -15,11 +9,9 @@ interface Props {
 }
 export function ResearcherActions({ lastPublishedWork, mainAction }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
-  const researcherContractAddressToUse =
-    chainId === 250225 ? researcherAddress : sequoiaResearcherAddress
-  const researcherAbiToUse = chainId === 250225 ? researcherAbi : sequoiaResearcherAbi
+  const researcherContractAddressToUse = researcherAddress
+  const researcherAbiToUse = researcherAbi
 
   if (mainAction) {
     return (

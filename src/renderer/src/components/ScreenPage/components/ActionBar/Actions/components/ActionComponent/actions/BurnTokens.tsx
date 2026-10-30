@@ -1,12 +1,6 @@
 import { useState } from 'react'
-import {
-  useAccount,
-  useChainId,
-  useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract
-} from 'wagmi'
-import { rcAbi, sequoiaRcAbi, rcAddress, sequoiaRcAddress } from '@renderer/services/contracts'
+import { useAccount, useReadContract, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits, parseEther } from 'viem'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
@@ -18,14 +12,13 @@ interface Props {
   close: () => void
 }
 export function BurnTokens({ close }: Props): JSX.Element {
-  const chainId = useChainId()
   const { address } = useAccount()
   const { t } = useTranslation()
   const [input, setInput] = useState('')
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'balanceOf',
     args: [address]
   })
@@ -50,8 +43,8 @@ export function BurnTokens({ close }: Props): JSX.Element {
     switchChain()
 
     writeContract({
-      address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-      abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+      address: rcAddress,
+      abi: rcAbi,
       functionName: 'burnTokens',
       args: [value]
     })

@@ -2,15 +2,9 @@ import { useState } from 'react'
 import { parseEther } from 'viem'
 import { useWriteContract } from 'wagmi'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 
 interface PublishProps {
   description: string
@@ -30,7 +24,6 @@ interface ReturnUsePublishProps {
 
 export function usePublish(): ReturnUsePublishProps {
   const { ipfsApiUrl } = useSettingsContext()
-  const mainnet = useMainnet()
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
   const [uploadingImage, setUploadingImage] = useState(false)
@@ -61,8 +54,8 @@ export function usePublish(): ReturnUsePublishProps {
     }
 
     writeContract({
-      address: mainnet ? supporterAddress : sequoiaSupporterAddress,
-      abi: mainnet ? supporterAbi : sequoiaSupporterAbi,
+      address: supporterAddress,
+      abi: supporterAbi,
       functionName: 'publish',
       args: [value, minAmmountToBurnParsed, data.description, content]
     })

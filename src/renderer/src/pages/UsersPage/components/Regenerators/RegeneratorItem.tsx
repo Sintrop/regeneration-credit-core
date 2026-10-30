@@ -1,10 +1,5 @@
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { RegeneratorProps } from '@renderer/types/regenerator'
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
@@ -17,11 +12,10 @@ interface Props {
 }
 
 export function RegeneratorItem({ id }: Props): JSX.Element {
-  const chainId = useChainId()
   const [showVote, setShowVote] = useState(false)
   const { data } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'regeneratorsAddress',
     args: [id]
   })
@@ -29,8 +23,8 @@ export function RegeneratorItem({ id }: Props): JSX.Element {
   const userRegeneratorAddress = data as string
 
   const { data: regeneratorResponse } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getRegenerator',
     args: [userRegeneratorAddress]
   })

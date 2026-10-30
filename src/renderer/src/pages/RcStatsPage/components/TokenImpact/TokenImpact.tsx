@@ -1,22 +1,16 @@
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContracts } from 'wagmi'
+import { useReadContracts } from 'wagmi'
 import { StatsRcItem } from '../StatsRcItem'
-import {
-  rcImpactAbi,
-  rcImpactAddress,
-  sequoiaRcImpactAbi,
-  sequoiaRcImpactAddress
-} from '@renderer/services/contracts'
+import { rcImpactAbi, rcImpactAddress } from '@renderer/services/contracts'
 import { Loading } from '@renderer/components/Loading/Loading'
 
 export function TokenImpact(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const rcImpactContract = {
-    address: chainId === 250225 ? rcImpactAddress : sequoiaRcImpactAddress,
-    abi: chainId === 250225 ? rcImpactAbi : sequoiaRcImpactAbi
+    address: rcImpactAddress,
+    abi: rcImpactAbi
   } as const
 
   const { data, isLoading } = useReadContracts({

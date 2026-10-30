@@ -2,13 +2,8 @@ import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { userTypeToName, UserTypeToNameType } from '@renderer/types/user'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  sequoiaUserAbi,
-  sequoiaUserAddress,
-  userAbi,
-  userAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 import { UsersList } from './components/UsersList'
 import { Loading } from '@renderer/components/Loading/Loading'
@@ -19,10 +14,9 @@ export function UsersPage(): JSX.Element {
   const userType = parseInt(params?.userType as string) as UserTypeToNameType
   const nameFromUserType = userTypeToName[userType]
 
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'userTypesTotalCount',
     args: [userType]
   })

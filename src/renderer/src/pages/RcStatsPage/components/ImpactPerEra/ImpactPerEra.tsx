@@ -3,15 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { StatsRcItem } from '../StatsRcItem'
 import { Loading } from '@renderer/components/Loading/Loading'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
 import { useEra } from '@renderer/hooks/useEra'
 
@@ -19,10 +13,9 @@ export function ImpactPerEra(): JSX.Element {
   const { t } = useTranslation()
   const { currentEra } = useEra()
   const [era, setEra] = useState(1)
-  const mainnet = useMainnet()
   const { data, isLoading } = useReadContract({
-    address: mainnet ? inspectionAddress : sequoiaInspectionAddress,
-    abi: mainnet ? inspectionAbi : sequoiaInspectionAbi,
+    address: inspectionAddress,
+    abi: inspectionAbi,
     functionName: 'impactPerEra',
     args: [era]
   })

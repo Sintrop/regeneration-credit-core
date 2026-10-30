@@ -1,14 +1,9 @@
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { MdClose } from 'react-icons/md'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 
 interface Props {
   updated: () => void
@@ -20,7 +15,6 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
   const [url, setUrl] = useState('')
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -41,8 +35,8 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
   function handleUpdate(): void {
     setDisplayLoadingTx(true)
     writeContract({
-      address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-      abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+      address: regeneratorAddress,
+      abi: regeneratorAbi,
       functionName: 'updateAreaPhoto',
       args: [url]
     })

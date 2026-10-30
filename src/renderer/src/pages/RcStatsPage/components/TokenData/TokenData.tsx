@@ -1,17 +1,16 @@
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContracts } from 'wagmi'
+import { useReadContracts } from 'wagmi'
 import { StatsRcItem } from '../StatsRcItem'
 import { Loading } from '@renderer/components/Loading/Loading'
 
 export function TokenData(): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const rcContract = {
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi
+    address: rcAddress,
+    abi: rcAbi
   } as const
 
   const { data, isLoading } = useReadContracts({

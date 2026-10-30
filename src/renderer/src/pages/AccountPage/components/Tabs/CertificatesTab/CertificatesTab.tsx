@@ -1,6 +1,6 @@
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { ContributionCertificate } from './ContributionCertificate/ContributionCertificate'
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { formatUnits } from 'viem'
 
@@ -11,10 +11,9 @@ interface Props {
 }
 
 export function CertificatesTab({ address, name, userType }: Props): JSX.Element {
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? rcAddress : sequoiaRcAddress,
-    abi: chainId === 250225 ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'certificate',
     args: [address]
   })

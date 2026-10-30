@@ -1,10 +1,5 @@
-import {
-  researcherAddress,
-  researcherAbi,
-  sequoiaResearcherAddress,
-  sequoiaResearcherAbi
-} from '@renderer/services/contracts'
-import { useAccount, useChainId, useReadContract } from 'wagmi'
+import { researcherAddress, researcherAbi } from '@renderer/services/contracts'
+import { useAccount, useReadContract } from 'wagmi'
 import { BasicData } from './BasicData'
 import { ResearcherProps } from '@renderer/types/researcher'
 import { ContentCardProps } from './UserCard'
@@ -14,11 +9,10 @@ import { useUserContext } from '@renderer/hooks/useUserContext'
 export function ResearcherCard({ setLastPublishedWork }: ContentCardProps): JSX.Element {
   const { setEraPool } = useUserContext()
   const { address } = useAccount()
-  const chainId = useChainId()
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearcher',
     args: [address]
   })

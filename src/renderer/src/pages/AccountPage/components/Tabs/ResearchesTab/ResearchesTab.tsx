@@ -1,16 +1,11 @@
 import { Loading } from '@renderer/components/Loading/Loading'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { ResearchProps } from '@renderer/types/researcher'
 import { useTranslation } from 'react-i18next'
 import { FaChevronRight } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -18,10 +13,9 @@ interface Props {
 
 export function ResearchesTab({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearchesIds',
     args: [address]
   })
@@ -55,10 +49,9 @@ interface ResearcheItemProps {
 function ResearcheItem({ id }: ResearcheItemProps): JSX.Element {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getResearch',
     args: [id]
   })

@@ -7,21 +7,19 @@ import { EraSelector } from '@renderer/components/EraSelector/EraSelector'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useTranslation } from 'react-i18next'
 import { EraProps } from '@renderer/types/era'
-import { useMainnet } from '@renderer/hooks/useMainnet'
 
 interface Props {
   poolName: ContractsPoolName
 }
 export function EraData({ poolName }: Props): JSX.Element {
   const { t } = useTranslation()
-  const mainnet = useMainnet()
 
   const contractPool = contractsPool[poolName]
 
   const { data } = useReadContract({
     //@ts-ignore
-    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'currentContractEra',
     args: []
   })
@@ -29,8 +27,8 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const { data: epochContract } = useReadContract({
     //@ts-ignore
-    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'currentEpoch',
     args: []
   })
@@ -44,8 +42,8 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const { data: responseEra, isLoading: loadingEra } = useReadContract({
     //@ts-ignore
-    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'getEra',
     args: [era]
   })
@@ -54,8 +52,8 @@ export function EraData({ poolName }: Props): JSX.Element {
 
   const { data: responseTokensThisEra } = useReadContract({
     //@ts-ignore
-    address: mainnet ? contractPool?.addressMainnet : contractPool?.addressTestnet,
-    abi: mainnet ? contractPool?.abiMainnet : contractPool?.abiTestnet,
+    address: contractPool?.addressMainnet,
+    abi: contractPool?.abiMainnet,
     functionName: 'tokensPerEra',
     args: [epoch, 12]
   })

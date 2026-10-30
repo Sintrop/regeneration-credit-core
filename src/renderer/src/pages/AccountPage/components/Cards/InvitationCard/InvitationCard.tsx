@@ -1,15 +1,10 @@
 import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
-import {
-  userAbi,
-  userAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress
-} from '@renderer/services/contracts'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -17,10 +12,9 @@ interface Props {
 
 export function InvitationCard({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getInvitation',
     args: [address]
   })

@@ -1,15 +1,10 @@
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { SupporterProps } from '@renderer/types/supporter'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 import { t } from 'i18next'
 import { useNavigate } from 'react-router-dom'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { Img } from 'react-image'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
@@ -22,10 +17,9 @@ interface Props {
 export function OffsetHeader({ address, publishedAt }: Props): JSX.Element {
   const { ipfsGatewayURL } = useSettingsContext()
   const navigate = useNavigate()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-    abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'getSupporter',
     args: [address]
   })
