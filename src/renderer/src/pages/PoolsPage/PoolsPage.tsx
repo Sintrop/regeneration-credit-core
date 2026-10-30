@@ -85,7 +85,7 @@ export function PoolsPage(): JSX.Element {
   const ordered = [...mine, ...POOL_TYPES.filter((type) => !mine.includes(type))]
 
   return (
-    <ScreenPage pageTitle={t('pools.title')}>
+    <ScreenPage pageTitle={t('home.shortcuts.withdrawTokens')}>
       <div className="max-w-[720px] mx-auto flex flex-col gap-4">
         <section className="p-5 rounded-2xl bg-card-primary flex flex-col gap-2">
           <p className="text-white font-bold">{t('pools.howItWorksTitle')}</p>

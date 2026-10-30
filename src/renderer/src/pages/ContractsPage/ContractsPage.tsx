@@ -20,7 +20,7 @@ const USER_RULES = [
 ]
 
 function groupOf(contract: ContractListProps): Group {
-  if (contract.name.startsWith('RegenerationCredit')) return 'token'
+  if (contract.name.startsWith('RegenerationCredit') || contract.name === 'RCMarket') return 'token'
   if (contract.name.endsWith('Pool')) return 'pools'
   if (USER_RULES.includes(contract.name)) return 'users'
   return 'system'

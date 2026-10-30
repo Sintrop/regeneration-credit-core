@@ -11,12 +11,18 @@ export function weiToAmount(value: unknown): number {
 
 function asText(value: unknown): string | number {
   // Ids and block numbers fit in a number; token amounts in wei stay exact as strings.
-  if (typeof value === 'bigint') return value <= BigInt(Number.MAX_SAFE_INTEGER) ? Number(value) : value.toString()
+  if (typeof value === 'bigint')
+    return value <= BigInt(Number.MAX_SAFE_INTEGER) ? Number(value) : value.toString()
   if (typeof value === 'number') return value
   return String(value ?? '')
 }
 
-export function toFeedEvent(kind: FeedKind, log: RawLog, actorField: string, extra: Record<string, string | number> = {}): FeedEvent {
+export function toFeedEvent(
+  kind: FeedKind,
+  log: RawLog,
+  actorField: string,
+  extra: Record<string, string | number> = {}
+): FeedEvent {
   const data: Record<string, string | number> = {}
   for (const [name, value] of Object.entries(log.args)) data[name] = asText(value)
   return {
@@ -43,8 +49,14 @@ export function directBurns(certified: RawLog[], offsets: RawLog[]): RawLog[] {
  * RegenerationCredit.Transfer between two people: drops mints and burns, movements to or from
  * protocol contracts (pool rewards) and the inviter commission paid inside SupporterRules.offset.
  */
-export function peerToPeerTransfers(transfers: RawLog[], contractAddresses: string[], offsets: RawLog[]): RawLog[] {
-  const contracts = new Set([ZERO_ADDRESS, ...contractAddresses].map((address) => address.toLowerCase()))
+export function peerToPeerTransfers(
+  transfers: RawLog[],
+  contractAddresses: string[],
+  offsets: RawLog[]
+): RawLog[] {
+  const contracts = new Set(
+    [ZERO_ADDRESS, ...contractAddresses].map((address) => address.toLowerCase())
+  )
   const offsetTxs = new Set(offsets.map((log) => log.transactionHash))
   return transfers.filter((log) => {
     const from = String(log.args.from ?? '').toLowerCase()

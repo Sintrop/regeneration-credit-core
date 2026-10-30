@@ -21,6 +21,10 @@ export interface SettingsContextProps {
   changeRpc: (url: string) => Promise<RpcCheckResult>
   resetRpc: () => void
   defaultRpc: string
+  /** Mapbox access token: the one saved in Settings, or the build default. */
+  mapboxToken: string
+  defaultMapboxToken: string
+  changeMapboxToken: (token: string) => void
   handleChangeLanguage: (lang: string) => void
 }
 
@@ -41,6 +45,18 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
   const [ipfsApiList, setIpfsApiList] = useState<string[]>([])
   const [rpcUrl, setRpcUrl] = useState<string>('https://rpc.sintrop.com')
   const [rpcList, setRpcList] = useState<string[]>([])
+  const defaultMapboxToken: string = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? ''
+  const [mapboxToken, setMapboxToken] = useState<string>(
+    () => localStorage.getItem('mapboxToken') || defaultMapboxToken
+  )
+
+  /** An empty value goes back to the build default. */
+  function changeMapboxToken(token: string): void {
+    const value = token.trim()
+    if (value) localStorage.setItem('mapboxToken', value)
+    else localStorage.removeItem('mapboxToken')
+    setMapboxToken(value || defaultMapboxToken)
+  }
 
   useEffect(() => {
     getListUrls()
@@ -150,6 +166,9 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
         changeRpc,
         resetRpc,
         defaultRpc,
+        mapboxToken,
+        defaultMapboxToken,
+        changeMapboxToken,
         handleChangeLanguage
       }}
     >

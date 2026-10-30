@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdClose } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { formatUnits, isAddress } from 'viem'
 import {
@@ -11,6 +10,7 @@ import {
   useWaitForTransactionReceipt
 } from 'wagmi'
 
+import { Modal } from '@renderer/components/Modal/Modal'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSendTransaction, useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { rcAbi, rcAddress } from '@renderer/services/contracts'
@@ -87,104 +87,93 @@ export function TransferModal({ onClose, recipient }: Props): JSX.Element {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-      onClick={onClose}
-    >
-      <div
-        className="w-[440px] p-6 rounded-2xl bg-card-primary border border-green-primary/20 shadow-2xl flex flex-col gap-5"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="flex items-center justify-between">
-          <p className="text-white text-lg font-bold">{t('myTokens.transfer')}</p>
-          <button className="text-white hover:cursor-pointer" onClick={onClose}>
-            <MdClose size={24} />
-          </button>
-        </div>
-
-        <div className="flex p-1 rounded-xl bg-card-secondary">
-          {(['RC', 'SIN'] as Token[]).map((item) => (
-            <button
-              key={item}
-              onClick={() => {
-                setToken(item)
-                setAmount('')
-              }}
-              className={`flex-1 h-10 rounded-lg font-semibold hover:cursor-pointer ${
-                token === item ? 'bg-green-primary text-green-secondary' : 'text-white'
-              }`}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
-        <div>
-          <p className="text-gray-400 text-sm">{t('common.yourBalance')}</p>
-          <p className="text-white text-xl font-semibold">
-            {format(balanceWei)} {token}
-          </p>
-        </div>
-
-        {recipient ? (
-          <div className="p-3 rounded-xl bg-card-secondary">
-            <p className="text-gray-400 text-xs">{t('myTokens.recipient')}</p>
-            {recipient.name && <p className="text-white font-semibold">{recipient.name}</p>}
-            <p className="text-gray-300 text-xs break-all">{recipient.address}</p>
+    <>
+      <Modal title={t('myTokens.transfer')} onClose={onClose} width="w-[440px]">
+        <div className="flex flex-col gap-5">
+          <div className="flex p-1 rounded-xl bg-card-secondary">
+            {(['RC', 'SIN'] as Token[]).map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  setToken(item)
+                  setAmount('')
+                }}
+                className={`flex-1 h-10 rounded-lg font-semibold hover:cursor-pointer ${
+                  token === item ? 'bg-green-primary text-green-secondary' : 'text-white'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
           </div>
-        ) : (
+
+          <div>
+            <p className="text-gray-400 text-sm">{t('common.yourBalance')}</p>
+            <p className="text-white text-xl font-semibold">
+              {format(balanceWei)} {token}
+            </p>
+          </div>
+
+          {recipient ? (
+            <div className="p-3 rounded-xl bg-card-secondary">
+              <p className="text-gray-400 text-xs">{t('myTokens.recipient')}</p>
+              {recipient.name && <p className="text-white font-semibold">{recipient.name}</p>}
+              <p className="text-gray-300 text-xs break-all">{recipient.address}</p>
+            </div>
+          ) : (
+            <label className="flex flex-col gap-2">
+              <span className="text-gray-300 text-sm">{t('myTokens.recipientAddress')}</span>
+              <input
+                value={to}
+                onChange={(event) => setTo(event.target.value)}
+                placeholder="0x..."
+                className="h-11 px-3 rounded-xl bg-card-secondary text-white outline-none focus:ring-1 focus:ring-green-primary"
+              />
+              {to.trim() && !addressValid && (
+                <span className="text-red-400 text-xs">{t('myTokens.invalidAddress')}</span>
+              )}
+            </label>
+          )}
+
           <label className="flex flex-col gap-2">
-            <span className="text-gray-300 text-sm">{t('myTokens.recipientAddress')}</span>
-            <input
-              value={to}
-              onChange={(event) => setTo(event.target.value)}
-              placeholder="0x..."
-              className="h-11 px-3 rounded-xl bg-card-secondary text-white outline-none focus:ring-1 focus:ring-green-primary"
-            />
-            {to.trim() && !addressValid && (
-              <span className="text-red-400 text-xs">{t('myTokens.invalidAddress')}</span>
+            <span className="flex items-center justify-between text-sm">
+              <span className="text-gray-300">{t('myTokens.amount')}</span>
+              <button
+                type="button"
+                className="text-green-primary font-semibold hover:cursor-pointer"
+                onClick={() => setAmount(weiToInput(maxWei, i18n.language))}
+              >
+                {t('myTokens.max')}
+              </button>
+            </span>
+            <span className="flex items-center gap-3">
+              <input
+                value={amount}
+                onChange={(event) => setAmount(event.target.value)}
+                inputMode="decimal"
+                placeholder="0"
+                className="flex-1 h-11 px-3 rounded-xl bg-card-secondary text-white outline-none focus:ring-1 focus:ring-green-primary"
+              />
+              <span className="w-12 text-white font-semibold">{token}</span>
+            </span>
+            {insufficient && (
+              <span className="text-red-400 text-xs">{t('common.insufficientBalance')}</span>
+            )}
+            {amount.trim() && valueWei === null && (
+              <span className="text-red-400 text-xs">{t('myTokens.invalidAmount')}</span>
             )}
           </label>
-        )}
 
-        <label className="flex flex-col gap-2">
-          <span className="flex items-center justify-between text-sm">
-            <span className="text-gray-300">{t('myTokens.amount')}</span>
-            <button
-              type="button"
-              className="text-green-primary font-semibold hover:cursor-pointer"
-              onClick={() => setAmount(weiToInput(maxWei, i18n.language))}
-            >
-              {t('myTokens.max')}
-            </button>
-          </span>
-          <span className="flex items-center gap-3">
-            <input
-              value={amount}
-              onChange={(event) => setAmount(event.target.value)}
-              inputMode="decimal"
-              placeholder="0"
-              className="flex-1 h-11 px-3 rounded-xl bg-card-secondary text-white outline-none focus:ring-1 focus:ring-green-primary"
-            />
-            <span className="w-12 text-white font-semibold">{token}</span>
-          </span>
-          {insufficient && (
-            <span className="text-red-400 text-xs">{t('common.insufficientBalance')}</span>
-          )}
-          {amount.trim() && valueWei === null && (
-            <span className="text-red-400 text-xs">{t('myTokens.invalidAmount')}</span>
-          )}
-        </label>
-
-        <button
-          className="h-12 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-          disabled={!canSend || tx.isPending}
-          onClick={send}
-        >
-          {t('myTokens.transfer')}
-        </button>
-        <p className="text-gray-400 text-xs text-center">{t('myTokens.transferInfo')}</p>
-      </div>
+          <button
+            className="h-12 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled={!canSend || tx.isPending}
+            onClick={send}
+          >
+            {t('myTokens.transfer')}
+          </button>
+          <p className="text-gray-400 text-xs text-center">{t('myTokens.transferInfo')}</p>
+        </div>
+      </Modal>
 
       {showTx && (
         <TransactionLoading
@@ -198,6 +187,6 @@ export function TransferModal({ onClose, recipient }: Props): JSX.Element {
           transactionHash={tx.data}
         />
       )}
-    </div>
+    </>
   )
 }

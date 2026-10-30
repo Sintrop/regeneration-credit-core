@@ -187,7 +187,10 @@
       "all": "Todas",
       "read": "Lectura",
       "write": "Escritura"
-    }
+    },
+    "rcMarket": "Mercado RC",
+    "descRcMarket": "Tablero de ofertas de Crédito de Regeneración entre personas. El pago se acuerda fuera de la blockchain y el vendedor registra la venta.",
+    "openFromHelp": "Leer e interactuar con los contratos"
   },
   "pools": {
     "title": "Pools",
@@ -503,7 +506,8 @@
     "close": "Cerrar",
     "copiedToClipboard": "Copiado al portapapeles",
     "uploadingFile": "Subiendo archivo",
-    "erroOnUploadFileToIpfs": "Error al subir el archivo a IPFS"
+    "erroOnUploadFileToIpfs": "Error al subir el archivo a IPFS",
+    "walletHint": "Abre MetaMask en el celular y aprueba la transacción."
   },
   "register": {
     "title": "Registro",
@@ -719,13 +723,14 @@
     "insufficientBalance": "Saldo insuficiente",
     "addressCopied": "Dirección copiada",
     "copyAddress": "Copiar dirección",
-    "compensateTokens": "Compensa {{tokens}} Créditos de Regeneración"
+    "compensateTokens": "Compensa {{tokens}} Créditos de Regeneración",
+    "copiedToClipboard": "Copiado al portapapeles"
   },
   "descActions": {
     "burnTokens": "Compensa tu degradación ambiental quemando tokens de Crédito de Regeneración. Quemar tokens los retira de circulación para siempre y aumenta tu certificado de compensación.",
     "invite": "Permite que un usuario intente invitar a otra billetera a la comunidad.",
     "addDelation": "Permite que los usuarios registrados (excepto los Apoyadores) denuncien a otros usuarios o recursos que puedan requerir invalidación.",
-    "withdraw": "",
+    "withdraw": "Retira los Créditos de Regeneración de la próxima fase cerrada en tu pool. Cada retiro procesa una fase; los detalles y la estimación están en la página de tu pool.",
     "requestInspection": "Los regeneradores aceptan recibir a un inspector para evaluar su área registrada. Pueden hacer un número permitido de solicitudes iniciales sin espera. Después, deben esperar timeBetweenInspections bloques entre solicitudes. Límite máximo de 6 inspecciones en total.",
     "acceptInspection": "Los inspectores solo deben aceptar inspecciones que puedan realizar, conscientes de los riesgos y responsabilidades. Aceptar una inspección cuenta como 'desistencia' hasta que se realice. Solo se puede aceptar una inspección abierta a la vez y no se puede inspeccionar dos veces al mismo regenerador. Deben respetar los plazos y las ventanas de seguridad.",
     "addResearch": "Permite al investigador registrado publicar una nueva 'investigación'. Una 'investigación' puede ser un nuevo ítem de la calculadora, una nueva metodología, una mejora de las actuales o una investigación genérica sobre regeneración.",
@@ -818,7 +823,6 @@
     "inviterPenalties": "Penalidades del invitador",
     "addDelation": "Agregar denuncia",
     "delations": "Denuncias",
-    "mapUnavailable": "Contorno del área a partir de las coordenadas registradas. El mapa satelital aparece cuando el token de Mapbox está configurado.",
     "coordinatesCount_one": "{{count}} coordenada registrada",
     "coordinatesCount_other": "{{count}} coordenadas registradas",
     "openMap": "Abrir en el mapa"
@@ -837,7 +841,8 @@
     "advanced": "Avanzado",
     "myAccount": "Mi cuenta",
     "network": "Red",
-    "impact": "Impacto"
+    "impact": "Impacto",
+    "token": "Token"
   },
   "shell": {
     "settings": "Configuración",
@@ -1199,7 +1204,16 @@
     "add": "Agregar",
     "ipfsDescription": "Servidores usados para subir archivos y mostrar fotos y documentos.",
     "ipfsToolTitle": "Subir archivo a IPFS",
-    "ipfsToolText": "Obtén el hash de una foto o documento para usar en las transacciones."
+    "ipfsToolText": "Obtén el hash de una foto o documento para usar en las transacciones.",
+    "mapboxDescription": "Mapas satelitales del área de los regeneradores, en el perfil y en el registro. Si Mapbox falla, el mapa pasa a usar OpenStreetMap, gratuito y sin clave.",
+    "mapboxCurrent": "Token en uso",
+    "mapboxMissing": "Ningún token configurado: los mapas usan OpenStreetMap.",
+    "mapboxOwn": "Usar mi propio token público de Mapbox",
+    "mapboxUse": "Usar este token",
+    "mapboxRestore": "Volver al token predeterminado",
+    "mapboxSaved": "Token de Mapbox actualizado",
+    "mapboxRestored": "Token predeterminado restaurado",
+    "mapboxNote": "Usa un token público (empieza con pk.). Se guarda solo en esta computadora."
   },
   "txPage": {
     "title": "Transacción",
@@ -1240,6 +1254,269 @@
       "5": "Contribuye con traducción, diseño, comunidad.",
       "6": "Invita a regeneradores e inspectores.",
       "7": "Compensa la degradación financiando la regeneración."
+    },
+    "mapHint": "Haz clic en el mapa para marcar las esquinas del área, de 3 a 10 puntos."
+  },
+  "market": {
+    "title": "Mercado RC",
+    "back": "Volver",
+    "loadingOffers": "Cargando ofertas...",
+    "noOffers": "No hay ofertas disponibles",
+    "offer": "Oferta #{{id}}",
+    "statusActive": "Activa",
+    "statusSold": "Vendida",
+    "statusCancelled": "Cancelada",
+    "statusUnknown": "Desconocido",
+    "amount": "Cantidad",
+    "unitPrice": "Precio unitario",
+    "payment": "Pago",
+    "seller": "Vendedor",
+    "buy": "Comprar",
+    "cancel": "Cancelar",
+    "complete": "Concluir",
+    "publishOffer": "+ Publicar oferta",
+    "newOffer": "Nueva oferta",
+    "amountLabel": "Cantidad de RC",
+    "priceLabel": "Precio por RC (R$)",
+    "paymentMethodLabel": "Método de pago",
+    "cash": "Efectivo",
+    "descriptionLabel": "Descripción y contacto",
+    "descriptionPlaceholder": "Ej.: Vendo X Créditos a Y BRL cada uno. Contacto: micontacto@contacto.com",
+    "publish": "Publicar",
+    "buyTitle": "Comprar",
+    "buyMessage": "El mercado es solo informativo. Contacta al vendedor con la información de la oferta y compra directamente con él.",
+    "cancelOfferTitle": "Cancelar oferta",
+    "cancelOfferMessage": "¿Seguro que quieres cancelar esta oferta?",
+    "confirmSaleTitle": "Concluir venta",
+    "confirmSaleMessage": "Ingresa la dirección de la billetera del comprador:",
+    "connectWalletFirst": "Conecta tu billetera primero",
+    "fillAllFields": "Completa todos los campos",
+    "descriptionTooLong": "La descripción debe tener como máximo 500 caracteres",
+    "priceTooLong": "El precio debe tener como máximo 50 caracteres",
+    "error": "Error",
+    "errorCreatingOffer": "Error al crear la oferta",
+    "errorCancelingOffer": "Error al cancelar la oferta",
+    "errorConfirmingSale": "Error al concluir la venta",
+    "offerCreated": "Oferta publicada",
+    "offerCancelled": "Oferta cancelada",
+    "saleConfirmed": "Venta concluida"
+  },
+  "marketPage": {
+    "howTitle": "Cómo funciona el mercado",
+    "activeOffers": "Ofertas activas",
+    "sales": "Ventas concluidas",
+    "newOfferHint": "La oferta queda registrada en el contrato RCMarket. El pago y la entrega de los RC se acuerdan entre tú y el comprador.",
+    "integerAmount": "Usa una cantidad entera de RC.",
+    "confirmHint": "Después de recibir el pago y transferir los RC, registra la venta con la dirección del comprador. La oferta se cierra.",
+    "filter": {
+      "all": "Todas",
+      "mine": "Mis ofertas"
     }
+  },
+  "help": {
+    "title": "Ayuda",
+    "welcomeTitle": "Te damos la bienvenida a Crédito de Regeneración",
+    "welcomeText": "Sistema de regeneración de la Naturaleza persona a persona. Aquí están los pasos para empezar, los datos de la red Sintrop y las respuestas a las dudas más comunes.",
+    "newcomerTitle": "¿Nuevo por aquí?",
+    "newcomerText": "Mira cómo empezar, configurar la billetera y registrarte.",
+    "settingsLink": "Cómo empezar, datos de la red, direcciones de los contratos y preguntas frecuentes.",
+    "stepsTitle": "Cómo empezar",
+    "steps": {
+      "wallet": {
+        "title": "Instala MetaMask",
+        "text": "La app usa la billetera MetaMask para firmar las transacciones. Instala la app de MetaMask y crea tu billetera. Guarda la frase de recuperación en un lugar seguro y nunca la compartas."
+      },
+      "network": {
+        "title": "Agrega la red Sintrop",
+        "text": "Crédito de Regeneración funciona en la red Sintrop. Haz clic el botón de abajo y aprueba en MetaMask: la red se agrega y se selecciona, y si la billetera aún no está conectada, la conexión ocurre en el mismo paso. Si prefieres, agrega la red a mano con los datos más abajo."
+      },
+      "connect": {
+        "title": "Conecta la billetera",
+        "text": "Haz clic Conectar en la parte superior de la pantalla de inicio y aprueba en MetaMask. Después de aprobar, vuelve a la app."
+      },
+      "gas": {
+        "title": "Compra, recibe o mina SINTROP",
+        "text": "SINTROP es la unidad de la red Sintrop y paga las tarifas de cada transacción, como el registro. Puedes recibirlo de otro usuario, copiando la dirección de tu billetera en tu perfil, o minarlo con tu propia computadora."
+      },
+      "register": {
+        "title": "Regístrate",
+        "text": "El registro de Apoyador está abierto a cualquier billetera. Los demás tipos de usuario necesitan una invitación registrada en la blockchain para la dirección de tu billetera. Con la billetera conectada, la pantalla de inicio muestra la opción de registro."
+      },
+      "earn": {
+        "title": "Compra RC o presta un servicio",
+        "text": "Para tener créditos en tu billetera, compra RC a otro usuario en el Mercado o presta un servicio al sistema, como regenerar, inspeccionar, investigar, desarrollar, contribuir o invitar nuevos usuarios. Cada servicio genera tokens de los pools en cada era."
+      },
+      "token": {
+        "title": "Ve tus RC en MetaMask",
+        "text": "En MetaMask, con la red Sintrop seleccionada, usa Importar token y pega la dirección del contrato del token RC, que está abajo."
+      }
+    },
+    "downloadMetamask": "Descargar MetaMask",
+    "metamaskManual": "Guía de MetaMask (PDF, portugués)",
+    "addNetwork": "Agregar la red Sintrop a MetaMask",
+    "copy": "Copiar",
+    "networkTitle": "Datos de la red Sintrop",
+    "networkText": "Usa estos datos para agregar la red a mano en MetaMask. Haz clic un campo para copiarlo.",
+    "networkName": "Nombre de la red",
+    "rpcUrl": "URL del RPC",
+    "chainId": "ID de la chain",
+    "currencySymbol": "Símbolo de la moneda (en MetaMask)",
+    "explorer": "Explorador de bloques",
+    "tokenTitle": "Token Crédito de Regeneración (RC)",
+    "tokenText": "Datos para importar el RC en tu billetera.",
+    "tokenAddress": "Dirección del contrato",
+    "tokenSymbol": "Símbolo",
+    "tokenDecimals": "Decimales",
+    "contractsTitle": "Contratos del protocolo",
+    "contractsText": "Los contratos están desplegados en la red Sintrop, fueron auditados por Nethermind Security y tienen el código abierto en GitHub.",
+    "showContracts": "Mostrar las {{count}} direcciones",
+    "hideContracts": "Ocultar direcciones",
+    "faqTitle": "Preguntas frecuentes",
+    "faq": {
+      "whatIs": {
+        "q": "¿Qué es Crédito de Regeneración?",
+        "a": "Es un pago por servicios ambientales persona a persona. Quien regenera ecosistemas gana tokens de Crédito de Regeneración (RC), y el impacto detrás de cada token se verifica mediante un proceso de inspección descentralizado."
+      },
+      "howEarn": {
+        "q": "¿Cómo se gana RC?",
+        "a": "Cada tipo de usuario tiene un pool que distribuye tokens en cada era, en proporción al nivel de cada uno dentro de su tipo. El nivel sube haciendo el trabajo del rol: el regenerador por el resultado de las inspecciones de su área, el inspector por inspección realizada, el investigador por investigación publicada, el desarrollador y el contribuidor por informe, y el activista cuando un invitado completa sus primeras inspecciones."
+      },
+      "buy": {
+        "q": "¿Cómo comprar Crédito de Regeneración?",
+        "a": "En el Mercado de la app. Allí están las ofertas publicadas por los usuarios, con la cantidad, el precio por RC, la forma de pago y el contacto del vendedor. Acuerda la compra directamente con el vendedor y pásale la dirección de tu billetera para recibir los RC. La app no intermedia el pago, así que verifica la dirección del vendedor antes de pagar, ya que los nombres pueden repetirse."
+      },
+      "invite": {
+        "q": "¿Necesito una invitación para registrarme?",
+        "a": "Solo el Apoyador se registra sin invitación. Los activistas invitan a regeneradores, inspectores y otros activistas. Los investigadores, desarrolladores y contribuidores son invitados por usuarios del mismo tipo. La invitación queda registrada en la blockchain para la dirección de la billetera invitada, así que pide la invitación y luego regístrate con la misma billetera."
+      },
+      "sin": {
+        "q": "¿Qué es SINTROP y por qué lo necesito?",
+        "a": "Crédito de Regeneración usa la blockchain Sintrop, una base de datos distribuida mantenida por las computadoras conectadas a la red. Las computadoras que encuentran los bloques reciben SINTROP, la unidad de sintropía de la red, que paga las tarifas de las transacciones: registro, invitaciones, inspecciones, publicaciones, votos, retiros y compensaciones. Consultar datos en la app es gratis. Puedes recibir SINTROP de otro usuario o minarlo en tu computadora. En MetaMask la moneda aparece con el símbolo SIN."
+      },
+      "eras": {
+        "q": "¿Qué son las eras y las épocas?",
+        "a": "El protocolo se divide en eras de unos 6 meses. En cada era, los pools distribuyen una cantidad fija de tokens. Cada 12 eras (una época), la emisión por era se reduce a la mitad. El tiempo hasta la próxima era aparece en la parte superior de la pantalla de inicio."
+      },
+      "withdraw": {
+        "q": "¿Cómo retiro mis tokens?",
+        "a": "En Retirar tokens, elige el pool de tu tipo de usuario. Los tokens de una era quedan disponibles para retiro después de que termina, según tu nivel en esa era."
+      },
+      "inspection": {
+        "q": "¿Cómo funciona una inspección?",
+        "a": "El regenerador solicita la inspección de su área. Un inspector acepta la solicitud, va al área dentro del plazo y registra el conteo de árboles y de especies, con fotos e informe. Cada inspector solo puede inspeccionar a un mismo regenerador una vez. El regenerador empieza a recibir tokens después de 3 inspecciones hechas por 3 inspectores diferentes."
+      },
+      "validation": {
+        "q": "¿Quién verifica que la información sea verdadera?",
+        "a": "Los investigadores, desarrolladores y contribuidores forman la capa de validación y votan para invalidar usuarios, inspecciones y publicaciones fraudulentas. Cada registro solo puede ser impugnado durante la era en que fue creado."
+      },
+      "offset": {
+        "q": "¿Qué es compensar?",
+        "a": "El apoyador cambia RC por un certificado: los tokens se queman y el certificado registra en la blockchain cuánta regeneración verificada financió esa compensación. Si el apoyador fue invitado, el 5% de la compensación hecha por la app va para quien lo invitó."
+      },
+      "security": {
+        "q": "¿Mis fondos están seguros?",
+        "a": "MetaMask es una billetera de autocustodia, es decir, solo tú tienes las llaves. La app nunca pide tu frase de recuperación, y toda transacción debe ser confirmada por ti en MetaMask. Nunca compartas tu frase de recuperación con nadie."
+      },
+      "rpc": {
+        "q": "La app no carga los datos. ¿Qué hago?",
+        "a": "La app lee la blockchain a través de un servidor RPC público. Si se vuelve inestable, aparece un aviso en la parte superior de la pantalla. Puedes cambiar el RPC en Configuración o intentar más tarde."
+      }
+    },
+    "moreInfo": "Más información en el sitio de Crédito de Regeneración",
+    "openProfile": "Abrir mi perfil",
+    "openMarket": "Abrir Mercado",
+    "connected": "Billetera conectada ✓",
+    "howToMine": "Cómo minar SINTROP",
+    "networkAdded": "Red Sintrop seleccionada en la billetera"
+  },
+  "mining": {
+    "title": "Minar SINTROP",
+    "settingsTitle": "Minar SINTROP (avanzado)",
+    "settingsText": "Ejecuta un nodo de la red Sintrop en tu computadora y recibe SINTROP por los bloques encontrados.",
+    "introTitle": "La red detrás de Crédito de Regeneración",
+    "introText": "Crédito de Regeneración funciona en la blockchain Sintrop, una base de datos distribuida mantenida por las computadoras conectadas a la red, los nodos. Cada nodo guarda una copia de todas las transacciones y ayuda a procesar las nuevas. Las computadoras que encuentran los bloques son remuneradas con SINTROP, la unidad de sintropía de la red, que también paga las tarifas de cada transacción.",
+    "introSmallNetwork": "El resultado depende de la dificultad de la red, pero es posible encontrar algunos bloques incluso minando solo con el procesador. Así cualquier persona consigue SINTROP para las tarifas y se registra como apoyador sin depender de nadie.",
+    "addressTitle": "Dirección que recibe la recompensa",
+    "addressConnected": "La recompensa va a la billetera conectada. La dirección ya está en los comandos de abajo.",
+    "addressPaste": "Pega la dirección de tu billetera. Se completa en los comandos de abajo.",
+    "os": {
+      "windows": "Windows",
+      "ubuntu": "Ubuntu",
+      "macos": "macOS"
+    },
+    "downloadTitle": "Descarga go-sintrop",
+    "download": {
+      "windows": "En la computadora, descarga el archivo {{file}} de la página de versiones de go-sintrop.",
+      "ubuntu": "En la computadora, descarga el archivo {{file}} de la página de versiones de go-sintrop.",
+      "macos": "En la computadora, descarga el archivo {{file}} de la página de versiones de go-sintrop."
+    },
+    "macAppleSilicon": "La versión para macOS funciona en Macs con procesador Apple (M1 o más nuevo).",
+    "downloadButton": "Descargar go-sintrop {{version}}",
+    "openReleases": "Abrir página de versiones",
+    "extractTitle": "Extrae el archivo",
+    "extract": {
+      "windows": "En la carpeta Descargas, haz clic derecho en el archivo y elige Extraer todo. Abre la carpeta extraída, que tiene el archivo geth.exe.",
+      "ubuntu": "Extrae el archivo desde la propia carpeta (clic derecho > Extraer aquí) y abre la Terminal dentro de la carpeta extraída. Si prefieres hacerlo todo por la Terminal, usa los comandos de abajo. Haz clic en un comando para copiarlo.",
+      "macos": "Extrae el archivo desde la propia carpeta (doble clic en el .zip) y abre la Terminal dentro de la carpeta extraída. Antes de la primera ejecución, ejecuta el último comando de abajo: desbloquea geth, que macOS bloquea por venir de internet. Si prefieres hacerlo todo por la Terminal, usa todos los comandos en orden."
+    },
+    "runTitle": "Inicia el nodo",
+    "run": {
+      "windows": "En la carpeta de geth.exe, haz clic en la barra de direcciones, escribe powershell y presiona Enter. En el PowerShell que se abra, pega y ejecuta el comando de abajo.",
+      "ubuntu": "En la misma Terminal, pega y ejecuta el comando de abajo.",
+      "macos": "En la misma Terminal, pega y ejecuta el comando de abajo."
+    },
+    "runAddressFilled": "Tu dirección ya está en el comando, en el campo miner.etherbase.",
+    "runAddressMissing": "Ingresa la dirección de tu billetera arriba para que entre en el comando, en el campo miner.etherbase.",
+    "syncTitle": "Espera la sincronización",
+    "syncText": "El nodo empieza a descargar una copia completa de la blockchain. Esto lleva un tiempo. Está sincronizado cuando el número de bloque en la Terminal llega al bloque actual de la red.",
+    "currentBlock": "Bloque actual de la red: {{block}}",
+    "mineTitle": "Empieza a minar",
+    "mineText": "Con el nodo sincronizado, escribe en la consola de geth:",
+    "stopText": "Para detener la minería:",
+    "exitText": "Para apagar el nodo con seguridad, presiona Ctrl + D. No cierres la ventana directamente.",
+    "rewardTitle": "Recibe y usa los SINTROP",
+    "rewardText": "Cada bloque encontrado envía la recompensa a tu dirección. El saldo aparece en Mis tokens. Con SINTROP en la billetera ya puedes pagar las tarifas y registrarte como apoyador.",
+    "openMyTokens": "Abrir Mis tokens",
+    "registerSupporter": "Registrarse",
+    "tipsTitle": "Consejos",
+    "tipComputerOn": "La computadora debe quedar encendida y conectada a internet mientras mina. Cuanto más tiempo mine, más chances de encontrar bloques.",
+    "tipRenewable": "La red Sintrop incentiva el uso de energía renovable, como solar, eólica o hidráulica, en las computadoras que minan.",
+    "guideTitle": "Guía completa",
+    "guideText": "Para armar una computadora dedicada, minar con tarjeta gráfica y resolver problemas comunes, consulta la guía completa de nodo y minería en Ubuntu, publicada como contribución de la comunidad.",
+    "openGuide": "Abrir la guía completa",
+    "openTutorials": "Tutoriales en sintrop.com",
+    "commandCopied": "Comando copiado",
+    "unknownSourceTitle": "Aviso de origen desconocido",
+    "unknownSourceText": "El navegador y el sistema van a avisar que el programa es de origen desconocido. Es lo esperado: go-sintrop es de código abierto y viene directo del repositorio oficial de Sintrop en GitHub. Autoriza la descarga y la ejecución para continuar.",
+    "unknownSource": {
+      "windows": "En Windows, conserva el archivo cuando el navegador pregunte. Si aparece \"Windows protegió su PC\", haz clic en Más información y luego en Ejecutar de todas formas.",
+      "ubuntu": "En Ubuntu, conserva el archivo cuando el navegador pregunte.",
+      "macos": "En macOS, el comando de desbloqueo del paso 2 resuelve el bloqueo. Si el aviso sigue apareciendo, abre Ajustes del Sistema > Privacidad y seguridad y haz clic en Abrir igualmente."
+    }
+  },
+  "eras": {
+    "title": "Fases y halving",
+    "menu": "Fases y halving",
+    "now": "Ahora",
+    "eraEpoch": "Fase {{era}} · Época {{epoch}}",
+    "progress": "{{elapsed}} de {{total}} bloques de esta fase ({{percent}}%)",
+    "erasOfEpoch": "Las 12 fases de la época {{epoch}}",
+    "eraTitle": "Fase",
+    "eraValue": "{{blocks}} bloques ≈ {{days}} días",
+    "eraText": "El tiempo de la red se cuenta en bloques. Cada fase reúne el trabajo de todos; los créditos de una fase se retiran después de que termina.",
+    "epochTitle": "Época",
+    "epochValue": "{{eras}} fases ≈ {{years}} años",
+    "epochText": "Las fases se agrupan en épocas. Dentro de una época, cada fase distribuye la misma cantidad de créditos.",
+    "halvingTitle": "Halving",
+    "halvingValue": "la mitad cada época",
+    "halvingText": "Cuando termina una época, la cantidad distribuida por fase se reduce a la mitad. Así los créditos se vuelven más escasos con el tiempo y quien llega temprano recibe más.",
+    "scheduleTitle": "Créditos distribuidos por fase",
+    "scheduleText": "Suma de todos los pools en una fase de cada época, leída de los contratos (tokensPerEra).",
+    "scheduleNote": "Cada época distribuye la mitad de la anterior; la suma de las épocas tiende al total de cada pool.",
+    "epochShort": "Época {{epoch}}",
+    "distributionTitle": "Modelo de distribución",
+    "distributionText": "{{total}} RC están reservados en los pools. Cada pool remunera un tipo de trabajo, y la mayor parte va a quien regenera.",
+    "levelsText": "Dentro de un pool, los créditos de la fase se dividen por los niveles que cada usuario ganó en ella: regeneradores por la puntuación de regeneración de cada inspección, inspectores por inspección realizada, investigadores, desarrolladores y contribuidores por lo que publican, y activistas a medida que sus invitados avanzan en las inspecciones.",
+    "openPools": "Ver los pools y retirar"
   }
 }

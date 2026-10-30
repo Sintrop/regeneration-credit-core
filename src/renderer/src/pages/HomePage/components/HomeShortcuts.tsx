@@ -6,6 +6,7 @@ import { Icon, IconName } from '@renderer/components/Icon/Icon'
 const SHORTCUTS: { path: string; icon: IconName; label: string }[] = [
   { path: '/my-tokens', icon: 'myTokens', label: 'home.shortcuts.myTokens' },
   { path: '/pools', icon: 'pools', label: 'home.shortcuts.withdrawTokens' },
+  { path: '/market', icon: 'rc', label: 'home.shortcuts.market' },
   { path: '/impact-calculator', icon: 'impactCalculator', label: 'home.shortcuts.calculator' },
   { path: '/rcstats', icon: 'rcStats', label: 'home.shortcuts.impact' },
   { path: '/community', icon: 'community', label: 'home.shortcuts.community' },
@@ -18,7 +19,7 @@ export function HomeShortcuts(): JSX.Element {
   const navigate = useNavigate()
 
   return (
-    <div className="grid grid-cols-7 gap-1">
+    <div className="grid grid-cols-8 gap-1">
       {SHORTCUTS.map((shortcut) => (
         <button
           key={shortcut.path}

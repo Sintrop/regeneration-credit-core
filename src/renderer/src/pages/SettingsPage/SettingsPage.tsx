@@ -7,6 +7,7 @@ import { useAccount, useDisconnect } from 'wagmi'
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { useRpcHealth } from '@renderer/hooks/useRpcHealth'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
+import { isMapboxToken } from '@renderer/utils/mapbox'
 
 const LANGUAGES = [
   { code: 'pt', label: 'Português' },
@@ -238,6 +239,62 @@ function IpfsSection(): JSX.Element {
   )
 }
 
+function MapboxSection(): JSX.Element {
+  const { t } = useTranslation()
+  const { mapboxToken, defaultMapboxToken, changeMapboxToken } = useSettingsContext()
+  const [value, setValue] = useState('')
+  const custom = mapboxToken !== defaultMapboxToken
+  const configured = isMapboxToken(mapboxToken)
+  const masked = configured ? `${mapboxToken.slice(0, 8)}…${mapboxToken.slice(-4)}` : '—'
+
+  return (
+    <Section title="Mapbox" description={t('settingsPage.mapboxDescription')}>
+      <div className="p-4 rounded-xl bg-card-secondary flex flex-col gap-1">
+        <p className="text-gray-400 text-xs">
+          {t('settingsPage.mapboxCurrent')}
+          {configured && !custom ? ` · ${t('settingsPage.default')}` : ''}
+        </p>
+        <p className="text-white font-mono text-sm">{masked}</p>
+        {!configured && <p className="text-amber-300 text-xs">{t('settingsPage.mapboxMissing')}</p>}
+      </div>
+      <label className="flex flex-col gap-2">
+        <span className="text-gray-300 text-sm">{t('settingsPage.mapboxOwn')}</span>
+        <input
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          placeholder="pk.…"
+          className={input}
+        />
+      </label>
+      <div className="flex gap-3">
+        <button
+          className="h-11 px-5 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          disabled={!/^pk\.[\w.-]{20,}$/.test(value.trim())}
+          onClick={() => {
+            changeMapboxToken(value)
+            setValue('')
+            toast.success(t('settingsPage.mapboxSaved'))
+          }}
+        >
+          {t('settingsPage.mapboxUse')}
+        </button>
+        {custom && (
+          <button
+            className="h-11 px-5 rounded-xl border border-green-primary text-green-primary font-semibold hover:bg-green-primary/10 hover:cursor-pointer"
+            onClick={() => {
+              changeMapboxToken('')
+              toast.success(t('settingsPage.mapboxRestored'))
+            }}
+          >
+            {t('settingsPage.mapboxRestore')}
+          </button>
+        )}
+      </div>
+      <p className="text-gray-500 text-xs">{t('settingsPage.mapboxNote')}</p>
+    </Section>
+  )
+}
+
 function LinkRow({
   title,
   text,
@@ -273,6 +330,7 @@ export function SettingsPage(): JSX.Element {
         <LanguageSection />
         <RpcSection />
         <IpfsSection />
+        <MapboxSection />
         {isConnected && (
           <Section title={t('settingsPage.wallet')}>
             <div className="flex items-center justify-between gap-4">

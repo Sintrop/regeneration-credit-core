@@ -2,6 +2,7 @@ import { ActionsMenu } from './components/ActionsMenu'
 import { ChainSwitch } from './components/ChainSwitch'
 import { DocsLink } from './components/DocsLink'
 import { EraChip } from './components/EraChip'
+import { HelpLink } from './components/HelpLink'
 import { LanguageSwitch } from './components/LanguageSwitch'
 import { NavBtns } from '../ScreenPage/components/NavBtns'
 import { ConnectionWalletButton } from '../ScreenPage/components/ActionBar/ConnectionWalletButton'
@@ -22,6 +23,7 @@ export function Header({ title }: Props): JSX.Element {
         <ActionsMenu />
         <EraChip />
         <LanguageSwitch />
+        <HelpLink />
         <DocsLink />
         <ChainSwitch />
         <ConnectionWalletButton />

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Abi } from 'viem'
-import { useReadContracts } from 'wagmi'
+import { useAccount, useReadContracts } from 'wagmi'
 
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { FeedCard } from '@renderer/components/Feed/FeedCard'
@@ -66,6 +66,29 @@ function SkeletonCard(): JSX.Element {
       <div className="w-24 h-5 rounded-full bg-skeleton" />
       <div className="w-full h-16 rounded-xl bg-skeleton" />
     </div>
+  )
+}
+
+/** First steps for whoever arrives without a wallet connected. */
+function NewcomerCard(): JSX.Element | null {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { isConnected } = useAccount()
+  if (isConnected) return null
+  return (
+    <button
+      className="p-4 rounded-2xl bg-green-primary/10 border border-green-primary/40 flex items-center gap-3 text-left hover:bg-green-primary/15 hover:cursor-pointer"
+      onClick={() => navigate('/help')}
+    >
+      <span className="w-9 h-9 shrink-0 rounded-full bg-green-primary text-green-secondary font-bold text-lg flex items-center justify-center">
+        ?
+      </span>
+      <span className="flex-1">
+        <span className="block text-white font-semibold">{t('help.newcomerTitle')}</span>
+        <span className="text-gray-300 text-sm">{t('help.newcomerText')}</span>
+      </span>
+      <span className="text-green-primary text-xl">›</span>
+    </button>
   )
 }
 
@@ -150,6 +173,7 @@ export function HomePage(): JSX.Element {
       pageTitle={t('feed.title')}
       rightRail={
         <div className="flex flex-col gap-4">
+          <NewcomerCard />
           <UserTimersCard />
           <NetworkImpact />
         </div>

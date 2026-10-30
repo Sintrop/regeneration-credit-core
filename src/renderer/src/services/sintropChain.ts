@@ -11,7 +11,6 @@ export const SINTROP_CHAIN_PARAMS = {
 
 const UNRECOGNIZED_CHAIN_ERROR = 4902
 const USER_REJECTED_ERROR = 4001
-const METHOD_NOT_FOUND_ERRORS = [-32601, 4200]
 
 export interface EthereumRequester {
   request: (args: { method: string; params?: unknown[] }) => Promise<unknown>
@@ -52,10 +51,9 @@ export async function switchToSintrop(ethereum: EthereumRequester): Promise<bool
 }
 
 /**
- * Sends a transaction on Sintrop with a single trip to the wallet.
- * When the wallet is on another network, the network switch (or add) and the
- * transaction go together in one metamask_batch request instead of two prompts.
- * Wallets without metamask_batch fall back to switching first, then sending.
+ * Sends a transaction on Sintrop. When the wallet is on another network it is switched (or the
+ * network added) first. Only standard wallet methods are used: the desktop app talks to MetaMask
+ * mobile over the QR channel, where SDK-specific calls such as metamask_batch can stay unanswered.
  * Resolves with the transaction hash.
  */
 export async function sendTransactionOnSintrop(
@@ -74,29 +72,15 @@ export async function sendTransactionOnSintrop(
     return (await ethereum.request(send)) as string
   }
 
-  const batch = (networkRequest: { method: string; params: unknown[] }): Promise<unknown[]> =>
-    ethereum.request({ method: 'metamask_batch', params: [networkRequest, send] }) as Promise<
-      unknown[]
-    >
-
   try {
-    let results: unknown[]
-    try {
-      results = await batch({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: SINTROP_CHAIN_ID }]
-      })
-    } catch (error) {
-      if (errorCode(error) !== UNRECOGNIZED_CHAIN_ERROR) throw error
-      results = await batch({ method: 'wallet_addEthereumChain', params: [SINTROP_CHAIN_PARAMS] })
-    }
-    return results[results.length - 1] as string
+    await ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: SINTROP_CHAIN_ID }]
+    })
   } catch (error) {
-    if (!METHOD_NOT_FOUND_ERRORS.includes(errorCode(error) ?? 0)) throw error
-  }
-
-  if (!(await switchToSintrop(ethereum))) {
-    throw new Error('Wallet is not connected to the Sintrop network')
+    // A rejection reaches the caller as is; only an unknown network is added here.
+    if (errorCode(error) !== UNRECOGNIZED_CHAIN_ERROR) throw error
+    await ethereum.request({ method: 'wallet_addEthereumChain', params: [SINTROP_CHAIN_PARAMS] })
   }
   return (await ethereum.request(send)) as string
 }

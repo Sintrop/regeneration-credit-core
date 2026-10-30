@@ -1,6 +1,7 @@
 //mainnet imports
 import RcTokenContract from '../../../data/abis/mainnet/RegenerationCredit.json'
 import RcImpactContract from '../../../data/abis/mainnet/RegenerationCreditImpact.json'
+import RcMarketContract from '../../../data/abis/mainnet/RCMarket.json'
 import UserContract from '../../../data/abis/mainnet/CommunityRules.json'
 import RegeneratorContract from '../../../data/abis/mainnet/RegeneratorRules.json'
 import RegeneratorPoolContract from '../../../data/abis/mainnet/RegeneratorPool.json'
@@ -27,6 +28,7 @@ import { ContractListProps } from '@renderer/types/contract'
 // Mainnet addresses, core-contracts/deployed_contracts/mainnet
 export const rcAddress = '0x24fD0C0eA35F00625094795aa105fcE15cb6f1Ed'
 export const rcImpactAddress = '0x323b2162a7E8cB4b718c03eFd8BacE1C294C55F5'
+export const rcMarketAddress = '0xA59CE87F2637084f13057357c9Ee49A47232A769'
 export const userAddress = '0xec19012cA2C396EF3390E726095e25a794f34150'
 export const regeneratorAddress = '0x984Add883400C6E11241B9109Db59484917dF566'
 export const regeneratorPoolAddress = '0xFC222077860d34dEfA62Dd8A848703025B7b75f7'
@@ -51,6 +53,7 @@ export const rcIndexAddress = '0xcd42a990B7A2DA6e529a1B89CCc2439b398cbF4A'
 //Abis contracts
 export const rcAbi = RcTokenContract.abi
 export const rcImpactAbi = RcImpactContract.abi
+export const rcMarketAbi = RcMarketContract.abi
 export const userAbi = UserContract.abi
 export const regeneratorAbi = RegeneratorContract.abi
 export const regeneratorPoolAbi = RegeneratorPoolContract.abi
@@ -86,6 +89,13 @@ export const contractsMainnet: ContractListProps[] = [
     name: RcImpactContract.contractName,
     label: 'contracts.rcImpact',
     description: 'contracts.descRcImpact'
+  },
+  {
+    abi: rcMarketAbi,
+    address: rcMarketAddress,
+    name: RcMarketContract.contractName,
+    label: 'contracts.rcMarket',
+    description: 'contracts.descRcMarket'
   },
   {
     abi: regeneratorAbi,

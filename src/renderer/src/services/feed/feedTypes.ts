@@ -17,7 +17,13 @@ export type FeedKind =
 
 export type FeedCategory = 'inspections' | 'offsets' | 'publications' | 'community' | 'tokens'
 
-export const FEED_CATEGORIES: FeedCategory[] = ['inspections', 'offsets', 'publications', 'community', 'tokens']
+export const FEED_CATEGORIES: FeedCategory[] = [
+  'inspections',
+  'offsets',
+  'publications',
+  'community',
+  'tokens'
+]
 
 export const CATEGORY_BY_KIND: Record<FeedKind, FeedCategory> = {
   inspectionRequested: 'inspections',

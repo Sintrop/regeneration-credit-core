@@ -33,3 +33,9 @@ body,
 #root {
   background-color: var(--color-background);
 }
+
+/* Tailwind's base resets every img; Leaflet tiles need their exact size or seams show between them. */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}

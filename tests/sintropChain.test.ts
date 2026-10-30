@@ -77,47 +77,43 @@ describe('sendTransactionOnSintrop', () => {
     expect(wallet.request).toHaveBeenCalledTimes(2)
   })
 
-  it('switches network and sends in one batch when on another network', async () => {
+  it('switches network, then sends, when on another network', async () => {
     const wallet = createWallet({
       eth_chainId: () => '0x1',
-      metamask_batch: (params) => {
-        const [network, send] = params as { method: string }[]
-        expect(network.method).toBe('wallet_switchEthereumChain')
-        expect(send.method).toBe('eth_sendTransaction')
-        return [null, '0xhash']
-      }
-    })
-    await expect(sendTransactionOnSintrop(wallet, tx)).resolves.toBe('0xhash')
-  })
-
-  it('adds the network in the batch when the wallet does not know it', async () => {
-    const wallet = createWallet({
-      eth_chainId: () => '0x1',
-      metamask_batch: (params) => {
-        const [network] = params as { method: string }[]
-        if (network.method === 'wallet_switchEthereumChain') throw rpcError(4902)
-        return [null, '0xhash']
-      }
-    })
-    await expect(sendTransactionOnSintrop(wallet, tx)).resolves.toBe('0xhash')
-  })
-
-  it('falls back to switch then send when the wallet has no batch support', async () => {
-    const wallet = createWallet({
-      eth_chainId: () => '0x1',
-      metamask_batch: () => {
-        throw rpcError(-32601)
-      },
       wallet_switchEthereumChain: () => null,
+      eth_sendTransaction: () => '0xhash'
+    })
+    await expect(sendTransactionOnSintrop(wallet, tx)).resolves.toBe('0xhash')
+    expect(wallet.request).toHaveBeenCalledTimes(3)
+  })
+
+  it('adds the network when the wallet does not know it', async () => {
+    const wallet = createWallet({
+      eth_chainId: () => '0x1',
+      wallet_switchEthereumChain: () => {
+        throw rpcError(4902)
+      },
+      wallet_addEthereumChain: () => null,
       eth_sendTransaction: () => '0xhash'
     })
     await expect(sendTransactionOnSintrop(wallet, tx)).resolves.toBe('0xhash')
   })
 
-  it('propagates a user rejection without retrying', async () => {
+  it('never uses SDK-only methods such as metamask_batch', async () => {
     const wallet = createWallet({
       eth_chainId: () => '0x1',
-      metamask_batch: () => {
+      wallet_switchEthereumChain: () => null,
+      eth_sendTransaction: () => '0xhash'
+    })
+    await sendTransactionOnSintrop(wallet, tx)
+    const methods = wallet.request.mock.calls.map(([args]) => args.method)
+    expect(methods).not.toContain('metamask_batch')
+  })
+
+  it('propagates a user rejection of the network switch', async () => {
+    const wallet = createWallet({
+      eth_chainId: () => '0x1',
+      wallet_switchEthereumChain: () => {
         throw rpcError(4001)
       }
     })

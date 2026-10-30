@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { custom, http, WagmiProvider, createConfig } from 'wagmi'
 import { metaMask } from 'wagmi/connectors'
 import { sintrop } from '../chains/sintrop'
-import { SINTROP_CHAIN_PARAMS } from '../renderer/src/services/sintropChain'
 import { useSettingsContext } from '../renderer/src/hooks/useSettingsContext'
 
 const client = new QueryClient()
@@ -25,11 +24,11 @@ function readTransport(): ReturnType<ReturnType<typeof http>> {
 const config = createConfig({
   ssr: false,
   chains: [sintrop],
-  // Connect and add/select Sintrop in a single trip to the wallet.
+  // The desktop app always pairs with MetaMask mobile by QR code. Over that channel the SDK's
+  // connectWith never resolves, so connect plainly; Sintrop is selected on the first transaction.
   connectors: [
     metaMask({
-      dappMetadata: { name: 'Regeneration Credit', url: 'https://regenerationcredit.org' },
-      connectWith: { method: 'wallet_addEthereumChain', params: [SINTROP_CHAIN_PARAMS] }
+      dappMetadata: { name: 'Regeneration Credit', url: 'https://regenerationcredit.org' }
     })
   ],
   transports: {

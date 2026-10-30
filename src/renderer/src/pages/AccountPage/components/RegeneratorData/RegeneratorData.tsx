@@ -59,6 +59,7 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
       <div className="flex gap-5 mt-5 items-start">
         {regenerator && (
           <div className="flex flex-col gap-5 flex-1">
+            <CertificatesCard address={address} userType={1} />
             <div className="flex flex-col rounded-2xl bg-card-primary p-5">
               <p className="text-white font-bold mb-2">{t('common.data')}</p>
               <DataRow label="ID" value={formatUnits(BigInt(regenerator?.id), 0)} />
@@ -89,7 +90,6 @@ export function RegeneratorData({ address, profilePage }: UserTypeContentProps):
               />
             </div>
 
-            <CertificatesCard address={address} userType={1} />
             <RegenerationAreaMap address={address} />
             <InspectionsCard address={address} />
             <DelationsCard address={address} />

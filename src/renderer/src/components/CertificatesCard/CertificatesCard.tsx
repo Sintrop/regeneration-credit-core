@@ -9,7 +9,6 @@ import { Abi, formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 import { Jazzicon } from '@ukstv/jazzicon-react'
 
-import BGFlorest from '@renderer/assets/images/bg-florest.jpg'
 import RCLogo from '@renderer/assets/images/rc.png'
 import { useCurrentBlock } from '@renderer/domain/Chain/useCases/useBlockNumber'
 import { useImpactPerToken } from '@renderer/hooks/useImpactPerToken'
@@ -72,24 +71,21 @@ function Certificate({
         ref={node}
         className="w-full rounded-2xl overflow-hidden bg-[#0b2219] border border-green-primary/40 text-white"
       >
-        <div className="relative h-24">
-          <img src={BGFlorest} className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0b2219] via-[#0b2219]/80 to-transparent" />
-          <div className="relative h-full px-6 flex items-center gap-3">
-            <img src={RCLogo} className="w-10 h-10 object-contain" />
-            <div>
-              <p className="font-bold uppercase tracking-wide">{t('common.regenerationCredit')}</p>
-              <p className="text-green-primary text-xs font-semibold uppercase tracking-wider">
-                {title}
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div className="p-6 flex gap-6">
           <div className="flex-1 min-w-0 flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <div className="relative w-16 h-16 shrink-0 rounded-full overflow-hidden border-2 border-green-primary">
+            <div className="flex items-center gap-3">
+              <img src={RCLogo} className="w-11 h-11 object-contain" />
+              <div>
+                <p className="text-lg font-bold uppercase tracking-wide leading-tight">
+                  {t('common.regenerationCredit')}
+                </p>
+                <p className="text-green-primary text-xs font-semibold uppercase tracking-wider">
+                  {title}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 pb-4 border-b border-white/10">
+              <div className="relative w-8 h-8 shrink-0 rounded-full overflow-hidden">
                 <Jazzicon address={address} className="w-full h-full" />
                 {photo && (
                   <img
@@ -99,10 +95,10 @@ function Certificate({
                   />
                 )}
               </div>
-              <div className="min-w-0">
-                <p className="text-xl font-bold truncate">{name}</p>
-                <p className="text-green-primary text-sm">{typeLabel}</p>
-              </div>
+              <p className="min-w-0 text-sm text-gray-200 truncate">
+                {name}
+                <span className="text-gray-400"> · {typeLabel}</span>
+              </p>
             </div>
             <div>
               <p className="text-gray-400 text-xs">{highlight.label}</p>

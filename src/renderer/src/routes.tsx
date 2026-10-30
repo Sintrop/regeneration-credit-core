@@ -20,6 +20,10 @@ import { UserDetailsPage } from './pages/UserDetailsPage/UserDetailsPage'
 import { ResourceDetailsPage } from './pages/ResourceDetailsPage/ResourceDetailsPage'
 import { IpfsPage } from './pages/IpfsPage/IpfsPage'
 import { ResourcesPage } from './pages/ResourcesPage/ResourcesPage'
+import { MarketPage } from './pages/MarketPage/MarketPage'
+import { HelpPage } from './pages/HelpPage/HelpPage'
+import { MiningPage } from './pages/MiningPage/MiningPage'
+import { ErasPage } from './pages/ErasPage/ErasPage'
 import { RcIndexPage } from './pages/RcIndexPage/RcIndexPage'
 import { ImpactCalculator } from './pages/ImpactCalculator/ImpactCalculator'
 
@@ -39,6 +43,10 @@ export function AppRoutes(): React.JSX.Element {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/market" element={<MarketPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/mining" element={<MiningPage />} />
+        <Route path="/eras" element={<ErasPage />} />
         <Route path="/development" element={<Navigate to="/resources?type=report" replace />} />
         <Route path="/rcstats" element={<RcStatsPage />} />
         <Route

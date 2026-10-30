@@ -1,7 +1,7 @@
+import { Modal } from '@renderer/components/Modal/Modal'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CalculatorItemProps } from '@renderer/types/researcher'
-import { MdClose } from 'react-icons/md'
 import { useAllowance } from '@renderer/domain/Supporter/useCases/useAllowance'
 import { Approve } from './Approve'
 import { Offset } from './Offset'
@@ -49,41 +49,32 @@ export function ModalOffsetCalculator({ item }: Props): JSX.Element {
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="bg-card-primary border border-green-primary/20 p-6 rounded-2xl shadow-2xl w-[500px]">
-            <div className="flex items-center justify-between w-full">
-              <p className="text-white text-lg font-bold">{t('impactCalculator.offset')}</p>
-              <button className="hover:cursor-pointer text-white" onClick={handleCloseModal}>
-                <MdClose size={25} color="white" />
-              </button>
+        <Modal title={<>{t('impactCalculator.offset')}</>} onClose={handleCloseModal}>
+          {isLoadingAllowance ? (
+            <div className="flex w-full h-[300px] items-center justify-center">
+              <Loading size={100} />
             </div>
-
-            {isLoadingAllowance ? (
-              <div className="flex w-full h-[300px] items-center justify-center">
-                <Loading size={100} />
-              </div>
-            ) : (
-              <>
-                {approveMore ? (
-                  <Approve refetchAllowance={handleRefetchTokensAllowed} />
-                ) : (
-                  <>
-                    {tokensAllowed === 0 ? (
-                      <Approve refetchAllowance={handleRefetchTokensAllowed} />
-                    ) : (
-                      <Offset
-                        close={handleCloseModal}
-                        item={item}
-                        tokensAllowed={tokensAllowed}
-                        handleApproveMore={handleApproveMore}
-                      />
-                    )}
-                  </>
-                )}
-              </>
-            )}
-          </div>
-        </div>
+          ) : (
+            <>
+              {approveMore ? (
+                <Approve refetchAllowance={handleRefetchTokensAllowed} />
+              ) : (
+                <>
+                  {tokensAllowed === 0 ? (
+                    <Approve refetchAllowance={handleRefetchTokensAllowed} />
+                  ) : (
+                    <Offset
+                      close={handleCloseModal}
+                      item={item}
+                      tokensAllowed={tokensAllowed}
+                      handleApproveMore={handleApproveMore}
+                    />
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </Modal>
       )}
     </div>
   )

@@ -38,6 +38,7 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
       {supporter && (
         <div className="flex gap-5 mt-5 items-start">
           <div className="flex flex-col flex-1 gap-5">
+            <CertificatesCard address={address} userType={7} />
             <SupporterCompensations address={address} />
             <div className="flex flex-col rounded-2xl bg-card-primary p-5">
               <p className="text-white font-bold mb-2">{t('common.data')}</p>
@@ -47,8 +48,6 @@ export function SupporterData({ address }: UserTypeContentProps): JSX.Element {
                 value={formatUnits(BigInt(supporter?.createdAt), 0)}
               />
             </div>
-
-            <CertificatesCard address={address} userType={7} />
           </div>
 
           <div className="flex flex-col gap-5 flex-1 max-w-[420px]">

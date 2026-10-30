@@ -122,7 +122,10 @@
       "all": "All",
       "read": "Read",
       "write": "Write"
-    }
+    },
+    "rcMarket": "RC Market",
+    "descRcMarket": "Board of Regeneration Credit offers between people. Payment is arranged off chain and the seller records the sale.",
+    "openFromHelp": "Read and interact with the contracts"
   },
   "pools": {
     "title": "Pools",
@@ -504,7 +507,8 @@
     "close": "Close",
     "copiedToClipboard": "Copied to clipboard",
     "uploadingFile": "Uploading file",
-    "erroOnUploadFileToIpfs": "Error on upload file to IPFS"
+    "erroOnUploadFileToIpfs": "Error on upload file to IPFS",
+    "walletHint": "Open MetaMask on your phone and approve the transaction."
   },
   "register": {
     "title": "Registration",
@@ -721,13 +725,14 @@
     "insufficientBalance": "Insufficient balance",
     "addressCopied": "Address copied",
     "copyAddress": "Copy address",
-    "compensateTokens": "Compensate {{tokens}} Regeneration Credits"
+    "compensateTokens": "Compensate {{tokens}} Regeneration Credits",
+    "copiedToClipboard": "Copied to clipboard!"
   },
   "descActions": {
     "burnTokens": "Compensate your environmental degradation by burning Regeneration Credit tokens. Burning tokens permanently removes them from circulation and increases your compensation certificate.",
     "invite": "Allows a user to attempt to invite another wallet to the community.",
     "addDelation": "Allows registered users (excluding Supporters) to report other users or resources that may require invalidation.",
-    "withdraw": "",
+    "withdraw": "Withdraws the Regeneration Credits of the next closed era in your pool. Each withdrawal processes one era; details and the estimate are on your pool page.",
     "requestInspection": "Regenerators agree to receive an inspector to assess their registered area. They can make an allowedInitialRequests number of requests without delay. After that, they must wait timeBetweenInspections blocks between requests. A hard limit of 6 total inspections is enforced.",
     "acceptInspection": "Inspectors must only accept inspections they are capable of performing, being aware of the safety risks and responsibilities. Accepting an inspection counts as a 'give-up' until realized. Inspectors can only accept one open inspection at a time and cannot inspect the same regenerator twice. They must also adhere to specific delays and security windows.",
     "addResearch": "Allows a registered researcher to publish a new 'research' report. A 'research' can be a new calculator item, a new methodology or improvement of current ones or a generic regeneration research.",
@@ -822,7 +827,6 @@
     "inviterPenalties": "Inviter penalties",
     "addDelation": "Add delation",
     "delations": "Reports",
-    "mapUnavailable": "Outline of the area from the registered coordinates. The satellite map shows when the Mapbox token is configured.",
     "coordinatesCount_one": "{{count}} registered coordinate",
     "coordinatesCount_other": "{{count}} registered coordinates",
     "openMap": "Open on map"
@@ -841,7 +845,8 @@
     "advanced": "Advanced",
     "myAccount": "My account",
     "network": "Network",
-    "impact": "Impact"
+    "impact": "Impact",
+    "token": "Token"
   },
   "shell": {
     "settings": "Settings",
@@ -1203,7 +1208,16 @@
     "add": "Add",
     "ipfsDescription": "Servers used to upload files and show photos and documents.",
     "ipfsToolTitle": "Upload a file to IPFS",
-    "ipfsToolText": "Get the hash of a photo or document to use in transactions."
+    "ipfsToolText": "Get the hash of a photo or document to use in transactions.",
+    "mapboxDescription": "Satellite maps of the regenerators' areas, on profiles and registration. If Mapbox fails, the map switches to OpenStreetMap, free and keyless.",
+    "mapboxCurrent": "Token in use",
+    "mapboxMissing": "No token configured: maps use OpenStreetMap.",
+    "mapboxOwn": "Use my own public Mapbox token",
+    "mapboxUse": "Use this token",
+    "mapboxRestore": "Back to the default token",
+    "mapboxSaved": "Mapbox token updated",
+    "mapboxRestored": "Default token restored",
+    "mapboxNote": "Use a public token (it starts with pk.). It is saved on this computer only."
   },
   "txPage": {
     "title": "Transaction",
@@ -1244,6 +1258,269 @@
       "5": "Contributes with translation, design, community.",
       "6": "Invites regenerators and inspectors.",
       "7": "Offsets degradation by funding regeneration."
+    },
+    "mapHint": "Click the map to mark the corners of the area, 3 to 10 points."
+  },
+  "market": {
+    "title": "RC Market",
+    "back": "Back",
+    "loadingOffers": "Loading offers...",
+    "noOffers": "No offers available",
+    "offer": "Offer #{{id}}",
+    "statusActive": "Active",
+    "statusSold": "Sold",
+    "statusCancelled": "Cancelled",
+    "statusUnknown": "Unknown",
+    "amount": "Amount",
+    "unitPrice": "Unit price",
+    "payment": "Payment",
+    "seller": "Seller",
+    "buy": "Buy",
+    "cancel": "Cancel",
+    "complete": "Complete",
+    "publishOffer": "+ Publish offer",
+    "newOffer": "New offer",
+    "amountLabel": "RC amount",
+    "priceLabel": "Price per RC (R$)",
+    "paymentMethodLabel": "Payment method",
+    "cash": "Cash",
+    "descriptionLabel": "Description and contact",
+    "descriptionPlaceholder": "E.g.: Selling X Credits for Y BRL each. Contact: mycontact@contact.com",
+    "publish": "Publish",
+    "buyTitle": "Buy",
+    "buyMessage": "The market is informational only. Contact the seller using the information in the offer and buy directly from them.",
+    "cancelOfferTitle": "Cancel offer",
+    "cancelOfferMessage": "Are you sure you want to cancel this offer?",
+    "confirmSaleTitle": "Complete sale",
+    "confirmSaleMessage": "Enter the buyer wallet address:",
+    "connectWalletFirst": "Connect your wallet first",
+    "fillAllFields": "Fill in all fields",
+    "descriptionTooLong": "The description must have at most 500 characters",
+    "priceTooLong": "The price must have at most 50 characters",
+    "error": "Error",
+    "errorCreatingOffer": "Error creating offer",
+    "errorCancelingOffer": "Error canceling offer",
+    "errorConfirmingSale": "Error confirming sale",
+    "offerCreated": "Offer published",
+    "offerCancelled": "Offer cancelled",
+    "saleConfirmed": "Sale completed"
+  },
+  "marketPage": {
+    "howTitle": "How the market works",
+    "activeOffers": "Active offers",
+    "sales": "Completed sales",
+    "newOfferHint": "The offer is recorded in the RCMarket contract. Payment and delivery of the RC are arranged between you and the buyer.",
+    "integerAmount": "Use a whole amount of RC.",
+    "confirmHint": "After receiving the payment and transferring the RC, record the sale with the buyer address. The offer is closed.",
+    "filter": {
+      "all": "All",
+      "mine": "My offers"
     }
+  },
+  "help": {
+    "title": "Help",
+    "welcomeTitle": "Welcome to Regeneration Credit",
+    "welcomeText": "Peer-to-peer Nature regeneration system. Here are the steps to get started, the Sintrop network data and answers to the most common questions.",
+    "newcomerTitle": "New here?",
+    "newcomerText": "See how to get started, set up your wallet and register.",
+    "settingsLink": "Getting started, network data, contract addresses and FAQ.",
+    "stepsTitle": "Getting started",
+    "steps": {
+      "wallet": {
+        "title": "Install MetaMask",
+        "text": "The app uses the MetaMask wallet to sign transactions. Install the MetaMask app and create your wallet. Keep the recovery phrase in a safe place and never share it."
+      },
+      "network": {
+        "title": "Add the Sintrop network",
+        "text": "Regeneration Credit runs on the Sintrop network. Click the button below and approve in MetaMask: the network is added and selected, and if your wallet is not connected yet, it connects in the same step. If you prefer, add the network by hand with the data further below."
+      },
+      "connect": {
+        "title": "Connect your wallet",
+        "text": "Click Connect at the top of the home screen and approve in MetaMask. After approving, come back to the app."
+      },
+      "gas": {
+        "title": "Buy, receive or mine SINTROP",
+        "text": "SINTROP is the Sintrop network unit and pays the fee of every transaction, such as registration. You can receive it from another user, copying your wallet address from your profile, or mine it with your own computer."
+      },
+      "register": {
+        "title": "Register",
+        "text": "Supporter registration is open to any wallet. The other user types need an invitation recorded on the blockchain for your wallet address. With your wallet connected, the home screen shows the registration option."
+      },
+      "earn": {
+        "title": "Buy RC or provide a service",
+        "text": "To have credits in your wallet, buy RC from another user in the Market or provide a service to the system, such as regenerating, inspecting, researching, developing, contributing or inviting new users. Each service earns tokens from the pools every era."
+      },
+      "token": {
+        "title": "See your RC in MetaMask",
+        "text": "In MetaMask, with the Sintrop network selected, use Import token and paste the RC token contract address shown below."
+      }
+    },
+    "downloadMetamask": "Download MetaMask",
+    "metamaskManual": "MetaMask guide (PDF, Portuguese)",
+    "addNetwork": "Add Sintrop network to MetaMask",
+    "copy": "Copy",
+    "networkTitle": "Sintrop network data",
+    "networkText": "Use this data to add the network by hand in MetaMask. Click a field to copy it.",
+    "networkName": "Network name",
+    "rpcUrl": "RPC URL",
+    "chainId": "Chain ID",
+    "currencySymbol": "Currency symbol (in MetaMask)",
+    "explorer": "Block explorer",
+    "tokenTitle": "Regeneration Credit token (RC)",
+    "tokenText": "Data to import RC into your wallet.",
+    "tokenAddress": "Contract address",
+    "tokenSymbol": "Symbol",
+    "tokenDecimals": "Decimals",
+    "contractsTitle": "Protocol contracts",
+    "contractsText": "The contracts are deployed on the Sintrop network, were audited by Nethermind Security and are open source on GitHub.",
+    "showContracts": "Show the {{count}} addresses",
+    "hideContracts": "Hide addresses",
+    "faqTitle": "Frequently asked questions",
+    "faq": {
+      "whatIs": {
+        "q": "What is Regeneration Credit?",
+        "a": "It is a peer-to-peer payment for environmental services. Those who regenerate ecosystems earn Regeneration Credit (RC) tokens, and the impact behind each token is verified by a decentralized inspection process."
+      },
+      "howEarn": {
+        "q": "How does someone earn RC?",
+        "a": "Each user type has a pool that distributes tokens every era, in proportion to each user's level within their type. The level goes up by doing the role's work: the regenerator through the results of their area's inspections, the inspector per inspection carried out, the researcher per published research, the developer and the contributor per report, and the activist when an invited user completes their first inspections."
+      },
+      "buy": {
+        "q": "How do I buy Regeneration Credit?",
+        "a": "Through the app's Market. It lists the offers published by users, with the amount, the price per RC, the payment method and the seller's contact. Arrange the purchase directly with the seller and give them your wallet address to receive the RC. The app does not handle the payment, so check the seller's address before paying, since names can repeat."
+      },
+      "invite": {
+        "q": "Do I need an invitation to register?",
+        "a": "Only Supporters register without an invitation. Activists invite regenerators, inspectors and other activists. Researchers, developers and contributors are invited by users of the same type. The invitation is recorded on the blockchain for the invited wallet address, so ask for the invitation and then register with the same wallet."
+      },
+      "sin": {
+        "q": "What is SINTROP and why do I need it?",
+        "a": "Regeneration Credit uses the Sintrop blockchain, a distributed database kept by the computers connected to the network. The computers that find blocks earn SINTROP, the network's unit of syntropy, which pays transaction fees: registration, invitations, inspections, publications, votes, withdrawals and offsets. Browsing data in the app is free. You can receive SINTROP from another user or mine it on your computer. In MetaMask the currency shows with the symbol SIN."
+      },
+      "eras": {
+        "q": "What are eras and epochs?",
+        "a": "The protocol is divided into eras of about 6 months. In each era, the pools distribute a fixed amount of tokens. Every 12 eras (one epoch), the emission per era is cut in half. The time until the next era is shown at the top of the home screen."
+      },
+      "withdraw": {
+        "q": "How do I withdraw my tokens?",
+        "a": "In Withdraw tokens, choose the pool for your user type. The tokens of an era become available for withdrawal after it ends, according to your level in that era."
+      },
+      "inspection": {
+        "q": "How does an inspection work?",
+        "a": "The regenerator requests an inspection of their area. An inspector accepts the request, visits the area within the deadline and records the tree and species counts, with photos and a report. Each inspector can inspect the same regenerator only once. The regenerator starts receiving tokens after 3 inspections by 3 different inspectors."
+      },
+      "validation": {
+        "q": "Who checks that the information is true?",
+        "a": "Researchers, developers and contributors form the validation layer and vote to invalidate fraudulent users, inspections and publications. Each record can only be challenged during the era in which it was created."
+      },
+      "offset": {
+        "q": "What is offsetting?",
+        "a": "The supporter exchanges RC for a certificate: the tokens are burned and the certificate records on the blockchain how much verified regeneration that offset funded. If the supporter was invited, 5% of an offset made through the app goes to whoever invited them."
+      },
+      "security": {
+        "q": "Are my funds safe?",
+        "a": "MetaMask is a self-custody wallet, which means only you hold the keys. The app never asks for your recovery phrase, and every transaction must be confirmed by you in MetaMask. Never share your recovery phrase with anyone."
+      },
+      "rpc": {
+        "q": "The app does not load data. What should I do?",
+        "a": "The app reads the blockchain through a public RPC server. If it becomes unstable, a warning appears at the top of the screen. You can switch the RPC in Settings or try again later."
+      }
+    },
+    "moreInfo": "More information on the Regeneration Credit website",
+    "openProfile": "Open my profile",
+    "openMarket": "Open Market",
+    "connected": "Wallet connected ✓",
+    "howToMine": "How to mine SINTROP",
+    "networkAdded": "Sintrop network selected in the wallet"
+  },
+  "mining": {
+    "title": "Mine SINTROP",
+    "settingsTitle": "Mine SINTROP (advanced)",
+    "settingsText": "Run a Sintrop network node on your computer and earn SINTROP for the blocks you find.",
+    "introTitle": "The network behind Regeneration Credit",
+    "introText": "Regeneration Credit runs on the Sintrop blockchain, a distributed database kept by the computers connected to the network, the nodes. Each node stores a copy of every transaction and helps process new ones. The computers that find blocks are rewarded with SINTROP, the network's unit of syntropy, which also pays every transaction fee.",
+    "introSmallNetwork": "Results depend on the network difficulty, but it is possible to find some blocks even mining with the processor alone. That way anyone can get SINTROP for fees and register as a supporter without depending on anyone.",
+    "addressTitle": "Address that receives the reward",
+    "addressConnected": "The reward goes to the connected wallet. The address is already filled in the commands below.",
+    "addressPaste": "Paste your wallet address. It is filled in the commands below.",
+    "os": {
+      "windows": "Windows",
+      "ubuntu": "Ubuntu",
+      "macos": "macOS"
+    },
+    "downloadTitle": "Download go-sintrop",
+    "download": {
+      "windows": "On your computer, download the {{file}} file from the go-sintrop releases page.",
+      "ubuntu": "On your computer, download the {{file}} file from the go-sintrop releases page.",
+      "macos": "On your computer, download the {{file}} file from the go-sintrop releases page."
+    },
+    "macAppleSilicon": "The macOS build runs on Macs with Apple chips (M1 or newer).",
+    "downloadButton": "Download go-sintrop {{version}}",
+    "openReleases": "Open releases page",
+    "extractTitle": "Extract the file",
+    "extract": {
+      "windows": "In the Downloads folder, right-click the file and choose Extract All. Open the extracted folder, which contains geth.exe.",
+      "ubuntu": "Extract the file from the folder itself (right-click > Extract Here) and open Terminal inside the extracted folder. If you prefer to do it all in Terminal, use the commands below. Click a command to copy it.",
+      "macos": "Extract the file from the folder itself (double-click the .zip) and open Terminal inside the extracted folder. Before the first run, run the last command below: it unblocks geth, which macOS blocks because it came from the internet. If you prefer to do it all in Terminal, run all the commands in order."
+    },
+    "runTitle": "Start the node",
+    "run": {
+      "windows": "In the geth.exe folder, click the address bar, type powershell and press Enter. In the PowerShell window, paste and run the command below.",
+      "ubuntu": "In the same Terminal, paste and run the command below.",
+      "macos": "In the same Terminal, paste and run the command below."
+    },
+    "runAddressFilled": "Your address is already in the command, in the miner.etherbase field.",
+    "runAddressMissing": "Enter your wallet address above so it goes into the command, in the miner.etherbase field.",
+    "syncTitle": "Wait for the sync",
+    "syncText": "The node starts downloading a full copy of the blockchain. This takes a while. It is in sync when the block number in the Terminal reaches the network's current block.",
+    "currentBlock": "Network's current block: {{block}}",
+    "mineTitle": "Start mining",
+    "mineText": "With the node in sync, type in the geth console:",
+    "stopText": "To stop mining:",
+    "exitText": "To shut the node down safely, press Ctrl + D. Do not just close the window.",
+    "rewardTitle": "Receive and use SINTROP",
+    "rewardText": "Each block found sends the reward to your address. The balance shows in My tokens. With SINTROP in your wallet you can pay fees and register as a supporter.",
+    "openMyTokens": "Open My tokens",
+    "registerSupporter": "Register",
+    "tipsTitle": "Tips",
+    "tipComputerOn": "The computer must stay on and online while mining. The longer it mines, the more chances to find blocks.",
+    "tipRenewable": "The Sintrop network encourages renewable energy, such as solar, wind or hydro, for mining computers.",
+    "guideTitle": "Complete guide",
+    "guideText": "To build a dedicated computer, mine with a graphics card and solve common problems, see the complete node and mining guide for Ubuntu, published as a community contribution.",
+    "openGuide": "Open the complete guide",
+    "openTutorials": "Tutorials at sintrop.com",
+    "commandCopied": "Command copied",
+    "unknownSourceTitle": "Unknown source warning",
+    "unknownSourceText": "Your browser and system will warn that the program comes from an unknown source. This is expected: go-sintrop is open source and comes straight from Sintrop's official GitHub repository. Allow the download and the execution to continue.",
+    "unknownSource": {
+      "windows": "On Windows, keep the file when the browser asks. If \"Windows protected your PC\" appears, click More info and then Run anyway.",
+      "ubuntu": "On Ubuntu, keep the file when the browser asks.",
+      "macos": "On macOS, the unblock command in step 2 clears the block. If the warning still appears, open System Settings > Privacy & Security and click Open Anyway."
+    }
+  },
+  "eras": {
+    "title": "Eras and halving",
+    "menu": "Eras and halving",
+    "now": "Now",
+    "eraEpoch": "Era {{era}} · Epoch {{epoch}}",
+    "progress": "{{elapsed}} of {{total}} blocks of this era ({{percent}}%)",
+    "erasOfEpoch": "The 12 eras of epoch {{epoch}}",
+    "eraTitle": "Era",
+    "eraValue": "{{blocks}} blocks ≈ {{days}} days",
+    "eraText": "Network time is counted in blocks. Each era gathers everyone's work; an era's credits are withdrawn after it ends.",
+    "epochTitle": "Epoch",
+    "epochValue": "{{eras}} eras ≈ {{years}} years",
+    "epochText": "Eras are grouped into epochs. Within an epoch, every era distributes the same amount of credits.",
+    "halvingTitle": "Halving",
+    "halvingValue": "half every epoch",
+    "halvingText": "When an epoch ends, the amount distributed per era is cut in half. Credits become scarcer over time and early participants receive more.",
+    "scheduleTitle": "Credits distributed per era",
+    "scheduleText": "Sum of all pools in one era of each epoch, read from the contracts (tokensPerEra).",
+    "scheduleNote": "Each epoch distributes half of the previous one; the epochs add up to each pool's total.",
+    "epochShort": "Epoch {{epoch}}",
+    "distributionTitle": "Distribution model",
+    "distributionText": "{{total}} RC are reserved in the pools. Each pool rewards one kind of work, and most of it goes to those who regenerate.",
+    "levelsText": "Within a pool, an era's credits are split by the levels each user earned in it: regenerators by the regeneration score of each inspection, inspectors per inspection carried out, researchers, developers and contributors by what they publish, and activists as their invitees progress through inspections.",
+    "openPools": "See the pools and withdraw"
   }
 }

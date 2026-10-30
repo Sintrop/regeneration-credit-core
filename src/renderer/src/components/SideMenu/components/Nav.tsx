@@ -1,7 +1,7 @@
 import { Icon, IconName } from '@renderer/components/Icon/Icon'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdPersonOutline } from 'react-icons/md'
+import { MdBolt, MdHelpOutline, MdPersonOutline, MdTimeline } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useUserContext } from '@renderer/hooks/useUserContext'
@@ -32,8 +32,15 @@ const SECTIONS: NavSection[] = [
         path: '/account',
         connectedOnly: true
       },
-      { icon: 'myTokens', label: 'myTokens.title', path: '/my-tokens' },
-      { icon: 'pools', label: 'pools.title', path: '/pools' }
+      { icon: 'myTokens', label: 'myTokens.title', path: '/my-tokens' }
+    ]
+  },
+  {
+    title: 'nav.token',
+    items: [
+      { icon: 'pools', label: 'home.shortcuts.withdrawTokens', path: '/pools' },
+      { icon: 'rc', label: 'market.title', path: '/market' },
+      { iconNode: <MdTimeline size={21} />, label: 'eras.menu', path: '/eras' }
     ]
   },
   {
@@ -56,7 +63,9 @@ const SECTIONS: NavSection[] = [
     title: 'nav.advanced',
     items: [
       { icon: 'contracts', label: 'contracts.title', path: '/contracts' },
-      { icon: 'ipfs', label: 'IPFS', path: '/ipfs' }
+      { icon: 'ipfs', label: 'IPFS', path: '/ipfs' },
+      { iconNode: <MdBolt size={21} />, label: 'mining.title', path: '/mining' },
+      { iconNode: <MdHelpOutline size={21} />, label: 'help.title', path: '/help' }
     ]
   }
 ]

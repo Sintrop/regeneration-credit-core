@@ -1,3 +1,4 @@
+import { Modal } from '@renderer/components/Modal/Modal'
 import { useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
@@ -11,7 +12,6 @@ import {
 } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdClose } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { formatUnits } from 'viem'
 import { useAccount, useBlockNumber, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
@@ -107,15 +107,8 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
-      <div className="bg-card-primary border border-green-primary/20 p-6 rounded-2xl shadow-2xl w-96">
-        <div className="flex items-center justify-between w-full">
-          <p className="text-white text-lg font-bold">{t('actions.acceptInspection')}</p>
-          <button className="hover:cursor-pointer text-white" onClick={close}>
-            <MdClose color="white" size={25} />
-          </button>
-        </div>
-
+    <>
+      <Modal title={<>{t('actions.acceptInspection')}</>} onClose={close}>
         {userType === -1 || blockNumber === 0 ? (
           <div className="flex flex-col items-center justify-center w-full h-[200px] overflow-hidden">
             <Loading />
@@ -164,7 +157,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
             )}
           </div>
         )}
-      </div>
+      </Modal>
 
       {displayLoadingTx && (
         <TransactionLoading
@@ -178,6 +171,6 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
           transactionHash={hash}
         />
       )}
-    </div>
+    </>
   )
 }

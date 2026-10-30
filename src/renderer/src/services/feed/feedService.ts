@@ -116,7 +116,10 @@ export async function fetchFeed(rpcUrl: string): Promise<FeedEvent[]> {
     ),
     ...withdrawals.flatMap((poolLogs, index) =>
       poolLogs.map((log) =>
-        toFeedEvent('withdrawal', log, 'user', { amount: weiToAmount(log.args.amount), poolType: POOLS[index][1] })
+        toFeedEvent('withdrawal', log, 'user', {
+          amount: weiToAmount(log.args.amount),
+          poolType: POOLS[index][1]
+        })
       )
     )
   ]

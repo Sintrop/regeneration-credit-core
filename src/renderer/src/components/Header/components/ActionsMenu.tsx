@@ -19,7 +19,10 @@ export function ActionsMenu(): JSX.Element | null {
   useEffect(() => {
     if (!open) return
     const closeOnOutsideClick = (event: MouseEvent): void => {
-      if (!container.current?.contains(event.target as Node)) setOpen(false)
+      const target = event.target as HTMLElement
+      // Dialogs opened from the menu render in document.body; clicks in them are not outside clicks.
+      if (target.closest?.('[data-modal-root]')) return
+      if (!container.current?.contains(target)) setOpen(false)
     }
     window.addEventListener('mousedown', closeOnOutsideClick)
     return (): void => window.removeEventListener('mousedown', closeOnOutsideClick)

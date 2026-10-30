@@ -2,15 +2,14 @@ import { toast } from 'react-toastify'
 import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
 import { clampToBytes } from '@renderer/utils/byteLength'
 import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
 import { useWaitForTransactionReceipt } from 'wagmi'
 import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import { AreaMap, Point } from '@renderer/components/AreaMap/AreaMap'
 import { calculateArea } from '@renderer/services/calculateArea'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
@@ -18,7 +17,6 @@ import { TransactionLoading } from '@renderer/components/TransactionLoading/Tran
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 
-const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
   name: string
   /** Every contract requirement to register (invitation, vacancies, inviter standing). */
@@ -37,9 +35,6 @@ export function RegeneratorRegistration({ name, requirementsMet, success }: Prop
   const [proofPhoto, setProofPhoto] = useState('')
   const [description, setDescription] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
-  const mapRef = useRef<mapboxgl.Map>()
-  const mapContainerRef = useRef<HTMLDivElement>()
-  const markersRef = useRef<mapboxgl.Marker[]>([])
   const [coordinates, setCoordinates] = useState<CoordinateProps[]>([])
   const [totalArea, setTotalArea] = useState(0)
   const [uploadingImage, setUploadingImage] = useState(false)
@@ -55,104 +50,6 @@ export function RegeneratorRegistration({ name, requirementsMet, success }: Prop
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
 
   useEffect(() => {
-    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
-    mapRef.current = new mapboxgl.Map({
-      container: mapContainerRef?.current as HTMLDivElement,
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-48.08, -23.29],
-      zoom: 1
-    })
-
-    mapRef.current.on('load', () => {
-      mapRef.current!.addSource('polygon', {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'Polygon',
-            coordinates: [[]]
-          }
-        }
-      })
-
-      mapRef.current!.addLayer({
-        id: 'polygon-layer',
-        type: 'fill',
-        source: 'polygon',
-        layout: {},
-        paint: {
-          'fill-color': '#088',
-          'fill-opacity': 0.3
-        }
-      })
-
-      mapRef.current!.addLayer({
-        id: 'polygon-border',
-        type: 'line',
-        source: 'polygon',
-        layout: {},
-        paint: {
-          'line-color': '#088',
-          'line-width': 2
-        }
-      })
-    })
-
-    mapRef.current.on('click', (e) => {
-      setCoordinates((prevState) => [
-        ...prevState,
-        { latitude: e.lngLat.lat.toString(), longitude: e.lngLat.lng.toString() }
-      ])
-    })
-
-    return (): void => {
-      mapRef.current?.remove()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!mapRef.current) return
-
-    markersRef.current.forEach((marker) => marker.remove())
-    markersRef.current = []
-
-    coordinates.forEach((coordinate) => {
-      const marker = new mapboxgl.Marker()
-        .setLngLat([parseFloat(coordinate?.longitude), parseFloat(coordinate?.latitude)])
-        .addTo(mapRef.current!)
-
-      markersRef.current.push(marker)
-    })
-
-    if (coordinates.length > 2) {
-      const polygonCoords: [number, number][] = coordinates.map((coord) => [
-        parseFloat(coord.longitude),
-        parseFloat(coord.latitude)
-      ])
-      if (polygonCoords.length > 0) {
-        polygonCoords.push([...polygonCoords[0]])
-      }
-
-      ;(mapRef.current!.getSource('polygon') as mapboxgl.GeoJSONSource)?.setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Polygon',
-          coordinates: [polygonCoords]
-        }
-      })
-    } else {
-      ;(mapRef.current!.getSource('polygon') as mapboxgl.GeoJSONSource)?.setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Polygon',
-          coordinates: [[]]
-        }
-      })
-    }
-
     handleCalculateArea()
   }, [coordinates])
 
@@ -226,6 +123,19 @@ export function RegeneratorRegistration({ name, requirementsMet, success }: Prop
     setCoordinates([])
   }
 
+  const points = useMemo<Point[]>(
+    () => coordinates.map((c) => [parseFloat(c.longitude), parseFloat(c.latitude)]),
+    [coordinates]
+  )
+
+  const addPoint = useCallback((latitude: number, longitude: number): void => {
+    setCoordinates((prevState) =>
+      prevState.length >= 10
+        ? prevState
+        : [...prevState, { latitude: latitude.toFixed(6), longitude: longitude.toFixed(6) }]
+    )
+  }, [])
+
   function handleDeleteLastPoint(): void {
     setCoordinates((prevState) => prevState.slice(0, -1))
   }
@@ -251,10 +161,11 @@ export function RegeneratorRegistration({ name, requirementsMet, success }: Prop
       <div className="flex flex-col w-full mt-3">
         <p className="text-gray-300 text-sm">{t('register.demarcateYourRegenerationArea')}</p>
 
-        <div
-          //@ts-ignore
-          ref={mapContainerRef}
-          className="w-full h-[300px] rounded-xl overflow-hidden mt-1"
+        <p className="text-gray-400 text-xs mt-1">{t('registerPage.mapHint')}</p>
+        <AreaMap
+          points={points}
+          onMapClick={addPoint}
+          className="h-[340px] mt-2 cursor-crosshair"
         />
 
         <p className="text-white mt-1">
