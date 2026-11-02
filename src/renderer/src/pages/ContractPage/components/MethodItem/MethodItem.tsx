@@ -23,9 +23,9 @@ export function MethodItem({ method, contract }: Props): JSX.Element {
   if (method.type !== 'function') return <div />
 
   return (
-    <div className="flex flex-col w-full px-3 py-2 bg-container-primary rounded-lg mb-5">
+    <div className="flex flex-col w-full px-4 py-3 bg-card-primary rounded-xl">
       <button
-        className="flex items-center justify-between text-white hover:cursor-pointer"
+        className="flex items-center justify-between gap-3 text-white font-mono text-sm hover:cursor-pointer"
         onClick={toggleOpenMethod}
       >
         <div className="flex items-center gap-3">

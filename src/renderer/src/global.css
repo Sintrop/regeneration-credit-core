@@ -1,23 +1,41 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: green;
-  --color-container-primary: #03364b;
-  --color-container-secondary: #012939;
+  /* Same palette as the mobile app (regeneration-credit-mobile/src/theme/colors.js). */
+  --color-background: #0e2a1f;
+  --color-surface: #0e2a1f;
+  --color-card-primary: #173d2e;
+  --color-card-secondary: #0b2219;
+  --color-skeleton: #2c5a47;
   --color-green-primary: #75d63a;
   --color-green-secondary: #062c01;
-  --color-green-card: #053530;
-  --color-green-header: #044640;
+  --color-green-header: #0a2118;
   --color-green-btn: #229b13;
   --color-blue-primary: #3e9ef5;
 
-  --color-green-1: #25b514;
-  --color-bg: #26282a;
-  --color-card-1: #03364b;
-  --color-card-2: #012939;
-  --color-card-3: #323232;
+  /* Older token names, kept so every screen follows the same palette. */
+  --color-container-primary: #173d2e;
+  --color-container-secondary: #0b2219;
+  --color-green-card: #173d2e;
+  --color-green-1: #75d63a;
+  --color-bg: #0e2a1f;
+  --color-card-1: #173d2e;
+  --color-card-2: #0b2219;
+  --color-card-3: #2c5a47;
 }
 
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+html,
+body,
+#root {
+  background-color: var(--color-background);
+}
+
+/* Tailwind's base resets every img; Leaflet tiles need their exact size or seams show between them. */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
 }

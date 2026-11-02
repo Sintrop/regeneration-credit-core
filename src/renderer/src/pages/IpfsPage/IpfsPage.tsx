@@ -1,106 +1,130 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { FaExternalLinkAlt, FaRegCopy } from 'react-icons/fa'
+import { MdUploadFile } from 'react-icons/md'
+import { toast } from 'react-toastify'
+
 import { ScreenPage } from '@renderer/components/ScreenPage/ScreenPage'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { uploadToIpfs } from '@renderer/services/ipfs'
-import { ChangeEvent, JSX, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { FaRegCopy } from 'react-icons/fa'
+
+function CopyRow({
+  label,
+  value,
+  copied
+}: {
+  label: string
+  value: string
+  copied: string
+}): JSX.Element {
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="text-gray-400 text-xs">{label}</span>
+      <div className="flex items-center gap-3 p-3 rounded-xl bg-card-secondary">
+        <span className="flex-1 min-w-0 text-white text-sm font-mono truncate">{value}</span>
+        <button
+          className="p-1 text-gray-300 hover:text-white hover:cursor-pointer"
+          onClick={() => {
+            navigator.clipboard.writeText(value)
+            toast.success(copied)
+          }}
+        >
+          <FaRegCopy size={15} />
+        </button>
+      </div>
+    </div>
+  )
+}
 
 export function IpfsPage(): JSX.Element {
-  const { ipfsApiUrl, ipfsGatewayURL } = useSettingsContext()
   const { t } = useTranslation()
-  const [file, setFile] = useState<FileList>()
+  const { ipfsApiUrl, ipfsGatewayURL } = useSettingsContext()
+  const input = useRef<HTMLInputElement>(null)
+  const [file, setFile] = useState<File>()
+  const [preview, setPreview] = useState('')
   const [loading, setLoading] = useState(false)
   const [hash, setHash] = useState('')
+  const url = `${ipfsGatewayURL}/ipfs/${hash}`
 
-  function fileChanged(e: ChangeEvent<HTMLInputElement>): void {
-    if (e.target.files) {
-      setFile(e.target.files)
+  useEffect(() => {
+    if (!file || !file.type.startsWith('image/')) {
+      setPreview('')
+      return
     }
-  }
+    const objectUrl = URL.createObjectURL(file)
+    setPreview(objectUrl)
+    return (): void => URL.revokeObjectURL(objectUrl)
+  }, [file])
 
-  function handleSelectFile(): void {
-    const input = document.querySelector('#input-file')
-    if (input) {
-      //@ts-ignore
-      input.click()
-    }
-  }
-
-  function handleCopyHash(): void {
-    navigator.clipboard.writeText(hash)
-    alert(t('ipfs.hashCopiedToClipboard'))
-  }
-
-  function handleCopyUrl(): void {
-    navigator.clipboard.writeText(`${ipfsGatewayURL}/ipfs/${hash}`)
-    alert(t('ipfs.urlCopiedToClipboard'))
-  }
-
-  async function handleUpload(): Promise<void> {
-    if (!file || file.length === 0) return
+  function choose(event: ChangeEvent<HTMLInputElement>): void {
+    setFile(event.target.files?.[0])
     setHash('')
+  }
+
+  async function upload(): Promise<void> {
+    if (!file) return
     setLoading(true)
-    const response = await uploadToIpfs({ file: file[0], ipfsApiUrl })
-    if (response.success) {
-      setHash(response.hash)
-    } else {
-      alert(t('ipfs.errorOnUploadFile'))
-    }
+    const response = await uploadToIpfs({ file, ipfsApiUrl })
     setLoading(false)
+    if (response.success) setHash(response.hash)
+    else toast.error(t('ipfs.errorOnUploadFile'))
   }
 
   return (
     <ScreenPage pageTitle="IPFS">
-      <div className="p-3 rounded-2xl bg-card-2 w-[500px] gap-5 flex flex-col">
-        <p className="text-gray-300">{t('ipfs.uploadFileToIPFS')}</p>
-        <p className="text-white">{t('ipfs.description')}</p>
-        <div className="flex items-center gap-5">
+      <div className="max-w-[720px] mx-auto flex flex-col gap-5">
+        <section className="p-6 rounded-2xl bg-card-primary flex flex-col gap-5">
+          <div>
+            <p className="text-white text-lg font-bold">{t('ipfs.uploadFileToIPFS')}</p>
+            <p className="text-gray-300 text-sm">{t('ipfs.description')}</p>
+          </div>
+
           <button
-            className="px-10 h-10 rounded-2xl w-fit bg-blue-500 text-white hover:cursor-pointer"
-            onClick={handleSelectFile}
+            className="flex flex-col items-center justify-center gap-3 p-8 rounded-xl border-2 border-dashed border-green-primary/40 hover:border-green-primary hover:cursor-pointer"
+            onClick={() => input.current?.click()}
           >
-            {t('ipfs.selectFile')}
+            {preview ? (
+              <img src={preview} className="max-h-48 rounded-lg object-contain" />
+            ) : (
+              <MdUploadFile className="text-green-primary" size={40} />
+            )}
+            <span className="text-white font-semibold">
+              {file ? file.name : t('ipfs.selectFile')}
+            </span>
+            <span className="text-gray-400 text-xs">{t('ipfs.acceptedTypes')}</span>
           </button>
           <input
-            id="input-file"
+            ref={input}
             type="file"
-            onChange={fileChanged}
+            onChange={choose}
             className="hidden"
             accept="image/*, application/pdf"
           />
 
-          {file && <>{file?.length > 0 && <p className="text-white">{file[0].name}</p>}</>}
-        </div>
+          <button
+            className="h-12 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            onClick={upload}
+            disabled={!file || loading}
+          >
+            {loading ? t('ipfs.uploading') : t('ipfs.upload')}
+          </button>
+        </section>
 
-        <button
-          className="flex items-center justify-center bg-green-primary rounded-2xl text-white h-10 hover:cursor-pointer disabled:cursor-default disabled:opacity-40 w-[300px]"
-          onClick={handleUpload}
-          disabled={!file || file.length === 0 || loading}
-        >
-          {loading ? <div className="w-7 h-7 bg-blue-500 animate-spin" /> : t('ipfs.upload')}
-        </button>
-
-        {hash !== '' && (
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-1">
-              <p className="text-white">HASH: </p>
-              <p className="text-white font-semibold max-w-[80%] truncate text-ellipsis">{hash}</p>
-              <button className="hover:cursor-pointer ml-5" onClick={handleCopyHash}>
-                <FaRegCopy size={25} color="white" />
-              </button>
-            </div>
-
-            <div className="flex items-center gap-1">
-              <p className="text-white">URL: </p>
-              <p className="text-white font-semibold max-w-[80%] truncate text-ellipsis">
-                {ipfsGatewayURL}/ipfs/{hash}
-              </p>
-              <button className="hover:cursor-pointer ml-5" onClick={handleCopyUrl}>
-                <FaRegCopy size={25} color="white" />
-              </button>
-            </div>
-          </div>
+        {hash && (
+          <section className="p-6 rounded-2xl bg-card-primary border border-green-primary/40 flex flex-col gap-4">
+            <p className="text-green-primary font-bold">{t('ipfs.uploaded')}</p>
+            <CopyRow label="Hash" value={hash} copied={t('ipfs.hashCopiedToClipboard')} />
+            <CopyRow label="URL" value={url} copied={t('ipfs.urlCopiedToClipboard')} />
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="self-start flex items-center gap-2 text-green-primary text-sm font-semibold hover:underline"
+            >
+              {t('resourceDetails.openFile')}
+              <FaExternalLinkAlt size={11} />
+            </a>
+          </section>
         )}
       </div>
     </ScreenPage>

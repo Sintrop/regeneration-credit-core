@@ -165,7 +165,7 @@ function ArgItem({ arg, onChange, argsInput }: ArgItemProps): JSX.Element {
   return (
     <input
       value={value}
-      className="w-full rounded-lg px-3 bg-container-secondary text-white h-10"
+      className="w-full rounded-lg px-3 bg-card-secondary text-white h-10 outline-none focus:ring-1 focus:ring-green-primary"
       placeholder="typeHere"
       onChange={onChangeInput}
     />
@@ -223,7 +223,7 @@ function ArgTuppleItem({ components, addArgsTupple }: ArgTuppleItemProps): JSX.E
       <div className="flex justify-end">
         <button
           onClick={handleAddParameters}
-          className="px-10 w-fit h-10 rounded-2xl bg-green-btn font-semibold text-white hover:cursor-pointer"
+          className="px-5 w-fit h-10 rounded-lg bg-green-primary text-green-secondary font-bold hover:cursor-pointer"
         >
           {t('addParameters')}
         </button>
@@ -258,7 +258,7 @@ function ComponentTupple({ field, onChange }: ComponentTuppleProps): JSX.Element
 
       <input
         value={value}
-        className="w-full rounded-lg px-3 bg-container-secondary text-white h-10"
+        className="w-full rounded-lg px-3 bg-card-secondary text-white h-10 outline-none focus:ring-1 focus:ring-green-primary"
         placeholder={t('contracts.typeHere')}
         onChange={onChangeInput}
       />

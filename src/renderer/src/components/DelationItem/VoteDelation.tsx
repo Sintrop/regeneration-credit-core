@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useVoteOnDelation } from '@renderer/domain/Community/useCases/useVoteOnDelation'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   delationId: number
@@ -21,7 +20,6 @@ export function VoteDelation({
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
 
   const { isError, isPending, voteOnDelation, error, hash } = useVoteOnDelation()
   const {
@@ -34,12 +32,6 @@ export function VoteDelation({
 
   async function handleVote(supports: boolean): Promise<void> {
     setDisplayLoadingTx(true)
-
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
 
     voteOnDelation({
       delationId,

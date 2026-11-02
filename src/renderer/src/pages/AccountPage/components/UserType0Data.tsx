@@ -17,7 +17,7 @@ export function UserType0Data(): JSX.Element {
         className="text-white font-semibold rounded-2xl bg-blue-primary hover:cursor-pointer h-10 w-fit px-10"
         onClick={handleGoToRegister}
       >
-        {t('register')}
+        {t('actionBar.register')}
       </button>
     </div>
   )

@@ -1,15 +1,10 @@
-import { UserAddressLink } from '@renderer/components/UserAddressLink/UserAddressLink'
-import {
-  userAbi,
-  userAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress
-} from '@renderer/services/contracts'
+import { DataRow } from '@renderer/components/DataRow/DataRow'
+import { UserBadge } from '@renderer/components/UserBadge/UserBadge'
+import { userAbi, userAddress } from '@renderer/services/contracts'
 import { InvitationProps } from '@renderer/types/invitation'
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 
 interface Props {
   address: string
@@ -17,55 +12,31 @@ interface Props {
 
 export function InvitationCard({ address }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getInvitation',
     args: [address]
   })
 
   const invitationData = data as InvitationProps
 
+  const withoutInviter = !invitationData || /^0x0+$/.test(invitationData.inviter)
+
   return (
-    <div className="flex flex-col p-3 rounded-2xl bg-green-card gap-1">
-      <p className="text-gray-300 text-sm">{t('account.invitation')}</p>
-      {invitationData && (
+    <section className="flex flex-col gap-3 p-5 rounded-2xl bg-card-primary">
+      <p className="text-white font-bold">{t('account.invitation')}</p>
+      {data === undefined ? null : withoutInviter ? (
+        <p className="text-gray-400 text-sm">{t('account.userWithoutInvitation')}</p>
+      ) : (
         <>
-          {invitationData?.inviter.includes('0x00000000000000000000000000') ? (
-            <div className="flex items-center justify-center py-3">
-              <p className="text-white text-center">{t('account.userWithoutInvitation')}</p>
-            </div>
-          ) : (
-            <>
-              <CardData label={t('account.inviter')}>
-                <UserAddressLink address={invitationData?.inviter} />
-              </CardData>
-              <CardData
-                label={t('account.invitedAt')}
-                value={formatUnits(BigInt(invitationData?.createdAtBlock), 0)}
-              />
-            </>
-          )}
+          <UserBadge address={invitationData.inviter} label={t('account.inviter')} />
+          <DataRow
+            label={t('account.invitedAt')}
+            value={formatUnits(BigInt(invitationData.createdAtBlock), 0)}
+          />
         </>
       )}
-    </div>
-  )
-}
-
-interface CardDataProps {
-  label: string
-  value?: string | number
-  children?: React.ReactNode
-}
-function CardData({ label, value, children }: CardDataProps): JSX.Element {
-  const { t } = useTranslation()
-
-  return (
-    <div className="flex items-center gap-1">
-      <p className="font-bold text-white">{t(label)}:</p>
-      {children && children}
-      {value && <p className="text-white">{value}</p>}
-    </div>
+    </section>
   )
 }

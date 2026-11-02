@@ -4,6 +4,7 @@ interface Props {
   disabled?: boolean
 }
 
+/** Primary button of every action dialog: sends the transaction to the wallet. */
 export function SendTransactionButton({
   label,
   handleSendTransaction,
@@ -11,7 +12,7 @@ export function SendTransactionButton({
 }: Props): JSX.Element {
   return (
     <button
-      className={`px-10 h-10 mt-5 mb-3 w-fit rounded-2xl bg-blue-primary text-white ${disabled ? 'hover:cursor-default opacity-50' : 'opacity-100 hover:cursor-pointer'}`}
+      className="w-full h-11 mt-5 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
       onClick={handleSendTransaction}
       disabled={disabled}
     >

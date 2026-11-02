@@ -1,14 +1,6 @@
 import { useAccount, useReadContract } from 'wagmi'
 
-import {
-  rcAbi,
-  rcAddress,
-  sequoiaRcAbi,
-  sequoiaRcAddress,
-  sequoiaSupporterAddress,
-  supporterAddress
-} from '@renderer/services/contracts'
-import { useMainnet } from '@renderer/hooks/useMainnet'
+import { rcAbi, rcAddress, supporterAddress } from '@renderer/services/contracts'
 import { formatUnits } from 'viem'
 
 interface ReturnUseAllowanceProps {
@@ -18,14 +10,13 @@ interface ReturnUseAllowanceProps {
   refetch: () => void
 }
 export function useAllowance(): ReturnUseAllowanceProps {
-  const mainnet = useMainnet()
   const { address } = useAccount()
 
   const { data, isError, isLoading, refetch } = useReadContract({
-    address: mainnet ? rcAddress : sequoiaRcAddress,
-    abi: mainnet ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'allowance',
-    args: [address, mainnet ? supporterAddress : sequoiaSupporterAddress]
+    args: [address, supporterAddress]
   })
 
   return {

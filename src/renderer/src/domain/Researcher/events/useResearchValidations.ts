@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
 import Web3, { EventLog } from 'web3'
 import { ResearchValidationProps } from '../types'
@@ -20,9 +14,8 @@ interface ReturnUseResearchValidationsProps {
   validations: ResearchValidationProps[]
 }
 export function useResearchValidations({ researchId }: Props): ReturnUseResearchValidationsProps {
-  const mainnet = useMainnet()
   const [validations, setValidations] = useState<ResearchValidationProps[]>([])
-  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
+  const { rpcUrl } = useSettingsContext()
 
   useEffect(() => {
     setValidations([])
@@ -31,8 +24,7 @@ export function useResearchValidations({ researchId }: Props): ReturnUseResearch
 
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
-      mainnet,
-      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
+      rpcUrl: rpcUrl,
       researchId
     })
 
@@ -58,18 +50,13 @@ export function useResearchValidations({ researchId }: Props): ReturnUseResearch
 }
 
 interface GetPastEventsProps {
-  mainnet: boolean
   rpcUrl: string
   researchId: number
 }
-async function getPastEvents({
-  mainnet,
-  rpcUrl,
-  researchId
-}: GetPastEventsProps): Promise<EventLog[]> {
+async function getPastEvents({ rpcUrl, researchId }: GetPastEventsProps): Promise<EventLog[]> {
   const web3 = new Web3(rpcUrl)
-  const contractAbi = mainnet ? researcherAbi : sequoiaResearcherAbi
-  const contractAddress = mainnet ? researcherAddress : sequoiaResearcherAddress
+  const contractAbi = researcherAbi
+  const contractAddress = researcherAddress
 
   const contract = new web3.eth.Contract(contractAbi, contractAddress)
 

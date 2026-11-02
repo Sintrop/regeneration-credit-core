@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Loading } from '@renderer/components/Loading/Loading'
 import { useAllowance } from '@renderer/domain/Supporter/useCases/useAllowance'
 

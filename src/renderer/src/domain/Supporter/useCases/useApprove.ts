@@ -1,17 +1,8 @@
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  rcAbi,
-  rcAddress,
-  sequoiaRcAbi,
-  sequoiaRcAddress,
-  sequoiaSupporterAddress,
-  supporterAddress
-} from '@renderer/services/contracts'
-import { parseEther } from 'viem'
-import { useWriteContract } from 'wagmi'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
+import { rcAbi, rcAddress, supporterAddress } from '@renderer/services/contracts'
 
 interface ReturnUseApproveProps {
-  approve: (ammount: string) => void
+  approve: (amountWei: bigint) => void
   isPending: boolean
   isError: boolean
   error?: string
@@ -19,17 +10,14 @@ interface ReturnUseApproveProps {
 }
 
 export function useApprove(): ReturnUseApproveProps {
-  const mainnet = useMainnet()
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
-  function handleApprove(ammount: string): void {
-    const value = parseEther(ammount)
-
+  function handleApprove(amountWei: bigint): void {
     writeContract({
-      address: mainnet ? rcAddress : sequoiaRcAddress,
-      abi: mainnet ? rcAbi : sequoiaRcAbi,
+      address: rcAddress,
+      abi: rcAbi,
       functionName: 'approve',
-      args: [mainnet ? supporterAddress : sequoiaSupporterAddress, value]
+      args: [supporterAddress, amountWei]
     })
   }
 

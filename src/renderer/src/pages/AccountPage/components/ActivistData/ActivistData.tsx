@@ -1,29 +1,25 @@
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress
-} from '@renderer/services/contracts'
+import { DataRow } from '@renderer/components/DataRow/DataRow'
+import { activistAbi, activistAddress } from '@renderer/services/contracts'
 import { ActivistProps } from '@renderer/types/activist'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { InvitedUsersCard } from '../Cards/InvitedUsersCard/InvitedUsersCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInviterPenalties'
 
 export function ActivistData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { penalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? activistAddress : sequoiaActivistAddress,
-    abi: chainId === 250225 ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'getActivist',
     args: [address]
   })
@@ -41,44 +37,33 @@ export function ActivistData({ address, profilePage }: UserTypeContentProps): JS
       />
 
       {activist && (
-        <div className="flex gap-5 mt-5 max-w-[1024px]">
+        <div className="flex gap-5 mt-5 items-start">
           <div className="flex flex-col gap-5 flex-1">
-            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('common.data')}</p>
-              <p className="text-white">
-                <span className="text-white font-bold">ID: </span>
-                {formatUnits(BigInt(activist?.id), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
-                {activist?.proofPhoto}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.level')}: </span>
-                {formatUnits(BigInt(activist?.pool?.level), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.eraPool')}: </span>
-                {formatUnits(BigInt(activist?.pool?.currentEra), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
-                {formatUnits(BigInt(activist?.createdAt), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.userType')}: </span> 6
-              </p>
-              <p className="text-red-500">
-                <span className="font-bold">{t('account.inviterPenalties')}: </span>
-                {penalties}
-              </p>
+            <div className="flex flex-col rounded-2xl bg-card-primary p-5">
+              <p className="text-white font-bold mb-2">{t('common.data')}</p>
+              <DataRow label="ID" value={formatUnits(BigInt(activist?.id), 0)} />
+              <DataRow label={t('common.proofPhoto')} value={activist?.proofPhoto} />
+              <DataRow
+                label={t('common.level')}
+                value={formatUnits(BigInt(activist?.pool?.level), 0)}
+              />
+              <DataRow
+                label={t('account.eraPool')}
+                value={formatUnits(BigInt(activist?.pool?.currentEra), 0)}
+              />
+              <DataRow
+                label={t('account.registeredAt')}
+                value={formatUnits(BigInt(activist?.createdAt), 0)}
+              />
+              <DataRow label={t('account.inviterPenalties')} value={penalties} danger />
             </div>
 
             <DelationsCard address={address} />
           </div>
 
-          <div className="flex flex-col gap-5 max-w-[450px]">
+          <div className="flex flex-col gap-5 max-w-[420px]">
             <InvitationCard address={address} />
+            <InvitedUsersCard address={address} />
             <ValidationsCard address={address} profilePage={profilePage} />
           </div>
         </div>

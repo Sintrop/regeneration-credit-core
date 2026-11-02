@@ -1,41 +1,18 @@
 import {
   inspectionAbi,
   inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress,
   inspectorAbi,
-  inspectorAddress,
-  sequoiaInspectorAbi,
-  sequoiaInspectorAddress
+  inspectorAddress
 } from '@renderer/services/contracts'
-import { useChainId } from 'wagmi'
 import { ActionComponent } from '../ActionComponent/ActionComponent'
 import { Abi } from 'viem'
 
-interface Props {
-  mainAction?: boolean
-}
-export function InspectorActions({ mainAction }: Props): JSX.Element {
-  const chainId = useChainId()
+export function InspectorActions(): JSX.Element {
+  const inspectorContractAddressToUse = inspectorAddress
+  const inspectorAbiToUse = inspectorAbi
 
-  const inspectorContractAddressToUse =
-    chainId === 250225 ? inspectorAddress : sequoiaInspectorAddress
-  const inspectorAbiToUse = chainId === 250225 ? inspectorAbi : sequoiaInspectorAbi
-
-  const inspectionContractAddressToUse =
-    chainId === 250225 ? inspectionAddress : sequoiaInspectionAddress
-  const inspectionAbiToUse = chainId === 250225 ? inspectionAbi : sequoiaInspectionAbi
-
-  if (mainAction) {
-    return (
-      <ActionComponent
-        actionName="acceptInspection"
-        addressContract={inspectionContractAddressToUse}
-        abi={inspectionAbiToUse as Abi}
-        mainAction
-      />
-    )
-  }
+  const inspectionContractAddressToUse = inspectionAddress
+  const inspectionAbiToUse = inspectionAbi
 
   return (
     <div className="flex flex-col">

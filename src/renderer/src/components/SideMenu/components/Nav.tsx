@@ -1,112 +1,115 @@
 import { Icon, IconName } from '@renderer/components/Icon/Icon'
-import React, { useState } from 'react'
+import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
+import { MdBolt, MdHelpOutline, MdPersonOutline, MdTimeline } from 'react-icons/md'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-export function Nav(): JSX.Element {
-  return (
-    <nav className="flex flex-col">
-      <NavItem icon="dashboard" label="feed.title" path="/" />
-      <NavItem icon="contracts" label="contracts.title" path="/contracts" />
-      <DropdownMenu label="common.regenerationCredit" icon="rc">
-        <NavItem icon="pools" label="pools.title" path="/pools" />
-        <NavItem icon="rcStats" label="tokenImpact.title" path="/rcstats" />
-        <NavItem icon="rcIndex" label="rcIndex.title" path="/rc-index" />
-      </DropdownMenu>
-      <DropdownMenu label="community.title" icon="community" pathMainPage="/community" haveMainPage>
-        <NavItem label="regenerators" path="/users/1" />
-        <NavItem label="inspectors" path="/users/2" />
-        <NavItem label="researchers" path="/users/3" />
-        <NavItem label="developers" path="/users/4" />
-        <NavItem label="contributors" path="/users/5" />
-        <NavItem label="activists" path="/users/6" />
-        <NavItem label="supporters" path="/users/7" />
-      </DropdownMenu>
-      <NavItem icon="myTokens" label="myTokens.title" path="/my-tokens" />
-      <NavItem icon="impactCalculator" label="impactCalculator.title" path="/impact-calculator" />
-      <NavItem icon="inspections" label="resources.inspections" path="/inspections" />
-      <NavItem icon="researches" label="resources.researches" path="/researches" />
-      <NavItem icon="development" label="resources.development" path="/development" />
-      <NavItem icon="contributions" label="resources.contributions" path="/contributions" />
-      <NavItem icon="ipfs" label="IPFS" path="/ipfs" />
-    </nav>
-  )
-}
+import { useUserContext } from '@renderer/hooks/useUserContext'
 
-interface NavItemProps {
+interface NavEntry {
   label: string
   path: string
   icon?: IconName
+  iconNode?: ReactNode
 }
-function NavItem({ label, path, icon }: NavItemProps): JSX.Element {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
 
-  function handleNavigateTo(): void {
-    navigate(path)
+interface NavSection {
+  title?: string
+  items: (NavEntry & { connectedOnly?: boolean })[]
+}
+
+/** Grouped by what the user came to do: their account, the network, the impact, the internals. */
+const SECTIONS: NavSection[] = [
+  {
+    items: [{ icon: 'dashboard', label: 'feed.title', path: '/' }]
+  },
+  {
+    title: 'nav.myAccount',
+    items: [
+      {
+        iconNode: <MdPersonOutline size={21} />,
+        label: 'shell.myProfile',
+        path: '/account',
+        connectedOnly: true
+      },
+      { icon: 'myTokens', label: 'myTokens.title', path: '/my-tokens' }
+    ]
+  },
+  {
+    title: 'nav.token',
+    items: [
+      { icon: 'pools', label: 'home.shortcuts.withdrawTokens', path: '/pools' },
+      { icon: 'rc', label: 'market.title', path: '/market' },
+      { iconNode: <MdTimeline size={21} />, label: 'eras.menu', path: '/eras' }
+    ]
+  },
+  {
+    title: 'nav.network',
+    items: [
+      { icon: 'community', label: 'community.title', path: '/community' },
+      { icon: 'inspections', label: 'resources.inspections', path: '/inspections' },
+      { icon: 'researches', label: 'resourcesList.title', path: '/resources' }
+    ]
+  },
+  {
+    title: 'nav.impact',
+    items: [
+      { icon: 'rcStats', label: 'tokenImpact.title', path: '/rcstats' },
+      { icon: 'impactCalculator', label: 'impactCalculator.title', path: '/impact-calculator' },
+      { icon: 'rcIndex', label: 'rcIndex.title', path: '/rc-index' }
+    ]
+  },
+  {
+    title: 'nav.advanced',
+    items: [
+      { icon: 'contracts', label: 'contracts.title', path: '/contracts' },
+      { icon: 'ipfs', label: 'IPFS', path: '/ipfs' },
+      { iconNode: <MdBolt size={21} />, label: 'mining.title', path: '/mining' },
+      { iconNode: <MdHelpOutline size={21} />, label: 'help.title', path: '/help' }
+    ]
   }
+]
+
+function isActive(current: string, path: string): boolean {
+  if (path === '/') return current === '/'
+  return current === path || current.startsWith(`${path}/`)
+}
+
+export function Nav(): JSX.Element {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const { address } = useUserContext()
 
   return (
-    <button
-      className="flex items-center gap-3 py-3 text-white font-semibold hover:cursor-pointer text-sm"
-      onClick={handleNavigateTo}
-    >
-      {icon && <Icon name={icon} size={25} />}
-      {t(label)}
-    </button>
-  )
-}
-
-interface DropdownMenuProps {
-  label: string
-  icon?: IconName
-  children: React.ReactNode
-  haveMainPage?: boolean
-  pathMainPage?: string
-}
-function DropdownMenu({
-  label,
-  icon,
-  children,
-  haveMainPage,
-  pathMainPage
-}: DropdownMenuProps): JSX.Element {
-  const navigate = useNavigate()
-  const { t } = useTranslation()
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  function toggleOpenMenu(): void {
-    setMenuOpen((value) => !value)
-  }
-
-  function handleGoToMainPage(): void {
-    navigate(pathMainPage ? pathMainPage : '/')
-  }
-
-  return (
-    <div className={`flex flex-col`}>
-      <button
-        className="flex items-center justify-between w-full gap-3 py-3 text-white font-semibold text-sm hover:cursor-pointer"
-        onClick={haveMainPage ? handleGoToMainPage : toggleOpenMenu}
-      >
-        <div className="flex items-center gap-3">
-          {icon && <Icon name={icon} />}
-          {t(label)}
+    <nav className="flex flex-col gap-5">
+      {SECTIONS.map((section, index) => (
+        <div key={section.title ?? index} className="flex flex-col gap-1">
+          {section.title && (
+            <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+              {t(section.title)}
+            </p>
+          )}
+          {section.items.map((item) => {
+            if (item.connectedOnly && !address) return null
+            const active = isActive(pathname, item.path)
+            return (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={`flex items-center gap-3 h-10 px-3 rounded-xl text-sm font-semibold hover:cursor-pointer duration-150 ${
+                  active
+                    ? 'bg-green-primary/15 text-green-primary'
+                    : 'text-gray-200 hover:bg-card-primary'
+                }`}
+              >
+                {item.iconNode ?? (item.icon && <Icon name={item.icon} size={20} />)}
+                {t(item.label)}
+              </button>
+            )
+          })}
         </div>
-
-        <div
-          onClick={(e) => {
-            e.stopPropagation()
-            toggleOpenMenu()
-          }}
-          className="z-20 p-2 rounded-md hover:cursor-pointer hover:bg-green-900 duration-300"
-        >
-          {menuOpen ? <FaChevronUp color="white" /> : <FaChevronDown color="white" />}
-        </div>
-      </button>
-
-      {menuOpen && <div className="flex flex-col ml-10">{children}</div>}
-    </div>
+      ))}
+    </nav>
   )
 }

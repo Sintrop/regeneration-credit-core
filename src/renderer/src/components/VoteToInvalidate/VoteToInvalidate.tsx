@@ -1,17 +1,12 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiSolidMegaphone } from 'react-icons/bi'
-import { VoteInspection } from '../Votes/VoteInspection'
-import { VoteContribution } from '../Votes/VoteContribution'
-import { VoteReport } from '../Votes/VoteReport'
-import { VoteResearch } from '../Votes/VoteResearch'
-import { VoteUser } from '../Votes/VoteUser'
+import { VoteModal } from '../Votes/VoteModal'
 
 interface Props {
   resourceType: 'inspection' | 'research' | 'report' | 'contribution' | 'user'
   resourceId?: number
   userWallet?: string
-  publishedEra?: number
   wFull?: boolean
 }
 
@@ -19,7 +14,6 @@ export function VoteToInvalidate({
   resourceType,
   resourceId,
   userWallet,
-  publishedEra,
   wFull
 }: Props): JSX.Element {
   const { t } = useTranslation()
@@ -44,43 +38,11 @@ export function VoteToInvalidate({
       </button>
 
       {showVote && (
-        <>
-          {resourceType === 'inspection' && (
-            <VoteInspection
-              close={handleCloseVote}
-              inspectionId={resourceId ? resourceId : 0}
-              inspectedEra={publishedEra ? publishedEra : 0}
-            />
-          )}
-
-          {resourceType === 'contribution' && (
-            <VoteContribution
-              close={handleCloseVote}
-              contributionId={resourceId ? resourceId : 0}
-              publishedEra={publishedEra ? publishedEra : 0}
-            />
-          )}
-
-          {resourceType === 'report' && (
-            <VoteReport
-              close={handleCloseVote}
-              reportId={resourceId ? resourceId : 0}
-              publishedEra={publishedEra ? publishedEra : 0}
-            />
-          )}
-
-          {resourceType === 'research' && (
-            <VoteResearch
-              close={handleCloseVote}
-              researchId={resourceId ? resourceId : 0}
-              publishedEra={publishedEra ? publishedEra : 0}
-            />
-          )}
-
-          {resourceType === 'user' && (
-            <VoteUser close={handleCloseVote} userWallet={userWallet ? userWallet : ''} />
-          )}
-        </>
+        <VoteModal
+          kind={resourceType}
+          target={resourceType === 'user' ? (userWallet ?? '') : (resourceId ?? 0)}
+          close={handleCloseVote}
+        />
       )}
     </div>
   )

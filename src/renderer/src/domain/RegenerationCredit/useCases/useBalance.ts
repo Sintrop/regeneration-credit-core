@@ -1,7 +1,6 @@
 import { useAccount, useReadContract } from 'wagmi'
 import { formatUnits } from 'viem'
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
-import { useMainnet } from '@renderer/hooks/useMainnet'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 
 interface ReturnUseBalanceRc {
   isLoading: boolean
@@ -9,11 +8,10 @@ interface ReturnUseBalanceRc {
   refetch: () => void
 }
 export function useBalance(): ReturnUseBalanceRc {
-  const mainnet = useMainnet()
   const { isDisconnected, address } = useAccount()
   const { data, isLoading, isRefetching, refetch } = useReadContract({
-    address: mainnet ? rcAddress : sequoiaRcAddress,
-    abi: mainnet ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'balanceOf',
     args: [address]
   })

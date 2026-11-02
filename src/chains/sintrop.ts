@@ -6,7 +6,8 @@ export const sintrop = /*#__PURE__*/ defineChain({
   nativeCurrency: {
     decimals: 18,
     name: 'SINTROP',
-    symbol: 'SINTROP'
+    // MetaMask caps native symbols at 6 characters; the app labels the unit SINTROP.
+    symbol: 'SIN'
   },
   rpcUrls: {
     default: {

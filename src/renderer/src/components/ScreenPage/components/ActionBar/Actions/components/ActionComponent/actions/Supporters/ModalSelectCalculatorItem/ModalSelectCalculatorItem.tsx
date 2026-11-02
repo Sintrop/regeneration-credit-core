@@ -1,11 +1,7 @@
+import { Modal } from '@renderer/components/Modal/Modal'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  researcherAbi,
-  researcherAddress,
-  sequoiaResearcherAbi,
-  sequoiaResearcherAddress
-} from '@renderer/services/contracts'
+import { useReadContract } from 'wagmi'
+import { researcherAbi, researcherAddress } from '@renderer/services/contracts'
 import { CalculatorItemProps } from '@renderer/types/researcher'
 
 interface OnChangeProps {
@@ -28,30 +24,21 @@ export function ModalSelectCalculatorItem({ close, ids, onChange }: Props): JSX.
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="bg-white p-6 rounded-2xl shadow-2xl w-96">
-        <div className="flex items-center justify-between w-full">
-          <p className="">{t('actions.chooseAnItem')}</p>
-          <button className="hover:cursor-pointer" onClick={close}>
-            X
-          </button>
-        </div>
-
-        <div className="flex flex-col mt-5 max-h-[400px] overflow-y-auto">
-          {ids.length === 0 ? (
-            <div className="items-center mt-10">
-              <p className="text-white text-center">{t('actions.noCalculatorItems')}</p>
-            </div>
-          ) : (
-            <>
-              {ids.map((id) => (
-                <CalculatorItem key={id} id={id} onChange={onChangeItem} />
-              ))}
-            </>
-          )}
-        </div>
+    <Modal title={<>{t('actions.chooseAnItem')}</>} onClose={close}>
+      <div className="flex flex-col gap-2">
+        {ids.length === 0 ? (
+          <div className="items-center mt-10">
+            <p className="text-white text-center">{t('actions.noCalculatorItems')}</p>
+          </div>
+        ) : (
+          <>
+            {ids.map((id) => (
+              <CalculatorItem key={id} id={id} onChange={onChangeItem} />
+            ))}
+          </>
+        )}
       </div>
-    </div>
+    </Modal>
   )
 }
 
@@ -60,11 +47,9 @@ interface SelectCalculatorItemProps {
   onChange: ({ id, name }: OnChangeProps) => void
 }
 function CalculatorItem({ id, onChange }: SelectCalculatorItemProps): JSX.Element {
-  const { t } = useTranslation()
-  const chainId = useChainId()
   const { data } = useReadContract({
-    address: chainId === 250225 ? researcherAddress : sequoiaResearcherAddress,
-    abi: chainId === 250225 ? researcherAbi : sequoiaResearcherAbi,
+    address: researcherAddress,
+    abi: researcherAbi,
     functionName: 'getCalculatorItem',
     args: [id]
   })
@@ -73,16 +58,14 @@ function CalculatorItem({ id, onChange }: SelectCalculatorItemProps): JSX.Elemen
 
   return (
     <button
-      className="flex items-center gap-3 px-5 py-2 border-b hover:cursor-pointer"
+      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-card-secondary text-left hover:ring-1 hover:ring-green-primary hover:cursor-pointer"
       onClick={() => onChange({ id, name: calculatorItem?.item })}
     >
-      <p className="text-black">ID: {id}</p>
+      <span className="text-gray-400 text-sm">#{id}</span>
 
       {calculatorItem && (
         <>
-          <p className="text-black">
-            {t('common.name')}: {calculatorItem?.item}
-          </p>
+          <span className="text-white font-semibold">{calculatorItem?.item}</span>
         </>
       )}
     </button>

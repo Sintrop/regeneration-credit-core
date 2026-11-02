@@ -1,6 +1,9 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
@@ -9,7 +12,6 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddResearch({
   abi,
@@ -17,8 +19,6 @@ export function AddResearch({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { t } = useTranslation()
   const [inputTitle, setInputTitle] = useState('')
   const [inputThesis, setInputThesis] = useState('')
@@ -44,8 +44,6 @@ export function AddResearch({
     if (!file.trim()) return
 
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore
@@ -81,18 +79,18 @@ export function AddResearch({
             value={inputTitle}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
             placeholder={t('actions.typeHere')}
-            onChange={(e) => setInputTitle(e.target.value)}
-            maxLength={100}
+            onChange={(e) => setInputTitle(clampToBytes(e.target.value, 100))}
           />
+          <ByteCounter text={inputTitle} max={100} />
 
           <p className="text-sm mt-3 text-gray-300">{t('actions.thesis')}:</p>
           <input
             value={inputThesis}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
             placeholder={t('actions.typeHere')}
-            onChange={(e) => setInputThesis(e.target.value)}
-            maxLength={300}
+            onChange={(e) => setInputThesis(clampToBytes(e.target.value, 300))}
           />
+          <ByteCounter text={inputThesis} max={300} />
 
           <p className="text-sm mt-3 text-gray-300">{t('actions.file')}:</p>
           <FileInputSelector setValue={setFile} value={file} />

@@ -1,16 +1,15 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Withdraw({ abi, addressContract, close }: ActionContractProps): JSX.Element {
   const { t } = useTranslation()
-  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -24,8 +23,6 @@ export function Withdraw({ abi, addressContract, close }: ActionContractProps): 
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore

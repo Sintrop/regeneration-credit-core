@@ -1,30 +1,20 @@
+import { Modal } from '@renderer/components/Modal/Modal'
+import { useProtocolRules } from '@renderer/hooks/useProtocolRules'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { SendTransactionButton } from '@renderer/components/ScreenPage/components/ActionBar/Actions/components/SendTransactionButton/SendTransactionButton'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useAcceptInspection } from '@renderer/domain/Inspection/useCases/useAcceptInspection'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 import {
   regeneratorAbi,
   regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress,
-  sequoiaUserAbi,
-  sequoiaUserAddress,
   userAbi,
   userAddress
 } from '@renderer/services/contracts'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdClose } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { formatUnits } from 'viem'
-import {
-  useAccount,
-  useBlockNumber,
-  useChainId,
-  useReadContract,
-  useWaitForTransactionReceipt
-} from 'wagmi'
+import { useAccount, useBlockNumber, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
 
 interface Props {
   inspectionId: number
@@ -34,16 +24,14 @@ interface Props {
 
 export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
   const [canAccept, setCanAccept] = useState<boolean>(false)
   const [canAcceptIn, setCanAcceptIn] = useState<number>(0)
   const [waitNextEraToAccept, setWaitNextEraToAccept] = useState(false)
-  const { switchChain } = useSwitchChain()
 
   const { address } = useAccount()
   const { data: responseUser } = useReadContract({
-    address: chainId === 250225 ? userAddress : sequoiaUserAddress,
-    abi: chainId === 250225 ? userAbi : sequoiaUserAbi,
+    address: userAddress,
+    abi: userAbi,
     functionName: 'getUser',
     args: [address]
   })
@@ -54,8 +42,8 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   const blockNumber = responseBlock ? parseInt(formatUnits(BigInt(responseBlock), 0)) : 0
 
   const { data: responseNextEra } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'nextEraIn'
   })
   const nextEraIn = responseNextEra
@@ -72,13 +60,16 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   } = useWaitForTransactionReceipt({ hash })
   const errorMessage = error ? error : isErrorTx ? errorTx.message : ''
 
+  const { rules } = useProtocolRules()
+
   useEffect(() => {
     checkIfCanAcceptInspection()
-  }, [blockNumber, createdAt, nextEraIn])
+  }, [blockNumber, createdAt, nextEraIn, rules])
 
   function checkIfCanAcceptInspection(): void {
-    const blocksToExpire = parseInt(import.meta.env.VITE_BLOCKS_TO_EXPIRE_ACCEPTED_INSPECTION)
-    const securityBlocks = parseInt(import.meta.env.VITE_SECURITY_BLOCKS_TO_VALIDATOR_ANALYSIS)
+    if (!rules) return
+    const blocksToExpire = rules.blocksToExpireAcceptedInspection
+    const securityBlocks = rules.securityBlocksToValidation
 
     if (nextEraIn < blocksToExpire) {
       setWaitNextEraToAccept(true)
@@ -92,7 +83,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
       return
     }
 
-    const delayToAccept = parseInt(import.meta.env.VITE_ACCEPT_INSPECTION_DELAY_BLOCKS)
+    const delayToAccept = rules.acceptInspectionDelayBlocks
     const blockCanAccept = createdAt + delayToAccept
 
     if (blockNumber > blockCanAccept) {
@@ -106,7 +97,6 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   async function handleAcceptInspection(): Promise<void> {
     setDisplayLoadingTx(true)
 
-    switchChain()
     acceptInspection({ inspectionId })
   }
 
@@ -117,15 +107,8 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
-      <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-96">
-        <div className="flex items-center justify-between w-full">
-          <p className="text-white">{t('actions.acceptInspection')}</p>
-          <button className="hover:cursor-pointer text-white" onClick={close}>
-            <MdClose color="white" size={25} />
-          </button>
-        </div>
-
+    <>
+      <Modal title={<>{t('actions.acceptInspection')}</>} onClose={close}>
         {userType === -1 || blockNumber === 0 ? (
           <div className="flex flex-col items-center justify-center w-full h-[200px] overflow-hidden">
             <Loading />
@@ -174,7 +157,7 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
             )}
           </div>
         )}
-      </div>
+      </Modal>
 
       {displayLoadingTx && (
         <TransactionLoading
@@ -188,6 +171,6 @@ export function AcceptInspection({ inspectionId, createdAt, close }: Props): JSX
           transactionHash={hash}
         />
       )}
-    </div>
+    </>
   )
 }

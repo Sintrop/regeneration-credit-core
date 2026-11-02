@@ -1,30 +1,27 @@
-import {
-  developerAbi,
-  developerAddress,
-  sequoiaDeveloperAbi,
-  sequoiaDeveloperAddress
-} from '@renderer/services/contracts'
+import { DataRow } from '@renderer/components/DataRow/DataRow'
+import { PublishedResources } from '../PublishedResources/PublishedResources'
+import { developerAbi, developerAddress } from '@renderer/services/contracts'
 import { DeveloperProps } from '@renderer/types/developer'
 import { useTranslation } from 'react-i18next'
 import { formatUnits } from 'viem'
-import { useChainId, useReadContract } from 'wagmi'
+import { useReadContract } from 'wagmi'
 import { UserTypeContentProps } from '../UserTypeContent'
 import { UserCanVote } from '../UserCanVote/UserCanVote'
 import { HeaderUser } from '../HeaderUser/HeaderUser'
 import { InvitationCard } from '../Cards/InvitationCard/InvitationCard'
+import { InvitedUsersCard } from '../Cards/InvitedUsersCard/InvitedUsersCard'
 import { ValidationsCard } from '../Cards/ValidationsCard/ValidationsCard'
 import { DelationsCard } from '../Cards/DelationsCard/DelationsCard'
 import { useInviterPenalties } from '@renderer/domain/Community/useCases/useInviterPenalties'
 
 export function DeveloperData({ address, profilePage }: UserTypeContentProps): JSX.Element {
   const { t } = useTranslation()
-  const chainId = useChainId()
 
   const { penalties: inviterPenalties } = useInviterPenalties({ address })
 
   const { data } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'getDeveloper',
     args: [address]
   })
@@ -32,8 +29,8 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
   const developer = data as DeveloperProps
 
   const { data: responsePenalties } = useReadContract({
-    address: chainId === 250225 ? developerAddress : sequoiaDeveloperAddress,
-    abi: chainId === 250225 ? developerAbi : sequoiaDeveloperAbi,
+    address: developerAddress,
+    abi: developerAbi,
     functionName: 'totalPenalties',
     args: [address]
   })
@@ -52,60 +49,47 @@ export function DeveloperData({ address, profilePage }: UserTypeContentProps): J
       />
 
       {developer && (
-        <div className="flex gap-5 mt-5 max-w-[1024px]">
+        <div className="flex gap-5 mt-5 items-start">
           <div className="flex flex-col flex-1">
-            <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-              <p className="text-gray-300 text-sm">{t('common.data')}</p>
-              <p className="text-white">
-                <span className="text-white font-bold">ID: </span>
-                {formatUnits(BigInt(developer?.id), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.proofPhoto')}: </span>
-                {developer?.proofPhoto}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.totalReports')}: </span>
-                {formatUnits(BigInt(developer?.totalReports), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.lastPublishedAt')}: </span>
-                {formatUnits(BigInt(developer?.lastPublishedAt), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.eraPool')}: </span>
-                {formatUnits(BigInt(developer?.pool?.currentEra), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.poolLevel')}: </span>
-                {formatUnits(BigInt(developer?.pool?.level), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('account.registeredAt')}: </span>
-                {formatUnits(BigInt(developer?.createdAt), 0)}
-              </p>
-              <p className="text-white">
-                <span className="text-white font-bold">{t('common.userType')}: </span> 4
-              </p>
+            <div className="flex flex-col rounded-2xl bg-card-primary p-5">
+              <p className="text-white font-bold mb-2">{t('common.data')}</p>
+              <DataRow label="ID" value={formatUnits(BigInt(developer?.id), 0)} />
+              <DataRow label={t('common.proofPhoto')} value={developer?.proofPhoto} />
+              <DataRow
+                label={t('account.totalReports')}
+                value={formatUnits(BigInt(developer?.totalReports), 0)}
+              />
+              <DataRow
+                label={t('account.lastPublishedAt')}
+                value={formatUnits(BigInt(developer?.lastPublishedAt), 0)}
+              />
+              <DataRow
+                label={t('account.eraPool')}
+                value={formatUnits(BigInt(developer?.pool?.currentEra), 0)}
+              />
+              <DataRow
+                label={t('account.poolLevel')}
+                value={formatUnits(BigInt(developer?.pool?.level), 0)}
+              />
+              <DataRow
+                label={t('account.registeredAt')}
+                value={formatUnits(BigInt(developer?.createdAt), 0)}
+              />
 
               <UserCanVote address={address} />
 
-              <p className="text-red-500">
-                <span className="font-bold">{t('account.penalties')}: </span>
-                {totalPenalties}
-              </p>
+              <DataRow label={t('account.penalties')} value={totalPenalties} danger />
 
-              <p className="text-red-500">
-                <span className="font-bold">{t('account.inviterPenalties')}: </span>
-                {inviterPenalties}
-              </p>
+              <DataRow label={t('account.inviterPenalties')} value={inviterPenalties} danger />
             </div>
 
+            <PublishedResources address={address} />
             <DelationsCard address={address} />
           </div>
 
-          <div className="flex flex-col gap-5 flex-1 max-w-[450px]">
+          <div className="flex flex-col gap-5 flex-1 max-w-[420px]">
             <InvitationCard address={address} />
+            <InvitedUsersCard address={address} />
             <ValidationsCard address={address} profilePage={profilePage} />
           </div>
         </div>

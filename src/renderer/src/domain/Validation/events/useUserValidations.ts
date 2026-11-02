@@ -2,13 +2,7 @@
 import { useEffect, useState } from 'react'
 import Web3, { EventLog } from 'web3'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaValidationAbi,
-  sequoiaValidationAddress,
-  validationAbi,
-  validationAddress
-} from '@renderer/services/contracts'
+import { validationAbi, validationAddress } from '@renderer/services/contracts'
 import { UserValidationProps } from '../types'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
@@ -22,9 +16,8 @@ interface ReturnUseUserValidationEventProps {
   validations: UserValidationProps[]
 }
 export function useUserValidations({ userAddress, era }: Props): ReturnUseUserValidationEventProps {
-  const mainnet = useMainnet()
   const [validations, setValidations] = useState<UserValidationProps[]>([])
-  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
+  const { rpcUrl } = useSettingsContext()
 
   useEffect(() => {
     handleGetEvents()
@@ -32,8 +25,7 @@ export function useUserValidations({ userAddress, era }: Props): ReturnUseUserVa
 
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
-      mainnet,
-      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
+      rpcUrl: rpcUrl,
       userAddress,
       era
     })
@@ -60,20 +52,18 @@ export function useUserValidations({ userAddress, era }: Props): ReturnUseUserVa
 }
 
 interface GetPastEventsProps {
-  mainnet: boolean
   rpcUrl: string
   userAddress: string
   era: number
 }
 async function getPastEvents({
-  mainnet,
   rpcUrl,
   userAddress,
   era
 }: GetPastEventsProps): Promise<EventLog[]> {
   const web3 = new Web3(rpcUrl)
-  const contractAbi = mainnet ? validationAbi : sequoiaValidationAbi
-  const contractAddress = mainnet ? validationAddress : sequoiaValidationAddress
+  const contractAbi = validationAbi
+  const contractAddress = validationAddress
 
   const contract = new web3.eth.Contract(contractAbi, contractAddress)
 

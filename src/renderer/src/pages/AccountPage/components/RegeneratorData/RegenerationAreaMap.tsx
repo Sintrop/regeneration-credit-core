@@ -1,199 +1,62 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useRef, useState } from 'react'
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useChainId, useReadContract } from 'wagmi'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import { useReadContract } from 'wagmi'
+
+import { AreaMap, Point } from '@renderer/components/AreaMap/AreaMap'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
-import { Loading } from '@renderer/components/Loading/Loading'
 
-interface Props {
-  address: string
-}
-
-export function RegenerationAreaMap({ address }: Props): JSX.Element {
+export function RegenerationAreaMap({ address }: { address: string }): JSX.Element {
   const { t } = useTranslation()
-  const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
-  const mapRef = useRef<mapboxgl.Map>()
-  const mapContainerRef = useRef<HTMLDivElement>()
-  const markersRef = useRef<mapboxgl.Marker[]>([])
-  const [invalidCoords, setInvalidCoords] = useState(true)
-
-  const chainId = useChainId()
   const { data, isLoading } = useReadContract({
-    address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-    abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+    address: regeneratorAddress,
+    abi: regeneratorAbi,
     functionName: 'getCoordinates',
     args: [address]
   })
 
-  const coords = data ? (data as { latitude: string; longitude: string }[]) : []
-
-  useEffect(() => {
-    if (coords.length > 0) {
-      for (let i = 0; i < coords.length; i++) {
-        const latValid = validateLat(coords[i].latitude)
-        const lngValid = validateLng(coords[i].longitude)
-
-        if (!latValid || !lngValid) {
-          setInvalidCoords(true)
-        } else {
-          setInvalidCoords(false)
-        }
-      }
-    }
-  }, [coords])
-
-  const centerMap = {
-    lat: coords.length > 0 ? parseFloat(coords[0].latitude) : -23.29,
-    lng: coords.length > 0 ? parseFloat(coords[0].longitude) : -48.08
-  }
-
-  useEffect(() => {
-    if (invalidCoords) return
-    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
-    mapRef.current = new mapboxgl.Map({
-      container: mapContainerRef?.current as HTMLDivElement,
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [centerMap.lng, centerMap.lat],
-      zoom: 15
-    })
-
-    mapRef.current.on('load', () => {
-      mapRef.current!.addSource('polygon', {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'Polygon',
-            coordinates: [[]]
-          }
-        }
-      })
-
-      mapRef.current!.addLayer({
-        id: 'polygon-layer-1',
-        type: 'fill',
-        source: 'polygon',
-        layout: {},
-        paint: {
-          'fill-color': '#088',
-          'fill-opacity': 0.3
-        }
-      })
-
-      mapRef.current!.addLayer({
-        id: 'polygon-border-1',
-        type: 'line',
-        source: 'polygon',
-        layout: {},
-        paint: {
-          'line-color': '#088',
-          'line-width': 2
-        }
-      })
-    })
-
-    return (): void => {
-      mapRef.current?.remove()
-    }
-  }, [centerMap, invalidCoords])
-
-  useEffect(() => {
-    if (invalidCoords) return
-    if (!mapRef.current) return
-
-    markersRef.current.forEach((marker) => marker.remove())
-    markersRef.current = []
-
-    coords.forEach((coordinate) => {
-      const marker = new mapboxgl.Marker()
-        .setLngLat([parseFloat(coordinate?.longitude), parseFloat(coordinate?.latitude)])
-        .addTo(mapRef.current!)
-
-      markersRef.current.push(marker)
-    })
-
-    if (coords.length > 2) {
-      const polygonCoords: [number, number][] = coords.map((coord) => [
-        parseFloat(coord?.longitude),
-        parseFloat(coord?.latitude)
-      ])
-      if (polygonCoords.length > 0) {
-        polygonCoords.push([...polygonCoords[0]])
-      }
-
-      ;(mapRef.current!.getSource('polygon') as mapboxgl.GeoJSONSource)?.setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Polygon',
-          coordinates: [polygonCoords]
-        }
-      })
-    } else {
-      ;(mapRef.current!.getSource('polygon') as mapboxgl.GeoJSONSource)?.setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Polygon',
-          coordinates: [[]]
-        }
-      })
-    }
-  }, [coords, invalidCoords])
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-        <p className="text-gray-300 text-sm">{t('account.regenerationArea')}</p>
-
-        <div className="flex justify-center my-5">
-          <Loading />
-        </div>
-      </div>
-    )
-  }
-
-  if (invalidCoords) {
-    return (
-      <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-        <p className="text-gray-300 text-sm">{t('account.regenerationArea')}</p>
-
-        <p className="text-yellow-500 text-center my-5">{t('account.invalidCoords')}!</p>
-      </div>
-    )
-  }
+  const coords = useMemo(
+    () => (data as { latitude: string; longitude: string }[] | undefined) ?? [],
+    [data]
+  )
+  // Every point must be valid, not only the last one checked.
+  const valid =
+    coords.length > 0 && coords.every((c) => validateLat(c.latitude) && validateLng(c.longitude))
+  const points = useMemo<Point[]>(
+    () => coords.map((c) => [parseFloat(c.longitude), parseFloat(c.latitude)]),
+    [coords]
+  )
+  const center = points[0]
 
   return (
-    <div className="flex flex-col gap-2 rounded-2xl bg-green-card p-3">
-      <p className="text-gray-300 text-sm">{t('account.regenerationArea')}</p>
-      <div
-        //@ts-ignore
-        ref={mapContainerRef}
-        className="w-full h-[350px] rounded-2xl border-2 border-white mt-1"
-      />
-
-      <div className="flex flex-col gap-1 mt-3">
-        <p className="text-gray-300 text-sm">{t('account.coordinates')}</p>
-        {coords.length > 0 && (
-          <>
-            {coords.map((item, index) => (
-              <p key={index} className="text-white text-sm">
-                Lat: {item.latitude}, Lng: {item.longitude}
-              </p>
-            ))}
-          </>
-        )}
-      </div>
-    </div>
+    <section className="p-5 rounded-2xl bg-card-primary flex flex-col gap-3">
+      <p className="text-white font-bold">{t('account.regenerationArea')}</p>
+      {isLoading ? (
+        <div className="h-[350px] rounded-xl bg-card-secondary animate-pulse" />
+      ) : !valid ? (
+        <p className="text-amber-300 text-sm">{t('account.invalidCoords')}</p>
+      ) : (
+        <>
+          <AreaMap points={points} />
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-gray-400 text-xs">
+              {t('account.coordinatesCount', { count: points.length })}
+            </p>
+            {center && (
+              <a
+                href={`https://www.openstreetmap.org/?mlat=${center[1]}&mlon=${center[0]}#map=17/${center[1]}/${center[0]}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-green-primary text-sm font-semibold hover:underline"
+              >
+                {t('account.openMap')}
+                <FaExternalLinkAlt size={11} />
+              </a>
+            )}
+          </div>
+        </>
+      )}
+    </section>
   )
 }

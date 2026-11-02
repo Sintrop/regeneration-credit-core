@@ -1,63 +1,50 @@
-import { JSX, useState } from 'react'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FaChevronDown } from 'react-icons/fa'
 
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import i18n from '../../../../../i18n'
+
+const LANGUAGES = [
+  { code: 'pt', label: 'Português' },
+  { code: 'en', label: 'English' },
+  { code: 'es', label: 'Español' }
+]
 
 export function LanguageSwitch(): JSX.Element {
-  const { language } = i18n
-  const [showSelect, setShowSelect] = useState(false)
+  const { i18n } = useTranslation()
   const { handleChangeLanguage } = useSettingsContext()
+  const [open, setOpen] = useState(false)
+  const available = LANGUAGES.filter((item) => i18n.hasResourceBundle(item.code, 'translation'))
+  const current = i18n.language.slice(0, 2)
 
-  function toggleShowSelect(): void {
-    setShowSelect((value) => !value)
-  }
-
-  function handleSwitchLang(lang: string): void {
-    toggleShowSelect()
-    if (lang !== language) handleChangeLanguage(lang)
+  function select(code: string): void {
+    setOpen(false)
+    if (code !== current) handleChangeLanguage(code)
   }
 
   return (
-    <div className="flex flex-col relative">
+    <div className="relative">
       <button
-        className="w-[180px] px-4 h-10 rounded-2xl bg-card-1 text-white font-semibold hover:cursor-pointer flex items-center justify-between gap-3 disabled:cursor-default"
-        onClick={toggleShowSelect}
+        className="h-9 px-3 rounded-xl bg-card-primary text-white text-sm font-semibold hover:cursor-pointer flex items-center gap-2"
+        onClick={() => setOpen((value) => !value)}
       >
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-card-2 rounded-full flex items-center justify-center">
-            <p className="text-white">{language.toUpperCase()}</p>
-          </div>
-          <p className="text-white font-semibold text-sm">
-            {language === 'en' && 'English'}
-            {language === 'pt' && 'Português'}
-          </p>
-        </div>
-
-        <FaChevronDown color="white" />
+        {current.toUpperCase()}
+        <FaChevronDown size={10} />
       </button>
 
-      {showSelect && (
-        <div className="absolute top-12 left-0 bg-card-1 w-[180px] p-4 rounded-2xl">
-          <button
-            className="flex items-center gap-2 p-2 border-b border-card-2 w-full hover:cursor-pointer hover:bg-card-3 duration-200"
-            onClick={() => handleSwitchLang('en')}
-          >
-            <div className="w-8 h-8 bg-card-2 rounded-full flex items-center justify-center">
-              <p className="text-white">EN</p>
-            </div>
-            <p className="text-white font-semibold text-sm">English</p>
-          </button>
-
-          <button
-            className="flex items-center gap-2 p-2 border-b border-card-2 w-full hover:cursor-pointer hover:bg-card-3 duration-200"
-            onClick={() => handleSwitchLang('pt')}
-          >
-            <div className="w-8 h-8 bg-card-2 rounded-full flex items-center justify-center">
-              <p className="text-white">PT</p>
-            </div>
-            <p className="text-white font-semibold text-sm">Português</p>
-          </button>
+      {open && (
+        <div className="absolute right-0 top-11 w-40 p-1 rounded-xl bg-card-primary border border-card-secondary shadow-xl z-50">
+          {available.map((item) => (
+            <button
+              key={item.code}
+              className={`w-full text-left px-3 h-9 rounded-lg text-sm hover:cursor-pointer hover:bg-card-secondary ${
+                item.code === current ? 'text-green-primary font-semibold' : 'text-white'
+              }`}
+              onClick={() => select(item.code)}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       )}
     </div>

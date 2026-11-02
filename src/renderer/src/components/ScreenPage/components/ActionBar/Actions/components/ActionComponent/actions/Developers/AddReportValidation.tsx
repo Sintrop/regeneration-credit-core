@@ -1,20 +1,20 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddReportValidation({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { t } = useTranslation()
   const [inputId, setInputId] = useState('')
   const [inputJustification, setInputJustification] = useState('')
@@ -31,8 +31,6 @@ export function AddReportValidation({
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore
@@ -66,9 +64,9 @@ export function AddReportValidation({
         value={inputJustification}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
-        onChange={(e) => setInputJustification(e.target.value)}
-        maxLength={300}
+        onChange={(e) => setInputJustification(clampToBytes(e.target.value, 300))}
       />
+      <ByteCounter text={inputJustification} max={300} />
 
       <SendTransactionButton
         label={t('actions.addReportValidation')}

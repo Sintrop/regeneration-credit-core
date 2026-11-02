@@ -9,74 +9,45 @@ interface ReturnCheckVacanciesProps {
   ammount: number
 }
 
-const INSPECTOR_PROPORTIONALITY = import.meta.env.VITE_INSPECTOR_PROPORTIONALITY
-const RESEARCHER_PROPORTIONALITY = import.meta.env.VITE_RESEARCHER_PROPORTIONALITY
-const DEVELOPER_PROPORTIONALITY = import.meta.env.VITE_DEVELOPER_PROPORTIONALITY
-const CONTRIBUTOR_PROPORTIONALITY = import.meta.env.VITE_CONTRIBUTOR_PROPORTIONALITY
-const ACTIVIST_PROPORTIONALITY = import.meta.env.VITE_ACTIVIST_PROPORTIONALITY
+interface ProportionalitySetting {
+  proportionality: number
+  direct: boolean
+}
 
+/** CommunityRules.MINIMUM_REGISTERED_USERS_QUANTITY */
+const MINIMUM_REGISTERED_USERS_QUANTITY = 5
+
+/** CommunityRules userTypeSettings (proportionalityOnRegister, directProportionalityRegistration) */
+const PROPORTIONALITY_SETTINGS: Record<number, ProportionalitySetting> = {
+  2: { proportionality: 20, direct: true },
+  3: { proportionality: 10, direct: false },
+  4: { proportionality: 10, direct: false },
+  5: { proportionality: 10, direct: false },
+  6: { proportionality: 10, direct: false }
+}
+
+/**
+ * Mirrors CommunityRules._registrationProportionalityAllowed, so the app only
+ * offers registration when the contract will accept it.
+ */
 export function checkVacancies(props: CheckVacanciesProps): ReturnCheckVacanciesProps {
   const { producersCount, userType, userTypeCount } = props
+  const setting = PROPORTIONALITY_SETTINGS[userType]
 
-  const limitInspectors = producersCount * INSPECTOR_PROPORTIONALITY
-  const limitResearchers = producersCount / RESEARCHER_PROPORTIONALITY
-  const limitDevelopers = producersCount / DEVELOPER_PROPORTIONALITY
-  const limitContributors = producersCount / CONTRIBUTOR_PROPORTIONALITY
-  const limitActivists = producersCount / ACTIVIST_PROPORTIONALITY
-
-  let availableVacancie: boolean = false
-  let ammountVacancies: number = 0
-
-  if (userType === 1) {
-    availableVacancie = true
+  if (!setting) {
+    return { availableVacancie: true, ammount: 0 }
   }
 
-  if (userType === 2) {
-    const calcInspector = limitInspectors - userTypeCount
-    if (calcInspector >= 1) {
-      availableVacancie = true
-      ammountVacancies = calcInspector
-    }
-  }
+  const vacanciesByMinimum = MINIMUM_REGISTERED_USERS_QUANTITY - userTypeCount
 
-  if (userType === 3) {
-    const calcResearcher = limitResearchers - userTypeCount
-    if (calcResearcher >= 1) {
-      availableVacancie = true
-      ammountVacancies = calcResearcher
-    }
-  }
+  const vacanciesByProportion = setting.direct
+    ? producersCount * setting.proportionality - userTypeCount
+    : Math.floor(producersCount / setting.proportionality) - userTypeCount + 1
 
-  if (userType === 4) {
-    const calcDeveloper = limitDevelopers - userTypeCount
-    if (calcDeveloper >= 1) {
-      availableVacancie = true
-      ammountVacancies = calcDeveloper
-    }
-  }
-
-  if (userType === 5) {
-    const calcContributor = limitContributors - userTypeCount
-    if (calcContributor >= 1) {
-      availableVacancie = true
-      ammountVacancies = calcContributor
-    }
-  }
-
-  if (userType === 6) {
-    const calcActivists = limitActivists - userTypeCount
-    if (calcActivists >= 1) {
-      availableVacancie = true
-      ammountVacancies = calcActivists
-    }
-  }
-
-  if (userTypeCount < 5) {
-    availableVacancie = true
-  }
+  const ammount = Math.max(vacanciesByMinimum, vacanciesByProportion, 0)
 
   return {
-    availableVacancie,
-    ammount: Math.floor(ammountVacancies)
+    availableVacancie: ammount > 0,
+    ammount
   }
 }

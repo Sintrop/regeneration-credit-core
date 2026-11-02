@@ -1,3 +1,6 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { amountToWei, parseAmountInput } from '@renderer/utils/tokenAmount'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWaitForTransactionReceipt } from 'wagmi'
@@ -7,7 +10,6 @@ import { useOffset } from '@renderer/domain/Supporter/useCases/useOffset'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import RCLogo from '@renderer/assets/images/rc.png'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   refecthAllowance: () => void
@@ -21,15 +23,14 @@ export function SelectItem({
   handleApproveMore,
   close
 }: Props): JSX.Element {
-  const { switchChain, isSuccess: isSuccessSwitch } = useSwitchChain()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [inputAmmount, setInputAmmount] = useState('')
   const [inputMessage, setInputMessage] = useState('')
   const [itemId, setItemId] = useState<number | null>()
   const [insufficientTokens, setInsufficientTokens] = useState(false)
 
   useEffect(() => {
-    if (parseFloat(inputAmmount) > tokensAllowed) {
+    if (parseAmountInput(inputAmmount, i18n.language) > tokensAllowed) {
       setInsufficientTokens(true)
     } else {
       setInsufficientTokens(false)
@@ -50,14 +51,10 @@ export function SelectItem({
     if (!itemId || !inputAmmount.trim()) return
     setDisplayLoadingTx(true)
 
-    await switchChain()
-    if (!isSuccessSwitch) {
-      setDisplayLoadingTx(false)
-      return
-    }
-
+    const amountWei = amountToWei(inputAmmount, i18n.language)
+    if (amountWei === null) return
     offset({
-      ammount: parseFloat(inputAmmount),
+      amountWei,
       calculatorItemId: itemId,
       message: inputMessage
     })
@@ -98,7 +95,8 @@ export function SelectItem({
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('common.typeHere')}
         onChange={(e) => setInputAmmount(e.target.value)}
-        type="number"
+        type="text"
+        inputMode="decimal"
       />
       {insufficientTokens && (
         <p className="text-red-500 mt-2">{t('actions.insufficientTokensAllowed')}</p>
@@ -112,9 +110,9 @@ export function SelectItem({
         value={inputMessage}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('common.typeHere')}
-        onChange={(e) => setInputMessage(e.target.value)}
-        maxLength={300}
+        onChange={(e) => setInputMessage(clampToBytes(e.target.value, 300))}
       />
+      <ByteCounter text={inputMessage} max={300} />
 
       <button
         className="w-full h-10 mt-5 rounded-2xl bg-blue-primary text-white font-semibold hover:cursor-pointer disabled:cursor-default disabled:opacity-50"

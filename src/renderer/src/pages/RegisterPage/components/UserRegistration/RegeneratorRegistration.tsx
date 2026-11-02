@@ -1,31 +1,26 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { toast } from 'react-toastify'
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
+
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ProofPhoto } from './ProofPhoto'
 import { useTranslation } from 'react-i18next'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import { useWaitForTransactionReceipt } from 'wagmi'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
+import { AreaMap, Point } from '@renderer/components/AreaMap/AreaMap'
 import { calculateArea } from '@renderer/services/calculateArea'
-import { InvitationProps } from '@renderer/types/invitation'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { validateLat, validateLng } from '@renderer/utils/validateCoords'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
-const MAPBOX_ACCESS_TOKEN = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 interface Props {
   name: string
-  invitation: InvitationProps
+  /** Every contract requirement to register (invitation, vacancies, inviter standing). */
+  requirementsMet: boolean
   success: () => void
 }
 
@@ -34,23 +29,17 @@ interface CoordinateProps {
   latitude: string
 }
 
-export function RegeneratorRegistration({ name, invitation, success }: Props): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
+export function RegeneratorRegistration({ name, requirementsMet, success }: Props): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [proofPhoto, setProofPhoto] = useState('')
   const [description, setDescription] = useState('')
   const [disableBtnRegister, setDisableBtnRegister] = useState(false)
-  const mapRef = useRef<mapboxgl.Map>()
-  const mapContainerRef = useRef<HTMLDivElement>()
-  const markersRef = useRef<mapboxgl.Marker[]>([])
   const [coordinates, setCoordinates] = useState<CoordinateProps[]>([])
   const [totalArea, setTotalArea] = useState(0)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const mainnet = useMainnet()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -61,110 +50,12 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
   const errorMessage = error ? error.message : errorTx ? errorTx.message : ''
 
   useEffect(() => {
-    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN ? MAPBOX_ACCESS_TOKEN : ''
-    mapRef.current = new mapboxgl.Map({
-      container: mapContainerRef?.current as HTMLDivElement,
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
-      center: [-48.08, -23.29],
-      zoom: 1
-    })
-
-    mapRef.current.on('load', () => {
-      mapRef.current!.addSource('polygon', {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          properties: {},
-          geometry: {
-            type: 'Polygon',
-            coordinates: [[]]
-          }
-        }
-      })
-
-      mapRef.current!.addLayer({
-        id: 'polygon-layer',
-        type: 'fill',
-        source: 'polygon',
-        layout: {},
-        paint: {
-          'fill-color': '#088',
-          'fill-opacity': 0.3
-        }
-      })
-
-      mapRef.current!.addLayer({
-        id: 'polygon-border',
-        type: 'line',
-        source: 'polygon',
-        layout: {},
-        paint: {
-          'line-color': '#088',
-          'line-width': 2
-        }
-      })
-    })
-
-    mapRef.current.on('click', (e) => {
-      setCoordinates((prevState) => [
-        ...prevState,
-        { latitude: e.lngLat.lat.toString(), longitude: e.lngLat.lng.toString() }
-      ])
-    })
-
-    return (): void => {
-      mapRef.current?.remove()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!mapRef.current) return
-
-    markersRef.current.forEach((marker) => marker.remove())
-    markersRef.current = []
-
-    coordinates.forEach((coordinate) => {
-      const marker = new mapboxgl.Marker()
-        .setLngLat([parseFloat(coordinate?.longitude), parseFloat(coordinate?.latitude)])
-        .addTo(mapRef.current!)
-
-      markersRef.current.push(marker)
-    })
-
-    if (coordinates.length > 2) {
-      const polygonCoords: [number, number][] = coordinates.map((coord) => [
-        parseFloat(coord.longitude),
-        parseFloat(coord.latitude)
-      ])
-      if (polygonCoords.length > 0) {
-        polygonCoords.push([...polygonCoords[0]])
-      }
-
-      ;(mapRef.current!.getSource('polygon') as mapboxgl.GeoJSONSource)?.setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Polygon',
-          coordinates: [polygonCoords]
-        }
-      })
-    } else {
-      ;(mapRef.current!.getSource('polygon') as mapboxgl.GeoJSONSource)?.setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'Polygon',
-          coordinates: [[]]
-        }
-      })
-    }
-
     handleCalculateArea()
   }, [coordinates])
 
   useEffect(() => {
     validityData()
-  }, [name, proofPhoto, invitation, coordinates, totalArea, description])
+  }, [name, proofPhoto, requirementsMet, coordinates, totalArea, description])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -192,7 +83,7 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
       return
     }
 
-    if (invitation?.userType !== 1) {
+    if (!requirementsMet) {
       setDisableBtnRegister(true)
       return
     }
@@ -214,17 +105,15 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
     const hashProofPhoto = await uploadProofPhoto()
 
     if (hashProofPhoto === '') {
-      alert('error on upload proof photo')
+      toast.error(t('registerPage.photoUploadError'))
       return
     }
 
     setDisplayLoadingTx(true)
 
-    switchChain()
-
     writeContract({
-      address: mainnet ? regeneratorAddress : sequoiaRegeneratorAddress,
-      abi: mainnet ? regeneratorAbi : sequoiaRegeneratorAbi,
+      address: regeneratorAddress,
+      abi: regeneratorAbi,
       functionName: 'addRegenerator',
       args: [totalArea, name, hashProofPhoto, description, coordinates]
     })
@@ -233,6 +122,19 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
   function handleClearSelection(): void {
     setCoordinates([])
   }
+
+  const points = useMemo<Point[]>(
+    () => coordinates.map((c) => [parseFloat(c.longitude), parseFloat(c.latitude)]),
+    [coordinates]
+  )
+
+  const addPoint = useCallback((latitude: number, longitude: number): void => {
+    setCoordinates((prevState) =>
+      prevState.length >= 10
+        ? prevState
+        : [...prevState, { latitude: latitude.toFixed(6), longitude: longitude.toFixed(6) }]
+    )
+  }, [])
 
   function handleDeleteLastPoint(): void {
     setCoordinates((prevState) => prevState.slice(0, -1))
@@ -248,20 +150,22 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
       <p className="text-gray-300 text-sm">{t('register.projectDescription')}</p>
       <input
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        onChange={(e) => setDescription(clampToBytes(e.target.value, 200))}
+        className="w-full h-11 rounded-xl bg-card-secondary px-3 text-white outline-none focus:ring-1 focus:ring-green-primary"
         placeholder={t('register.typeHere')}
       />
+      <ByteCounter text={description} max={200} />
 
       <ProofPhoto proofPhoto={proofPhoto} onChange={setProofPhoto} />
 
       <div className="flex flex-col w-full mt-3">
         <p className="text-gray-300 text-sm">{t('register.demarcateYourRegenerationArea')}</p>
 
-        <div
-          //@ts-ignore
-          ref={mapContainerRef}
-          className="w-full h-[300px] rounded-2xl border-2 border-white mt-1"
+        <p className="text-gray-400 text-xs mt-1">{t('registerPage.mapHint')}</p>
+        <AreaMap
+          points={points}
+          onMapClick={addPoint}
+          className="h-[340px] mt-2 cursor-crosshair"
         />
 
         <p className="text-white mt-1">
@@ -282,13 +186,13 @@ export function RegeneratorRegistration({ name, invitation, success }: Props): J
             <div className="flex items-center justify-center gap-5">
               <button
                 onClick={handleClearSelection}
-                className="text-white underline font-semibold hover:cursor-pointer"
+                className="text-green-primary text-sm font-semibold hover:underline hover:cursor-pointer"
               >
                 {t('register.clearSelection')}
               </button>
               <button
                 onClick={handleDeleteLastPoint}
-                className="text-white underline font-semibold hover:cursor-pointer"
+                className="text-green-primary text-sm font-semibold hover:underline hover:cursor-pointer"
               >
                 {t('register.removeLastPoint')}
               </button>
@@ -334,7 +238,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
     const validLng = validateLng(longitude)
 
     if (!validLat || !validLng) {
-      alert(t('invalidCoors'))
+      toast.error(t('invalidCoors'))
       return
     }
 
@@ -351,7 +255,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
         <div className="flex flex-col">
           <p className="text-gray-300 text-sm">Latitude:</p>
           <input
-            className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
+            className="w-[180px] h-11 px-3 rounded-xl text-white bg-card-secondary outline-none focus:ring-1 focus:ring-green-primary"
             placeholder={t('register.typeHere')}
             value={latitude}
             onChange={(e) => setLatitude(e.target.value)}
@@ -361,7 +265,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
         <div className="flex flex-col">
           <p className="text-gray-300 text-sm">Longitude:</p>
           <input
-            className="w-[180px] h-10 px-3 rounded-2xl text-white bg-container-secondary"
+            className="w-[180px] h-11 px-3 rounded-xl text-white bg-card-secondary outline-none focus:ring-1 focus:ring-green-primary"
             placeholder={t('register.typeHere')}
             value={longitude}
             onChange={(e) => setLongitude(e.target.value)}
@@ -369,7 +273,7 @@ function InputCoordsManually({ addCoords }: InputCoordsManuallyProps): JSX.Eleme
         </div>
 
         <button
-          className="w-full h-10 text-white bg-green-1 rounded-2xl hover:cursor-pointer disabled:opacity-40 disabled:cursor-default"
+          className="w-full h-11 rounded-xl bg-green-primary text-green-secondary font-bold hover:cursor-pointer disabled:opacity-40 disabled:cursor-default"
           disabled={!latitude.trim() || !longitude.trim()}
           onClick={handleAddCoords}
         >

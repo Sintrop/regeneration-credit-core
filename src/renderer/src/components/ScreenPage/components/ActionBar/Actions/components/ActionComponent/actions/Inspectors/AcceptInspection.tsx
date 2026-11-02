@@ -1,20 +1,18 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AcceptInspection({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { t } = useTranslation()
   const [input, setInput] = useState('')
 
@@ -32,8 +30,6 @@ export function AcceptInspection({
     const value = parseInt(input)
 
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore
@@ -58,8 +54,9 @@ export function AcceptInspection({
         value={input}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeIDHere')}
-        onChange={(e) => setInput(e.target.value)}
-        type="number"
+        onChange={(e) => setInput(e.target.value.replace(/\D/g, ''))}
+        type="text"
+        inputMode="numeric"
       />
 
       <SendTransactionButton

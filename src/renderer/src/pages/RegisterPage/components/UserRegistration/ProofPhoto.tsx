@@ -40,7 +40,7 @@ export function ProofPhoto({ proofPhoto, onChange, labelProfilePhoto }: Props): 
       <p className="text-gray-300 text-sm">
         {labelProfilePhoto ? t('register.profilePhoto') : t('register.proofPhoto')}
       </p>
-      <div className="flex flex-col p-3 rounded-2xl bg-container-secondary w-full">
+      <div className="flex flex-col p-4 rounded-xl bg-card-secondary w-full">
         <input
           id="input-file"
           type="file"
@@ -58,7 +58,7 @@ export function ProofPhoto({ proofPhoto, onChange, labelProfilePhoto }: Props): 
 
         <div className="flex items-center gap-5 mt-2">
           <button
-            className="rounded-2xl bg-blue-primary text-white font-semibold px-10 w-fit h-10 hover:cursor-pointer"
+            className="h-10 px-5 w-fit rounded-xl border border-green-primary text-green-primary font-semibold hover:bg-green-primary/10 hover:cursor-pointer"
             onClick={openBrowserFile}
           >
             {t('register.selectImage')}

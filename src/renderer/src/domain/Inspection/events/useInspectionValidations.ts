@@ -2,13 +2,7 @@
 import { useEffect, useState } from 'react'
 import Web3, { EventLog } from 'web3'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  inspectionAbi,
-  inspectionAddress,
-  sequoiaInspectionAbi,
-  sequoiaInspectionAddress
-} from '@renderer/services/contracts'
+import { inspectionAbi, inspectionAddress } from '@renderer/services/contracts'
 import { InspectionValidationProps } from '../types'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
@@ -23,9 +17,8 @@ interface ReturnUseInspectionValidationsProps {
 export function useInspectionValidations({
   inspectionId
 }: Props): ReturnUseInspectionValidationsProps {
-  const mainnet = useMainnet()
   const [validations, setValidations] = useState<InspectionValidationProps[]>([])
-  const { rpcUrl, sequoiaRpcUrl } = useSettingsContext()
+  const { rpcUrl } = useSettingsContext()
 
   useEffect(() => {
     handleGetEvents()
@@ -33,8 +26,7 @@ export function useInspectionValidations({
 
   async function handleGetEvents(): Promise<void> {
     const response = await getPastEvents({
-      mainnet,
-      rpcUrl: mainnet ? rpcUrl : sequoiaRpcUrl,
+      rpcUrl: rpcUrl,
       inspectionId
     })
 
@@ -60,18 +52,13 @@ export function useInspectionValidations({
 }
 
 interface GetPastEventsProps {
-  mainnet: boolean
   rpcUrl: string
   inspectionId: number
 }
-async function getPastEvents({
-  mainnet,
-  rpcUrl,
-  inspectionId
-}: GetPastEventsProps): Promise<EventLog[]> {
+async function getPastEvents({ rpcUrl, inspectionId }: GetPastEventsProps): Promise<EventLog[]> {
   const web3 = new Web3(rpcUrl)
-  const contractAbi = mainnet ? inspectionAbi : sequoiaInspectionAbi
-  const contractAddress = mainnet ? inspectionAddress : sequoiaInspectionAddress
+  const contractAbi = inspectionAbi
+  const contractAddress = inspectionAddress
 
   const contract = new web3.eth.Contract(contractAbi, contractAddress)
 

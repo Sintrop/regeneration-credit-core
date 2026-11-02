@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, ReactNode, useEffect, useState } from 'react'
 import i18n from '../../../i18n'
+import { checkRpc, RpcCheckResult } from '../services/rpcHealth'
 
 interface ChangeOrAddUrlToListProps {
-  type: 'ipfsApi' | 'ipfsGateway' | 'rpc' | 'sequoiaRpc'
+  type: 'ipfsApi' | 'ipfsGateway' | 'rpc'
   url: string
 }
 
@@ -13,11 +14,17 @@ export interface SettingsContextProps {
   ipfsGatewayList: string[]
   ipfsApiList: string[]
   rpcUrl: string
-  sequoiaRpcUrl: string
   rpcList: string[]
-  sequoiaRpcList: string[]
   addUrlToList: (data: ChangeOrAddUrlToListProps) => void
   changeBaseUrl: (data: ChangeOrAddUrlToListProps) => void
+  /** Checks that the URL is a Sintrop RPC before using and saving it. */
+  changeRpc: (url: string) => Promise<RpcCheckResult>
+  resetRpc: () => void
+  defaultRpc: string
+  /** Mapbox access token: the one saved in Settings, or the build default. */
+  mapboxToken: string
+  defaultMapboxToken: string
+  changeMapboxToken: (token: string) => void
   handleChangeLanguage: (lang: string) => void
 }
 
@@ -30,8 +37,7 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
   const { changeLanguage, language } = i18n
   const defaultIpfsGateway = import.meta.env.VITE_DEFAULT_IPFS_GATEWAY_URL
   const defaultIpfsApi = import.meta.env.VITE_DEFAULT_IPFS_API_URL
-  const defaultRpc = import.meta.env.VITE_DEFAULT_RPC_URL
-  const defaultSequoiaRpc = import.meta.env.VITE_DEFAULT_SEQUOIA_RPC_URL
+  const defaultRpc: string = import.meta.env.VITE_DEFAULT_RPC_URL || 'https://rpc.sintrop.com'
 
   const [ipfsGatewayURL, setIpfsGatewayURL] = useState<string>('https://ipfs.sintrop.com')
   const [ipfsApiUrl, setIpfsApiUrl] = useState<string>('https://apiipfs.sintrop.com')
@@ -39,8 +45,18 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
   const [ipfsApiList, setIpfsApiList] = useState<string[]>([])
   const [rpcUrl, setRpcUrl] = useState<string>('https://rpc.sintrop.com')
   const [rpcList, setRpcList] = useState<string[]>([])
-  const [sequoiaRpcUrl, setSequoiaRpcUrl] = useState<string>('https://sequoiarpc.sintrop.com')
-  const [sequoiaRpcList, setSequoiaRpcList] = useState<string[]>([])
+  const defaultMapboxToken: string = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN ?? ''
+  const [mapboxToken, setMapboxToken] = useState<string>(
+    () => localStorage.getItem('mapboxToken') || defaultMapboxToken
+  )
+
+  /** An empty value goes back to the build default. */
+  function changeMapboxToken(token: string): void {
+    const value = token.trim()
+    if (value) localStorage.setItem('mapboxToken', value)
+    else localStorage.removeItem('mapboxToken')
+    setMapboxToken(value || defaultMapboxToken)
+  }
 
   useEffect(() => {
     getListUrls()
@@ -69,13 +85,6 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
     } else {
       setRpcList([defaultRpc])
     }
-
-    const resSequoiaRpcList = await localStorage.getItem('sequoiaRpcList')
-    if (resSequoiaRpcList) {
-      setSequoiaRpcList(JSON.parse(resSequoiaRpcList))
-    } else {
-      setSequoiaRpcList([defaultSequoiaRpc])
-    }
   }
 
   async function getSetUrls(): Promise<void> {
@@ -87,48 +96,48 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
 
     const resRpcUrl = await localStorage.getItem('rpcUrl')
     setRpcUrl(resRpcUrl ? resRpcUrl : defaultRpc)
-
-    const resSequoiaRpcUrl = await localStorage.getItem('sequoiaRpcUrl')
-    setSequoiaRpcUrl(resSequoiaRpcUrl ? resSequoiaRpcUrl : defaultSequoiaRpc)
   }
 
+  const STORAGE_KEY = {
+    ipfsApi: 'ipfsApiUrl',
+    ipfsGateway: 'ipfsGatewayUrl',
+    rpc: 'rpcUrl'
+  } as const
+  const LIST_KEY = {
+    ipfsApi: 'ipfsApiList',
+    ipfsGateway: 'ipfsGatewayList',
+    rpc: 'rpcList'
+  } as const
+
   function addUrlToList({ type, url }: ChangeOrAddUrlToListProps): void {
-    if (type === 'ipfsApi') {
-      const newApiList = ipfsApiList
-      newApiList.push(url)
-      setIpfsApiList(newApiList)
-      localStorage.setItem('ipfsApiList', JSON.stringify(newApiList))
-    }
-
-    if (type === 'ipfsGateway') {
-      const newGatewayList = ipfsGatewayList
-      newGatewayList.push(url)
-      setIpfsGatewayList(newGatewayList)
-      localStorage.setItem('ipfsGatewayList', JSON.stringify(newGatewayList))
-    }
-
-    if (type === 'rpc') {
-      const newRpcList = rpcList
-      newRpcList.push(url)
-      setRpcList(newRpcList)
-      localStorage.setItem('rpcList', JSON.stringify(newRpcList))
-    }
-
-    if (type === 'sequoiaRpc') {
-      const newSequoiaRpcList = sequoiaRpcList
-      newSequoiaRpcList.push(url)
-      setSequoiaRpcList(newSequoiaRpcList)
-      localStorage.setItem('sequoiaRpcList', JSON.stringify(newSequoiaRpcList))
-    }
+    const current =
+      type === 'ipfsApi' ? ipfsApiList : type === 'ipfsGateway' ? ipfsGatewayList : rpcList
+    const next = current.includes(url) ? current : [...current, url]
+    if (type === 'ipfsApi') setIpfsApiList(next)
+    if (type === 'ipfsGateway') setIpfsGatewayList(next)
+    if (type === 'rpc') setRpcList(next)
+    localStorage.setItem(LIST_KEY[type], JSON.stringify(next))
 
     changeBaseUrl({ type, url })
   }
 
+  /** Uses the URL now and keeps it for the next start. */
   function changeBaseUrl({ type, url }: ChangeOrAddUrlToListProps): void {
     if (type === 'ipfsApi') setIpfsApiUrl(url)
     if (type === 'ipfsGateway') setIpfsGatewayURL(url)
     if (type === 'rpc') setRpcUrl(url)
-    if (type === 'sequoiaRpc') setSequoiaRpcUrl(url)
+    localStorage.setItem(STORAGE_KEY[type], url)
+  }
+
+  async function changeRpc(url: string): Promise<RpcCheckResult> {
+    const trimmed = url.trim().replace(/\/+$/, '')
+    const result = await checkRpc(trimmed)
+    if (result.ok) addUrlToList({ type: 'rpc', url: trimmed })
+    return result
+  }
+
+  function resetRpc(): void {
+    changeBaseUrl({ type: 'rpc', url: defaultRpc })
   }
 
   async function getSavedLanguage(): Promise<void> {
@@ -152,10 +161,14 @@ export function SettingsProvider({ children }: SettingsProviderProps): JSX.Eleme
         ipfsGatewayList,
         rpcList,
         rpcUrl,
-        sequoiaRpcList,
-        sequoiaRpcUrl,
         addUrlToList,
         changeBaseUrl,
+        changeRpc,
+        resetRpc,
+        defaultRpc,
+        mapboxToken,
+        defaultMapboxToken,
+        changeMapboxToken,
         handleChangeLanguage
       }}
     >

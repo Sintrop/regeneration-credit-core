@@ -1,21 +1,19 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function RealizeInspection({
   abi,
   addressContract,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [inputTrees, setInputTrees] = useState('')
@@ -42,8 +40,6 @@ export function RealizeInspection({
 
     setDisplayLoadingTx(true)
 
-    switchChain()
-
     writeContract({
       //@ts-ignore
       address: addressContract ? addressContract : '',
@@ -69,8 +65,9 @@ export function RealizeInspection({
         value={input}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
-        onChange={(e) => setInput(e.target.value)}
-        type="number"
+        onChange={(e) => setInput(e.target.value.replace(/\D/g, ''))}
+        type="text"
+        inputMode="numeric"
       />
 
       <div className="flex flex-col gap-1 border border-white rounded-2xl p-3 mt-3">
@@ -88,8 +85,9 @@ export function RealizeInspection({
         value={inputTrees}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
-        onChange={(e) => setInputTrees(e.target.value)}
-        type="number"
+        onChange={(e) => setInputTrees(e.target.value.replace(/\D/g, ''))}
+        type="text"
+        inputMode="numeric"
       />
 
       <p className="text-sm mt-3 text-gray-300">{t('actions.biodiversityResult')}:</p>
@@ -97,8 +95,9 @@ export function RealizeInspection({
         value={inputBio}
         className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
         placeholder={t('actions.typeHere')}
-        onChange={(e) => setInputBio(e.target.value)}
-        type="number"
+        onChange={(e) => setInputBio(e.target.value.replace(/\D/g, ''))}
+        type="text"
+        inputMode="numeric"
       />
 
       <SendTransactionButton

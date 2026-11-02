@@ -1,6 +1,9 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../../ActionComponent'
@@ -9,7 +12,6 @@ import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
 import { FileInputSelector } from '@renderer/components/FileInputSelector/FileInputSelector'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function AddReport({
   abi,
@@ -17,7 +19,6 @@ export function AddReport({
   lastPublishedWork,
   close
 }: ActionContractProps): JSX.Element {
-  const { switchChain } = useSwitchChain()
   const { t } = useTranslation()
   const [inputDescription, setInputDescription] = useState('')
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
@@ -41,8 +42,6 @@ export function AddReport({
     if (!file) return
 
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore
@@ -77,9 +76,9 @@ export function AddReport({
             value={inputDescription}
             className="w-full rounded-2xl px-3 bg-container-secondary text-white h-10"
             placeholder={t('actions.typeHere')}
-            onChange={(e) => setInputDescription(e.target.value)}
-            maxLength={300}
+            onChange={(e) => setInputDescription(clampToBytes(e.target.value, 300))}
           />
+          <ByteCounter text={inputDescription} max={300} />
 
           <p className="text-sm mt-3 text-gray-300">{t('actions.reportFile')}:</p>
           <FileInputSelector value={file ? file : ''} setValue={setFile} />

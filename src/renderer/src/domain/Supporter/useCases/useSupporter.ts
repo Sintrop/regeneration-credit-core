@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { SupporterContractProps, SupporterProps } from '@renderer/types/supporter'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useSupporter({ address }: Props): ReturnUseSupporter {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? supporterAddress : sequoiaSupporterAddress,
-    abi: mainnet ? supporterAbi : sequoiaSupporterAbi,
+    address: supporterAddress,
+    abi: supporterAbi,
     functionName: 'getSupporter',
     args: [address]
   })

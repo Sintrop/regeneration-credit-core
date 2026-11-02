@@ -1,11 +1,5 @@
 import { useReadContract } from 'wagmi'
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  activistAbi,
-  activistAddress,
-  sequoiaActivistAbi,
-  sequoiaActivistAddress
-} from '@renderer/services/contracts'
+import { activistAbi, activistAddress } from '@renderer/services/contracts'
 import { bigNumberToFloat } from '@renderer/utils/bigNumberToFloat'
 import { ActivistContractProps, ActivistProps } from '@renderer/types/activist'
 
@@ -19,15 +13,14 @@ interface Props {
   address: string
 }
 export function useActivist({ address }: Props): ReturnUseActivist {
-  const mainnet = useMainnet()
   const {
     data: response,
     isLoading,
     isError,
     refetch
   } = useReadContract({
-    address: mainnet ? activistAddress : sequoiaActivistAddress,
-    abi: mainnet ? activistAbi : sequoiaActivistAbi,
+    address: activistAddress,
+    abi: activistAbi,
     functionName: 'getActivist',
     args: [address]
   })

@@ -1,8 +1,7 @@
 import { formatUnits } from 'viem'
 import { useReadContract } from 'wagmi'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import { rcAbi, rcAddress, sequoiaRcAbi, sequoiaRcAddress } from '@renderer/services/contracts'
+import { rcAbi, rcAddress } from '@renderer/services/contracts'
 
 interface ReturnUseCertificateProps {
   isLoading: boolean
@@ -16,10 +15,9 @@ interface Props {
 }
 
 export function useCertificate({ address }: Props): ReturnUseCertificateProps {
-  const mainnet = useMainnet()
   const { data, isLoading, isError, refetch } = useReadContract({
-    address: mainnet ? rcAddress : sequoiaRcAddress,
-    abi: mainnet ? rcAbi : sequoiaRcAbi,
+    address: rcAddress,
+    abi: rcAbi,
     functionName: 'certificate',
     args: [address]
   })

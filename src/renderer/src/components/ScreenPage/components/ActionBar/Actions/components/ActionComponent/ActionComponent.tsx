@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { Abi } from 'viem'
 import { useTranslation } from 'react-i18next'
-import { MdClose } from 'react-icons/md'
+import { Modal } from '@renderer/components/Modal/Modal'
 
 import { actionsList, ActionsNameType } from './actionsList'
 
@@ -23,6 +23,8 @@ interface Props {
   mainAction?: boolean
   withdrawPools?: boolean
   hideNextLevel?: boolean
+  /** Replaces the default button; receives the function that opens the action. */
+  renderTrigger?: (open: () => void) => ReactNode
 }
 export function ActionComponent({
   actionName,
@@ -33,7 +35,8 @@ export function ActionComponent({
   label,
   mainAction,
   withdrawPools,
-  hideNextLevel
+  hideNextLevel,
+  renderTrigger
 }: Props): JSX.Element {
   const { t } = useTranslation()
   const [openAction, setOpenAction] = useState(false)
@@ -45,7 +48,9 @@ export function ActionComponent({
 
   return (
     <>
-      {withdrawPools ? (
+      {renderTrigger ? (
+        renderTrigger(toggleOpenAction)
+      ) : withdrawPools ? (
         <button
           className="font-semibold text-white rounded-2xl bg-blue-primary px-5 h-10 hover:cursor-pointer"
           onClick={toggleOpenAction}
@@ -66,7 +71,7 @@ export function ActionComponent({
             </div>
           ) : (
             <button
-              className="w-full h-10 text-x text-white bg-container-primary hover:cursor-pointer hover:bg-container-secondary duration-300 border-b border-container-secondary"
+              className="w-full h-10 px-3 rounded-xl text-left text-sm text-white hover:cursor-pointer hover:bg-card-secondary duration-150"
               onClick={toggleOpenAction}
             >
               {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
@@ -76,29 +81,19 @@ export function ActionComponent({
       )}
 
       {openAction && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-container-primary p-6 rounded-2xl shadow-2xl w-[500px]">
-            <div className="flex items-center justify-between w-full">
-              <p className="text-white">
-                {label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
-              </p>
-              <button className="hover:cursor-pointer text-white" onClick={toggleOpenAction}>
-                <MdClose color="white" size={25} />
-              </button>
-            </div>
-
-            <div className="max-h-[400px] overflow-y-auto">
-              <p className="text-white my-5">{t(Action.description)}</p>
-              <Action.component
-                addressContract={addressContract}
-                abi={abi}
-                lastPublishedWork={lastPublishedWork}
-                userTypeToInvite={userTypeToInvite}
-                close={toggleOpenAction}
-              />
-            </div>
-          </div>
-        </div>
+        <Modal
+          title={label ? t(`actions.${label}`) : t(`actions.${Action.name}`)}
+          onClose={toggleOpenAction}
+        >
+          <p className="text-gray-300 text-sm mb-4">{t(Action.description)}</p>
+          <Action.component
+            addressContract={addressContract}
+            abi={abi}
+            lastPublishedWork={lastPublishedWork}
+            userTypeToInvite={userTypeToInvite}
+            close={toggleOpenAction}
+          />
+        </Modal>
       )}
     </>
   )

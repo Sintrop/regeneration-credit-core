@@ -1,12 +1,12 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react'
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../../SendTransactionButton/SendTransactionButton'
 import { Abi } from 'viem'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   addressContract?: string
@@ -15,7 +15,6 @@ interface Props {
 }
 export function RequestInspection({ abi, addressContract, close }: Props): JSX.Element {
   const { t } = useTranslation()
-  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -29,8 +28,6 @@ export function RequestInspection({ abi, addressContract, close }: Props): JSX.E
 
   async function handleSendTransaction(): Promise<void> {
     setDisplayLoadingTx(true)
-
-    switchChain()
 
     writeContract({
       //@ts-ignore

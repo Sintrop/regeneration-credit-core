@@ -1,11 +1,7 @@
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { useState } from 'react'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  sequoiaInvitationAddress,
-  invitationAddress,
-  invitationAbi,
-  sequoiaInvitationAbi
-} from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt } from 'wagmi'
+import { invitationAddress, invitationAbi } from '@renderer/services/contracts'
 import { useTranslation } from 'react-i18next'
 import { SendTransactionButton } from '../../SendTransactionButton/SendTransactionButton'
 import { ActionContractProps } from '../ActionComponent'
@@ -13,10 +9,8 @@ import { useCanInvite } from '@renderer/hooks/useCanInvite'
 import { Loading } from '@renderer/components/Loading/Loading'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.Element {
-  const chainId = useChainId()
   const { t } = useTranslation()
   const [inputAddress, setInputAddress] = useState('')
   const {
@@ -25,8 +19,6 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
     canInviteThisUserType,
     isLoading: loadingCanInvite
   } = useCanInvite({ userTypeToInvite })
-
-  const { switchChain } = useSwitchChain()
 
   const { writeContract, isPending, data: hash, isError, error } = useWriteContract()
   const {
@@ -46,11 +38,9 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
 
     setDisplayLoadingTx(true)
 
-    switchChain()
-
     writeContract({
-      address: chainId === 250225 ? invitationAddress : sequoiaInvitationAddress,
-      abi: chainId === 250225 ? invitationAbi : sequoiaInvitationAbi,
+      address: invitationAddress,
+      abi: invitationAbi,
       functionName,
       args: [inputAddress, userTypeToInvite]
     })
@@ -112,7 +102,7 @@ export function Invite({ userTypeToInvite, close }: ActionContractProps): JSX.El
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-[200px]">
-          <p className="text-white text-center">{t("youCan'tInviteNow")}</p>
+          <p className="text-white text-center">{t("actions.youCan'tInviteNow")}</p>
           <p className="text-white text-center">
             {t('actions.wait')} {canInviteIn} {t('actions.blocks')}
           </p>

@@ -1,40 +1,32 @@
-import { useTranslation } from 'react-i18next'
-import { FaGear } from 'react-icons/fa6'
-import { useNavigate } from 'react-router-dom'
-
-import LogoRC from '../../assets/images/rc.png'
+import { ActionsMenu } from './components/ActionsMenu'
 import { ChainSwitch } from './components/ChainSwitch'
 import { DocsLink } from './components/DocsLink'
+import { EraChip } from './components/EraChip'
+import { HelpLink } from './components/HelpLink'
 import { LanguageSwitch } from './components/LanguageSwitch'
+import { NavBtns } from '../ScreenPage/components/NavBtns'
+import { ConnectionWalletButton } from '../ScreenPage/components/ActionBar/ConnectionWalletButton'
 
-export function Header(): JSX.Element {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
+interface Props {
+  title: string
+}
 
-  function handleBackToHome(): void {
-    navigate('/', { replace: true })
-  }
-
-  function handleGoToSettings(): void {
-    navigate('/settings')
-  }
-
+export function Header({ title }: Props): JSX.Element {
   return (
-    <header className="w-screen h-[80px] bg-green-header fixed z-10">
-      <div className="px-10 flex items-center justify-between h-full">
-        <button className="flex items-center gap-3 hover:cursor-pointer" onClick={handleBackToHome}>
-          <img src={LogoRC} alt="Logo regeneration credit" className="w-10 h-10 object-contain" />
-          <p className="text-white font-bold text-xl">{t('common.regenerationCredit')}</p>
-        </button>
+    <header className="relative z-30 h-16 shrink-0 flex items-center justify-between gap-4 px-6 border-b border-card-primary bg-green-header/80 backdrop-blur">
+      <div className="flex items-center gap-4 min-w-0">
+        <NavBtns />
+        <h1 className="text-white font-bold text-xl truncate min-w-[96px]">{title}</h1>
+      </div>
 
-        <div className="flex items-center gap-5">
-          <LanguageSwitch />
-          <DocsLink />
-          <ChainSwitch />
-          <button onClick={handleGoToSettings} className="hover:cursor-pointer">
-            <FaGear size={25} color="white" />
-          </button>
-        </div>
+      <div className="flex items-center gap-3 shrink-0">
+        <ActionsMenu />
+        <EraChip />
+        <LanguageSwitch />
+        <HelpLink />
+        <DocsLink />
+        <ChainSwitch />
+        <ConnectionWalletButton />
       </div>
     </header>
   )

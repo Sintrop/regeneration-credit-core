@@ -1,12 +1,10 @@
+import { ByteCounter } from '@renderer/components/ByteCounter/ByteCounter'
+import { clampToBytes } from '@renderer/utils/byteLength'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { useWaitForTransactionReceipt } from 'wagmi'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
 import { ConfirmButton } from './ConfirmButton'
 import { base64ToBlob, uploadToIpfs } from '@renderer/services/ipfs'
 import { ProofPhoto } from './ProofPhoto'
@@ -14,16 +12,15 @@ import { useTranslation } from 'react-i18next'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
 import { useSettingsContext } from '@renderer/hooks/useSettingsContext'
 import { toast } from 'react-toastify'
-import { useSwitchChain } from '@renderer/hooks/useChainSwitch'
 
 interface Props {
   name: string
+  /** Every contract requirement to register (invitation, vacancies, inviter standing). */
+  requirementsMet: boolean
   success: () => void
 }
 
-export function SupporterRegistration({ name, success }: Props): JSX.Element {
-  const { switchChain } = useSwitchChain()
-
+export function SupporterRegistration({ name, requirementsMet, success }: Props): JSX.Element {
   const { ipfsApiUrl } = useSettingsContext()
   const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState('')
@@ -32,7 +29,6 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
   const [description, setDescription] = useState('')
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -44,7 +40,7 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
 
   useEffect(() => {
     validityData()
-  }, [name, profilePhoto, description])
+  }, [name, profilePhoto, description, requirementsMet])
 
   function validityData(): void {
     if (!name.trim()) {
@@ -53,6 +49,11 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
     }
 
     if (!description.trim()) {
+      setDisableBtnRegister(true)
+      return
+    }
+
+    if (!requirementsMet) {
       setDisableBtnRegister(true)
       return
     }
@@ -85,11 +86,9 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
 
     setDisplayLoadingTx(true)
 
-    switchChain()
-
     writeContract({
-      address: chainId === 250225 ? supporterAddress : sequoiaSupporterAddress,
-      abi: chainId === 250225 ? supporterAbi : sequoiaSupporterAbi,
+      address: supporterAddress,
+      abi: supporterAbi,
       functionName: 'addSupporter',
       args: [name, description, proofPhoto]
     })
@@ -100,10 +99,11 @@ export function SupporterRegistration({ name, success }: Props): JSX.Element {
       <p className="text-gray-300 text-sm mt-5">{t('description')}</p>
       <input
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full h-10 rounded-2xl bg-container-secondary px-5 text-white"
+        onChange={(e) => setDescription(clampToBytes(e.target.value, 200))}
+        className="w-full h-11 rounded-xl bg-card-secondary px-3 text-white outline-none focus:ring-1 focus:ring-green-primary"
         placeholder={t('typeHere')}
       />
+      <ByteCounter text={description} max={200} />
 
       <ProofPhoto proofPhoto={profilePhoto} onChange={setProfilePhoto} labelProfilePhoto />
 

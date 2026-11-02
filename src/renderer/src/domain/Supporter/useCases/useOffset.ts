@@ -1,16 +1,11 @@
-import { parseEther } from 'viem'
-import { useWriteContract } from 'wagmi'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 
-import { useMainnet } from '@renderer/hooks/useMainnet'
-import {
-  sequoiaSupporterAbi,
-  sequoiaSupporterAddress,
-  supporterAbi,
-  supporterAddress
-} from '@renderer/services/contracts'
+import { supporterAbi, supporterAddress } from '@renderer/services/contracts'
+
+const INVITER_PERCENTAGE = 5
 
 interface OffsetProps {
-  ammount: number
+  amountWei: bigint
   calculatorItemId: number
   message?: string
 }
@@ -24,18 +19,16 @@ interface ReturnUseOffsetProps {
 }
 
 export function useOffset(): ReturnUseOffsetProps {
-  const mainnet = useMainnet()
   const { data, isError, isPending, error, writeContract } = useWriteContract()
 
   async function handleOffset(data: OffsetProps): Promise<void> {
-    const commissionPercentage = parseInt(import.meta.env.VITE_COMMISSION_PERCENTAGE)
-    const value = parseEther(data.ammount.toString())
-    const minAmmountToBurn = data.ammount * (1 - commissionPercentage / 100)
-    const minAmmountToBurnParsed = parseEther(minAmmountToBurn.toString())
+    const value = data.amountWei
+    // SupporterRules.INVITER_PERCENTAGE: at most 5% goes to the inviter, the rest must be burned.
+    const minAmmountToBurnParsed = (value * BigInt(100 - INVITER_PERCENTAGE)) / 100n
 
     writeContract({
-      address: mainnet ? supporterAddress : sequoiaSupporterAddress,
-      abi: mainnet ? supporterAbi : sequoiaSupporterAbi,
+      address: supporterAddress,
+      abi: supporterAbi,
       functionName: 'offset',
       args: [
         value,

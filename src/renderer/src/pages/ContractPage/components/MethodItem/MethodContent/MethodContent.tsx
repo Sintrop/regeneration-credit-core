@@ -24,7 +24,8 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
   }, [])
 
   function setDataMethod(): void {
-    setMethodType(method?.stateMutability === 'view' ? 'view' : 'function')
+    const readOnly = method?.stateMutability === 'view' || method?.stateMutability === 'pure'
+    setMethodType(readOnly ? 'view' : 'function')
     setHasArgsToCall(method.inputs.length > 0 ? true : false)
     setArgsToCall(method.inputs)
   }
@@ -47,7 +48,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
 
   if (methodType === 'view') {
     return (
-      <div className="flex flex-col mt-2 pt-3 border-t border-container-secondary">
+      <div className="flex flex-col mt-2 pt-3 border-t border-white/10">
         {hasArgsToCall && (
           <HasArgsToCall args={argsToCall} setInputArgsToCall={handleSetInputArgsToCall} />
         )}
@@ -56,7 +57,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
           <ReadMethodContract args={inputArgs} contract={contract} method={method} />
         )}
         <button
-          className="w-fit py-1 text-[#3B82F6] underline font-semibold mt-2 hover:cursor-pointer"
+          className="w-fit h-9 px-4 rounded-lg bg-green-primary text-green-secondary text-sm font-bold mt-2 hover:cursor-pointer"
           onClick={handleReadContract}
         >
           {t('contracts.read')}
@@ -66,7 +67,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col mt-2 pt-3 border-t border-container-secondary">
+    <div className="flex flex-col mt-2 pt-3 border-t border-white/10">
       {hasArgsToCall && <HasArgsToCall args={argsToCall} setInputArgsToCall={setInputArgs} />}
 
       {showWriteContract && (
@@ -74,7 +75,7 @@ export function MethodContent({ method, contract }: Props): JSX.Element {
       )}
 
       <button
-        className="w-fit py-1 text-[#3B82F6] underline font-semibold mt-2 hover:cursor-pointer"
+        className="w-fit h-9 px-4 rounded-lg bg-green-primary text-green-secondary text-sm font-bold mt-2 hover:cursor-pointer"
         onClick={handleWriteContract}
       >
         {t('contracts.write')}

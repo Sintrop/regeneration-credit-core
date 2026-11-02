@@ -1,30 +1,7 @@
-//testnet imports
-import SequoiaRcTokenContract from '../../../data/abis/sequoia/RegenerationCredit.json'
-import SequoiaRcImpactContract from '../../../data/abis/sequoia/RegenerationCreditImpact.json'
-import SequoiaUserContract from '../../../data/abis/sequoia/CommunityRules.json'
-import SequoiaRegeneratorContract from '../../../data/abis/sequoia/RegeneratorRules.json'
-import SequoiaRegeneratorPoolContract from '../../../data/abis/sequoia/RegeneratorPool.json'
-import SequoiaInspectorContract from '../../../data/abis/sequoia/InspectorRules.json'
-import SequoiaInspectorPoolContract from '../../../data/abis/sequoia/InspectorPool.json'
-import SequoiaResearcherContract from '../../../data/abis/sequoia/ResearcherRules.json'
-import SequoiaResearcherPoolContract from '../../../data/abis/sequoia/ResearcherPool.json'
-import SequoiaDeveloperContract from '../../../data/abis/sequoia/DeveloperRules.json'
-import SequoiaDeveloperPoolContract from '../../../data/abis/sequoia/DeveloperPool.json'
-import SequoiaContributorContract from '../../../data/abis/sequoia/ContributorRules.json'
-import SequoiaContributorPoolContract from '../../../data/abis/sequoia/ContributorPool.json'
-import SequoiaActivistContract from '../../../data/abis/sequoia/ActivistRules.json'
-import SequoiaActivistPoolContract from '../../../data/abis/sequoia/ActivistPool.json'
-import SequoiaSupporterContract from '../../../data/abis/sequoia/SupporterRules.json'
-import SequoiaInspectionContract from '../../../data/abis/sequoia/InspectionRules.json'
-import SequoiaInvitationContract from '../../../data/abis/sequoia/InvitationRules.json'
-import SequoiaVoteContract from '../../../data/abis/sequoia/VoteRules.json'
-import SequoiaValidationContract from '../../../data/abis/sequoia/ValidationRules.json'
-import SequoiaValidationPoolContract from '../../../data/abis/sequoia/ValidationPool.json'
-import SequoiaRcIndexContract from '../../../data/abis/sequoia/RegenerationIndexRules.json'
-
 //mainnet imports
 import RcTokenContract from '../../../data/abis/mainnet/RegenerationCredit.json'
 import RcImpactContract from '../../../data/abis/mainnet/RegenerationCreditImpact.json'
+import RcMarketContract from '../../../data/abis/mainnet/RCMarket.json'
 import UserContract from '../../../data/abis/mainnet/CommunityRules.json'
 import RegeneratorContract from '../../../data/abis/mainnet/RegeneratorRules.json'
 import RegeneratorPoolContract from '../../../data/abis/mainnet/RegeneratorPool.json'
@@ -48,87 +25,35 @@ import RcIndexContract from '../../../data/abis/mainnet/RegenerationIndexRules.j
 
 import { ContractListProps } from '@renderer/types/contract'
 
-//Address contracts
-///////////////////////testnet
-export const sequoiaRcAddress = import.meta.env.VITE_SEQUOIA_RC_ADDRESS
-export const sequoiaRcImpactAddress = import.meta.env.VITE_SEQUOIA_RC_IMPACT_ADDRESS
-export const sequoiaUserAddress = import.meta.env.VITE_SEQUOIA_COMMUNITY_ADDRESS
-export const sequoiaRegeneratorAddress = import.meta.env.VITE_SEQUOIA_REGENERATOR_ADDRESS
-export const sequoiaRegeneratorPoolAddress = import.meta.env.VITE_SEQUOIA_REGENERATOR_POOL_ADDRESS
-export const sequoiaInspectorAddress = import.meta.env.VITE_SEQUOIA_INSPECTOR_ADDRESS
-export const sequoiaInspectorPoolAddress = import.meta.env.VITE_SEQUOIA_INSPECTOR_POOL_ADDRESS
-export const sequoiaResearcherAddress = import.meta.env.VITE_SEQUOIA_RESEARCHER_ADDRESS
-export const sequoiaResearcherPoolAddress = import.meta.env.VITE_SEQUOIA_RESEARCHER_POOL_ADDRESS
-export const sequoiaDeveloperAddress = import.meta.env.VITE_SEQUOIA_DEVELOPER_ADDRESS
-export const sequoiaDeveloperPoolAddress = import.meta.env.VITE_SEQUOIA_DEVELOPER_POOL_ADDRESS
-export const sequoiaContributorAddress = import.meta.env.VITE_SEQUOIA_CONTRIBUTOR_ADDRESS
-export const sequoiaContributorPoolAddress = import.meta.env.VITE_SEQUOIA_CONTRIBUTOR_POOL_ADDRESS
-export const sequoiaActivistAddress = import.meta.env.VITE_SEQUOIA_ACTIVIST_ADDRESS
-export const sequoiaActivistPoolAddress = import.meta.env.VITE_SEQUOIA_ACTIVIST_POOL_ADDRESS
-export const sequoiaSupporterAddress = import.meta.env.VITE_SEQUOIA_SUPPORTER_ADDRESS
-export const sequoiaInspectionAddress = import.meta.env.VITE_SEQUOIA_INSPECTION_ADDRESS
-export const sequoiaInvitationAddress = import.meta.env.VITE_SEQUOIA_INVITATION_ADDRESS
-export const sequoiaVoteAddress = import.meta.env.VITE_SEQUOIA_VOTE_ADDRESS
-export const sequoiaValidationAddress = import.meta.env.VITE_SEQUOIA_VALIDATION_ADDRESS
-export const sequoiaValidationPoolAddress = import.meta.env.VITE_SEQUOIA_VALIDATION_POOL_ADDRESS
-export const sequoiaRcIndexAddress = import.meta.env.VITE_SEQUOIA_RC_INDEX_ADDRESS
-
-export const sequoiaSupporterPoolAddress = '0x751869D00C8C281D5337Cf15623e3537C98F2Df3'
-
-// future mainnet
-export const rcAddress = import.meta.env.VITE_RC_ADDRESS
-export const rcImpactAddress = import.meta.env.VITE_RC_IMPACT_ADDRESS
-export const userAddress = import.meta.env.VITE_COMMUNITY_ADDRESS
-export const regeneratorAddress = import.meta.env.VITE_REGENERATOR_ADDRESS
-export const regeneratorPoolAddress = import.meta.env.VITE_REGENERATOR_POOL_ADDRESS
-export const inspectorAddress = import.meta.env.VITE_INSPECTOR_ADDRESS
-export const inspectorPoolAddress = import.meta.env.VITE_INSPECTOR_POOL_ADDRESS
-export const researcherAddress = import.meta.env.VITE_RESEARCHER_ADDRESS
-export const researcherPoolAddress = import.meta.env.VITE_RESEARCHER_POOL_ADDRESS
-export const developerAddress = import.meta.env.VITE_DEVELOPER_ADDRESS
-export const developerPoolAddress = import.meta.env.VITE_DEVELOPER_POOL_ADDRESS
-export const contributorAddress = import.meta.env.VITE_CONTRIBUTOR_ADDRESS
-export const contributorPoolAddress = import.meta.env.VITE_CONTRIBUTOR_POOL_ADDRESS
-export const activistAddress = import.meta.env.VITE_ACTIVIST_ADDRESS
-export const activistPoolAddress = import.meta.env.VITE_ACTIVIST_POOL_ADDRESS
-export const supporterAddress = import.meta.env.VITE_SUPPORTER_ADDRESS
-export const inspectionAddress = import.meta.env.VITE_INSPECTION_ADDRESS
-export const invitationAddress = import.meta.env.VITE_INVITATION_ADDRESS
-export const voteAddress = import.meta.env.VITE_VOTE_ADDRESS
-export const validationAddress = import.meta.env.VITE_VALIDATION_ADDRESS
-export const validationPoolAddress = import.meta.env.VITE_VALIDATION_POOL_ADDRESS
-export const rcIndexAddress = import.meta.env.VITE_RC_INDEX_ADDRESS
-
-export const supporterPoolAddress = import.meta.env.VITE_RC_ADDRESS
+// Mainnet addresses, core-contracts/deployed_contracts/mainnet
+export const rcAddress = '0x24fD0C0eA35F00625094795aa105fcE15cb6f1Ed'
+export const rcImpactAddress = '0x323b2162a7E8cB4b718c03eFd8BacE1C294C55F5'
+export const rcMarketAddress = '0xA59CE87F2637084f13057357c9Ee49A47232A769'
+export const userAddress = '0xec19012cA2C396EF3390E726095e25a794f34150'
+export const regeneratorAddress = '0x984Add883400C6E11241B9109Db59484917dF566'
+export const regeneratorPoolAddress = '0xFC222077860d34dEfA62Dd8A848703025B7b75f7'
+export const inspectorAddress = '0x753B8cAea6D0BCF23DD29aF0dF2e2E9d0d494E2f'
+export const inspectorPoolAddress = '0x3d7C162cf5c18432c3bb8535a96046A5e4E95ABB'
+export const researcherAddress = '0x74A6eff5c2E696F683d878710F840ce4c652b4f6'
+export const researcherPoolAddress = '0x659962e70B2cD88886461e8165D56fA4C5CB4278'
+export const developerAddress = '0x8C2b66D1aB42ebf226fe88a815385D3ce4E752CB'
+export const developerPoolAddress = '0xCd74352812802a476161815daD31A0197BC65BC5'
+export const contributorAddress = '0x1eA2264b2B881CB8A12f799dbf9A6926c6c8Fba1'
+export const contributorPoolAddress = '0xfc2A8ee64FF2a5E26cb150Ffc39e0C1B77b296B4'
+export const activistAddress = '0xe6D42dFd5c38f7aC2D81bdfC73cd7e770f235841'
+export const activistPoolAddress = '0x138EaB1427437F5B22E834863294a13b5CB9d175'
+export const supporterAddress = '0x69a5c30Df857E7AB58fe6f5d6c7F29E0FbEc27C1'
+export const inspectionAddress = '0x13A40b1Cacb10A065AdC19e98270a9CC0f583281'
+export const invitationAddress = '0xD9B4Fa68b7c42cbA616A809c3F791F5f846906a3'
+export const voteAddress = '0xA1235c6f57C330CF564A94E3fdE4e5Bb6F588029'
+export const validationAddress = '0xB6b72b88227E81a5b634697a09fffD082Ef22Da2'
+export const validationPoolAddress = '0xA9E14EefACeb8b9E83592F6BC692BfdAA6F7f1F1'
+export const rcIndexAddress = '0xcd42a990B7A2DA6e529a1B89CCc2439b398cbF4A'
 
 //Abis contracts
-/////////////////// testnet
-export const sequoiaRcAbi = SequoiaRcTokenContract.abi
-export const sequoiaRcImpactAbi = SequoiaRcImpactContract.abi
-export const sequoiaUserAbi = SequoiaUserContract.abi
-export const sequoiaRegeneratorAbi = SequoiaRegeneratorContract.abi
-export const sequoiaRegeneratorPoolAbi = SequoiaRegeneratorPoolContract.abi
-export const sequoiaInspectorAbi = SequoiaInspectorContract.abi
-export const sequoiaInspectorPoolAbi = SequoiaInspectorPoolContract.abi
-export const sequoiaResearcherAbi = SequoiaResearcherContract.abi
-export const sequoiaResearcherPoolAbi = SequoiaResearcherPoolContract.abi
-export const sequoiaDeveloperAbi = SequoiaDeveloperContract.abi
-export const sequoiaDeveloperPoolAbi = SequoiaDeveloperPoolContract.abi
-export const sequoiaContributorAbi = SequoiaContributorContract.abi
-export const sequoiaContributorPoolAbi = SequoiaContributorPoolContract.abi
-export const sequoiaActivistAbi = SequoiaActivistContract.abi
-export const sequoiaActivistPoolAbi = SequoiaActivistPoolContract.abi
-export const sequoiaSupporterAbi = SequoiaSupporterContract.abi
-export const sequoiaInspectionAbi = SequoiaInspectionContract.abi
-export const sequoiaInvitationAbi = SequoiaInvitationContract.abi
-export const sequoiaVoteAbi = SequoiaVoteContract.abi
-export const sequoiaValidationAbi = SequoiaValidationContract.abi
-export const sequoiaValidationPoolAbi = SequoiaValidationPoolContract.abi
-export const sequoiaRcIndexAbi = SequoiaRcIndexContract.abi
-
-/////////////////// mainnet
 export const rcAbi = RcTokenContract.abi
 export const rcImpactAbi = RcImpactContract.abi
+export const rcMarketAbi = RcMarketContract.abi
 export const userAbi = UserContract.abi
 export const regeneratorAbi = RegeneratorContract.abi
 export const regeneratorPoolAbi = RegeneratorPoolContract.abi
@@ -150,163 +75,6 @@ export const validationAbi = ValidationContract.abi
 export const rcIndexAbi = RcIndexContract.abi
 export const validationPoolAbi = ValidationPoolContract.abi
 
-export const contractsSequoia: ContractListProps[] = [
-  {
-    abi: sequoiaRcAbi,
-    address: sequoiaRcAddress,
-    name: SequoiaRcTokenContract.contractName,
-    label: 'contracts.regenerationCredit',
-    description: 'contracts.descRegenerationCredit'
-  },
-  {
-    abi: sequoiaRcImpactAbi,
-    address: sequoiaRcImpactAddress,
-    name: SequoiaRcImpactContract.contractName,
-    label: 'contracts.rcImpact',
-    description: 'contracts.descRcImpact'
-  },
-  {
-    abi: sequoiaRegeneratorAbi,
-    address: sequoiaRegeneratorAddress,
-    name: SequoiaRegeneratorContract.contractName,
-    label: 'contracts.regenerator',
-    description: 'contracts.descRegenerator'
-  },
-  {
-    abi: sequoiaRegeneratorPoolAbi,
-    address: sequoiaRegeneratorPoolAddress,
-    name: SequoiaRegeneratorPoolContract.contractName,
-    label: 'contracts.regeneratorPool',
-    description: 'contracts.descRegeneratorPool'
-  },
-  {
-    abi: sequoiaInspectorAbi,
-    address: sequoiaInspectorAddress,
-    name: SequoiaInspectorContract.contractName,
-    label: 'contracts.inspector',
-    description: 'contracts.descInpector'
-  },
-  {
-    abi: sequoiaInspectorPoolAbi,
-    address: sequoiaInspectorPoolAddress,
-    name: SequoiaInspectorPoolContract.contractName,
-    label: 'contracts.inspectorPool',
-    description: 'contracts.descInspectorPool'
-  },
-  {
-    abi: sequoiaResearcherAbi,
-    address: sequoiaResearcherAddress,
-    name: SequoiaResearcherContract.contractName,
-    label: 'contracts.researcher',
-    description: 'contracts.descResearcher'
-  },
-  {
-    abi: sequoiaResearcherPoolAbi,
-    address: sequoiaResearcherPoolAddress,
-    name: SequoiaResearcherPoolContract.contractName,
-    label: 'contracts.researcherPool',
-    description: 'contracts.descResearcherPool'
-  },
-  {
-    abi: sequoiaDeveloperAbi,
-    address: sequoiaDeveloperAddress,
-    name: SequoiaDeveloperContract.contractName,
-    label: 'contracts.developer',
-    description: 'contracts.descDeveloper'
-  },
-  {
-    abi: sequoiaDeveloperPoolAbi,
-    address: sequoiaDeveloperPoolAddress,
-    name: SequoiaDeveloperPoolContract.contractName,
-    label: 'contracts.developerPool',
-    description: 'contracts.descDeveloperPool'
-  },
-  {
-    abi: sequoiaContributorAbi,
-    address: sequoiaContributorAddress,
-    name: SequoiaContributorContract.contractName,
-    label: 'contracts.contributor',
-    description: 'contracts.descContributor'
-  },
-  {
-    abi: sequoiaContributorPoolAbi,
-    address: sequoiaContributorPoolAddress,
-    name: SequoiaContributorPoolContract.contractName,
-    label: 'contracts.contributorPool',
-    description: 'contracts.descContributorPool'
-  },
-  {
-    abi: sequoiaActivistAbi,
-    address: sequoiaActivistAddress,
-    name: SequoiaActivistContract.contractName,
-    label: 'contracts.activist',
-    description: 'contracts.descActivist'
-  },
-  {
-    abi: sequoiaActivistPoolAbi,
-    address: sequoiaActivistPoolAddress,
-    name: SequoiaActivistPoolContract.contractName,
-    label: 'contracts.activistPool',
-    description: 'contracts.descActivistPool'
-  },
-  {
-    abi: sequoiaSupporterAbi,
-    address: sequoiaSupporterAddress,
-    name: SequoiaSupporterContract.contractName,
-    label: 'contracts.supporter',
-    description: 'contracts.descSupporter'
-  },
-  {
-    abi: sequoiaInspectionAbi,
-    address: sequoiaInspectionAddress,
-    name: SequoiaInspectionContract.contractName,
-    label: 'contracts.inspection',
-    description: 'contracts.descInspection'
-  },
-  {
-    abi: sequoiaInvitationAbi,
-    address: sequoiaInvitationAddress,
-    name: SequoiaInvitationContract.contractName,
-    label: 'contracts.invitation',
-    description: 'contracts.descInvitation'
-  },
-  {
-    abi: sequoiaUserAbi,
-    address: sequoiaUserAddress,
-    name: SequoiaUserContract.contractName,
-    label: 'contracts.community',
-    description: 'contracts.descCommunity'
-  },
-  {
-    abi: sequoiaVoteAbi,
-    address: sequoiaVoteAddress,
-    name: SequoiaVoteContract.contractName,
-    label: 'contracts.vote',
-    description: 'contracts.descVote'
-  },
-  {
-    abi: sequoiaValidationAbi,
-    address: sequoiaValidationAddress,
-    name: SequoiaValidationContract.contractName,
-    label: 'contracts.validation',
-    description: 'contracts.descValidation'
-  },
-  {
-    abi: sequoiaValidationPoolAbi,
-    address: sequoiaValidationPoolAddress,
-    name: SequoiaValidationPoolContract.contractName,
-    label: 'contracts.validationPool',
-    description: 'contracts.descValidationPool'
-  },
-  {
-    abi: sequoiaRcIndexAbi,
-    address: sequoiaRcIndexAddress,
-    name: SequoiaRcIndexContract.contractName,
-    label: 'contracts.rcIndex',
-    description: 'contracts.descRcIndex'
-  }
-]
-
 export const contractsMainnet: ContractListProps[] = [
   {
     abi: rcAbi,
@@ -321,6 +89,13 @@ export const contractsMainnet: ContractListProps[] = [
     name: RcImpactContract.contractName,
     label: 'contracts.rcImpact',
     description: 'contracts.descRcImpact'
+  },
+  {
+    abi: rcMarketAbi,
+    address: rcMarketAddress,
+    name: RcMarketContract.contractName,
+    label: 'contracts.rcMarket',
+    description: 'contracts.descRcMarket'
   },
   {
     abi: regeneratorAbi,

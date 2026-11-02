@@ -1,14 +1,10 @@
+import { Modal } from '@renderer/components/Modal/Modal'
+import { useWriteContract } from '@renderer/hooks/useSintropTransaction'
 import { TransactionLoading } from '@renderer/components/TransactionLoading/TransactionLoading'
-import {
-  regeneratorAbi,
-  regeneratorAddress,
-  sequoiaRegeneratorAbi,
-  sequoiaRegeneratorAddress
-} from '@renderer/services/contracts'
+import { regeneratorAbi, regeneratorAddress } from '@renderer/services/contracts'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { MdClose } from 'react-icons/md'
-import { useChainId, useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+import { useWaitForTransactionReceipt } from 'wagmi'
 
 interface Props {
   updated: () => void
@@ -20,7 +16,6 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
   const [url, setUrl] = useState('')
   const [displayLoadingTx, setDisplayLoadingTx] = useState(false)
 
-  const chainId = useChainId()
   const { writeContract, data: hash, isPending, isError, error } = useWriteContract()
   const {
     isLoading,
@@ -41,8 +36,8 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
   function handleUpdate(): void {
     setDisplayLoadingTx(true)
     writeContract({
-      address: chainId === 250225 ? regeneratorAddress : sequoiaRegeneratorAddress,
-      abi: chainId === 250225 ? regeneratorAbi : sequoiaRegeneratorAbi,
+      address: regeneratorAddress,
+      abi: regeneratorAbi,
       functionName: 'updateAreaPhoto',
       args: [url]
     })
@@ -65,31 +60,23 @@ export function UpdateAreaPhoto({ updated }: Props): JSX.Element {
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div className="bg-green-card p-6 rounded-2xl shadow-2xl w-120 relative">
-            <button className="absolute top-3 right-3 hover:cursor-pointer" onClick={handleClose}>
-              <MdClose size={25} color="white" />
-            </button>
+        <Modal title={<>{t('updateAreaPhoto')}</>} onClose={handleClose}>
+          <p className="mt-5 text-gray-300 text-sm mb-1">{t('typeUrlOfAreaPhoto')}:</p>
+          <input
+            className="w-full h-10 rounded-2xl bg-container-secondary text-white px-3"
+            placeholder={t('typeHere')}
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+          />
 
-            <p className="text-white text-center">{t('updateAreaPhoto')}</p>
-
-            <p className="mt-5 text-gray-300 text-sm mb-1">{t('typeUrlOfAreaPhoto')}:</p>
-            <input
-              className="w-full h-10 rounded-2xl bg-container-secondary text-white px-3"
-              placeholder={t('typeHere')}
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-
-            <button
-              className="mt-5 w-full rounded-2xl bg-green-1 text-white h-10 hover:cursor-pointer disabled:opacity-40 disabled:cursor-default duration-200"
-              disabled={!url.trim()}
-              onClick={handleUpdate}
-            >
-              {t('update')}
-            </button>
-          </div>
-        </div>
+          <button
+            className="mt-5 w-full rounded-2xl bg-green-1 text-white h-10 hover:cursor-pointer disabled:opacity-40 disabled:cursor-default duration-200"
+            disabled={!url.trim()}
+            onClick={handleUpdate}
+          >
+            {t('update')}
+          </button>
+        </Modal>
       )}
 
       {displayLoadingTx && (
